@@ -7,8 +7,6 @@
 import { EntityDataModelApi } from 'lattice';
 import { call, takeEvery } from 'redux-saga/effects';
 
-import type { SequenceAction } from 'redux-reqseq';
-
 import { latticeApiSaga } from '../utils/ReqSeqUtils';
 
 import {

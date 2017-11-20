@@ -4,8 +4,6 @@
 
 import { call, put } from 'redux-saga/effects';
 
-import type { RequestSequence } from 'redux-reqseq';
-
 export function* latticeApiSaga(
   reqseq :RequestSequence,
   latticeApi :Object,

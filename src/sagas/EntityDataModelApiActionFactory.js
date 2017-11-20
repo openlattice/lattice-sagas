@@ -3,7 +3,6 @@
  */
 
 import { newRequestSequence } from 'redux-reqseq';
-import type { RequestSequence } from 'redux-reqseq';
 
 /*
  *
