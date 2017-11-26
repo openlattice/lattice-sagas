@@ -5,9 +5,7 @@
 /* eslint-disable no-use-before-define */
 
 import { EntityDataModelApi } from 'lattice';
-import { call, takeEvery } from 'redux-saga/effects';
-
-import { latticeApiSaga } from '../utils/ReqSeqUtils';
+import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
   GET_ENTITY_DATA_MODEL,
@@ -23,6 +21,16 @@ import {
   getEntityType,
   getPropertyType
 } from './EntityDataModelApiActionFactory';
+
+/*
+ * types
+ */
+
+// TODO: move out to global Flow definition for the library
+declare type Response = {
+  data ? :any;
+  error ? :any;
+};
 
 /*
  *
@@ -41,11 +49,22 @@ function* getEntityDataModelWatcher() :Generator<*, *, *> {
 
 function* getEntityDataModelWorker() :Generator<*, *, *> {
 
-  return yield call(
-    latticeApiSaga,
-    getEntityDataModel,
-    EntityDataModelApi.getEntityDataModel
-  );
+  const response :Response = {};
+
+  try {
+    yield put(getEntityDataModel.request());
+    response.data = yield call(EntityDataModelApi.getEntityDataModel);
+    yield put(getEntityDataModel.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntityDataModel.failure(response));
+  }
+  finally {
+    yield put(getEntityDataModel.finally());
+  }
+
+  return response;
 }
 
 /*
@@ -59,12 +78,22 @@ function* getEntityDataModelProjectionWatcher() :Generator<*, *, *> {
 
 function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<*, *, *> {
 
-  return yield call(
-    latticeApiSaga,
-    getEntityDataModelProjection,
-    EntityDataModelApi.getEntityDataModelProjection,
-    action.data.projection
-  );
+  const response :Response = {};
+
+  try {
+    yield put(getEntityDataModelProjection.request());
+    response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value.projection);
+    yield put(getEntityDataModelProjection.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntityDataModelProjection.failure(response));
+  }
+  finally {
+    yield put(getEntityDataModelProjection.finally());
+  }
+
+  return response;
 }
 
 /*
@@ -84,12 +113,22 @@ function* getEntitySetWatcher() :Generator<*, *, *> {
 
 function* getEntitySetWorker(action :SequenceAction) :Generator<*, *, *> {
 
-  return yield call(
-    latticeApiSaga,
-    getEntitySet,
-    EntityDataModelApi.getEntitySet,
-    action.data.entitySetId
-  );
+  const response :Response = {};
+
+  try {
+    yield put(getEntitySet.request());
+    response.data = yield call(EntityDataModelApi.getEntitySet, action.value.entitySetId);
+    yield put(getEntitySet.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntitySet.failure(response));
+  }
+  finally {
+    yield put(getEntitySet.finally());
+  }
+
+  return response;
 }
 
 /*
@@ -103,12 +142,22 @@ function* getEntitySetIdWatcher() :Generator<*, *, *> {
 
 function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, *, *> {
 
-  return yield call(
-    latticeApiSaga,
-    getEntitySetId,
-    EntityDataModelApi.getEntitySetId,
-    action.data.entitySetName
-  );
+  const response :Response = {};
+
+  try {
+    yield put(getEntitySetId.request());
+    response.data = yield call(EntityDataModelApi.getEntitySetId, action.value.entitySetName);
+    yield put(getEntitySetId.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntitySetId.failure(response));
+  }
+  finally {
+    yield put(getEntitySetId.finally());
+  }
+
+  return response;
 }
 
 /*
@@ -128,12 +177,22 @@ function* getEntityTypeWatcher() :Generator<*, *, *> {
 
 function* getEntityTypeWorker(action :SequenceAction) :Generator<*, *, *> {
 
-  return yield call(
-    latticeApiSaga,
-    getEntityType,
-    EntityDataModelApi.getEntityType,
-    action.data.entityTypeId
-  );
+  const response :Response = {};
+
+  try {
+    yield put(getEntityType.request());
+    response.data = yield call(EntityDataModelApi.getEntityType, action.value.entityTypeId);
+    yield put(getEntityType.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntityType.failure(response));
+  }
+  finally {
+    yield put(getEntityType.finally());
+  }
+
+  return response;
 }
 
 /*
@@ -153,12 +212,22 @@ function* getPropertyTypeWatcher() :Generator<*, *, *> {
 
 function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, *, *> {
 
-  return yield call(
-    latticeApiSaga,
-    getPropertyType,
-    EntityDataModelApi.getPropertyType,
-    action.data.propertyTypeId
-  );
+  const response :Response = {};
+
+  try {
+    yield put(getPropertyType.request());
+    response.data = yield call(EntityDataModelApi.getPropertyType, action.value.propertyTypeId);
+    yield put(getPropertyType.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getPropertyType.failure(response));
+  }
+  finally {
+    yield put(getPropertyType.finally());
+  }
+
+  return response;
 }
 
 /*
