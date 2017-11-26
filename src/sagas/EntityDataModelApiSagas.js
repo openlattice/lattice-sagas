@@ -42,12 +42,12 @@ declare type Response = {
  * EntityDataModelApi.getEntityDataModel
  */
 
-function* getEntityDataModelWatcher() :Generator<*, *, *> {
+function* getEntityDataModelWatcher() :Generator<*, void, *> {
 
   yield takeEvery(GET_ENTITY_DATA_MODEL, getEntityDataModelWorker);
 }
 
-function* getEntityDataModelWorker() :Generator<*, *, *> {
+function* getEntityDataModelWorker() :Generator<*, Response, *> {
 
   const response :Response = {};
 
@@ -71,18 +71,18 @@ function* getEntityDataModelWorker() :Generator<*, *, *> {
  * EntityDataModelApi.getEntityDataModelProjection
  */
 
-function* getEntityDataModelProjectionWatcher() :Generator<*, *, *> {
+function* getEntityDataModelProjectionWatcher() :Generator<*, void, *> {
 
   yield takeEvery(GET_ENTITY_DATA_MODEL_PROJECTION, getEntityDataModelProjectionWorker);
 }
 
-function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
     yield put(getEntityDataModelProjection.request());
-    response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value.projection);
+    response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value);
     yield put(getEntityDataModelProjection.success(response));
   }
   catch (error) {
@@ -106,18 +106,18 @@ function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<
  * EntityDataModelApi.getEntitySet
  */
 
-function* getEntitySetWatcher() :Generator<*, *, *> {
+function* getEntitySetWatcher() :Generator<*, void, *> {
 
   yield takeEvery(GET_ENTITY_SET, getEntitySetWorker);
 }
 
-function* getEntitySetWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getEntitySetWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
     yield put(getEntitySet.request());
-    response.data = yield call(EntityDataModelApi.getEntitySet, action.value.entitySetId);
+    response.data = yield call(EntityDataModelApi.getEntitySet, action.value);
     yield put(getEntitySet.success(response));
   }
   catch (error) {
@@ -135,18 +135,18 @@ function* getEntitySetWorker(action :SequenceAction) :Generator<*, *, *> {
  * EntityDataModelApi.getEntitySetId
  */
 
-function* getEntitySetIdWatcher() :Generator<*, *, *> {
+function* getEntitySetIdWatcher() :Generator<*, void, *> {
 
   yield takeEvery(GET_ENTITY_SET_ID, getEntitySetIdWorker);
 }
 
-function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
     yield put(getEntitySetId.request());
-    response.data = yield call(EntityDataModelApi.getEntitySetId, action.value.entitySetName);
+    response.data = yield call(EntityDataModelApi.getEntitySetId, action.value);
     yield put(getEntitySetId.success(response));
   }
   catch (error) {
@@ -170,18 +170,18 @@ function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, *, *> {
  * EntityDataModelApi.getEntityType
  */
 
-function* getEntityTypeWatcher() :Generator<*, *, *> {
+function* getEntityTypeWatcher() :Generator<*, void, *> {
 
   yield takeEvery(GET_ENTITY_TYPE, getEntityTypeWorker);
 }
 
-function* getEntityTypeWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
     yield put(getEntityType.request());
-    response.data = yield call(EntityDataModelApi.getEntityType, action.value.entityTypeId);
+    response.data = yield call(EntityDataModelApi.getEntityType, action.value);
     yield put(getEntityType.success(response));
   }
   catch (error) {
@@ -205,18 +205,18 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, *, *> {
  * EntityDataModelApi.getPropertyType
  */
 
-function* getPropertyTypeWatcher() :Generator<*, *, *> {
+function* getPropertyTypeWatcher() :Generator<*, void, *> {
 
   yield takeEvery(GET_PROPERTY_TYPE, getPropertyTypeWorker);
 }
 
-function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
     yield put(getPropertyType.request());
-    response.data = yield call(EntityDataModelApi.getPropertyType, action.value.propertyTypeId);
+    response.data = yield call(EntityDataModelApi.getPropertyType, action.value);
     yield put(getPropertyType.success(response));
   }
   catch (error) {

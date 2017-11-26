@@ -90,13 +90,11 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntityDataModelProjectionWorker);
 
-    const mockActionValue = {
-      projection: [{}]
-    };
+    const mockActionValue = [{}];
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntityDataModelProjection,
-      latticeApiParams: [mockActionValue.projection],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntityDataModelProjection,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getEntityDataModelProjectionWorker
@@ -120,13 +118,11 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntitySetWorker);
 
-    const mockActionValue = {
-      entitySetId: MOCK_ENTITY_SET_ID
-    };
+    const mockActionValue = MOCK_ENTITY_SET_ID;
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntitySet,
-      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntitySet,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getEntitySetWorker
@@ -150,13 +146,11 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntitySetIdWorker);
 
-    const mockActionValue = {
-      entitySetName: MOCK_ENTITY_SET_NAME
-    };
+    const mockActionValue = MOCK_ENTITY_SET_NAME;
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntitySetId,
-      latticeApiParams: [mockActionValue.entitySetName],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntitySetId,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getEntitySetIdWorker
@@ -180,13 +174,11 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntityTypeWorker);
 
-    const mockActionValue = {
-      entityTypeId: MOCK_ENTITY_TYPE_ID
-    };
+    const mockActionValue = MOCK_ENTITY_TYPE_ID;
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntityType,
-      latticeApiParams: [mockActionValue.entityTypeId],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntityType,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getEntityTypeWorker
@@ -210,13 +202,11 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getPropertyTypeWorker);
 
-    const mockActionValue = {
-      propertyTypeId: MOCK_PROPERTY_TYPE_ID
-    };
+    const mockActionValue = MOCK_PROPERTY_TYPE_ID;
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getPropertyType,
-      latticeApiParams: [mockActionValue.propertyTypeId],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getPropertyType,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getPropertyTypeWorker
