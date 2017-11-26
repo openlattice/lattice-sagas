@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.1
+ * lattice-sagas - v0.0.2
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -79,7 +79,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -401,7 +401,7 @@ var cloneableGenerator = function cloneableGenerator(generatorFunc) {
     };
   };
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
 
 /***/ }),
 /* 1 */
@@ -778,7 +778,7 @@ function fsmIterator(fsm, q0) {
 /* unused harmony export eventChannel */
 /* unused harmony export stdChannel */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buffers__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buffers__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scheduler__ = __webpack_require__(15);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -980,7 +980,7 @@ function stdChannel(subscribe) {
     }
   });
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
 
 /***/ }),
 /* 4 */
@@ -994,7 +994,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = undefined;
 
-var _reduxReqseq = __webpack_require__(10);
+var _reduxReqseq = __webpack_require__(9);
 
 /*
  *
@@ -1060,36 +1060,6 @@ exports.getPropertyType = getPropertyType;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_io__ = __webpack_require__(1);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "take", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["q"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takem", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["t"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "put", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["l"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "all", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "race", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["m"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "call", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["d"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "apply", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["c"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cps", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["g"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fork", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["i"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "spawn", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["p"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "join", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["k"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["e"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "select", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["n"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "actionChannel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancelled", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["f"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["h"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["j"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "setContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["o"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeEvery", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["r"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeLatest", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["s"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "throttle", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["u"]; });
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1279,7 +1249,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1390,14 +1360,14 @@ var buffers = {
 };
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(9);
+module.exports = __webpack_require__(8);
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1412,14 +1382,14 @@ var _EntityDataModelApiActionFactory = __webpack_require__(4);
 
 var EntityDataModelApiActionFactory = _interopRequireWildcard(_EntityDataModelApiActionFactory);
 
-var _EntityDataModelApiSagas = __webpack_require__(11);
+var _EntityDataModelApiSagas = __webpack_require__(10);
 
 var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.1";
+var version = "v0.0.2";
 
 exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
 exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
@@ -1431,12 +1401,12 @@ exports.default = {
 };
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
  * 
- * redux-reqseq - v0.0.1
+ * redux-reqseq - v0.0.3
  * 
  * https://github.com/openlattice/redux-reqseq
  * 
@@ -1566,7 +1536,7 @@ var _actionTypes = __webpack_require__(0);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.1";
+var version = "v0.0.3";
 
 exports.REQUEST = _actionTypes.REQUEST;
 exports.SUCCESS = _actionTypes.SUCCESS;
@@ -1613,8 +1583,6 @@ var _utils = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function newRequestSequence(baseType) {
 
   var requestSequenceActionType = (baseType + '/' + _actionTypes.REQUEST).toUpperCase();
@@ -1628,37 +1596,40 @@ function newRequestSequence(baseType) {
   var failureCallCount = 0;
   var finallyCallCount = 0;
 
-  var sequenceIds = _defineProperty({}, triggerCallCount, (0, _utils.randomId)());
+  var sequenceIds = {};
 
   var triggerActionCreator = function triggerActionCreator(data) {
-    var action = (0, _getSequenceAction2.default)(data, sequenceIds[triggerCallCount], baseType);
     triggerCallCount += 1;
     sequenceIds[triggerCallCount] = (0, _utils.randomId)();
-    return action;
+    return (0, _getSequenceAction2.default)(sequenceIds[triggerCallCount], baseType, data);
   };
 
   var requestActionCreator = function requestActionCreator(data) {
-    var action = (0, _getSequenceAction2.default)(data, sequenceIds[requestCallCount], requestSequenceActionType);
-    requestCallCount += 1;
-    return action;
+    if (requestCallCount + 1 === triggerCallCount) {
+      requestCallCount += 1;
+    }
+    return (0, _getSequenceAction2.default)(sequenceIds[requestCallCount], requestSequenceActionType, data);
   };
 
   var successActionCreator = function successActionCreator(data) {
-    var action = (0, _getSequenceAction2.default)(data, sequenceIds[successCallCount], successSequenceActionType);
-    successCallCount += 1;
-    return action;
+    if (successCallCount + 1 === triggerCallCount) {
+      successCallCount += 1;
+    }
+    return (0, _getSequenceAction2.default)(sequenceIds[successCallCount], successSequenceActionType, data);
   };
 
   var failureActionCreator = function failureActionCreator(data) {
-    var action = (0, _getSequenceAction2.default)(data, sequenceIds[failureCallCount], failureSequenceActionType);
-    failureCallCount += 1;
-    return action;
+    if (failureCallCount + 1 === triggerCallCount) {
+      failureCallCount += 1;
+    }
+    return (0, _getSequenceAction2.default)(sequenceIds[failureCallCount], failureSequenceActionType, data);
   };
 
   var finallyActionCreator = function finallyActionCreator(data) {
-    var action = (0, _getSequenceAction2.default)(data, sequenceIds[finallyCallCount], finallySequenceActionType);
-    finallyCallCount += 1;
-    return action;
+    if (finallyCallCount + 1 === triggerCallCount) {
+      finallyCallCount += 1;
+    }
+    return (0, _getSequenceAction2.default)(sequenceIds[finallyCallCount], finallySequenceActionType, data);
   };
 
   triggerActionCreator.REQUEST = requestSequenceActionType;
@@ -1689,16 +1660,20 @@ function newRequestSequence(baseType) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 exports.default = getSequenceAction;
-function getSequenceAction(data, id, type) {
+function getSequenceAction(id, type, value) {
+
+  if (value === null || value === undefined) {
+    return {
+      id: id,
+      type: type
+    };
+  }
 
   return {
     id: id,
     type: type,
-    data: _extends({}, data)
+    value: value
   };
 }
 
@@ -1811,7 +1786,7 @@ exports.randomId = randomId;
 });
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1822,11 +1797,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = undefined;
 
-var _lattice = __webpack_require__(12);
+var _lattice = __webpack_require__(11);
 
-var _effects = __webpack_require__(5);
-
-var _ReqSeqUtils = __webpack_require__(18);
+var _effects = __webpack_require__(12);
 
 var _EntityDataModelApiActionFactory = __webpack_require__(4);
 
@@ -1855,6 +1828,11 @@ var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
  * EntityDataModelApi.getEntityDataModel
  */
 
+/*
+ * types
+ */
+
+// TODO: move out to global Flow definition for the library
 function getEntityDataModelWatcher() {
   return regeneratorRuntime.wrap(function getEntityDataModelWatcher$(_context) {
     while (1) {
@@ -1872,22 +1850,54 @@ function getEntityDataModelWatcher() {
 }
 
 function getEntityDataModelWorker() {
+  var response;
   return regeneratorRuntime.wrap(function getEntityDataModelWorker$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
-          return (0, _effects.call)(_ReqSeqUtils.latticeApiSaga, _EntityDataModelApiActionFactory.getEntityDataModel, _lattice.EntityDataModelApi.getEntityDataModel);
+          response = {};
+          _context2.prev = 1;
+          _context2.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.request());
 
-        case 2:
-          return _context2.abrupt('return', _context2.sent);
+        case 4:
+          _context2.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityDataModel);
 
-        case 3:
+        case 6:
+          response.data = _context2.sent;
+          _context2.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.success(response));
+
+        case 9:
+          _context2.next = 16;
+          break;
+
+        case 11:
+          _context2.prev = 11;
+          _context2.t0 = _context2['catch'](1);
+
+          response.error = _context2.t0;
+          _context2.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.failure(response));
+
+        case 16:
+          _context2.prev = 16;
+          _context2.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.finally());
+
+        case 19:
+          return _context2.finish(16);
+
+        case 20:
+          return _context2.abrupt('return', response);
+
+        case 21:
         case 'end':
           return _context2.stop();
       }
     }
-  }, _marked2, this);
+  }, _marked2, this, [[1, 11, 16, 20]]);
 }
 
 /*
@@ -1911,22 +1921,54 @@ function getEntityDataModelProjectionWatcher() {
 }
 
 function getEntityDataModelProjectionWorker(action) {
+  var response;
   return regeneratorRuntime.wrap(function getEntityDataModelProjectionWorker$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.next = 2;
-          return (0, _effects.call)(_ReqSeqUtils.latticeApiSaga, _EntityDataModelApiActionFactory.getEntityDataModelProjection, _lattice.EntityDataModelApi.getEntityDataModelProjection, action.data.projection);
+          response = {};
+          _context4.prev = 1;
+          _context4.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.request());
 
-        case 2:
-          return _context4.abrupt('return', _context4.sent);
+        case 4:
+          _context4.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityDataModelProjection, action.value);
 
-        case 3:
+        case 6:
+          response.data = _context4.sent;
+          _context4.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.success(response));
+
+        case 9:
+          _context4.next = 16;
+          break;
+
+        case 11:
+          _context4.prev = 11;
+          _context4.t0 = _context4['catch'](1);
+
+          response.error = _context4.t0;
+          _context4.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.failure(response));
+
+        case 16:
+          _context4.prev = 16;
+          _context4.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.finally());
+
+        case 19:
+          return _context4.finish(16);
+
+        case 20:
+          return _context4.abrupt('return', response);
+
+        case 21:
         case 'end':
           return _context4.stop();
       }
     }
-  }, _marked4, this);
+  }, _marked4, this, [[1, 11, 16, 20]]);
 }
 
 /*
@@ -1956,22 +1998,54 @@ function getEntitySetWatcher() {
 }
 
 function getEntitySetWorker(action) {
+  var response;
   return regeneratorRuntime.wrap(function getEntitySetWorker$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          _context6.next = 2;
-          return (0, _effects.call)(_ReqSeqUtils.latticeApiSaga, _EntityDataModelApiActionFactory.getEntitySet, _lattice.EntityDataModelApi.getEntitySet, action.data.entitySetId);
+          response = {};
+          _context6.prev = 1;
+          _context6.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.request());
 
-        case 2:
-          return _context6.abrupt('return', _context6.sent);
+        case 4:
+          _context6.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntitySet, action.value);
 
-        case 3:
+        case 6:
+          response.data = _context6.sent;
+          _context6.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.success(response));
+
+        case 9:
+          _context6.next = 16;
+          break;
+
+        case 11:
+          _context6.prev = 11;
+          _context6.t0 = _context6['catch'](1);
+
+          response.error = _context6.t0;
+          _context6.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.failure(response));
+
+        case 16:
+          _context6.prev = 16;
+          _context6.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.finally());
+
+        case 19:
+          return _context6.finish(16);
+
+        case 20:
+          return _context6.abrupt('return', response);
+
+        case 21:
         case 'end':
           return _context6.stop();
       }
     }
-  }, _marked6, this);
+  }, _marked6, this, [[1, 11, 16, 20]]);
 }
 
 /*
@@ -1995,22 +2069,54 @@ function getEntitySetIdWatcher() {
 }
 
 function getEntitySetIdWorker(action) {
+  var response;
   return regeneratorRuntime.wrap(function getEntitySetIdWorker$(_context8) {
     while (1) {
       switch (_context8.prev = _context8.next) {
         case 0:
-          _context8.next = 2;
-          return (0, _effects.call)(_ReqSeqUtils.latticeApiSaga, _EntityDataModelApiActionFactory.getEntitySetId, _lattice.EntityDataModelApi.getEntitySetId, action.data.entitySetName);
+          response = {};
+          _context8.prev = 1;
+          _context8.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.request());
 
-        case 2:
-          return _context8.abrupt('return', _context8.sent);
+        case 4:
+          _context8.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntitySetId, action.value);
 
-        case 3:
+        case 6:
+          response.data = _context8.sent;
+          _context8.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.success(response));
+
+        case 9:
+          _context8.next = 16;
+          break;
+
+        case 11:
+          _context8.prev = 11;
+          _context8.t0 = _context8['catch'](1);
+
+          response.error = _context8.t0;
+          _context8.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.failure(response));
+
+        case 16:
+          _context8.prev = 16;
+          _context8.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.finally());
+
+        case 19:
+          return _context8.finish(16);
+
+        case 20:
+          return _context8.abrupt('return', response);
+
+        case 21:
         case 'end':
           return _context8.stop();
       }
     }
-  }, _marked8, this);
+  }, _marked8, this, [[1, 11, 16, 20]]);
 }
 
 /*
@@ -2040,22 +2146,54 @@ function getEntityTypeWatcher() {
 }
 
 function getEntityTypeWorker(action) {
+  var response;
   return regeneratorRuntime.wrap(function getEntityTypeWorker$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
         case 0:
-          _context10.next = 2;
-          return (0, _effects.call)(_ReqSeqUtils.latticeApiSaga, _EntityDataModelApiActionFactory.getEntityType, _lattice.EntityDataModelApi.getEntityType, action.data.entityTypeId);
+          response = {};
+          _context10.prev = 1;
+          _context10.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request());
 
-        case 2:
-          return _context10.abrupt('return', _context10.sent);
+        case 4:
+          _context10.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityType, action.value);
 
-        case 3:
+        case 6:
+          response.data = _context10.sent;
+          _context10.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(response));
+
+        case 9:
+          _context10.next = 16;
+          break;
+
+        case 11:
+          _context10.prev = 11;
+          _context10.t0 = _context10['catch'](1);
+
+          response.error = _context10.t0;
+          _context10.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(response));
+
+        case 16:
+          _context10.prev = 16;
+          _context10.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.finally());
+
+        case 19:
+          return _context10.finish(16);
+
+        case 20:
+          return _context10.abrupt('return', response);
+
+        case 21:
         case 'end':
           return _context10.stop();
       }
     }
-  }, _marked10, this);
+  }, _marked10, this, [[1, 11, 16, 20]]);
 }
 
 /*
@@ -2085,22 +2223,54 @@ function getPropertyTypeWatcher() {
 }
 
 function getPropertyTypeWorker(action) {
+  var response;
   return regeneratorRuntime.wrap(function getPropertyTypeWorker$(_context12) {
     while (1) {
       switch (_context12.prev = _context12.next) {
         case 0:
-          _context12.next = 2;
-          return (0, _effects.call)(_ReqSeqUtils.latticeApiSaga, _EntityDataModelApiActionFactory.getPropertyType, _lattice.EntityDataModelApi.getPropertyType, action.data.propertyTypeId);
+          response = {};
+          _context12.prev = 1;
+          _context12.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request());
 
-        case 2:
-          return _context12.abrupt('return', _context12.sent);
+        case 4:
+          _context12.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getPropertyType, action.value);
 
-        case 3:
+        case 6:
+          response.data = _context12.sent;
+          _context12.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(response));
+
+        case 9:
+          _context12.next = 16;
+          break;
+
+        case 11:
+          _context12.prev = 11;
+          _context12.t0 = _context12['catch'](1);
+
+          response.error = _context12.t0;
+          _context12.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(response));
+
+        case 16:
+          _context12.prev = 16;
+          _context12.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.finally());
+
+        case 19:
+          return _context12.finish(16);
+
+        case 20:
+          return _context12.abrupt('return', response);
+
+        case 21:
         case 'end':
           return _context12.stop();
       }
     }
-  }, _marked12, this);
+  }, _marked12, this, [[1, 11, 16, 20]]);
 }
 
 /*
@@ -2123,7 +2293,7 @@ exports.getPropertyTypeWatcher = getPropertyTypeWatcher;
 exports.getPropertyTypeWorker = getPropertyTypeWorker;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -40569,6 +40739,36 @@ function getCurrentSyncId(entitySetId) {
 });
 
 /***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_io__ = __webpack_require__(1);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "take", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["q"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takem", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["t"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "put", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["l"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "all", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "race", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["m"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "call", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["d"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "apply", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cps", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["g"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fork", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["i"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "spawn", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["p"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "join", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["k"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["e"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "select", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["n"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "actionChannel", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cancelled", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["f"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "flush", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["h"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["j"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "setContext", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["o"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeEvery", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["r"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeLatest", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["s"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "throttle", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_io__["u"]; });
+
+
+/***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40765,7 +40965,7 @@ function takeLatest(patternOrChannel, worker) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fsmIterator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__io__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__channel__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__buffers__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__buffers__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(0);
 
 
@@ -40811,98 +41011,6 @@ function throttle(delayLength, pattern, worker) {
       return ['q2', yDelay];
     }
   }, 'q1', 'throttle(' + Object(__WEBPACK_IMPORTED_MODULE_0__fsmIterator__["c" /* safeName */])(pattern) + ', ' + worker.name + ')');
-}
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.latticeApiSaga = latticeApiSaga;
-
-var _effects = __webpack_require__(5);
-
-var _marked = /*#__PURE__*/regeneratorRuntime.mark(latticeApiSaga);
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function latticeApiSaga(reqseq, latticeApi) {
-  var response,
-      _len,
-      latticeApiParams,
-      _key,
-      _args = arguments;
-
-  return regeneratorRuntime.wrap(function latticeApiSaga$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          response = void 0;
-          _context.prev = 1;
-          _context.next = 4;
-          return (0, _effects.put)(reqseq.request());
-
-        case 4:
-          for (_len = _args.length, latticeApiParams = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-            latticeApiParams[_key - 2] = _args[_key];
-          }
-
-          if (!(latticeApiParams.length > 0)) {
-            _context.next = 11;
-            break;
-          }
-
-          _context.next = 8;
-          return _effects.call.apply(undefined, [latticeApi].concat(_toConsumableArray(latticeApiParams)));
-
-        case 8:
-          response = _context.sent;
-          _context.next = 14;
-          break;
-
-        case 11:
-          _context.next = 13;
-          return (0, _effects.call)(latticeApi);
-
-        case 13:
-          response = _context.sent;
-
-        case 14:
-          _context.next = 16;
-          return (0, _effects.put)(reqseq.success({ response: response }));
-
-        case 16:
-          _context.next = 22;
-          break;
-
-        case 18:
-          _context.prev = 18;
-          _context.t0 = _context['catch'](1);
-          _context.next = 22;
-          return (0, _effects.put)(reqseq.failure({ error: _context.t0 }));
-
-        case 22:
-          _context.prev = 22;
-          _context.next = 25;
-          return (0, _effects.put)(reqseq.finally());
-
-        case 25:
-          return _context.finish(22);
-
-        case 26:
-          return _context.abrupt('return', response);
-
-        case 27:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, _marked, this, [[1, 18, 22, 26]]);
 }
 
 /***/ })
