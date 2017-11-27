@@ -8,12 +8,18 @@ import { EntityDataModelApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
+  GET_ALL_ASSOCIATION_TYPES,
+  GET_ALL_ENTITY_TYPES,
+  GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  getAllAssociationTypes,
+  getAllEntityTypes,
+  getAllPropertyTypes,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -167,6 +173,35 @@ function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *
  */
 
 /*
+ * EntityDataModelApi.getAllEntityTypes
+ */
+
+function* getAllEntityTypesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ALL_ENTITY_TYPES, getAllEntityTypesWorker);
+}
+
+function* getAllEntityTypesWorker() :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(getAllEntityTypes.request());
+    response.data = yield call(EntityDataModelApi.getAllEntityTypes);
+    yield put(getAllEntityTypes.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllEntityTypes.failure(response));
+  }
+  finally {
+    yield put(getAllEntityTypes.finally());
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getEntityType
  */
 
@@ -202,6 +237,35 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *>
  */
 
 /*
+ * EntityDataModelApi.getAllPropertyTypes
+ */
+
+function* getAllPropertyTypesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
+}
+
+function* getAllPropertyTypesWorker() :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(getAllPropertyTypes.request());
+    response.data = yield call(EntityDataModelApi.getAllPropertyTypes);
+    yield put(getAllPropertyTypes.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllPropertyTypes.failure(response));
+  }
+  finally {
+    yield put(getAllPropertyTypes.finally());
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getPropertyType
  */
 
@@ -232,11 +296,52 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
 
 /*
  *
+ * AssociationType APIs
+ *
+ */
+
+/*
+ * EntityDataModelApi.getAllAssociationTypes
+ */
+
+function* getAllAssociationTypesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
+}
+
+function* getAllAssociationTypesWorker() :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(getAllAssociationTypes.request());
+    response.data = yield call(EntityDataModelApi.getAllAssociationTypes);
+    yield put(getAllAssociationTypes.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllAssociationTypes.failure(response));
+  }
+  finally {
+    yield put(getAllAssociationTypes.finally());
+  }
+
+  return response;
+}
+
+/*
+ *
  * exports
  *
  */
 
 export {
+  getAllAssociationTypesWatcher,
+  getAllAssociationTypesWorker,
+  getAllEntityTypesWatcher,
+  getAllEntityTypesWorker,
+  getAllPropertyTypesWatcher,
+  getAllPropertyTypesWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,

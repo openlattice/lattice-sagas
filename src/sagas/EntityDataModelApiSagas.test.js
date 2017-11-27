@@ -5,12 +5,18 @@
 import { EntityDataModelApi } from 'lattice';
 
 import {
+  GET_ALL_ASSOCIATION_TYPES,
+  GET_ALL_ENTITY_TYPES,
+  GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  getAllAssociationTypes,
+  getAllEntityTypes,
+  getAllPropertyTypes,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -20,6 +26,12 @@ import {
 } from './EntityDataModelApiActionFactory';
 
 import {
+  getAllAssociationTypesWatcher,
+  getAllAssociationTypesWorker,
+  getAllEntityTypesWatcher,
+  getAllEntityTypesWorker,
+  getAllPropertyTypesWatcher,
+  getAllPropertyTypesWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,
@@ -51,6 +63,12 @@ const MOCK_ENTITY_TYPE_ID :string = '0c8be4b7-0bd5-4dd1-a623-da78871c9d0e';
 const MOCK_PROPERTY_TYPE_ID :string = '4b08e1f9-4a00-4169-92ea-10e377070220';
 
 describe('EntityDataModelApiSagas', () => {
+
+  /*
+   *
+   * Entity Data Model APIs
+   *
+   */
 
   describe('getEntityDataModelWatcher', () => {
 
@@ -103,6 +121,12 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
+
+  /*
+   *
+   * EntitySet APIs
+   *
+   */
 
   describe('getEntitySetWatcher', () => {
 
@@ -160,6 +184,36 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  /*
+   *
+   * EntityType APIs
+   *
+   */
+
+  describe('getAllEntityTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllEntityTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllEntityTypesWatcher,
+      getAllEntityTypesWorker,
+      GET_ALL_ENTITY_TYPES
+    );
+  });
+
+  describe('getAllEntityTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllEntityTypesWorker);
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.getAllEntityTypes,
+      latticeApiReqSeq: getAllEntityTypes,
+      workerSagaToTest: getAllEntityTypesWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   describe('getEntityTypeWatcher', () => {
 
     testShouldBeGeneratorFunction(getEntityTypeWatcher);
@@ -188,6 +242,36 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  /*
+   *
+   * PropertyType APIs
+   *
+   */
+
+  describe('getAllPropertyTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllPropertyTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllPropertyTypesWatcher,
+      getAllPropertyTypesWorker,
+      GET_ALL_PROPERTY_TYPES
+    );
+  });
+
+  describe('getAllPropertyTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllPropertyTypesWorker);
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.getAllPropertyTypes,
+      latticeApiReqSeq: getAllPropertyTypes,
+      workerSagaToTest: getAllPropertyTypesWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   describe('getPropertyTypeWatcher', () => {
 
     testShouldBeGeneratorFunction(getPropertyTypeWatcher);
@@ -210,6 +294,36 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getPropertyType,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getPropertyTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
+  /*
+   *
+   * AssociationType APIs
+   *
+   */
+
+  describe('getAllAssociationTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllAssociationTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllAssociationTypesWatcher,
+      getAllAssociationTypesWorker,
+      GET_ALL_ASSOCIATION_TYPES
+    );
+  });
+
+  describe('getAllAssociationTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllAssociationTypesWorker);
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.getAllAssociationTypes,
+      latticeApiReqSeq: getAllAssociationTypes,
+      workerSagaToTest: getAllAssociationTypesWorker
     };
 
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
