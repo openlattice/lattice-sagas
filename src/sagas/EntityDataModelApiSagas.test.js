@@ -5,12 +5,14 @@
 import { EntityDataModelApi } from 'lattice';
 
 import {
+  GET_ALL_ENTITY_TYPES,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  getAllEntityTypes,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -20,6 +22,8 @@ import {
 } from './EntityDataModelApiActionFactory';
 
 import {
+  getAllEntityTypesWatcher,
+  getAllEntityTypesWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,
@@ -51,6 +55,12 @@ const MOCK_ENTITY_TYPE_ID :string = '0c8be4b7-0bd5-4dd1-a623-da78871c9d0e';
 const MOCK_PROPERTY_TYPE_ID :string = '4b08e1f9-4a00-4169-92ea-10e377070220';
 
 describe('EntityDataModelApiSagas', () => {
+
+  /*
+   *
+   * Entity Data Model APIs
+   *
+   */
 
   describe('getEntityDataModelWatcher', () => {
 
@@ -103,6 +113,12 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
+
+  /*
+   *
+   * EntitySet APIs
+   *
+   */
 
   describe('getEntitySetWatcher', () => {
 
@@ -160,6 +176,36 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  /*
+   *
+   * EntityType APIs
+   *
+   */
+
+  describe('getAllEntityTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllEntityTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllEntityTypesWatcher,
+      getAllEntityTypesWorker,
+      GET_ALL_ENTITY_TYPES
+    );
+  });
+
+  describe('getAllEntityTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllEntityTypesWorker);
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.getAllEntityTypes,
+      latticeApiReqSeq: getAllEntityTypes,
+      workerSagaToTest: getAllEntityTypesWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   describe('getEntityTypeWatcher', () => {
 
     testShouldBeGeneratorFunction(getEntityTypeWatcher);
@@ -187,6 +233,12 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
+
+  /*
+   *
+   * PropertyType APIs
+   *
+   */
 
   describe('getPropertyTypeWatcher', () => {
 
