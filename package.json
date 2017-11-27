@@ -22,7 +22,7 @@
     "url": "https://github.com/openlattice/lattice-sagas/issues"
   },
   "license": "Apache-2.0",
-  "main": "build/reqseq.js",
+  "main": "build/lattice-sagas.js",
   "dependencies": {
     "lattice": "^0.31.1",
     "redux-reqseq": "^0.0.3",
