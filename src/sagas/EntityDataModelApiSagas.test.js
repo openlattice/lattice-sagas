@@ -5,6 +5,7 @@
 import { EntityDataModelApi } from 'lattice';
 
 import {
+  GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
@@ -13,6 +14,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
   getEntityDataModel,
@@ -24,6 +26,8 @@ import {
 } from './EntityDataModelApiActionFactory';
 
 import {
+  getAllAssociationTypesWatcher,
+  getAllAssociationTypesWorker,
   getAllEntityTypesWatcher,
   getAllEntityTypesWorker,
   getAllPropertyTypesWatcher,
@@ -290,6 +294,36 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getPropertyType,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getPropertyTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
+  /*
+   *
+   * AssociationType APIs
+   *
+   */
+
+  describe('getAllAssociationTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllAssociationTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllAssociationTypesWatcher,
+      getAllAssociationTypesWorker,
+      GET_ALL_ASSOCIATION_TYPES
+    );
+  });
+
+  describe('getAllAssociationTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllAssociationTypesWorker);
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.getAllAssociationTypes,
+      latticeApiReqSeq: getAllAssociationTypes,
+      workerSagaToTest: getAllAssociationTypesWorker
     };
 
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);

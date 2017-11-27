@@ -8,6 +8,7 @@ import { EntityDataModelApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
+  GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
@@ -16,6 +17,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
   getEntityDataModel,
@@ -294,11 +296,48 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
 
 /*
  *
+ * AssociationType APIs
+ *
+ */
+
+/*
+ * EntityDataModelApi.getAllAssociationTypes
+ */
+
+function* getAllAssociationTypesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
+}
+
+function* getAllAssociationTypesWorker() :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(getAllAssociationTypes.request());
+    response.data = yield call(EntityDataModelApi.getAllAssociationTypes);
+    yield put(getAllAssociationTypes.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllAssociationTypes.failure(response));
+  }
+  finally {
+    yield put(getAllAssociationTypes.finally());
+  }
+
+  return response;
+}
+
+/*
+ *
  * exports
  *
  */
 
 export {
+  getAllAssociationTypesWatcher,
+  getAllAssociationTypesWorker,
   getAllEntityTypesWatcher,
   getAllEntityTypesWorker,
   getAllPropertyTypesWatcher,
