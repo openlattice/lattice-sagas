@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.2
+ * lattice-sagas - v0.0.3
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -992,7 +992,7 @@ function stdChannel(subscribe) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = undefined;
+exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = undefined;
 
 var _reduxReqseq = __webpack_require__(9);
 
@@ -1027,6 +1027,9 @@ var getEntitySetId = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_SET_ID);
  *
  */
 
+var GET_ALL_ENTITY_TYPES = 'GET_ALL_ENTITY_TYPES';
+var getAllEntityTypes = (0, _reduxReqseq.newRequestSequence)(GET_ALL_ENTITY_TYPES);
+
 var GET_ENTITY_TYPE = 'GET_ENTITY_TYPE';
 var getEntityType = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_TYPE);
 
@@ -1036,8 +1039,20 @@ var getEntityType = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_TYPE);
  *
  */
 
+var GET_ALL_PROPERTY_TYPES = 'GET_ALL_PROPERTY_TYPES';
+var getAllPropertyTypes = (0, _reduxReqseq.newRequestSequence)(GET_ALL_PROPERTY_TYPES);
+
 var GET_PROPERTY_TYPE = 'GET_PROPERTY_TYPE';
 var getPropertyType = (0, _reduxReqseq.newRequestSequence)(GET_PROPERTY_TYPE);
+
+/*
+ *
+ * AssociationType APIs
+ *
+ */
+
+var GET_ALL_ASSOCIATION_TYPES = 'GET_ALL_ASSOCIATION_TYPES';
+var getAllAssociationTypes = (0, _reduxReqseq.newRequestSequence)(GET_ALL_ASSOCIATION_TYPES);
 
 /*
  *
@@ -1045,12 +1060,18 @@ var getPropertyType = (0, _reduxReqseq.newRequestSequence)(GET_PROPERTY_TYPE);
  *
  */
 
+exports.GET_ALL_ASSOCIATION_TYPES = GET_ALL_ASSOCIATION_TYPES;
+exports.GET_ALL_ENTITY_TYPES = GET_ALL_ENTITY_TYPES;
+exports.GET_ALL_PROPERTY_TYPES = GET_ALL_PROPERTY_TYPES;
 exports.GET_ENTITY_DATA_MODEL = GET_ENTITY_DATA_MODEL;
 exports.GET_ENTITY_DATA_MODEL_PROJECTION = GET_ENTITY_DATA_MODEL_PROJECTION;
 exports.GET_ENTITY_SET = GET_ENTITY_SET;
 exports.GET_ENTITY_SET_ID = GET_ENTITY_SET_ID;
 exports.GET_ENTITY_TYPE = GET_ENTITY_TYPE;
 exports.GET_PROPERTY_TYPE = GET_PROPERTY_TYPE;
+exports.getAllAssociationTypes = getAllAssociationTypes;
+exports.getAllEntityTypes = getAllEntityTypes;
+exports.getAllPropertyTypes = getAllPropertyTypes;
 exports.getEntityDataModel = getEntityDataModel;
 exports.getEntityDataModelProjection = getEntityDataModelProjection;
 exports.getEntitySet = getEntitySet;
@@ -1389,7 +1410,7 @@ var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.2";
+var version = "v0.0.3";
 
 exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
 exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
@@ -1795,7 +1816,7 @@ exports.randomId = randomId;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = undefined;
+exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = undefined;
 
 var _lattice = __webpack_require__(11);
 
@@ -1811,10 +1832,16 @@ var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
     _marked6 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetWorker),
     _marked7 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetIdWatcher),
     _marked8 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetIdWorker),
-    _marked9 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWatcher),
-    _marked10 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWorker),
-    _marked11 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWatcher),
-    _marked12 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWorker);
+    _marked9 = /*#__PURE__*/regeneratorRuntime.mark(getAllEntityTypesWatcher),
+    _marked10 = /*#__PURE__*/regeneratorRuntime.mark(getAllEntityTypesWorker),
+    _marked11 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWatcher),
+    _marked12 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWorker),
+    _marked13 = /*#__PURE__*/regeneratorRuntime.mark(getAllPropertyTypesWatcher),
+    _marked14 = /*#__PURE__*/regeneratorRuntime.mark(getAllPropertyTypesWorker),
+    _marked15 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWatcher),
+    _marked16 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWorker),
+    _marked17 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWatcher),
+    _marked18 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWorker);
 
 /* eslint-disable no-use-before-define */
 
@@ -2126,16 +2153,16 @@ function getEntitySetIdWorker(action) {
  */
 
 /*
- * EntityDataModelApi.getEntityType
+ * EntityDataModelApi.getAllEntityTypes
  */
 
-function getEntityTypeWatcher() {
-  return regeneratorRuntime.wrap(function getEntityTypeWatcher$(_context9) {
+function getAllEntityTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAllEntityTypesWatcher$(_context9) {
     while (1) {
       switch (_context9.prev = _context9.next) {
         case 0:
           _context9.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_TYPE, getEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_ENTITY_TYPES, getAllEntityTypesWorker);
 
         case 2:
         case 'end':
@@ -2145,25 +2172,25 @@ function getEntityTypeWatcher() {
   }, _marked9, this);
 }
 
-function getEntityTypeWorker(action) {
+function getAllEntityTypesWorker() {
   var response;
-  return regeneratorRuntime.wrap(function getEntityTypeWorker$(_context10) {
+  return regeneratorRuntime.wrap(function getAllEntityTypesWorker$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
         case 0:
           response = {};
           _context10.prev = 1;
           _context10.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.request());
 
         case 4:
           _context10.next = 6;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityType, action.value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllEntityTypes);
 
         case 6:
           response.data = _context10.sent;
           _context10.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.success(response));
 
         case 9:
           _context10.next = 16;
@@ -2175,12 +2202,12 @@ function getEntityTypeWorker(action) {
 
           response.error = _context10.t0;
           _context10.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.failure(response));
 
         case 16:
           _context10.prev = 16;
           _context10.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.finally());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.finally());
 
         case 19:
           return _context10.finish(16);
@@ -2197,22 +2224,16 @@ function getEntityTypeWorker(action) {
 }
 
 /*
- *
- * PropertyType APIs
- *
+ * EntityDataModelApi.getEntityType
  */
 
-/*
- * EntityDataModelApi.getPropertyType
- */
-
-function getPropertyTypeWatcher() {
-  return regeneratorRuntime.wrap(function getPropertyTypeWatcher$(_context11) {
+function getEntityTypeWatcher() {
+  return regeneratorRuntime.wrap(function getEntityTypeWatcher$(_context11) {
     while (1) {
       switch (_context11.prev = _context11.next) {
         case 0:
           _context11.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_PROPERTY_TYPE, getPropertyTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_TYPE, getEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -2222,25 +2243,25 @@ function getPropertyTypeWatcher() {
   }, _marked11, this);
 }
 
-function getPropertyTypeWorker(action) {
+function getEntityTypeWorker(action) {
   var response;
-  return regeneratorRuntime.wrap(function getPropertyTypeWorker$(_context12) {
+  return regeneratorRuntime.wrap(function getEntityTypeWorker$(_context12) {
     while (1) {
       switch (_context12.prev = _context12.next) {
         case 0:
           response = {};
           _context12.prev = 1;
           _context12.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request());
 
         case 4:
           _context12.next = 6;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getPropertyType, action.value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityType, action.value);
 
         case 6:
           response.data = _context12.sent;
           _context12.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(response));
 
         case 9:
           _context12.next = 16;
@@ -2252,12 +2273,12 @@ function getPropertyTypeWorker(action) {
 
           response.error = _context12.t0;
           _context12.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(response));
 
         case 16:
           _context12.prev = 16;
           _context12.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.finally());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.finally());
 
         case 19:
           return _context12.finish(16);
@@ -2275,10 +2296,241 @@ function getPropertyTypeWorker(action) {
 
 /*
  *
+ * PropertyType APIs
+ *
+ */
+
+/*
+ * EntityDataModelApi.getAllPropertyTypes
+ */
+
+function getAllPropertyTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAllPropertyTypesWatcher$(_context13) {
+    while (1) {
+      switch (_context13.prev = _context13.next) {
+        case 0:
+          _context13.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
+
+        case 2:
+        case 'end':
+          return _context13.stop();
+      }
+    }
+  }, _marked13, this);
+}
+
+function getAllPropertyTypesWorker() {
+  var response;
+  return regeneratorRuntime.wrap(function getAllPropertyTypesWorker$(_context14) {
+    while (1) {
+      switch (_context14.prev = _context14.next) {
+        case 0:
+          response = {};
+          _context14.prev = 1;
+          _context14.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.request());
+
+        case 4:
+          _context14.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllPropertyTypes);
+
+        case 6:
+          response.data = _context14.sent;
+          _context14.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.success(response));
+
+        case 9:
+          _context14.next = 16;
+          break;
+
+        case 11:
+          _context14.prev = 11;
+          _context14.t0 = _context14['catch'](1);
+
+          response.error = _context14.t0;
+          _context14.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.failure(response));
+
+        case 16:
+          _context14.prev = 16;
+          _context14.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.finally());
+
+        case 19:
+          return _context14.finish(16);
+
+        case 20:
+          return _context14.abrupt('return', response);
+
+        case 21:
+        case 'end':
+          return _context14.stop();
+      }
+    }
+  }, _marked14, this, [[1, 11, 16, 20]]);
+}
+
+/*
+ * EntityDataModelApi.getPropertyType
+ */
+
+function getPropertyTypeWatcher() {
+  return regeneratorRuntime.wrap(function getPropertyTypeWatcher$(_context15) {
+    while (1) {
+      switch (_context15.prev = _context15.next) {
+        case 0:
+          _context15.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_PROPERTY_TYPE, getPropertyTypeWorker);
+
+        case 2:
+        case 'end':
+          return _context15.stop();
+      }
+    }
+  }, _marked15, this);
+}
+
+function getPropertyTypeWorker(action) {
+  var response;
+  return regeneratorRuntime.wrap(function getPropertyTypeWorker$(_context16) {
+    while (1) {
+      switch (_context16.prev = _context16.next) {
+        case 0:
+          response = {};
+          _context16.prev = 1;
+          _context16.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request());
+
+        case 4:
+          _context16.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getPropertyType, action.value);
+
+        case 6:
+          response.data = _context16.sent;
+          _context16.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(response));
+
+        case 9:
+          _context16.next = 16;
+          break;
+
+        case 11:
+          _context16.prev = 11;
+          _context16.t0 = _context16['catch'](1);
+
+          response.error = _context16.t0;
+          _context16.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(response));
+
+        case 16:
+          _context16.prev = 16;
+          _context16.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.finally());
+
+        case 19:
+          return _context16.finish(16);
+
+        case 20:
+          return _context16.abrupt('return', response);
+
+        case 21:
+        case 'end':
+          return _context16.stop();
+      }
+    }
+  }, _marked16, this, [[1, 11, 16, 20]]);
+}
+
+/*
+ *
+ * AssociationType APIs
+ *
+ */
+
+/*
+ * EntityDataModelApi.getAllAssociationTypes
+ */
+
+function getAllAssociationTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAllAssociationTypesWatcher$(_context17) {
+    while (1) {
+      switch (_context17.prev = _context17.next) {
+        case 0:
+          _context17.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
+
+        case 2:
+        case 'end':
+          return _context17.stop();
+      }
+    }
+  }, _marked17, this);
+}
+
+function getAllAssociationTypesWorker() {
+  var response;
+  return regeneratorRuntime.wrap(function getAllAssociationTypesWorker$(_context18) {
+    while (1) {
+      switch (_context18.prev = _context18.next) {
+        case 0:
+          response = {};
+          _context18.prev = 1;
+          _context18.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.request());
+
+        case 4:
+          _context18.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllAssociationTypes);
+
+        case 6:
+          response.data = _context18.sent;
+          _context18.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.success(response));
+
+        case 9:
+          _context18.next = 16;
+          break;
+
+        case 11:
+          _context18.prev = 11;
+          _context18.t0 = _context18['catch'](1);
+
+          response.error = _context18.t0;
+          _context18.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.failure(response));
+
+        case 16:
+          _context18.prev = 16;
+          _context18.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.finally());
+
+        case 19:
+          return _context18.finish(16);
+
+        case 20:
+          return _context18.abrupt('return', response);
+
+        case 21:
+        case 'end':
+          return _context18.stop();
+      }
+    }
+  }, _marked18, this, [[1, 11, 16, 20]]);
+}
+
+/*
+ *
  * exports
  *
  */
 
+exports.getAllAssociationTypesWatcher = getAllAssociationTypesWatcher;
+exports.getAllAssociationTypesWorker = getAllAssociationTypesWorker;
+exports.getAllEntityTypesWatcher = getAllEntityTypesWatcher;
+exports.getAllEntityTypesWorker = getAllEntityTypesWorker;
+exports.getAllPropertyTypesWatcher = getAllPropertyTypesWatcher;
+exports.getAllPropertyTypesWorker = getAllPropertyTypesWorker;
 exports.getEntityDataModelWatcher = getEntityDataModelWatcher;
 exports.getEntityDataModelWorker = getEntityDataModelWorker;
 exports.getEntityDataModelProjectionWatcher = getEntityDataModelProjectionWatcher;
