@@ -9,6 +9,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
   GET_ALL_ENTITY_TYPES,
+  GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
@@ -16,6 +17,7 @@ import {
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   getAllEntityTypes,
+  getAllPropertyTypes,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -233,6 +235,35 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *>
  */
 
 /*
+ * EntityDataModelApi.getAllPropertyTypes
+ */
+
+function* getAllPropertyTypesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
+}
+
+function* getAllPropertyTypesWorker() :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(getAllPropertyTypes.request());
+    response.data = yield call(EntityDataModelApi.getAllPropertyTypes);
+    yield put(getAllPropertyTypes.success(response));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllPropertyTypes.failure(response));
+  }
+  finally {
+    yield put(getAllPropertyTypes.finally());
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getPropertyType
  */
 
@@ -270,6 +301,8 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
 export {
   getAllEntityTypesWatcher,
   getAllEntityTypesWorker,
+  getAllPropertyTypesWatcher,
+  getAllPropertyTypesWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,

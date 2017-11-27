@@ -6,6 +6,7 @@ import { EntityDataModelApi } from 'lattice';
 
 import {
   GET_ALL_ENTITY_TYPES,
+  GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
@@ -13,6 +14,7 @@ import {
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   getAllEntityTypes,
+  getAllPropertyTypes,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -24,6 +26,8 @@ import {
 import {
   getAllEntityTypesWatcher,
   getAllEntityTypesWorker,
+  getAllPropertyTypesWatcher,
+  getAllPropertyTypesWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,
@@ -239,6 +243,30 @@ describe('EntityDataModelApiSagas', () => {
    * PropertyType APIs
    *
    */
+
+  describe('getAllPropertyTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllPropertyTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllPropertyTypesWatcher,
+      getAllPropertyTypesWorker,
+      GET_ALL_PROPERTY_TYPES
+    );
+  });
+
+  describe('getAllPropertyTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllPropertyTypesWorker);
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.getAllPropertyTypes,
+      latticeApiReqSeq: getAllPropertyTypes,
+      workerSagaToTest: getAllPropertyTypesWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
 
   describe('getPropertyTypeWatcher', () => {
 
