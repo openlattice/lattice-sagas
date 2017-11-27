@@ -34,6 +34,9 @@ const getEntitySetId :RequestSequence = newRequestSequence(GET_ENTITY_SET_ID);
  *
  */
 
+const GET_ALL_ENTITY_TYPES :'GET_ALL_ENTITY_TYPES' = 'GET_ALL_ENTITY_TYPES';
+const getAllEntityTypes :RequestSequence = newRequestSequence(GET_ALL_ENTITY_TYPES);
+
 const GET_ENTITY_TYPE :'GET_ENTITY_TYPE' = 'GET_ENTITY_TYPE';
 const getEntityType :RequestSequence = newRequestSequence(GET_ENTITY_TYPE);
 
@@ -43,8 +46,20 @@ const getEntityType :RequestSequence = newRequestSequence(GET_ENTITY_TYPE);
  *
  */
 
+const GET_ALL_PROPERTY_TYPES :'GET_ALL_PROPERTY_TYPES' = 'GET_ALL_PROPERTY_TYPES';
+const getAllPropertyTypes :RequestSequence = newRequestSequence(GET_ALL_PROPERTY_TYPES);
+
 const GET_PROPERTY_TYPE :'GET_PROPERTY_TYPE' = 'GET_PROPERTY_TYPE';
 const getPropertyType :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE);
+
+/*
+ *
+ * AssociationType APIs
+ *
+ */
+
+const GET_ALL_ASSOCIATION_TYPES :'GET_ALL_ASSOCIATION_TYPES' = 'GET_ALL_ASSOCIATION_TYPES';
+const getAllAssociationTypes :RequestSequence = newRequestSequence(GET_ALL_ASSOCIATION_TYPES);
 
 /*
  *
@@ -53,12 +68,18 @@ const getPropertyType :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE);
  */
 
 export {
+  GET_ALL_ASSOCIATION_TYPES,
+  GET_ALL_ENTITY_TYPES,
+  GET_ALL_PROPERTY_TYPES,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  getAllAssociationTypes,
+  getAllEntityTypes,
+  getAllPropertyTypes,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
