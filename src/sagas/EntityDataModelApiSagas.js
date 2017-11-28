@@ -93,7 +93,8 @@ function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<
   const response :Response = {};
 
   try {
-    yield put(getEntityDataModelProjection.request());
+    // action.value is expected to be the projection
+    yield put(getEntityDataModelProjection.request(action.value));
     response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value);
     yield put(getEntityDataModelProjection.success(response.data));
   }
@@ -128,7 +129,8 @@ function* getEntitySetWorker(action :SequenceAction) :Generator<*, Response, *> 
   const response :Response = {};
 
   try {
-    yield put(getEntitySet.request());
+    // action.value is expected to be the EntitySet id
+    yield put(getEntitySet.request(action.value));
     response.data = yield call(EntityDataModelApi.getEntitySet, action.value);
     yield put(getEntitySet.success(response.data));
   }
@@ -157,7 +159,8 @@ function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *
   const response :Response = {};
 
   try {
-    yield put(getEntitySetId.request());
+    // action.value is expected to be the EntitySet name
+    yield put(getEntitySetId.request(action.value));
     response.data = yield call(EntityDataModelApi.getEntitySetId, action.value);
     yield put(getEntitySetId.success(response.data));
   }
@@ -192,7 +195,8 @@ function* createEntityTypeWorker(action :SequenceAction) :Generator<*, Response,
   const response :Response = {};
 
   try {
-    yield put(createEntityType.request());
+    // action.value is expected to be the EntityType object
+    yield put(createEntityType.request(action.value));
     response.data = yield call(EntityDataModelApi.createEntityType, action.value);
     yield put(createEntityType.success(response.data));
   }
@@ -250,7 +254,8 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *>
   const response :Response = {};
 
   try {
-    yield put(getEntityType.request());
+    // action.value is expected to be the EntityType id
+    yield put(getEntityType.request(action.value));
     response.data = yield call(EntityDataModelApi.getEntityType, action.value);
     yield put(getEntityType.success(response.data));
   }
@@ -285,7 +290,8 @@ function* createPropertyTypeWorker(action :SequenceAction) :Generator<*, Respons
   const response :Response = {};
 
   try {
-    yield put(createPropertyType.request());
+    // action.value is expected to be the PropertyType object
+    yield put(createPropertyType.request(action.value));
     response.data = yield call(EntityDataModelApi.createPropertyType, action.value);
     yield put(createPropertyType.success(response.data));
   }
@@ -343,7 +349,8 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
   const response :Response = {};
 
   try {
-    yield put(getPropertyType.request());
+    // action.value is expected to be the PropertyType id
+    yield put(getPropertyType.request(action.value));
     response.data = yield call(EntityDataModelApi.getPropertyType, action.value);
     yield put(getPropertyType.success(response.data));
   }
@@ -378,7 +385,8 @@ function* createAssociationTypeWorker(action :SequenceAction) :Generator<*, Resp
   const response :Response = {};
 
   try {
-    yield put(createAssociationType.request());
+    // action.value is expected to be the AssociationType object
+    yield put(createAssociationType.request(action.value));
     response.data = yield call(EntityDataModelApi.createAssociationType, action.value);
     yield put(createAssociationType.success(response.data));
   }

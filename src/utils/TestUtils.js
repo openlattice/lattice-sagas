@@ -72,7 +72,12 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Obje
     }
 
     let step = iterator.next();
-    expect(step.value).toEqual(put(latticeApiReqSeq.request()));
+    if (workerSagaAction && workerSagaAction.value) {
+      expect(step.value).toEqual(put(latticeApiReqSeq.request(workerSagaAction.value)));
+    }
+    else {
+      expect(step.value).toEqual(put(latticeApiReqSeq.request()));
+    }
 
     if (latticeApiParams && latticeApiParams.length > 0) {
       step = iterator.next();
@@ -119,7 +124,12 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams :Obje
     }
 
     let step = iterator.next();
-    expect(step.value).toEqual(put(latticeApiReqSeq.request()));
+    if (workerSagaAction && workerSagaAction.value) {
+      expect(step.value).toEqual(put(latticeApiReqSeq.request(workerSagaAction.value)));
+    }
+    else {
+      expect(step.value).toEqual(put(latticeApiReqSeq.request()));
+    }
 
 
     if (latticeApiParams && latticeApiParams.length > 0) {
