@@ -82,7 +82,7 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Obje
     }
 
     step = iterator.throw(mockError);
-    expect(step.value).toEqual(put(latticeApiReqSeq.failure(mockSagaResponse)));
+    expect(step.value).toEqual(put(latticeApiReqSeq.failure(mockError)));
 
     step = iterator.next();
     expect(step.value).toEqual(put(latticeApiReqSeq.finally()));
@@ -130,7 +130,7 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams :Obje
     }
 
     step = iterator.next(mockApiResponse);
-    expect(step.value).toEqual(put(latticeApiReqSeq.success(mockSagaResponse)));
+    expect(step.value).toEqual(put(latticeApiReqSeq.success(mockApiResponse)));
 
     step = iterator.next();
     expect(step.value).toEqual(put(latticeApiReqSeq.finally()));
