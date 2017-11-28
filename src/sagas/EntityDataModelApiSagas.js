@@ -60,11 +60,11 @@ function* getEntityDataModelWorker() :Generator<*, Response, *> {
   try {
     yield put(getEntityDataModel.request());
     response.data = yield call(EntityDataModelApi.getEntityDataModel);
-    yield put(getEntityDataModel.success(response));
+    yield put(getEntityDataModel.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityDataModel.failure(response));
+    yield put(getEntityDataModel.failure(response.error));
   }
   finally {
     yield put(getEntityDataModel.finally());
@@ -89,11 +89,11 @@ function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<
   try {
     yield put(getEntityDataModelProjection.request());
     response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value);
-    yield put(getEntityDataModelProjection.success(response));
+    yield put(getEntityDataModelProjection.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityDataModelProjection.failure(response));
+    yield put(getEntityDataModelProjection.failure(response.error));
   }
   finally {
     yield put(getEntityDataModelProjection.finally());
@@ -124,11 +124,11 @@ function* getEntitySetWorker(action :SequenceAction) :Generator<*, Response, *> 
   try {
     yield put(getEntitySet.request());
     response.data = yield call(EntityDataModelApi.getEntitySet, action.value);
-    yield put(getEntitySet.success(response));
+    yield put(getEntitySet.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntitySet.failure(response));
+    yield put(getEntitySet.failure(response.error));
   }
   finally {
     yield put(getEntitySet.finally());
@@ -153,11 +153,11 @@ function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *
   try {
     yield put(getEntitySetId.request());
     response.data = yield call(EntityDataModelApi.getEntitySetId, action.value);
-    yield put(getEntitySetId.success(response));
+    yield put(getEntitySetId.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntitySetId.failure(response));
+    yield put(getEntitySetId.failure(response.error));
   }
   finally {
     yield put(getEntitySetId.finally());
@@ -188,11 +188,11 @@ function* getAllEntityTypesWorker() :Generator<*, Response, *> {
   try {
     yield put(getAllEntityTypes.request());
     response.data = yield call(EntityDataModelApi.getAllEntityTypes);
-    yield put(getAllEntityTypes.success(response));
+    yield put(getAllEntityTypes.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllEntityTypes.failure(response));
+    yield put(getAllEntityTypes.failure(response.error));
   }
   finally {
     yield put(getAllEntityTypes.finally());
@@ -217,11 +217,11 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *>
   try {
     yield put(getEntityType.request());
     response.data = yield call(EntityDataModelApi.getEntityType, action.value);
-    yield put(getEntityType.success(response));
+    yield put(getEntityType.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityType.failure(response));
+    yield put(getEntityType.failure(response.error));
   }
   finally {
     yield put(getEntityType.finally());
@@ -252,11 +252,11 @@ function* getAllPropertyTypesWorker() :Generator<*, Response, *> {
   try {
     yield put(getAllPropertyTypes.request());
     response.data = yield call(EntityDataModelApi.getAllPropertyTypes);
-    yield put(getAllPropertyTypes.success(response));
+    yield put(getAllPropertyTypes.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllPropertyTypes.failure(response));
+    yield put(getAllPropertyTypes.failure(response.error));
   }
   finally {
     yield put(getAllPropertyTypes.finally());
@@ -281,11 +281,11 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
   try {
     yield put(getPropertyType.request());
     response.data = yield call(EntityDataModelApi.getPropertyType, action.value);
-    yield put(getPropertyType.success(response));
+    yield put(getPropertyType.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getPropertyType.failure(response));
+    yield put(getPropertyType.failure(response.error));
   }
   finally {
     yield put(getPropertyType.finally());
@@ -316,11 +316,11 @@ function* getAllAssociationTypesWorker() :Generator<*, Response, *> {
   try {
     yield put(getAllAssociationTypes.request());
     response.data = yield call(EntityDataModelApi.getAllAssociationTypes);
-    yield put(getAllAssociationTypes.success(response));
+    yield put(getAllAssociationTypes.success(response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllAssociationTypes.failure(response));
+    yield put(getAllAssociationTypes.failure(response.error));
   }
   finally {
     yield put(getAllAssociationTypes.finally());
