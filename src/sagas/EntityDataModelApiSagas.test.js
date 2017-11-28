@@ -2,9 +2,13 @@
  * @flow
  */
 
+import randomUUID from 'uuid/v4';
 import { EntityDataModelApi } from 'lattice';
 
 import {
+  CREATE_ASSOCIATION_TYPE,
+  CREATE_ENTITY_TYPE,
+  CREATE_PROPERTY_TYPE,
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
@@ -14,6 +18,9 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  createAssociationType,
+  createEntityType,
+  createPropertyType,
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
@@ -26,6 +33,12 @@ import {
 } from './EntityDataModelApiActionFactory';
 
 import {
+  createAssociationTypeWatcher,
+  createAssociationTypeWorker,
+  createEntityTypeWatcher,
+  createEntityTypeWorker,
+  createPropertyTypeWatcher,
+  createPropertyTypeWorker,
   getAllAssociationTypesWatcher,
   getAllAssociationTypesWorker,
   getAllEntityTypesWatcher,
@@ -56,11 +69,6 @@ import {
   testWorkerSagaShouldHandleFailureCase,
   testWorkerSagaShouldHandleSuccessCase
 } from '../utils/TestUtils';
-
-const MOCK_ENTITY_SET_ID :string = 'ec6865e6-e60e-424b-a071-6a9c1603d735';
-const MOCK_ENTITY_SET_NAME :string = 'OpenLattice';
-const MOCK_ENTITY_TYPE_ID :string = '0c8be4b7-0bd5-4dd1-a623-da78871c9d0e';
-const MOCK_PROPERTY_TYPE_ID :string = '4b08e1f9-4a00-4169-92ea-10e377070220';
 
 describe('EntityDataModelApiSagas', () => {
 
@@ -108,7 +116,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntityDataModelProjectionWorker);
 
-    const mockActionValue = [{}];
+    const mockActionValue = randomUUID();
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntityDataModelProjection,
@@ -142,7 +150,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntitySetWorker);
 
-    const mockActionValue = MOCK_ENTITY_SET_ID;
+    const mockActionValue = randomUUID();
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntitySet,
@@ -170,7 +178,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntitySetIdWorker);
 
-    const mockActionValue = MOCK_ENTITY_SET_NAME;
+    const mockActionValue = randomUUID();
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntitySetId,
@@ -189,6 +197,32 @@ describe('EntityDataModelApiSagas', () => {
    * EntityType APIs
    *
    */
+
+  describe('createEntityTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(createEntityTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createEntityTypeWatcher,
+      createEntityTypeWorker,
+      CREATE_ENTITY_TYPE
+    );
+  });
+
+  describe('createEntityTypeWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.createEntityType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createEntityType,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: createEntityTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
 
   describe('getAllEntityTypesWatcher', () => {
 
@@ -228,7 +262,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getEntityTypeWorker);
 
-    const mockActionValue = MOCK_ENTITY_TYPE_ID;
+    const mockActionValue = randomUUID();
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getEntityType,
@@ -247,6 +281,32 @@ describe('EntityDataModelApiSagas', () => {
    * PropertyType APIs
    *
    */
+
+  describe('createPropertyTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(createPropertyTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createPropertyTypeWatcher,
+      createPropertyTypeWorker,
+      CREATE_PROPERTY_TYPE
+    );
+  });
+
+  describe('createPropertyTypeWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.createPropertyType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createPropertyType,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: createPropertyTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
 
   describe('getAllPropertyTypesWatcher', () => {
 
@@ -286,7 +346,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testShouldBeGeneratorFunction(getPropertyTypeWorker);
 
-    const mockActionValue = MOCK_PROPERTY_TYPE_ID;
+    const mockActionValue = randomUUID();
 
     const testInvocationParams = {
       latticeApi: EntityDataModelApi.getPropertyType,
@@ -305,6 +365,32 @@ describe('EntityDataModelApiSagas', () => {
    * AssociationType APIs
    *
    */
+
+  describe('createAssociationTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(createAssociationTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createAssociationTypeWatcher,
+      createAssociationTypeWorker,
+      CREATE_ASSOCIATION_TYPE
+    );
+  });
+
+  describe('createAssociationTypeWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.createAssociationType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createAssociationType,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: createAssociationTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
 
   describe('getAllAssociationTypesWatcher', () => {
 
