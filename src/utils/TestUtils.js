@@ -38,7 +38,7 @@ export function testWatcherSagaShouldTakeEvery(
   expectedAction :string
 ) :void {
 
-  test('', () => {
+  test('should invoke takeEvery()', () => {
     const iterator :Generator<*, *, *> = watcherSagaToTest();
     expect(Object.prototype.toString.call(iterator)).toEqual(GENERATOR_TAG);
     expect(iterator.next().value).toEqual(takeEvery(expectedAction, expectedWorkerSaga));
@@ -65,6 +65,8 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Obje
     };
 
     let iterator = workerSagaToTest();
+    expect(Object.prototype.toString.call(iterator)).toEqual(GENERATOR_TAG);
+
     if (workerSagaAction) {
       iterator = workerSagaToTest(workerSagaAction);
     }

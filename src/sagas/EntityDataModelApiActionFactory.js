@@ -34,6 +34,9 @@ const getEntitySetId :RequestSequence = newRequestSequence(GET_ENTITY_SET_ID);
  *
  */
 
+const CREATE_ENTITY_TYPE :'CREATE_ENTITY_TYPE' = 'CREATE_ENTITY_TYPE';
+const createEntityType :RequestSequence = newRequestSequence(CREATE_ENTITY_TYPE);
+
 const GET_ALL_ENTITY_TYPES :'GET_ALL_ENTITY_TYPES' = 'GET_ALL_ENTITY_TYPES';
 const getAllEntityTypes :RequestSequence = newRequestSequence(GET_ALL_ENTITY_TYPES);
 
@@ -45,6 +48,9 @@ const getEntityType :RequestSequence = newRequestSequence(GET_ENTITY_TYPE);
  * PropertyType APIs
  *
  */
+
+const CREATE_PROPERTY_TYPE :'CREATE_PROPERTY_TYPE' = 'CREATE_PROPERTY_TYPE';
+const createPropertyType :RequestSequence = newRequestSequence(CREATE_PROPERTY_TYPE);
 
 const GET_ALL_PROPERTY_TYPES :'GET_ALL_PROPERTY_TYPES' = 'GET_ALL_PROPERTY_TYPES';
 const getAllPropertyTypes :RequestSequence = newRequestSequence(GET_ALL_PROPERTY_TYPES);
@@ -58,6 +64,9 @@ const getPropertyType :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE);
  *
  */
 
+const CREATE_ASSOCIATION_TYPE :'CREATE_ASSOCIATION_TYPE' = 'CREATE_ASSOCIATION_TYPE';
+const createAssociationType :RequestSequence = newRequestSequence(CREATE_ASSOCIATION_TYPE);
+
 const GET_ALL_ASSOCIATION_TYPES :'GET_ALL_ASSOCIATION_TYPES' = 'GET_ALL_ASSOCIATION_TYPES';
 const getAllAssociationTypes :RequestSequence = newRequestSequence(GET_ALL_ASSOCIATION_TYPES);
 
@@ -68,6 +77,9 @@ const getAllAssociationTypes :RequestSequence = newRequestSequence(GET_ALL_ASSOC
  */
 
 export {
+  CREATE_ASSOCIATION_TYPE,
+  CREATE_ENTITY_TYPE,
+  CREATE_PROPERTY_TYPE,
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
@@ -77,6 +89,9 @@ export {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  createAssociationType,
+  createEntityType,
+  createPropertyType,
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
