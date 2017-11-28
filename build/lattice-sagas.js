@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.4
+ * lattice-sagas - v0.0.5
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -1410,7 +1410,7 @@ var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.4";
+var version = "v0.0.5";
 
 exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
 exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
@@ -1894,7 +1894,7 @@ function getEntityDataModelWorker() {
         case 6:
           response.data = _context2.sent;
           _context2.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.success(response.data));
 
         case 9:
           _context2.next = 16;
@@ -1906,7 +1906,7 @@ function getEntityDataModelWorker() {
 
           response.error = _context2.t0;
           _context2.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModel.failure(response.error));
 
         case 16:
           _context2.prev = 16;
@@ -1965,7 +1965,7 @@ function getEntityDataModelProjectionWorker(action) {
         case 6:
           response.data = _context4.sent;
           _context4.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.success(response.data));
 
         case 9:
           _context4.next = 16;
@@ -1977,7 +1977,7 @@ function getEntityDataModelProjectionWorker(action) {
 
           response.error = _context4.t0;
           _context4.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.failure(response.error));
 
         case 16:
           _context4.prev = 16;
@@ -2042,7 +2042,7 @@ function getEntitySetWorker(action) {
         case 6:
           response.data = _context6.sent;
           _context6.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.success(response.data));
 
         case 9:
           _context6.next = 16;
@@ -2054,7 +2054,7 @@ function getEntitySetWorker(action) {
 
           response.error = _context6.t0;
           _context6.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.failure(response.error));
 
         case 16:
           _context6.prev = 16;
@@ -2113,7 +2113,7 @@ function getEntitySetIdWorker(action) {
         case 6:
           response.data = _context8.sent;
           _context8.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.success(response.data));
 
         case 9:
           _context8.next = 16;
@@ -2125,7 +2125,7 @@ function getEntitySetIdWorker(action) {
 
           response.error = _context8.t0;
           _context8.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.failure(response.error));
 
         case 16:
           _context8.prev = 16;
@@ -2190,7 +2190,7 @@ function getAllEntityTypesWorker() {
         case 6:
           response.data = _context10.sent;
           _context10.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.success(response.data));
 
         case 9:
           _context10.next = 16;
@@ -2202,7 +2202,7 @@ function getAllEntityTypesWorker() {
 
           response.error = _context10.t0;
           _context10.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.failure(response.error));
 
         case 16:
           _context10.prev = 16;
@@ -2261,7 +2261,7 @@ function getEntityTypeWorker(action) {
         case 6:
           response.data = _context12.sent;
           _context12.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(response.data));
 
         case 9:
           _context12.next = 16;
@@ -2273,7 +2273,7 @@ function getEntityTypeWorker(action) {
 
           response.error = _context12.t0;
           _context12.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(response.error));
 
         case 16:
           _context12.prev = 16;
@@ -2338,7 +2338,7 @@ function getAllPropertyTypesWorker() {
         case 6:
           response.data = _context14.sent;
           _context14.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.success(response.data));
 
         case 9:
           _context14.next = 16;
@@ -2350,7 +2350,7 @@ function getAllPropertyTypesWorker() {
 
           response.error = _context14.t0;
           _context14.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.failure(response.error));
 
         case 16:
           _context14.prev = 16;
@@ -2409,7 +2409,7 @@ function getPropertyTypeWorker(action) {
         case 6:
           response.data = _context16.sent;
           _context16.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(response.data));
 
         case 9:
           _context16.next = 16;
@@ -2421,7 +2421,7 @@ function getPropertyTypeWorker(action) {
 
           response.error = _context16.t0;
           _context16.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(response.error));
 
         case 16:
           _context16.prev = 16;
@@ -2486,7 +2486,7 @@ function getAllAssociationTypesWorker() {
         case 6:
           response.data = _context18.sent;
           _context18.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.success(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.success(response.data));
 
         case 9:
           _context18.next = 16;
@@ -2498,7 +2498,7 @@ function getAllAssociationTypesWorker() {
 
           response.error = _context18.t0;
           _context18.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.failure(response));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.failure(response.error));
 
         case 16:
           _context18.prev = 16;
