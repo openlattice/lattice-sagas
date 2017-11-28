@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.6
+ * lattice-sagas - v0.0.7
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -1425,7 +1425,7 @@ var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.6";
+var version = "v0.0.7";
 
 exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
 exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
@@ -1977,7 +1977,7 @@ function getEntityDataModelProjectionWorker(action) {
           response = {};
           _context4.prev = 1;
           _context4.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.request(action.value));
 
         case 4:
           _context4.next = 6;
@@ -2054,7 +2054,7 @@ function getEntitySetWorker(action) {
           response = {};
           _context6.prev = 1;
           _context6.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.request(action.value));
 
         case 4:
           _context6.next = 6;
@@ -2125,7 +2125,7 @@ function getEntitySetIdWorker(action) {
           response = {};
           _context8.prev = 1;
           _context8.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.request(action.value));
 
         case 4:
           _context8.next = 6;
@@ -2202,7 +2202,7 @@ function createEntityTypeWorker(action) {
           response = {};
           _context10.prev = 1;
           _context10.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.request(action.value));
 
         case 4:
           _context10.next = 6;
@@ -2344,7 +2344,7 @@ function getEntityTypeWorker(action) {
           response = {};
           _context14.prev = 1;
           _context14.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request(action.value));
 
         case 4:
           _context14.next = 6;
@@ -2421,7 +2421,7 @@ function createPropertyTypeWorker(action) {
           response = {};
           _context16.prev = 1;
           _context16.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.request(action.value));
 
         case 4:
           _context16.next = 6;
@@ -2563,7 +2563,7 @@ function getPropertyTypeWorker(action) {
           response = {};
           _context20.prev = 1;
           _context20.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request(action.value));
 
         case 4:
           _context20.next = 6;
@@ -2640,7 +2640,7 @@ function createAssociationTypeWorker(action) {
           response = {};
           _context22.prev = 1;
           _context22.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.request());
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.request(action.value));
 
         case 4:
           _context22.next = 6;
