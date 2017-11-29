@@ -6,6 +6,9 @@ import {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  DELETE_ASSOCIATION_TYPE,
+  DELETE_ENTITY_TYPE,
+  DELETE_PROPERTY_TYPE,
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
@@ -18,6 +21,9 @@ import {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  deleteAssociationType,
+  deleteEntityType,
+  deletePropertyType,
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
@@ -45,6 +51,18 @@ describe('EntityDataModelApiActionFactory', () => {
 
     test('CREATE_PROPERTY_TYPE', () => {
       expect(CREATE_PROPERTY_TYPE).toEqual('CREATE_PROPERTY_TYPE');
+    });
+
+    test('DELETE_ASSOCIATION_TYPE', () => {
+      expect(DELETE_ASSOCIATION_TYPE).toEqual('DELETE_ASSOCIATION_TYPE');
+    });
+
+    test('DELETE_ENTITY_TYPE', () => {
+      expect(DELETE_ENTITY_TYPE).toEqual('DELETE_ENTITY_TYPE');
+    });
+
+    test('DELETE_PROPERTY_TYPE', () => {
+      expect(DELETE_PROPERTY_TYPE).toEqual('DELETE_PROPERTY_TYPE');
     });
 
     test('GET_ALL_ASSOCIATION_TYPES', () => {
@@ -97,6 +115,18 @@ describe('EntityDataModelApiActionFactory', () => {
 
     describe('createPropertyType', () => {
       testShouldBeRequestSequenceFunction(createPropertyType, CREATE_PROPERTY_TYPE);
+    });
+
+    describe('deleteAssociationType', () => {
+      testShouldBeRequestSequenceFunction(deleteAssociationType, DELETE_ASSOCIATION_TYPE);
+    });
+
+    describe('deleteEntityType', () => {
+      testShouldBeRequestSequenceFunction(deleteEntityType, DELETE_ENTITY_TYPE);
+    });
+
+    describe('deletePropertyType', () => {
+      testShouldBeRequestSequenceFunction(deletePropertyType, DELETE_PROPERTY_TYPE);
     });
 
     describe('getAllAssociationTypes', () => {
