@@ -37,6 +37,9 @@ const getEntitySetId :RequestSequence = newRequestSequence(GET_ENTITY_SET_ID);
 const CREATE_ENTITY_TYPE :'CREATE_ENTITY_TYPE' = 'CREATE_ENTITY_TYPE';
 const createEntityType :RequestSequence = newRequestSequence(CREATE_ENTITY_TYPE);
 
+const DELETE_ENTITY_TYPE :'DELETE_ENTITY_TYPE' = 'DELETE_ENTITY_TYPE';
+const deleteEntityType :RequestSequence = newRequestSequence(DELETE_ENTITY_TYPE);
+
 const GET_ALL_ENTITY_TYPES :'GET_ALL_ENTITY_TYPES' = 'GET_ALL_ENTITY_TYPES';
 const getAllEntityTypes :RequestSequence = newRequestSequence(GET_ALL_ENTITY_TYPES);
 
@@ -51,6 +54,9 @@ const getEntityType :RequestSequence = newRequestSequence(GET_ENTITY_TYPE);
 
 const CREATE_PROPERTY_TYPE :'CREATE_PROPERTY_TYPE' = 'CREATE_PROPERTY_TYPE';
 const createPropertyType :RequestSequence = newRequestSequence(CREATE_PROPERTY_TYPE);
+
+const DELETE_PROPERTY_TYPE :'DELETE_PROPERTY_TYPE' = 'DELETE_PROPERTY_TYPE';
+const deletePropertyType :RequestSequence = newRequestSequence(DELETE_PROPERTY_TYPE);
 
 const GET_ALL_PROPERTY_TYPES :'GET_ALL_PROPERTY_TYPES' = 'GET_ALL_PROPERTY_TYPES';
 const getAllPropertyTypes :RequestSequence = newRequestSequence(GET_ALL_PROPERTY_TYPES);
@@ -67,6 +73,9 @@ const getPropertyType :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE);
 const CREATE_ASSOCIATION_TYPE :'CREATE_ASSOCIATION_TYPE' = 'CREATE_ASSOCIATION_TYPE';
 const createAssociationType :RequestSequence = newRequestSequence(CREATE_ASSOCIATION_TYPE);
 
+const DELETE_ASSOCIATION_TYPE :'DELETE_ASSOCIATION_TYPE' = 'DELETE_ASSOCIATION_TYPE';
+const deleteAssociationType :RequestSequence = newRequestSequence(DELETE_ASSOCIATION_TYPE);
+
 const GET_ALL_ASSOCIATION_TYPES :'GET_ALL_ASSOCIATION_TYPES' = 'GET_ALL_ASSOCIATION_TYPES';
 const getAllAssociationTypes :RequestSequence = newRequestSequence(GET_ALL_ASSOCIATION_TYPES);
 
@@ -80,6 +89,9 @@ export {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  DELETE_ASSOCIATION_TYPE,
+  DELETE_ENTITY_TYPE,
+  DELETE_PROPERTY_TYPE,
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
@@ -92,6 +104,9 @@ export {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  deleteAssociationType,
+  deleteEntityType,
+  deletePropertyType,
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,

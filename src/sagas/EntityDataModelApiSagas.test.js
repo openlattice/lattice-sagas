@@ -9,6 +9,9 @@ import {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  DELETE_ASSOCIATION_TYPE,
+  DELETE_ENTITY_TYPE,
+  DELETE_PROPERTY_TYPE,
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
@@ -21,6 +24,9 @@ import {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  deleteAssociationType,
+  deleteEntityType,
+  deletePropertyType,
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
@@ -39,6 +45,12 @@ import {
   createEntityTypeWorker,
   createPropertyTypeWatcher,
   createPropertyTypeWorker,
+  deleteAssociationTypeWatcher,
+  deleteAssociationTypeWorker,
+  deleteEntityTypeWatcher,
+  deleteEntityTypeWorker,
+  deletePropertyTypeWatcher,
+  deletePropertyTypeWorker,
   getAllAssociationTypesWatcher,
   getAllAssociationTypesWorker,
   getAllEntityTypesWatcher,
@@ -224,6 +236,32 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  describe('deleteEntityTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(deleteEntityTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      deleteEntityTypeWatcher,
+      deleteEntityTypeWorker,
+      DELETE_ENTITY_TYPE
+    );
+  });
+
+  describe('deleteEntityTypeWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.deleteEntityType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: deleteEntityType,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: deleteEntityTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   describe('getAllEntityTypesWatcher', () => {
 
     testShouldBeGeneratorFunction(getAllEntityTypesWatcher);
@@ -308,6 +346,32 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  describe('deletePropertyTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(deletePropertyTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      deletePropertyTypeWatcher,
+      deletePropertyTypeWorker,
+      DELETE_PROPERTY_TYPE
+    );
+  });
+
+  describe('deletePropertyTypeWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.deletePropertyType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: deletePropertyType,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: deletePropertyTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   describe('getAllPropertyTypesWatcher', () => {
 
     testShouldBeGeneratorFunction(getAllPropertyTypesWatcher);
@@ -386,6 +450,32 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: createAssociationType,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: createAssociationTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
+  describe('deleteAssociationTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(deleteAssociationTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      deleteAssociationTypeWatcher,
+      deleteAssociationTypeWorker,
+      DELETE_ASSOCIATION_TYPE
+    );
+  });
+
+  describe('deleteAssociationTypeWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.deleteAssociationType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: deleteAssociationType,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: deleteAssociationTypeWorker
     };
 
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);

@@ -11,6 +11,9 @@ import {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  DELETE_ASSOCIATION_TYPE,
+  DELETE_ENTITY_TYPE,
+  DELETE_PROPERTY_TYPE,
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
@@ -23,6 +26,9 @@ import {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  deleteAssociationType,
+  deleteEntityType,
+  deletePropertyType,
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
@@ -212,6 +218,36 @@ function* createEntityTypeWorker(action :SequenceAction) :Generator<*, Response,
 }
 
 /*
+ * EntityDataModelApi.deleteEntityType
+ */
+
+function* deleteEntityTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(DELETE_ENTITY_TYPE, deleteEntityTypeWorker);
+}
+
+function* deleteEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be the EntityType id
+    yield put(deleteEntityType.request(action.value));
+    response.data = yield call(EntityDataModelApi.deleteEntityType, action.value);
+    yield put(deleteEntityType.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteEntityType.failure(response.error));
+  }
+  finally {
+    yield put(deleteEntityType.finally());
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getAllEntityTypes
  */
 
@@ -301,6 +337,36 @@ function* createPropertyTypeWorker(action :SequenceAction) :Generator<*, Respons
   }
   finally {
     yield put(createPropertyType.finally());
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.deletePropertyType
+ */
+
+function* deletePropertyTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(DELETE_PROPERTY_TYPE, deletePropertyTypeWorker);
+}
+
+function* deletePropertyTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be the PropertyType id
+    yield put(deletePropertyType.request(action.value));
+    response.data = yield call(EntityDataModelApi.deletePropertyType, action.value);
+    yield put(deletePropertyType.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deletePropertyType.failure(response.error));
+  }
+  finally {
+    yield put(deletePropertyType.finally());
   }
 
   return response;
@@ -402,6 +468,36 @@ function* createAssociationTypeWorker(action :SequenceAction) :Generator<*, Resp
 }
 
 /*
+ * EntityDataModelApi.deleteAssociationType
+ */
+
+function* deleteAssociationTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(DELETE_ASSOCIATION_TYPE, deleteAssociationTypeWorker);
+}
+
+function* deleteAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be the AssociationType id
+    yield put(deleteAssociationType.request(action.value));
+    response.data = yield call(EntityDataModelApi.deleteAssociationType, action.value);
+    yield put(deleteAssociationType.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteAssociationType.failure(response.error));
+  }
+  finally {
+    yield put(deleteAssociationType.finally());
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getAllAssociationTypes
  */
 
@@ -443,6 +539,12 @@ export {
   createEntityTypeWorker,
   createPropertyTypeWatcher,
   createPropertyTypeWorker,
+  deleteAssociationTypeWatcher,
+  deleteAssociationTypeWorker,
+  deleteEntityTypeWatcher,
+  deleteEntityTypeWorker,
+  deletePropertyTypeWatcher,
+  deletePropertyTypeWorker,
   getAllAssociationTypesWatcher,
   getAllAssociationTypesWorker,
   getAllEntityTypesWatcher,
