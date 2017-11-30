@@ -21,6 +21,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -39,6 +40,7 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData
@@ -75,6 +77,8 @@ import {
   getEntityTypeWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
+  updateAssociationTypeMetaDataWatcher,
+  updateAssociationTypeMetaDataWorker,
   updateEntitySetMetaDataWatcher,
   updateEntitySetMetaDataWorker,
   updateEntityTypeMetaDataWatcher,
@@ -605,6 +609,38 @@ describe('EntityDataModelApiSagas', () => {
       latticeApi: EntityDataModelApi.getAllAssociationTypes,
       latticeApiReqSeq: getAllAssociationTypes,
       workerSagaToTest: getAllAssociationTypesWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
+  describe('updateAssociationTypeMetaDataWatcher', () => {
+
+    testShouldBeGeneratorFunction(updateAssociationTypeMetaDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateAssociationTypeMetaDataWatcher,
+      updateAssociationTypeMetaDataWorker,
+      UPDATE_ASSOCIATION_TYPE_METADATA
+    );
+  });
+
+  describe('updateAssociationTypeMetaDataWorker', () => {
+
+    testShouldBeGeneratorFunction(updateAssociationTypeMetaDataWorker);
+
+    const mockActionValue = {
+      id: randomUUID(),
+      metadata: randomUUID()
+    };
+
+    // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.updateEntityTypeMetaData,
+      latticeApiParams: [mockActionValue.id, mockActionValue.metadata],
+      latticeApiReqSeq: updateAssociationTypeMetaData,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: updateAssociationTypeMetaDataWorker
     };
 
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
