@@ -23,6 +23,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -41,6 +42,7 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData
@@ -626,6 +628,38 @@ function* getAllAssociationTypesWorker() :Generator<*, Response, *> {
 }
 
 /*
+ * EntityDataModelApi.updateEntityTypeMetaData
+ */
+
+function* updateAssociationTypeMetaDataWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_ASSOCIATION_TYPE_METADATA, updateAssociationTypeMetaDataWorker);
+}
+
+function* updateAssociationTypeMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the AssociationType's EntityType id and metadata
+    yield put(updateAssociationTypeMetaData.request(action.value));
+    const { id, metadata } = action.value;
+    // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
+    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
+    yield put(updateAssociationTypeMetaData.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateAssociationTypeMetaData.failure(response.error));
+  }
+  finally {
+    yield put(updateAssociationTypeMetaData.finally());
+  }
+
+  return response;
+}
+
+/*
  *
  * exports
  *
@@ -662,6 +696,8 @@ export {
   getEntityTypeWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
+  updateAssociationTypeMetaDataWatcher,
+  updateAssociationTypeMetaDataWorker,
   updateEntitySetMetaDataWatcher,
   updateEntitySetMetaDataWorker,
   updateEntityTypeMetaDataWatcher,

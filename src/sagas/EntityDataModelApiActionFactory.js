@@ -88,6 +88,9 @@ const deleteAssociationType :RequestSequence = newRequestSequence(DELETE_ASSOCIA
 const GET_ALL_ASSOCIATION_TYPES :'GET_ALL_ASSOCIATION_TYPES' = 'GET_ALL_ASSOCIATION_TYPES';
 const getAllAssociationTypes :RequestSequence = newRequestSequence(GET_ALL_ASSOCIATION_TYPES);
 
+const UPDATE_ASSOCIATION_TYPE_METADATA :'UPDATE_ASSOCIATION_TYPE_METADATA' = 'UPDATE_ASSOCIATION_TYPE_METADATA';
+const updateAssociationTypeMetaData :RequestSequence = newRequestSequence(UPDATE_ASSOCIATION_TYPE_METADATA);
+
 /*
  *
  * exports
@@ -110,6 +113,7 @@ export {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -128,6 +132,7 @@ export {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData
