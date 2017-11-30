@@ -18,6 +18,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -36,6 +37,7 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData
@@ -105,6 +107,10 @@ describe('EntityDataModelApiActionFactory', () => {
 
     test('GET_PROPERTY_TYPE', () => {
       expect(GET_PROPERTY_TYPE).toEqual('GET_PROPERTY_TYPE');
+    });
+
+    test('UPDATE_ASSOCIATION_TYPE_METADATA', () => {
+      expect(UPDATE_ASSOCIATION_TYPE_METADATA).toEqual('UPDATE_ASSOCIATION_TYPE_METADATA');
     });
 
     test('UPDATE_ENTITY_SET_METADATA', () => {
@@ -181,6 +187,10 @@ describe('EntityDataModelApiActionFactory', () => {
 
     describe('getPropertyType', () => {
       testShouldBeRequestSequenceFunction(getPropertyType, GET_PROPERTY_TYPE);
+    });
+
+    describe('updateAssociationTypeMetaData', () => {
+      testShouldBeRequestSequenceFunction(updateAssociationTypeMetaData, UPDATE_ASSOCIATION_TYPE_METADATA);
     });
 
     describe('updateEntitySetMetaData', () => {
