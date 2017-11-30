@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.10
+ * lattice-sagas - v0.0.11
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -92,7 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = undefined;
+exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = undefined;
 
 var _reduxReqseq = __webpack_require__(3);
 
@@ -181,6 +181,9 @@ var deleteAssociationType = (0, _reduxReqseq.newRequestSequence)(DELETE_ASSOCIAT
 var GET_ALL_ASSOCIATION_TYPES = 'GET_ALL_ASSOCIATION_TYPES';
 var getAllAssociationTypes = (0, _reduxReqseq.newRequestSequence)(GET_ALL_ASSOCIATION_TYPES);
 
+var UPDATE_ASSOCIATION_TYPE_METADATA = 'UPDATE_ASSOCIATION_TYPE_METADATA';
+var updateAssociationTypeMetaData = (0, _reduxReqseq.newRequestSequence)(UPDATE_ASSOCIATION_TYPE_METADATA);
+
 /*
  *
  * exports
@@ -202,6 +205,7 @@ exports.GET_ENTITY_SET = GET_ENTITY_SET;
 exports.GET_ENTITY_SET_ID = GET_ENTITY_SET_ID;
 exports.GET_ENTITY_TYPE = GET_ENTITY_TYPE;
 exports.GET_PROPERTY_TYPE = GET_PROPERTY_TYPE;
+exports.UPDATE_ASSOCIATION_TYPE_METADATA = UPDATE_ASSOCIATION_TYPE_METADATA;
 exports.UPDATE_ENTITY_SET_METADATA = UPDATE_ENTITY_SET_METADATA;
 exports.UPDATE_ENTITY_TYPE_METADATA = UPDATE_ENTITY_TYPE_METADATA;
 exports.UPDATE_PROPERTY_TYPE_METADATA = UPDATE_PROPERTY_TYPE_METADATA;
@@ -220,6 +224,7 @@ exports.getEntitySet = getEntitySet;
 exports.getEntitySetId = getEntitySetId;
 exports.getEntityType = getEntityType;
 exports.getPropertyType = getPropertyType;
+exports.updateAssociationTypeMetaData = updateAssociationTypeMetaData;
 exports.updateEntitySetMetaData = updateEntitySetMetaData;
 exports.updateEntityTypeMetaData = updateEntityTypeMetaData;
 exports.updatePropertyTypeMetaData = updatePropertyTypeMetaData;
@@ -254,7 +259,7 @@ var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.10";
+var version = "v0.0.11";
 
 exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
 exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
@@ -281,7 +286,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = undefined;
+exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = undefined;
 
 var _lattice = __webpack_require__(5);
 
@@ -324,7 +329,9 @@ var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
     _marked33 = /*#__PURE__*/regeneratorRuntime.mark(deleteAssociationTypeWatcher),
     _marked34 = /*#__PURE__*/regeneratorRuntime.mark(deleteAssociationTypeWorker),
     _marked35 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWatcher),
-    _marked36 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWorker);
+    _marked36 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWorker),
+    _marked37 = /*#__PURE__*/regeneratorRuntime.mark(updateAssociationTypeMetaDataWatcher),
+    _marked38 = /*#__PURE__*/regeneratorRuntime.mark(updateAssociationTypeMetaDataWorker);
 
 /* eslint-disable no-use-before-define */
 
@@ -1648,6 +1655,81 @@ function getAllAssociationTypesWorker() {
 }
 
 /*
+ * EntityDataModelApi.updateEntityTypeMetaData
+ */
+
+function updateAssociationTypeMetaDataWatcher() {
+  return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWatcher$(_context37) {
+    while (1) {
+      switch (_context37.prev = _context37.next) {
+        case 0:
+          _context37.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ASSOCIATION_TYPE_METADATA, updateAssociationTypeMetaDataWorker);
+
+        case 2:
+        case 'end':
+          return _context37.stop();
+      }
+    }
+  }, _marked37, this);
+}
+
+function updateAssociationTypeMetaDataWorker(action) {
+  var response, _action$value4, id, metadata;
+
+  return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWorker$(_context38) {
+    while (1) {
+      switch (_context38.prev = _context38.next) {
+        case 0:
+          response = {};
+          _context38.prev = 1;
+          _context38.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.request(action.value));
+
+        case 4:
+          _action$value4 = action.value, id = _action$value4.id, metadata = _action$value4.metadata;
+          // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
+
+          _context38.next = 7;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
+
+        case 7:
+          response.data = _context38.sent;
+          _context38.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.success(response.data));
+
+        case 10:
+          _context38.next = 17;
+          break;
+
+        case 12:
+          _context38.prev = 12;
+          _context38.t0 = _context38['catch'](1);
+
+          response.error = _context38.t0;
+          _context38.next = 17;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.failure(response.error));
+
+        case 17:
+          _context38.prev = 17;
+          _context38.next = 20;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.finally());
+
+        case 20:
+          return _context38.finish(17);
+
+        case 21:
+          return _context38.abrupt('return', response);
+
+        case 22:
+        case 'end':
+          return _context38.stop();
+      }
+    }
+  }, _marked38, this, [[1, 12, 17, 21]]);
+}
+
+/*
  *
  * exports
  *
@@ -1683,6 +1765,8 @@ exports.getEntityTypeWatcher = getEntityTypeWatcher;
 exports.getEntityTypeWorker = getEntityTypeWorker;
 exports.getPropertyTypeWatcher = getPropertyTypeWatcher;
 exports.getPropertyTypeWorker = getPropertyTypeWorker;
+exports.updateAssociationTypeMetaDataWatcher = updateAssociationTypeMetaDataWatcher;
+exports.updateAssociationTypeMetaDataWorker = updateAssociationTypeMetaDataWorker;
 exports.updateEntitySetMetaDataWatcher = updateEntitySetMetaDataWatcher;
 exports.updateEntitySetMetaDataWorker = updateEntitySetMetaDataWorker;
 exports.updateEntityTypeMetaDataWatcher = updateEntityTypeMetaDataWatcher;
