@@ -21,6 +21,9 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ENTITY_SET_METADATA,
+  UPDATE_ENTITY_TYPE_METADATA,
+  UPDATE_PROPERTY_TYPE_METADATA,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -35,7 +38,10 @@ import {
   getEntitySet,
   getEntitySetId,
   getEntityType,
-  getPropertyType
+  getPropertyType,
+  updateEntitySetMetaData,
+  updateEntityTypeMetaData,
+  updatePropertyTypeMetaData
 } from './EntityDataModelApiActionFactory';
 
 import {
@@ -68,7 +74,13 @@ import {
   getEntityTypeWatcher,
   getEntityTypeWorker,
   getPropertyTypeWatcher,
-  getPropertyTypeWorker
+  getPropertyTypeWorker,
+  updateEntitySetMetaDataWatcher,
+  updateEntitySetMetaDataWorker,
+  updateEntityTypeMetaDataWatcher,
+  updateEntityTypeMetaDataWorker,
+  updatePropertyTypeMetaDataWatcher,
+  updatePropertyTypeMetaDataWorker
 } from './EntityDataModelApiSagas';
 
 import {
@@ -204,6 +216,37 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  describe('updateEntitySetMetaDataWatcher', () => {
+
+    testShouldBeGeneratorFunction(updateEntitySetMetaDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateEntitySetMetaDataWatcher,
+      updateEntitySetMetaDataWorker,
+      UPDATE_ENTITY_SET_METADATA
+    );
+  });
+
+  describe('updateEntitySetMetaDataWorker', () => {
+
+    testShouldBeGeneratorFunction(updateEntitySetMetaDataWorker);
+
+    const mockActionValue = {
+      id: randomUUID(),
+      metadata: randomUUID()
+    };
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.updateEntitySetMetaData,
+      latticeApiParams: [mockActionValue.id, mockActionValue.metadata],
+      latticeApiReqSeq: updateEntitySetMetaData,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: updateEntitySetMetaDataWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   /*
    *
    * EntityType APIs
@@ -314,6 +357,37 @@ describe('EntityDataModelApiSagas', () => {
     testWorkerSagaShouldHandleFailureCase(testInvocationParams);
   });
 
+  describe('updateEntityTypeMetaDataWatcher', () => {
+
+    testShouldBeGeneratorFunction(updateEntityTypeMetaDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateEntityTypeMetaDataWatcher,
+      updateEntityTypeMetaDataWorker,
+      UPDATE_ENTITY_TYPE_METADATA
+    );
+  });
+
+  describe('updateEntityTypeMetaDataWorker', () => {
+
+    testShouldBeGeneratorFunction(updateEntityTypeMetaDataWorker);
+
+    const mockActionValue = {
+      id: randomUUID(),
+      metadata: randomUUID()
+    };
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.updateEntityTypeMetaData,
+      latticeApiParams: [mockActionValue.id, mockActionValue.metadata],
+      latticeApiReqSeq: updateEntityTypeMetaData,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: updateEntityTypeMetaDataWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
   /*
    *
    * PropertyType APIs
@@ -418,6 +492,37 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getPropertyType,
       workerSagaAction: getMockAction(mockActionValue),
       workerSagaToTest: getPropertyTypeWorker
+    };
+
+    testWorkerSagaShouldHandleSuccessCase(testInvocationParams);
+    testWorkerSagaShouldHandleFailureCase(testInvocationParams);
+  });
+
+  describe('updatePropertyTypeMetaDataWatcher', () => {
+
+    testShouldBeGeneratorFunction(updatePropertyTypeMetaDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updatePropertyTypeMetaDataWatcher,
+      updatePropertyTypeMetaDataWorker,
+      UPDATE_PROPERTY_TYPE_METADATA
+    );
+  });
+
+  describe('updatePropertyTypeMetaDataWorker', () => {
+
+    testShouldBeGeneratorFunction(updatePropertyTypeMetaDataWorker);
+
+    const mockActionValue = {
+      id: randomUUID(),
+      metadata: randomUUID()
+    };
+
+    const testInvocationParams = {
+      latticeApi: EntityDataModelApi.updatePropertyTypeMetaData,
+      latticeApiParams: [mockActionValue.id, mockActionValue.metadata],
+      latticeApiReqSeq: updatePropertyTypeMetaData,
+      workerSagaAction: getMockAction(mockActionValue),
+      workerSagaToTest: updatePropertyTypeMetaDataWorker
     };
 
     testWorkerSagaShouldHandleSuccessCase(testInvocationParams);

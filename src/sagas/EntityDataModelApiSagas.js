@@ -23,6 +23,9 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ENTITY_SET_METADATA,
+  UPDATE_ENTITY_TYPE_METADATA,
+  UPDATE_PROPERTY_TYPE_METADATA,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -37,7 +40,10 @@ import {
   getEntitySet,
   getEntitySetId,
   getEntityType,
-  getPropertyType
+  getPropertyType,
+  updateEntitySetMetaData,
+  updateEntityTypeMetaData,
+  updatePropertyTypeMetaData
 } from './EntityDataModelApiActionFactory';
 
 /*
@@ -182,6 +188,37 @@ function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *
 }
 
 /*
+ * EntityDataModelApi.updateEntitySetMetaData
+ */
+
+function* updateEntitySetMetaDataWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
+}
+
+function* updateEntitySetMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the EntitySet id and metadata
+    yield put(updateEntitySetMetaData.request(action.value));
+    const { id, metadata } = action.value;
+    response.data = yield call(EntityDataModelApi.updateEntitySetMetaData, id, metadata);
+    yield put(updateEntitySetMetaData.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateEntitySetMetaData.failure(response.error));
+  }
+  finally {
+    yield put(updateEntitySetMetaData.finally());
+  }
+
+  return response;
+}
+
+/*
  *
  * EntityType APIs
  *
@@ -307,6 +344,37 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *>
 }
 
 /*
+ * EntityDataModelApi.updateEntityTypeMetaData
+ */
+
+function* updateEntityTypeMetaDataWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_ENTITY_TYPE_METADATA, updateEntityTypeMetaDataWorker);
+}
+
+function* updateEntityTypeMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the EntityType id and metadata
+    yield put(updateEntityTypeMetaData.request(action.value));
+    const { id, metadata } = action.value;
+    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
+    yield put(updateEntityTypeMetaData.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateEntityTypeMetaData.failure(response.error));
+  }
+  finally {
+    yield put(updateEntityTypeMetaData.finally());
+  }
+
+  return response;
+}
+
+/*
  *
  * PropertyType APIs
  *
@@ -426,6 +494,37 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
   }
   finally {
     yield put(getPropertyType.finally());
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.updatePropertyTypeMetaData
+ */
+
+function* updatePropertyTypeMetaDataWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_PROPERTY_TYPE_METADATA, updatePropertyTypeMetaDataWorker);
+}
+
+function* updatePropertyTypeMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the PropertyType id and metadata
+    yield put(updatePropertyTypeMetaData.request(action.value));
+    const { id, metadata } = action.value;
+    response.data = yield call(EntityDataModelApi.updatePropertyTypeMetaData, id, metadata);
+    yield put(updatePropertyTypeMetaData.success(response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updatePropertyTypeMetaData.failure(response.error));
+  }
+  finally {
+    yield put(updatePropertyTypeMetaData.finally());
   }
 
   return response;
@@ -562,5 +661,11 @@ export {
   getEntityTypeWatcher,
   getEntityTypeWorker,
   getPropertyTypeWatcher,
-  getPropertyTypeWorker
+  getPropertyTypeWorker,
+  updateEntitySetMetaDataWatcher,
+  updateEntitySetMetaDataWorker,
+  updateEntityTypeMetaDataWatcher,
+  updateEntityTypeMetaDataWorker,
+  updatePropertyTypeMetaDataWatcher,
+  updatePropertyTypeMetaDataWorker
 };

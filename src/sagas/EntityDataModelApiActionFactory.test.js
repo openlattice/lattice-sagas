@@ -18,6 +18,9 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ENTITY_SET_METADATA,
+  UPDATE_ENTITY_TYPE_METADATA,
+  UPDATE_PROPERTY_TYPE_METADATA,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -32,7 +35,10 @@ import {
   getEntitySet,
   getEntitySetId,
   getEntityType,
-  getPropertyType
+  getPropertyType,
+  updateEntitySetMetaData,
+  updateEntityTypeMetaData,
+  updatePropertyTypeMetaData
 } from './EntityDataModelApiActionFactory';
 
 import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
@@ -101,6 +107,18 @@ describe('EntityDataModelApiActionFactory', () => {
       expect(GET_PROPERTY_TYPE).toEqual('GET_PROPERTY_TYPE');
     });
 
+    test('UPDATE_ENTITY_SET_METADATA', () => {
+      expect(UPDATE_ENTITY_SET_METADATA).toEqual('UPDATE_ENTITY_SET_METADATA');
+    });
+
+    test('UPDATE_ENTITY_TYPE_METADATA', () => {
+      expect(UPDATE_ENTITY_TYPE_METADATA).toEqual('UPDATE_ENTITY_TYPE_METADATA');
+    });
+
+    test('UPDATE_PROPERTY_TYPE_METADATA', () => {
+      expect(UPDATE_PROPERTY_TYPE_METADATA).toEqual('UPDATE_PROPERTY_TYPE_METADATA');
+    });
+
   });
 
   describe('should export RequestSequence functions', () => {
@@ -163,6 +181,18 @@ describe('EntityDataModelApiActionFactory', () => {
 
     describe('getPropertyType', () => {
       testShouldBeRequestSequenceFunction(getPropertyType, GET_PROPERTY_TYPE);
+    });
+
+    describe('updateEntitySetMetaData', () => {
+      testShouldBeRequestSequenceFunction(updateEntitySetMetaData, UPDATE_ENTITY_SET_METADATA);
+    });
+
+    describe('updateEntityTypeMetaData', () => {
+      testShouldBeRequestSequenceFunction(updateEntityTypeMetaData, UPDATE_ENTITY_TYPE_METADATA);
+    });
+
+    describe('updatePropertyTypeMetaData', () => {
+      testShouldBeRequestSequenceFunction(updatePropertyTypeMetaData, UPDATE_PROPERTY_TYPE_METADATA);
     });
 
   });
