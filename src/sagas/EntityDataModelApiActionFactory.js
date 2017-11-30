@@ -28,6 +28,9 @@ const getEntitySet :RequestSequence = newRequestSequence(GET_ENTITY_SET);
 const GET_ENTITY_SET_ID :'GET_ENTITY_SET_ID' = 'GET_ENTITY_SET_ID';
 const getEntitySetId :RequestSequence = newRequestSequence(GET_ENTITY_SET_ID);
 
+const UPDATE_ENTITY_SET_METADATA :'UPDATE_ENTITY_SET_METADATA' = 'UPDATE_ENTITY_SET_METADATA';
+const updateEntitySetMetaData :RequestSequence = newRequestSequence(UPDATE_ENTITY_SET_METADATA);
+
 /*
  *
  * EntityType APIs
@@ -46,6 +49,9 @@ const getAllEntityTypes :RequestSequence = newRequestSequence(GET_ALL_ENTITY_TYP
 const GET_ENTITY_TYPE :'GET_ENTITY_TYPE' = 'GET_ENTITY_TYPE';
 const getEntityType :RequestSequence = newRequestSequence(GET_ENTITY_TYPE);
 
+const UPDATE_ENTITY_TYPE_METADATA :'UPDATE_ENTITY_TYPE_METADATA' = 'UPDATE_ENTITY_TYPE_METADATA';
+const updateEntityTypeMetaData :RequestSequence = newRequestSequence(UPDATE_ENTITY_TYPE_METADATA);
+
 /*
  *
  * PropertyType APIs
@@ -63,6 +69,9 @@ const getAllPropertyTypes :RequestSequence = newRequestSequence(GET_ALL_PROPERTY
 
 const GET_PROPERTY_TYPE :'GET_PROPERTY_TYPE' = 'GET_PROPERTY_TYPE';
 const getPropertyType :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE);
+
+const UPDATE_PROPERTY_TYPE_METADATA :'UPDATE_PROPERTY_TYPE_METADATA' = 'UPDATE_PROPERTY_TYPE_METADATA';
+const updatePropertyTypeMetaData :RequestSequence = newRequestSequence(UPDATE_PROPERTY_TYPE_METADATA);
 
 /*
  *
@@ -101,6 +110,9 @@ export {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  UPDATE_ENTITY_SET_METADATA,
+  UPDATE_ENTITY_TYPE_METADATA,
+  UPDATE_PROPERTY_TYPE_METADATA,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -115,5 +127,8 @@ export {
   getEntitySet,
   getEntitySetId,
   getEntityType,
-  getPropertyType
+  getPropertyType,
+  updateEntitySetMetaData,
+  updateEntityTypeMetaData,
+  updatePropertyTypeMetaData
 };
