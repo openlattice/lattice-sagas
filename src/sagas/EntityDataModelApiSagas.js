@@ -73,21 +73,21 @@ function* getEntityDataModelWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ENTITY_DATA_MODEL, getEntityDataModelWorker);
 }
 
-function* getEntityDataModelWorker() :Generator<*, Response, *> {
+function* getEntityDataModelWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
-    yield put(getEntityDataModel.request());
+    yield put(getEntityDataModel.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getEntityDataModel);
-    yield put(getEntityDataModel.success(response.data));
+    yield put(getEntityDataModel.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityDataModel.failure(response.error));
+    yield put(getEntityDataModel.failure(action.id, response.error));
   }
   finally {
-    yield put(getEntityDataModel.finally());
+    yield put(getEntityDataModel.finally(action.id));
   }
 
   return response;
@@ -108,16 +108,16 @@ function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<
 
   try {
     // action.value is expected to be the projection
-    yield put(getEntityDataModelProjection.request(action.value));
+    yield put(getEntityDataModelProjection.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value);
-    yield put(getEntityDataModelProjection.success(response.data));
+    yield put(getEntityDataModelProjection.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityDataModelProjection.failure(response.error));
+    yield put(getEntityDataModelProjection.failure(action.id, response.error));
   }
   finally {
-    yield put(getEntityDataModelProjection.finally());
+    yield put(getEntityDataModelProjection.finally(action.id));
   }
 
   return response;
@@ -144,16 +144,16 @@ function* getEntitySetWorker(action :SequenceAction) :Generator<*, Response, *> 
 
   try {
     // action.value is expected to be the EntitySet id
-    yield put(getEntitySet.request(action.value));
+    yield put(getEntitySet.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getEntitySet, action.value);
-    yield put(getEntitySet.success(response.data));
+    yield put(getEntitySet.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntitySet.failure(response.error));
+    yield put(getEntitySet.failure(action.id, response.error));
   }
   finally {
-    yield put(getEntitySet.finally());
+    yield put(getEntitySet.finally(action.id));
   }
 
   return response;
@@ -174,16 +174,16 @@ function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *
 
   try {
     // action.value is expected to be the EntitySet name
-    yield put(getEntitySetId.request(action.value));
+    yield put(getEntitySetId.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getEntitySetId, action.value);
-    yield put(getEntitySetId.success(response.data));
+    yield put(getEntitySetId.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntitySetId.failure(response.error));
+    yield put(getEntitySetId.failure(action.id, response.error));
   }
   finally {
-    yield put(getEntitySetId.finally());
+    yield put(getEntitySetId.finally(action.id));
   }
 
   return response;
@@ -204,17 +204,17 @@ function* updateEntitySetMetaDataWorker(action :SequenceAction) :Generator<*, Re
 
   try {
     // action.value is expected to be an object containing the EntitySet id and metadata
-    yield put(updateEntitySetMetaData.request(action.value));
+    yield put(updateEntitySetMetaData.request(action.id, action.value));
     const { id, metadata } = action.value;
     response.data = yield call(EntityDataModelApi.updateEntitySetMetaData, id, metadata);
-    yield put(updateEntitySetMetaData.success(response.data));
+    yield put(updateEntitySetMetaData.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateEntitySetMetaData.failure(response.error));
+    yield put(updateEntitySetMetaData.failure(action.id, response.error));
   }
   finally {
-    yield put(updateEntitySetMetaData.finally());
+    yield put(updateEntitySetMetaData.finally(action.id));
   }
 
   return response;
@@ -241,16 +241,16 @@ function* createEntityTypeWorker(action :SequenceAction) :Generator<*, Response,
 
   try {
     // action.value is expected to be the EntityType object
-    yield put(createEntityType.request(action.value));
+    yield put(createEntityType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.createEntityType, action.value);
-    yield put(createEntityType.success(response.data));
+    yield put(createEntityType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createEntityType.failure(response.error));
+    yield put(createEntityType.failure(action.id, response.error));
   }
   finally {
-    yield put(createEntityType.finally());
+    yield put(createEntityType.finally(action.id));
   }
 
   return response;
@@ -271,16 +271,16 @@ function* deleteEntityTypeWorker(action :SequenceAction) :Generator<*, Response,
 
   try {
     // action.value is expected to be the EntityType id
-    yield put(deleteEntityType.request(action.value));
+    yield put(deleteEntityType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.deleteEntityType, action.value);
-    yield put(deleteEntityType.success(response.data));
+    yield put(deleteEntityType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(deleteEntityType.failure(response.error));
+    yield put(deleteEntityType.failure(action.id, response.error));
   }
   finally {
-    yield put(deleteEntityType.finally());
+    yield put(deleteEntityType.finally(action.id));
   }
 
   return response;
@@ -295,21 +295,21 @@ function* getAllEntityTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_ENTITY_TYPES, getAllEntityTypesWorker);
 }
 
-function* getAllEntityTypesWorker() :Generator<*, Response, *> {
+function* getAllEntityTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
-    yield put(getAllEntityTypes.request());
+    yield put(getAllEntityTypes.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getAllEntityTypes);
-    yield put(getAllEntityTypes.success(response.data));
+    yield put(getAllEntityTypes.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllEntityTypes.failure(response.error));
+    yield put(getAllEntityTypes.failure(action.id, response.error));
   }
   finally {
-    yield put(getAllEntityTypes.finally());
+    yield put(getAllEntityTypes.finally(action.id));
   }
 
   return response;
@@ -330,16 +330,16 @@ function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *>
 
   try {
     // action.value is expected to be the EntityType id
-    yield put(getEntityType.request(action.value));
+    yield put(getEntityType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getEntityType, action.value);
-    yield put(getEntityType.success(response.data));
+    yield put(getEntityType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityType.failure(response.error));
+    yield put(getEntityType.failure(action.id, response.error));
   }
   finally {
-    yield put(getEntityType.finally());
+    yield put(getEntityType.finally(action.id));
   }
 
   return response;
@@ -360,17 +360,17 @@ function* updateEntityTypeMetaDataWorker(action :SequenceAction) :Generator<*, R
 
   try {
     // action.value is expected to be an object containing the EntityType id and metadata
-    yield put(updateEntityTypeMetaData.request(action.value));
+    yield put(updateEntityTypeMetaData.request(action.id, action.value));
     const { id, metadata } = action.value;
     response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
-    yield put(updateEntityTypeMetaData.success(response.data));
+    yield put(updateEntityTypeMetaData.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateEntityTypeMetaData.failure(response.error));
+    yield put(updateEntityTypeMetaData.failure(action.id, response.error));
   }
   finally {
-    yield put(updateEntityTypeMetaData.finally());
+    yield put(updateEntityTypeMetaData.finally(action.id));
   }
 
   return response;
@@ -397,16 +397,16 @@ function* createPropertyTypeWorker(action :SequenceAction) :Generator<*, Respons
 
   try {
     // action.value is expected to be the PropertyType object
-    yield put(createPropertyType.request(action.value));
+    yield put(createPropertyType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.createPropertyType, action.value);
-    yield put(createPropertyType.success(response.data));
+    yield put(createPropertyType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createPropertyType.failure(response.error));
+    yield put(createPropertyType.failure(action.id, response.error));
   }
   finally {
-    yield put(createPropertyType.finally());
+    yield put(createPropertyType.finally(action.id));
   }
 
   return response;
@@ -427,16 +427,16 @@ function* deletePropertyTypeWorker(action :SequenceAction) :Generator<*, Respons
 
   try {
     // action.value is expected to be the PropertyType id
-    yield put(deletePropertyType.request(action.value));
+    yield put(deletePropertyType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.deletePropertyType, action.value);
-    yield put(deletePropertyType.success(response.data));
+    yield put(deletePropertyType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(deletePropertyType.failure(response.error));
+    yield put(deletePropertyType.failure(action.id, response.error));
   }
   finally {
-    yield put(deletePropertyType.finally());
+    yield put(deletePropertyType.finally(action.id));
   }
 
   return response;
@@ -451,21 +451,21 @@ function* getAllPropertyTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
 }
 
-function* getAllPropertyTypesWorker() :Generator<*, Response, *> {
+function* getAllPropertyTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
-    yield put(getAllPropertyTypes.request());
+    yield put(getAllPropertyTypes.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getAllPropertyTypes);
-    yield put(getAllPropertyTypes.success(response.data));
+    yield put(getAllPropertyTypes.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllPropertyTypes.failure(response.error));
+    yield put(getAllPropertyTypes.failure(action.id, response.error));
   }
   finally {
-    yield put(getAllPropertyTypes.finally());
+    yield put(getAllPropertyTypes.finally(action.id));
   }
 
   return response;
@@ -486,16 +486,16 @@ function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, 
 
   try {
     // action.value is expected to be the PropertyType id
-    yield put(getPropertyType.request(action.value));
+    yield put(getPropertyType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getPropertyType, action.value);
-    yield put(getPropertyType.success(response.data));
+    yield put(getPropertyType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getPropertyType.failure(response.error));
+    yield put(getPropertyType.failure(action.id, response.error));
   }
   finally {
-    yield put(getPropertyType.finally());
+    yield put(getPropertyType.finally(action.id));
   }
 
   return response;
@@ -516,17 +516,17 @@ function* updatePropertyTypeMetaDataWorker(action :SequenceAction) :Generator<*,
 
   try {
     // action.value is expected to be an object containing the PropertyType id and metadata
-    yield put(updatePropertyTypeMetaData.request(action.value));
+    yield put(updatePropertyTypeMetaData.request(action.id, action.value));
     const { id, metadata } = action.value;
     response.data = yield call(EntityDataModelApi.updatePropertyTypeMetaData, id, metadata);
-    yield put(updatePropertyTypeMetaData.success(response.data));
+    yield put(updatePropertyTypeMetaData.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updatePropertyTypeMetaData.failure(response.error));
+    yield put(updatePropertyTypeMetaData.failure(action.id, response.error));
   }
   finally {
-    yield put(updatePropertyTypeMetaData.finally());
+    yield put(updatePropertyTypeMetaData.finally(action.id));
   }
 
   return response;
@@ -553,16 +553,16 @@ function* createAssociationTypeWorker(action :SequenceAction) :Generator<*, Resp
 
   try {
     // action.value is expected to be the AssociationType object
-    yield put(createAssociationType.request(action.value));
+    yield put(createAssociationType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.createAssociationType, action.value);
-    yield put(createAssociationType.success(response.data));
+    yield put(createAssociationType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createAssociationType.failure(response.error));
+    yield put(createAssociationType.failure(action.id, response.error));
   }
   finally {
-    yield put(createAssociationType.finally());
+    yield put(createAssociationType.finally(action.id));
   }
 
   return response;
@@ -583,16 +583,16 @@ function* deleteAssociationTypeWorker(action :SequenceAction) :Generator<*, Resp
 
   try {
     // action.value is expected to be the AssociationType id
-    yield put(deleteAssociationType.request(action.value));
+    yield put(deleteAssociationType.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.deleteAssociationType, action.value);
-    yield put(deleteAssociationType.success(response.data));
+    yield put(deleteAssociationType.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(deleteAssociationType.failure(response.error));
+    yield put(deleteAssociationType.failure(action.id, response.error));
   }
   finally {
-    yield put(deleteAssociationType.finally());
+    yield put(deleteAssociationType.finally(action.id));
   }
 
   return response;
@@ -607,21 +607,21 @@ function* getAllAssociationTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
 }
 
-function* getAllAssociationTypesWorker() :Generator<*, Response, *> {
+function* getAllAssociationTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
 
   const response :Response = {};
 
   try {
-    yield put(getAllAssociationTypes.request());
+    yield put(getAllAssociationTypes.request(action.id, action.value));
     response.data = yield call(EntityDataModelApi.getAllAssociationTypes);
-    yield put(getAllAssociationTypes.success(response.data));
+    yield put(getAllAssociationTypes.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllAssociationTypes.failure(response.error));
+    yield put(getAllAssociationTypes.failure(action.id, response.error));
   }
   finally {
-    yield put(getAllAssociationTypes.finally());
+    yield put(getAllAssociationTypes.finally(action.id));
   }
 
   return response;
@@ -642,18 +642,18 @@ function* updateAssociationTypeMetaDataWorker(action :SequenceAction) :Generator
 
   try {
     // action.value is expected to be an object containing the AssociationType's EntityType id and metadata
-    yield put(updateAssociationTypeMetaData.request(action.value));
+    yield put(updateAssociationTypeMetaData.request(action.id, action.value));
     const { id, metadata } = action.value;
     // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
     response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
-    yield put(updateAssociationTypeMetaData.success(response.data));
+    yield put(updateAssociationTypeMetaData.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateAssociationTypeMetaData.failure(response.error));
+    yield put(updateAssociationTypeMetaData.failure(action.id, response.error));
   }
   finally {
-    yield put(updateAssociationTypeMetaData.finally());
+    yield put(updateAssociationTypeMetaData.finally(action.id));
   }
 
   return response;
