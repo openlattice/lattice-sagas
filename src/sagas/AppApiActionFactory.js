@@ -3,21 +3,21 @@
  */
 import { newRequestSequence } from 'redux-reqseq';
 
-const FETCH_APP :'FETCH_APP' = 'FETCH_APP';
-const fetchApp :RequestSequence = newRequestSequence(FETCH_APP);
+const GET_APP :'GET_APP' = 'GET_APP';
+const getApp :RequestSequence = newRequestSequence(GET_APP);
 
-const FETCH_APP_CONFIGS :'FETCH_APP_CONFIGS' = 'FETCH_APP_CONFIGS';
-const fetchAppConfigs :RequestSequence = newRequestSequence(FETCH_APP_CONFIGS);
+const GET_APP_CONFIGS :'GET_APP_CONFIGS' = 'GET_APP_CONFIGS';
+const getAppConfigs :RequestSequence = newRequestSequence(GET_APP_CONFIGS);
 
-const FETCH_APP_TYPES :'FETCH_APP_TYPES' = 'FETCH_APP_TYPES';
-const fetchAppTypes :RequestSequence = newRequestSequence(FETCH_APP_TYPES);
+const GET_APP_TYPES :'GET_APP_TYPES' = 'GET_APP_TYPES';
+const getAppTypes :RequestSequence = newRequestSequence(GET_APP_TYPES);
 
 
 export {
-  FETCH_APP,
-  FETCH_APP_CONFIGS,
-  FETCH_APP_TYPES,
-  fetchApp,
-  fetchAppConfigs,
-  fetchAppTypes
+  GET_APP,
+  GET_APP_CONFIGS,
+  GET_APP_TYPES,
+  getApp,
+  getAppConfigs,
+  getAppTypes
 };

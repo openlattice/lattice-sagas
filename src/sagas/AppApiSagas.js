@@ -8,12 +8,12 @@ import { AppApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
-  FETCH_APP,
-  FETCH_APP_CONFIGS,
-  FETCH_APP_TYPES,
-  fetchApp,
-  fetchAppConfigs,
-  fetchAppTypes
+  GET_APP,
+  GET_APP_CONFIGS,
+  GET_APP_TYPES,
+  getApp,
+  getAppConfigs,
+  getAppTypes
 } from './AppApiActionFactory';
 
 declare type Response = {
@@ -21,77 +21,77 @@ declare type Response = {
   error ? :any;
 };
 
-export function* fetchAppWorker(action :SequenceAction) :Generator<*, *, *> {
+export function* getAppWorker(action :SequenceAction) :Generator<*, *, *> {
 
   const response :Response = {};
 
   try {
-    yield put(fetchApp.request(action.id, action.value));
+    yield put(getApp.request(action.id, action.value));
     response.data = yield call(AppApi.getAppByName, action.value);
-    yield put(fetchApp.success(action.id, response.data));
+    yield put(getApp.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(fetchApp.failure(action.id, response.error));
+    yield put(getApp.failure(action.id, response.error));
   }
   finally {
-    yield put(fetchApp.finally(action.id));
+    yield put(getApp.finally(action.id));
   }
 
   return response;
 }
 
-export function* fetchAppWatcher() :Generator<*, *, *> {
+export function* getAppWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(FETCH_APP, fetchAppWorker);
+  yield takeEvery(GET_APP, getAppWorker);
 }
 
-export function* fetchAppConfigsWorker(action :SequenceAction) :Generator<*, *, *> {
+export function* getAppConfigsWorker(action :SequenceAction) :Generator<*, *, *> {
 
   const response :Object = {};
 
   try {
-    yield put(fetchAppConfigs.request(action.id, action.value));
+    yield put(getAppConfigs.request(action.id, action.value));
     response.data = yield call(AppApi.getConfigurations, action.value);
-    yield put(fetchAppConfigs.success(action.id, response.data));
+    yield put(getAppConfigs.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(fetchAppConfigs.failure(action.id, response.error));
+    yield put(getAppConfigs.failure(action.id, response.error));
   }
   finally {
-    yield put(fetchAppConfigs.finally(action.id));
+    yield put(getAppConfigs.finally(action.id));
   }
 
   return response;
 }
 
-export function* fetchAppConfigsWatcher() :Generator<*, *, *> {
+export function* getAppConfigsWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(FETCH_APP_CONFIGS, fetchAppConfigsWorker);
+  yield takeEvery(GET_APP_CONFIGS, getAppConfigsWorker);
 }
 
-export function* fetchAppTypesWorker(action :SequenceAction) :Generator<*, *, *> {
+export function* getAppTypesWorker(action :SequenceAction) :Generator<*, *, *> {
 
   const response :Object = {};
 
   try {
-    yield put(fetchAppTypes.request(action.id, action.value));
+    yield put(getAppTypes.request(action.id, action.value));
     response.data = yield call(AppApi.getAppTypesForAppTypeIds, action.value);
-    yield put(fetchAppTypes.success(action.id, response.data));
+    yield put(getAppTypes.success(action.id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(fetchAppTypes.failure(action.id, response.error));
+    yield put(getAppTypes.failure(action.id, response.error));
   }
   finally {
-    yield put(fetchAppTypes.finally(action.id));
+    yield put(getAppTypes.finally(action.id));
   }
 
   return response;
 }
 
-export function* fetchAppTypesWatcher() :Generator<*, *, *> {
+export function* getAppTypesWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(FETCH_APP_TYPES, fetchAppTypesWorker);
+  yield takeEvery(GET_APP_TYPES, getAppTypesWorker);
 }

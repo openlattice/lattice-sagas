@@ -2,21 +2,21 @@ import randomUUID from 'uuid/v4';
 import { AppApi } from 'lattice';
 
 import {
-  FETCH_APP,
-  FETCH_APP_CONFIGS,
-  FETCH_APP_TYPES,
-  fetchApp,
-  fetchAppConfigs,
-  fetchAppTypes
+  GET_APP,
+  GET_APP_CONFIGS,
+  GET_APP_TYPES,
+  getApp,
+  getAppConfigs,
+  getAppTypes
 } from './AppApiActionFactory';
 
 import {
-  fetchAppWatcher,
-  fetchAppWorker,
-  fetchAppConfigsWatcher,
-  fetchAppConfigsWorker,
-  fetchAppTypesWatcher,
-  fetchAppTypesWorker
+  getAppWatcher,
+  getAppWorker,
+  getAppConfigsWatcher,
+  getAppConfigsWorker,
+  getAppTypesWatcher,
+  getAppTypesWorker
 } from './AppApiSagas';
 
 import {
@@ -28,108 +28,108 @@ import {
 
 describe('AppApiSagas', () => {
 
-  describe('fetchAppWatcher', () => {
-    testShouldBeGeneratorFunction(fetchAppWatcher);
+  describe('getAppWatcher', () => {
+    testShouldBeGeneratorFunction(getAppWatcher);
     testWatcherSagaShouldTakeEvery(
-      fetchAppWatcher,
-      fetchAppWorker,
-      FETCH_APP
+      getAppWatcher,
+      getAppWorker,
+      GET_APP
     );
   });
 
-  describe('fetchAppWorker', () => {
+  describe('getAppWorker', () => {
 
     const mockActionValue = {
       id: randomUUID(),
       value: 'name'
     };
 
-    testShouldBeGeneratorFunction(fetchAppWorker);
+    testShouldBeGeneratorFunction(getAppWorker);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: AppApi.getAppByName,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: fetchApp,
-      workerSagaAction: fetchApp(mockActionValue),
-      workerSagaToTest: fetchAppWorker
+      latticeApiReqSeq: getApp,
+      workerSagaAction: getApp(mockActionValue),
+      workerSagaToTest: getAppWorker
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: AppApi.getAppByName,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: fetchApp,
-      workerSagaAction: fetchApp(mockActionValue),
-      workerSagaToTest: fetchAppWorker
+      latticeApiReqSeq: getApp,
+      workerSagaAction: getApp(mockActionValue),
+      workerSagaToTest: getAppWorker
     });
   });
 
-  describe('fetchAppConfigsWatcher', () => {
-    testShouldBeGeneratorFunction(fetchAppConfigsWatcher);
+  describe('getAppConfigsWatcher', () => {
+    testShouldBeGeneratorFunction(getAppConfigsWatcher);
     testWatcherSagaShouldTakeEvery(
-      fetchAppConfigsWatcher,
-      fetchAppConfigsWorker,
-      FETCH_APP_CONFIGS
+      getAppConfigsWatcher,
+      getAppConfigsWorker,
+      GET_APP_CONFIGS
     );
   });
 
-  describe('fetchAppConfigs', () => {
+  describe('getAppConfigsWorker', () => {
 
     const mockActionValue = {
       id: randomUUID(),
       value: randomUUID()
     };
 
-    testShouldBeGeneratorFunction(fetchAppConfigsWorker);
+    testShouldBeGeneratorFunction(getAppConfigsWorker);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: AppApi.getConfigurations,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: fetchAppConfigs,
-      workerSagaAction: fetchAppConfigs(mockActionValue),
-      workerSagaToTest: fetchAppConfigsWorker
+      latticeApiReqSeq: getAppConfigs,
+      workerSagaAction: getAppConfigs(mockActionValue),
+      workerSagaToTest: getAppConfigsWorker
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: AppApi.getConfigurations,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: fetchAppConfigs,
-      workerSagaAction: fetchAppConfigs(mockActionValue),
-      workerSagaToTest: fetchAppConfigsWorker
+      latticeApiReqSeq: getAppConfigs,
+      workerSagaAction: getAppConfigs(mockActionValue),
+      workerSagaToTest: getAppConfigsWorker
     });
   });
 
-  describe('fetchAppTypesWatcher', () => {
-    testShouldBeGeneratorFunction(fetchAppTypesWatcher);
+  describe('getAppTypesWatcher', () => {
+    testShouldBeGeneratorFunction(getAppTypesWatcher);
     testWatcherSagaShouldTakeEvery(
-      fetchAppTypesWatcher,
-      fetchAppTypesWorker,
-      FETCH_APP_TYPES
+      getAppTypesWatcher,
+      getAppTypesWorker,
+      GET_APP_TYPES
     );
   });
 
-  describe('fetchAppTypes', () => {
+  describe('getAppTypes', () => {
 
     const mockActionValue = {
       id: randomUUID(),
       value: [randomUUID(), randomUUID(), randomUUID()]
     };
 
-    testShouldBeGeneratorFunction(fetchAppTypesWorker);
+    testShouldBeGeneratorFunction(getAppTypesWorker);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: AppApi.getAppTypesForAppTypeIds,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: fetchAppTypes,
-      workerSagaAction: fetchAppTypes(mockActionValue),
-      workerSagaToTest: fetchAppTypesWorker
+      latticeApiReqSeq: getAppTypes,
+      workerSagaAction: getAppTypes(mockActionValue),
+      workerSagaToTest: getAppTypesWorker
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: AppApi.getAppTypesForAppTypeIds,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: fetchAppTypes,
-      workerSagaAction: fetchAppTypes(mockActionValue),
-      workerSagaToTest: fetchAppTypesWorker
+      latticeApiReqSeq: getAppTypes,
+      workerSagaAction: getAppTypes(mockActionValue),
+      workerSagaToTest: getAppTypesWorker
     });
   });
 
