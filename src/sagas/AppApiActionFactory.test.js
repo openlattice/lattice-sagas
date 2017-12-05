@@ -29,15 +29,15 @@ describe('AppApiActionFactory', () => {
 
   describe('should export RequestSequence actions', () => {
 
-    describe('fetchApp', () => {
+    describe('getApp', () => {
       testShouldBeRequestSequenceFunction(getApp, GET_APP);
     });
 
-    describe('fetchAppConfigs', () => {
+    describe('getAppConfigs', () => {
       testShouldBeRequestSequenceFunction(getAppConfigs, GET_APP_CONFIGS);
     });
 
-    describe('fetchAppTypes', () => {
+    describe('getAppTypes', () => {
       testShouldBeRequestSequenceFunction(getAppTypes, GET_APP_TYPES);
     });
 

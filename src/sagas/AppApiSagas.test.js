@@ -39,10 +39,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppWorker', () => {
 
-    const mockActionValue = {
-      id: randomUUID(),
-      value: 'name'
-    };
+    const mockActionValue = 'name';
 
     testShouldBeGeneratorFunction(getAppWorker);
 
@@ -74,10 +71,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppConfigsWorker', () => {
 
-    const mockActionValue = {
-      id: randomUUID(),
-      value: randomUUID()
-    };
+    const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(getAppConfigsWorker);
 
@@ -109,10 +103,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppTypes', () => {
 
-    const mockActionValue = {
-      id: randomUUID(),
-      value: [randomUUID(), randomUUID(), randomUUID()]
-    };
+    const mockActionValue = [randomUUID(), randomUUID(), randomUUID()];
 
     testShouldBeGeneratorFunction(getAppTypesWorker);
 
