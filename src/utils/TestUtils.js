@@ -4,8 +4,9 @@
 
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-const GENERATOR_TAG :string = '[object Generator]';
-const GENERATOR_FUNCTION_TAG :string = '[object GeneratorFunction]';
+export const GENERATOR_TAG :string = '[object Generator]';
+export const GENERATOR_FUNCTION_TAG :string = '[object GeneratorFunction]';
+export const OBJECT_TAG :string = '[object Object]';
 
 export function testShouldBeRequestSequenceFunction(functionToTest :any, baseType :string) :void {
 

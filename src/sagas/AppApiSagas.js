@@ -21,7 +21,16 @@ declare type Response = {
   error ? :any;
 };
 
-export function* getAppWorker(action :SequenceAction) :Generator<*, *, *> {
+/*
+ * AppApi.getAppByName
+ */
+
+function* getAppWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_APP, getAppWorker);
+}
+
+function* getAppWorker(action :SequenceAction) :Generator<*, *, *> {
 
   const response :Response = {};
 
@@ -41,12 +50,16 @@ export function* getAppWorker(action :SequenceAction) :Generator<*, *, *> {
   return response;
 }
 
-export function* getAppWatcher() :Generator<*, *, *> {
+/*
+ * AppApi.getConfigurations
+ */
 
-  yield takeEvery(GET_APP, getAppWorker);
+function* getAppConfigsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_APP_CONFIGS, getAppConfigsWorker);
 }
 
-export function* getAppConfigsWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getAppConfigsWorker(action :SequenceAction) :Generator<*, *, *> {
 
   const response :Object = {};
 
@@ -66,12 +79,16 @@ export function* getAppConfigsWorker(action :SequenceAction) :Generator<*, *, *>
   return response;
 }
 
-export function* getAppConfigsWatcher() :Generator<*, *, *> {
+/*
+ * AppApi.getAppTypesForAppTypeIds
+ */
 
-  yield takeEvery(GET_APP_CONFIGS, getAppConfigsWorker);
+function* getAppTypesWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_APP_TYPES, getAppTypesWorker);
 }
 
-export function* getAppTypesWorker(action :SequenceAction) :Generator<*, *, *> {
+function* getAppTypesWorker(action :SequenceAction) :Generator<*, *, *> {
 
   const response :Object = {};
 
@@ -91,7 +108,17 @@ export function* getAppTypesWorker(action :SequenceAction) :Generator<*, *, *> {
   return response;
 }
 
-export function* getAppTypesWatcher() :Generator<*, *, *> {
+/*
+ *
+ * exports
+ *
+ */
 
-  yield takeEvery(GET_APP_TYPES, getAppTypesWorker);
-}
+export {
+  getAppWatcher,
+  getAppWorker,
+  getAppConfigsWatcher,
+  getAppConfigsWorker,
+  getAppTypesWatcher,
+  getAppTypesWorker
+};
