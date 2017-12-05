@@ -1,7 +1,7 @@
 /*
  * @flow
  */
- import { newRequestSequence } from 'redux-reqseq';
+import { newRequestSequence } from 'redux-reqseq';
 
 const FETCH_APP :'FETCH_APP' = 'FETCH_APP';
 const fetchApp :RequestSequence = newRequestSequence(FETCH_APP);

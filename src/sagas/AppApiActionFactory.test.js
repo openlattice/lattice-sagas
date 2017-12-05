@@ -5,7 +5,7 @@ import {
   fetchApp,
   fetchAppConfigs,
   fetchAppTypes
-} from './AppApiActionFactory.js'
+} from './AppApiActionFactory';
 
 import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
 
