@@ -4,8 +4,9 @@
 
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-const GENERATOR_TAG :string = '[object Generator]';
-const GENERATOR_FUNCTION_TAG :string = '[object GeneratorFunction]';
+export const GENERATOR_TAG :string = '[object Generator]';
+export const GENERATOR_FUNCTION_TAG :string = '[object GeneratorFunction]';
+export const OBJECT_TAG :string = '[object Object]';
 
 export function testShouldBeRequestSequenceFunction(functionToTest :any, baseType :string) :void {
 
@@ -64,19 +65,26 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Obje
       error: mockError
     };
 
-    let iterator = workerSagaToTest();
+    const iterator = workerSagaToTest(workerSagaAction);
     expect(Object.prototype.toString.call(iterator)).toEqual(GENERATOR_TAG);
 
-    if (workerSagaAction) {
-      iterator = workerSagaToTest(workerSagaAction);
-    }
-
     let step = iterator.next();
-    if (workerSagaAction && workerSagaAction.value) {
-      expect(step.value).toEqual(put(latticeApiReqSeq.request(workerSagaAction.value)));
+    if (workerSagaAction.value) {
+      expect(step.value).toEqual(
+        put({
+          id: workerSagaAction.id,
+          type: latticeApiReqSeq.REQUEST,
+          value: workerSagaAction.value
+        })
+      );
     }
     else {
-      expect(step.value).toEqual(put(latticeApiReqSeq.request()));
+      expect(step.value).toEqual(
+        put({
+          id: workerSagaAction.id,
+          type: latticeApiReqSeq.REQUEST
+        })
+      );
     }
 
     if (latticeApiParams && latticeApiParams.length > 0) {
@@ -89,10 +97,21 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Obje
     }
 
     step = iterator.throw(mockError);
-    expect(step.value).toEqual(put(latticeApiReqSeq.failure(mockError)));
+    expect(step.value).toEqual(
+      put({
+        id: workerSagaAction.id,
+        type: latticeApiReqSeq.FAILURE,
+        value: mockError
+      })
+    );
 
     step = iterator.next();
-    expect(step.value).toEqual(put(latticeApiReqSeq.finally()));
+    expect(step.value).toEqual(
+      put({
+        id: workerSagaAction.id,
+        type: latticeApiReqSeq.FINALLY
+      })
+    );
 
     step = iterator.next();
     expect(step.done).toEqual(true);
@@ -118,19 +137,27 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams :Obje
       data: mockApiResponse
     };
 
-    let iterator = workerSagaToTest();
-    if (workerSagaAction) {
-      iterator = workerSagaToTest(workerSagaAction);
-    }
+    const iterator = workerSagaToTest(workerSagaAction);
+    expect(Object.prototype.toString.call(iterator)).toEqual(GENERATOR_TAG);
 
     let step = iterator.next();
-    if (workerSagaAction && workerSagaAction.value) {
-      expect(step.value).toEqual(put(latticeApiReqSeq.request(workerSagaAction.value)));
+    if (workerSagaAction.value) {
+      expect(step.value).toEqual(
+        put({
+          id: workerSagaAction.id,
+          type: latticeApiReqSeq.REQUEST,
+          value: workerSagaAction.value
+        })
+      );
     }
     else {
-      expect(step.value).toEqual(put(latticeApiReqSeq.request()));
+      expect(step.value).toEqual(
+        put({
+          id: workerSagaAction.id,
+          type: latticeApiReqSeq.REQUEST
+        })
+      );
     }
-
 
     if (latticeApiParams && latticeApiParams.length > 0) {
       step = iterator.next();
@@ -142,10 +169,21 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams :Obje
     }
 
     step = iterator.next(mockApiResponse);
-    expect(step.value).toEqual(put(latticeApiReqSeq.success(mockApiResponse)));
+    expect(step.value).toEqual(
+      put({
+        id: workerSagaAction.id,
+        type: latticeApiReqSeq.SUCCESS,
+        value: mockApiResponse
+      })
+    );
 
     step = iterator.next();
-    expect(step.value).toEqual(put(latticeApiReqSeq.finally()));
+    expect(step.value).toEqual(
+      put({
+        id: workerSagaAction.id,
+        type: latticeApiReqSeq.FINALLY
+      })
+    );
 
     step = iterator.next();
     expect(step.done).toEqual(true);
