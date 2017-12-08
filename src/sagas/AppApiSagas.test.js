@@ -39,7 +39,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppWorker', () => {
 
-    const mockActionValue = 'name';
+    const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(getAppWorker);
 
