@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.13
+ * lattice-sagas - v0.0.14
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -16,7 +16,7 @@
 		exports["LatticeSagas"] = factory(require("redux-reqseq"), require("lattice"), require("redux-saga/effects"));
 	else
 		root["LatticeSagas"] = factory(root["redux-reqseq"], root["lattice"], root["redux-saga/effects"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -79,11 +79,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,7 +112,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getAppTypes = exports.getAppConfigs = exports.getApp = exports.GET_APP_TYPES = exports.GET_APP_CONFIGS = exports.GET_APP = undefined;
 
-var _reduxReqseq = __webpack_require__(1);
+var _reduxReqseq = __webpack_require__(0);
 
 var GET_APP = 'GET_APP';
 
@@ -114,24 +132,6 @@ exports.getAppConfigs = getAppConfigs;
 exports.getAppTypes = getAppTypes;
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -143,7 +143,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = undefined;
 
-var _reduxReqseq = __webpack_require__(1);
+var _reduxReqseq = __webpack_require__(0);
 
 /*
  *
@@ -282,54 +282,29 @@ exports.updatePropertyTypeMetaData = updatePropertyTypeMetaData;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(6);
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.version = exports.EntityDataModelApiSagas = exports.EntityDataModelApiActionFactory = exports.AppApiSagas = exports.AppApiActionFactory = undefined;
+exports.searchEntitySetData = exports.SEARCH_ENTITY_SET_DATA = undefined;
 
-var _AppApiActionFactory = __webpack_require__(0);
+var _reduxReqseq = __webpack_require__(0);
 
-var AppApiActionFactory = _interopRequireWildcard(_AppApiActionFactory);
+var SEARCH_ENTITY_SET_DATA = 'SEARCH_ENTITY_SET_DATA';
 
-var _AppApiSagas = __webpack_require__(7);
+var searchEntitySetData = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_SET_DATA);
 
-var AppApiSagas = _interopRequireWildcard(_AppApiSagas);
+exports.SEARCH_ENTITY_SET_DATA = SEARCH_ENTITY_SET_DATA;
+exports.searchEntitySetData = searchEntitySetData;
 
-var _EntityDataModelApiActionFactory = __webpack_require__(4);
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var EntityDataModelApiActionFactory = _interopRequireWildcard(_EntityDataModelApiActionFactory);
+module.exports = __webpack_require__(7);
 
-var _EntityDataModelApiSagas = __webpack_require__(8);
-
-var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-// injected by Webpack.DefinePlugin
-var version = "v0.0.13";
-
-exports.AppApiActionFactory = AppApiActionFactory;
-exports.AppApiSagas = AppApiSagas;
-exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
-exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
-exports.version = version;
-exports.default = {
-  AppApiActionFactory: AppApiActionFactory,
-  AppApiSagas: AppApiSagas,
-  EntityDataModelApiActionFactory: EntityDataModelApiActionFactory,
-  EntityDataModelApiSagas: EntityDataModelApiSagas,
-  version: version
-};
 
 /***/ }),
 /* 7 */
@@ -341,13 +316,71 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.version = exports.SearchApiSagas = exports.SearchApiActionFactory = exports.EntityDataModelApiSagas = exports.EntityDataModelApiActionFactory = exports.AppApiSagas = exports.AppApiActionFactory = undefined;
+
+var _AppApiActionFactory = __webpack_require__(3);
+
+var AppApiActionFactory = _interopRequireWildcard(_AppApiActionFactory);
+
+var _AppApiSagas = __webpack_require__(8);
+
+var AppApiSagas = _interopRequireWildcard(_AppApiSagas);
+
+var _EntityDataModelApiActionFactory = __webpack_require__(4);
+
+var EntityDataModelApiActionFactory = _interopRequireWildcard(_EntityDataModelApiActionFactory);
+
+var _EntityDataModelApiSagas = __webpack_require__(9);
+
+var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
+
+var _SearchApiActionFactory = __webpack_require__(5);
+
+var SearchApiActionFactory = _interopRequireWildcard(_SearchApiActionFactory);
+
+var _SearchApiSagas = __webpack_require__(10);
+
+var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+// injected by Webpack.DefinePlugin
+var version = "v0.0.14";
+
+exports.AppApiActionFactory = AppApiActionFactory;
+exports.AppApiSagas = AppApiSagas;
+exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
+exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
+exports.SearchApiActionFactory = SearchApiActionFactory;
+exports.SearchApiSagas = SearchApiSagas;
+exports.version = version;
+exports.default = {
+  AppApiActionFactory: AppApiActionFactory,
+  AppApiSagas: AppApiSagas,
+  EntityDataModelApiActionFactory: EntityDataModelApiActionFactory,
+  EntityDataModelApiSagas: EntityDataModelApiSagas,
+  SearchApiActionFactory: SearchApiActionFactory,
+  SearchApiSagas: SearchApiSagas,
+  version: version
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.getAppTypesWorker = exports.getAppTypesWatcher = exports.getAppConfigsWorker = exports.getAppConfigsWatcher = exports.getAppWorker = exports.getAppWatcher = undefined;
 
-var _lattice = __webpack_require__(2);
+var _lattice = __webpack_require__(1);
 
-var _effects = __webpack_require__(3);
+var _effects = __webpack_require__(2);
 
-var _AppApiActionFactory = __webpack_require__(0);
+var _AppApiActionFactory = __webpack_require__(3);
 
 var _marked = /*#__PURE__*/regeneratorRuntime.mark(getAppWatcher),
     _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getAppWorker),
@@ -585,7 +618,7 @@ exports.getAppTypesWatcher = getAppTypesWatcher;
 exports.getAppTypesWorker = getAppTypesWorker;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -596,9 +629,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = undefined;
 
-var _lattice = __webpack_require__(2);
+var _lattice = __webpack_require__(1);
 
-var _effects = __webpack_require__(3);
+var _effects = __webpack_require__(2);
 
 var _EntityDataModelApiActionFactory = __webpack_require__(4);
 
@@ -2081,6 +2114,103 @@ exports.updateEntityTypeMetaDataWatcher = updateEntityTypeMetaDataWatcher;
 exports.updateEntityTypeMetaDataWorker = updateEntityTypeMetaDataWorker;
 exports.updatePropertyTypeMetaDataWatcher = updatePropertyTypeMetaDataWatcher;
 exports.updatePropertyTypeMetaDataWorker = updatePropertyTypeMetaDataWorker;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.searchEntitySetDataWorker = exports.searchEntitySetDataWatcher = undefined;
+
+var _lattice = __webpack_require__(1);
+
+var _effects = __webpack_require__(2);
+
+var _SearchApiActionFactory = __webpack_require__(5);
+
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWatcher),
+    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWorker);
+
+/* eslint-disable no-use-before-define */
+
+/*
+ * SearchApi.searchEntitySetData
+ */
+
+function searchEntitySetDataWatcher() {
+  return regeneratorRuntime.wrap(function searchEntitySetDataWatcher$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
+
+        case 2:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+function searchEntitySetDataWorker(action) {
+  var response;
+  return regeneratorRuntime.wrap(function searchEntitySetDataWorker$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          response = {};
+          _context2.prev = 1;
+          _context2.next = 4;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.request(action.id, action.value));
+
+        case 4:
+          _context2.next = 6;
+          return (0, _effects.call)(_lattice.SearchApi.searchEntitySetData, action.value.entitySetId, action.value.searchOptions);
+
+        case 6:
+          response.data = _context2.sent;
+          _context2.next = 9;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.success(action.id, response.data));
+
+        case 9:
+          _context2.next = 16;
+          break;
+
+        case 11:
+          _context2.prev = 11;
+          _context2.t0 = _context2['catch'](1);
+
+          response.error = _context2.t0;
+          _context2.next = 16;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.failure(action.id, response.error));
+
+        case 16:
+          _context2.prev = 16;
+          _context2.next = 19;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.finally(action.id));
+
+        case 19:
+          return _context2.finish(16);
+
+        case 20:
+          return _context2.abrupt('return', response);
+
+        case 21:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, _marked2, this, [[1, 11, 16, 20]]);
+}
+
+exports.searchEntitySetDataWatcher = searchEntitySetDataWatcher;
+exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
 
 /***/ })
 /******/ ]);
