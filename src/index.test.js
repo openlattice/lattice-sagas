@@ -37,4 +37,16 @@ describe('lattice-sagas library export', () => {
     expect(Object.keys(LatticeSagas.EntityDataModelApiSagas).length % 2).toEqual(0);
   });
 
+  test('should expose SearchApiActionFactory', () => {
+    expect(Object.prototype.toString.call(LatticeSagas.SearchApiActionFactory)).toEqual(OBJECT_TAG);
+    expect(Object.keys(LatticeSagas.SearchApiActionFactory).length).toBeGreaterThan(0);
+    expect(Object.keys(LatticeSagas.SearchApiActionFactory).length % 2).toEqual(0);
+  });
+
+  test('should expose SearchApiSagas', () => {
+    expect(Object.prototype.toString.call(LatticeSagas.SearchApiSagas)).toEqual(OBJECT_TAG);
+    expect(Object.keys(LatticeSagas.SearchApiSagas).length).toBeGreaterThan(0);
+    expect(Object.keys(LatticeSagas.SearchApiSagas).length % 2).toEqual(0);
+  });
+
 });
