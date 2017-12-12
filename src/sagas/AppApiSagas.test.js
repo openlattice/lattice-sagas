@@ -28,6 +28,12 @@ import {
 
 describe('AppApiSagas', () => {
 
+  /*
+   *
+   * AppApiActionFactory.getApp
+   *
+   */
+
   describe('getAppWatcher', () => {
     testShouldBeGeneratorFunction(getAppWatcher);
     testWatcherSagaShouldTakeEvery(
@@ -60,6 +66,12 @@ describe('AppApiSagas', () => {
     });
   });
 
+  /*
+   *
+   * AppApiActionFactory.getAppConfigs
+   *
+   */
+
   describe('getAppConfigsWatcher', () => {
     testShouldBeGeneratorFunction(getAppConfigsWatcher);
     testWatcherSagaShouldTakeEvery(
@@ -91,6 +103,12 @@ describe('AppApiSagas', () => {
       workerSagaToTest: getAppConfigsWorker
     });
   });
+
+  /*
+   *
+   * AppApiActionFactory.getAppTypes
+   *
+   */
 
   describe('getAppTypesWatcher', () => {
     testShouldBeGeneratorFunction(getAppTypesWatcher);
