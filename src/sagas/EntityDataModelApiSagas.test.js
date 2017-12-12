@@ -102,6 +102,12 @@ describe('EntityDataModelApiSagas', () => {
    *
    */
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.getEntityDataModel
+   *
+   */
+
   describe('getEntityDataModelWatcher', () => {
 
     testShouldBeGeneratorFunction(getEntityDataModelWatcher);
@@ -132,6 +138,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getEntityDataModelWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.getEntityDataModelProjection
+   *
+   */
 
   describe('getEntityDataModelProjectionWatcher', () => {
 
@@ -172,6 +184,12 @@ describe('EntityDataModelApiSagas', () => {
    *
    */
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.getEntitySet
+   *
+   */
+
   describe('getEntitySetWatcher', () => {
 
     testShouldBeGeneratorFunction(getEntitySetWatcher);
@@ -205,6 +223,12 @@ describe('EntityDataModelApiSagas', () => {
     });
   });
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.getEntitySetId
+   *
+   */
+
   describe('getEntitySetIdWatcher', () => {
 
     testShouldBeGeneratorFunction(getEntitySetIdWatcher);
@@ -237,6 +261,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getEntitySetIdWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.updateEntitySetMetaData
+   *
+   */
 
   describe('updateEntitySetMetaDataWatcher', () => {
 
@@ -280,6 +310,12 @@ describe('EntityDataModelApiSagas', () => {
    *
    */
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.createEntityType
+   *
+   */
+
   describe('createEntityTypeWatcher', () => {
 
     testShouldBeGeneratorFunction(createEntityTypeWatcher);
@@ -310,6 +346,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: createEntityTypeWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.deleteEntityType
+   *
+   */
 
   describe('deleteEntityTypeWatcher', () => {
 
@@ -342,6 +384,12 @@ describe('EntityDataModelApiSagas', () => {
     });
   });
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.getAllEntityTypes
+   *
+   */
+
   describe('getAllEntityTypesWatcher', () => {
 
     testShouldBeGeneratorFunction(getAllEntityTypesWatcher);
@@ -372,6 +420,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getAllEntityTypesWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.getEntityType
+   *
+   */
 
   describe('getEntityTypeWatcher', () => {
 
@@ -405,6 +459,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getEntityTypeWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.updateEntityTypeMetaData
+   *
+   */
 
   describe('updateEntityTypeMetaDataWatcher', () => {
 
@@ -448,6 +508,12 @@ describe('EntityDataModelApiSagas', () => {
    *
    */
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.createPropertyType
+   *
+   */
+
   describe('createPropertyTypeWatcher', () => {
 
     testShouldBeGeneratorFunction(createPropertyTypeWatcher);
@@ -478,6 +544,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: createPropertyTypeWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.deletePropertyType
+   *
+   */
 
   describe('deletePropertyTypeWatcher', () => {
 
@@ -510,6 +582,12 @@ describe('EntityDataModelApiSagas', () => {
     });
   });
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.getAllPropertyTypes
+   *
+   */
+
   describe('getAllPropertyTypesWatcher', () => {
 
     testShouldBeGeneratorFunction(getAllPropertyTypesWatcher);
@@ -540,6 +618,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getAllPropertyTypesWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.getPropertyType
+   *
+   */
 
   describe('getPropertyTypeWatcher', () => {
 
@@ -573,6 +657,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getPropertyTypeWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.updatePropertyTypeMetaData
+   *
+   */
 
   describe('updatePropertyTypeMetaDataWatcher', () => {
 
@@ -616,6 +706,12 @@ describe('EntityDataModelApiSagas', () => {
    *
    */
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.createAssociationType
+   *
+   */
+
   describe('createAssociationTypeWatcher', () => {
 
     testShouldBeGeneratorFunction(createAssociationTypeWatcher);
@@ -646,6 +742,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: createAssociationTypeWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.deleteAssociationType
+   *
+   */
 
   describe('deleteAssociationTypeWatcher', () => {
 
@@ -678,6 +780,12 @@ describe('EntityDataModelApiSagas', () => {
     });
   });
 
+  /*
+   *
+   * EntityDataModelApiActionFactory.getAllAssociationTypes
+   *
+   */
+
   describe('getAllAssociationTypesWatcher', () => {
 
     testShouldBeGeneratorFunction(getAllAssociationTypesWatcher);
@@ -708,6 +816,12 @@ describe('EntityDataModelApiSagas', () => {
       workerSagaToTest: getAllAssociationTypesWorker
     });
   });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.updateAssociationTypeMetaData
+   *
+   */
 
   describe('updateAssociationTypeMetaDataWatcher', () => {
 

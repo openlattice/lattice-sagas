@@ -6,11 +6,15 @@ import randomUUID from 'uuid/v4';
 import { SearchApi } from 'lattice';
 
 import {
+  SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_SET_DATA,
+  searchEntityNeighbors,
   searchEntitySetData
 } from './SearchApiActionFactory';
 
 import {
+  searchEntityNeighborsWatcher,
+  searchEntityNeighborsWorker,
   searchEntitySetDataWatcher,
   searchEntitySetDataWorker
 } from './SearchApiSagas';
@@ -23,6 +27,54 @@ import {
 } from '../utils/TestUtils';
 
 describe('SearchApiSagas', () => {
+
+  /*
+   *
+   * SearchApiActionFactory.searchEntityNeighbors
+   *
+   */
+
+  describe('searchEntityNeighborsWatcher', () => {
+    testShouldBeGeneratorFunction(searchEntityNeighborsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      searchEntityNeighborsWatcher,
+      searchEntityNeighborsWorker,
+      SEARCH_ENTITY_NEIGHBORS
+    );
+  });
+
+  describe('searchEntityNeighborsWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      entityId: randomUUID()
+    };
+
+    testShouldBeGeneratorFunction(searchEntityNeighborsWorker);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: SearchApi.searchEntityNeighbors,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityId],
+      latticeApiReqSeq: searchEntityNeighbors,
+      workerSagaAction: searchEntityNeighbors(mockActionValue),
+      workerSagaToTest: searchEntityNeighborsWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.searchEntityNeighbors,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityId],
+      latticeApiReqSeq: searchEntityNeighbors,
+      workerSagaAction: searchEntityNeighbors(mockActionValue),
+      workerSagaToTest: searchEntityNeighborsWorker
+    });
+
+  });
+
+  /*
+   *
+   * SearchApiActionFactory.searchEntitySetData
+   *
+   */
 
   describe('searchEntitySetDataWatcher', () => {
     testShouldBeGeneratorFunction(searchEntitySetDataWatcher);
