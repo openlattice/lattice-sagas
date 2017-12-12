@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.14
+ * lattice-sagas - v0.0.15
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -288,15 +288,20 @@ exports.updatePropertyTypeMetaData = updatePropertyTypeMetaData;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchEntitySetData = exports.SEARCH_ENTITY_SET_DATA = undefined;
+exports.searchEntitySetData = exports.searchEntityNeighbors = exports.SEARCH_ENTITY_SET_DATA = exports.SEARCH_ENTITY_NEIGHBORS = undefined;
 
 var _reduxReqseq = __webpack_require__(0);
 
-var SEARCH_ENTITY_SET_DATA = 'SEARCH_ENTITY_SET_DATA';
+var SEARCH_ENTITY_NEIGHBORS = 'SEARCH_ENTITY_NEIGHBORS';
 
+var searchEntityNeighbors = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_NEIGHBORS);
+
+var SEARCH_ENTITY_SET_DATA = 'SEARCH_ENTITY_SET_DATA';
 var searchEntitySetData = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_SET_DATA);
 
+exports.SEARCH_ENTITY_NEIGHBORS = SEARCH_ENTITY_NEIGHBORS;
 exports.SEARCH_ENTITY_SET_DATA = SEARCH_ENTITY_SET_DATA;
+exports.searchEntityNeighbors = searchEntityNeighbors;
 exports.searchEntitySetData = searchEntitySetData;
 
 /***/ }),
@@ -345,7 +350,7 @@ var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.14";
+var version = "v0.0.15";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
@@ -2125,7 +2130,7 @@ exports.updatePropertyTypeMetaDataWorker = updatePropertyTypeMetaDataWorker;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchEntitySetDataWorker = exports.searchEntitySetDataWatcher = undefined;
+exports.searchEntitySetDataWorker = exports.searchEntitySetDataWatcher = exports.searchEntityNeighborsWorker = exports.searchEntityNeighborsWatcher = undefined;
 
 var _lattice = __webpack_require__(1);
 
@@ -2133,22 +2138,24 @@ var _effects = __webpack_require__(2);
 
 var _SearchApiActionFactory = __webpack_require__(5);
 
-var _marked = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWatcher),
-    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWorker);
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsWatcher),
+    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsWorker),
+    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWatcher),
+    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWorker);
 
 /* eslint-disable no-use-before-define */
 
 /*
- * SearchApi.searchEntitySetData
+ * SearchApi.searchEntityNeighbors
  */
 
-function searchEntitySetDataWatcher() {
-  return regeneratorRuntime.wrap(function searchEntitySetDataWatcher$(_context) {
+function searchEntityNeighborsWatcher() {
+  return regeneratorRuntime.wrap(function searchEntityNeighborsWatcher$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
+          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS, searchEntityNeighborsWorker);
 
         case 2:
         case 'end':
@@ -2158,25 +2165,25 @@ function searchEntitySetDataWatcher() {
   }, _marked, this);
 }
 
-function searchEntitySetDataWorker(action) {
+function searchEntityNeighborsWorker(action) {
   var response;
-  return regeneratorRuntime.wrap(function searchEntitySetDataWorker$(_context2) {
+  return regeneratorRuntime.wrap(function searchEntityNeighborsWorker$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           response = {};
           _context2.prev = 1;
           _context2.next = 4;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.request(action.id, action.value));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.request(action.id, action.value));
 
         case 4:
           _context2.next = 6;
-          return (0, _effects.call)(_lattice.SearchApi.searchEntitySetData, action.value.entitySetId, action.value.searchOptions);
+          return (0, _effects.call)(_lattice.SearchApi.searchEntityNeighbors, action.value.entitySetId, action.value.entityId);
 
         case 6:
           response.data = _context2.sent;
           _context2.next = 9;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.success(action.id, response.data));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.success(action.id, response.data));
 
         case 9:
           _context2.next = 16;
@@ -2188,12 +2195,12 @@ function searchEntitySetDataWorker(action) {
 
           response.error = _context2.t0;
           _context2.next = 16;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.failure(action.id, response.error));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.failure(action.id, response.error));
 
         case 16:
           _context2.prev = 16;
           _context2.next = 19;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.finally(action.id));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.finally(action.id));
 
         case 19:
           return _context2.finish(16);
@@ -2209,6 +2216,79 @@ function searchEntitySetDataWorker(action) {
   }, _marked2, this, [[1, 11, 16, 20]]);
 }
 
+/*
+ * SearchApi.searchEntitySetData
+ */
+
+function searchEntitySetDataWatcher() {
+  return regeneratorRuntime.wrap(function searchEntitySetDataWatcher$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
+
+        case 2:
+        case 'end':
+          return _context3.stop();
+      }
+    }
+  }, _marked3, this);
+}
+
+function searchEntitySetDataWorker(action) {
+  var response;
+  return regeneratorRuntime.wrap(function searchEntitySetDataWorker$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          response = {};
+          _context4.prev = 1;
+          _context4.next = 4;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.request(action.id, action.value));
+
+        case 4:
+          _context4.next = 6;
+          return (0, _effects.call)(_lattice.SearchApi.searchEntitySetData, action.value.entitySetId, action.value.searchOptions);
+
+        case 6:
+          response.data = _context4.sent;
+          _context4.next = 9;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.success(action.id, response.data));
+
+        case 9:
+          _context4.next = 16;
+          break;
+
+        case 11:
+          _context4.prev = 11;
+          _context4.t0 = _context4['catch'](1);
+
+          response.error = _context4.t0;
+          _context4.next = 16;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.failure(action.id, response.error));
+
+        case 16:
+          _context4.prev = 16;
+          _context4.next = 19;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.finally(action.id));
+
+        case 19:
+          return _context4.finish(16);
+
+        case 20:
+          return _context4.abrupt('return', response);
+
+        case 21:
+        case 'end':
+          return _context4.stop();
+      }
+    }
+  }, _marked4, this, [[1, 11, 16, 20]]);
+}
+
+exports.searchEntityNeighborsWatcher = searchEntityNeighborsWatcher;
+exports.searchEntityNeighborsWorker = searchEntityNeighborsWorker;
 exports.searchEntitySetDataWatcher = searchEntitySetDataWatcher;
 exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
 
