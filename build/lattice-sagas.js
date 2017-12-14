@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.15
+ * lattice-sagas - v0.0.16
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -350,7 +350,7 @@ var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.15";
+var version = "v0.0.16";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
