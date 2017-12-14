@@ -25,6 +25,18 @@ describe('lattice-sagas library export', () => {
     expect(Object.keys(LatticeSagas.AppApiSagas).length % 2).toEqual(0);
   });
 
+  test('should expose DataApiActionFactory', () => {
+    expect(Object.prototype.toString.call(LatticeSagas.DataApiActionFactory)).toEqual(OBJECT_TAG);
+    expect(Object.keys(LatticeSagas.DataApiActionFactory).length).toBeGreaterThan(0);
+    expect(Object.keys(LatticeSagas.DataApiActionFactory).length % 2).toEqual(0);
+  });
+
+  test('should expose DataApiSagas', () => {
+    expect(Object.prototype.toString.call(LatticeSagas.DataApiSagas)).toEqual(OBJECT_TAG);
+    expect(Object.keys(LatticeSagas.DataApiSagas).length).toBeGreaterThan(0);
+    expect(Object.keys(LatticeSagas.DataApiSagas).length % 2).toEqual(0);
+  });
+
   test('should expose EntityDataModelApiActionFactory', () => {
     expect(Object.prototype.toString.call(LatticeSagas.EntityDataModelApiActionFactory)).toEqual(OBJECT_TAG);
     expect(Object.keys(LatticeSagas.EntityDataModelApiActionFactory).length).toBeGreaterThan(0);
@@ -47,6 +59,18 @@ describe('lattice-sagas library export', () => {
     expect(Object.prototype.toString.call(LatticeSagas.SearchApiSagas)).toEqual(OBJECT_TAG);
     expect(Object.keys(LatticeSagas.SearchApiSagas).length).toBeGreaterThan(0);
     expect(Object.keys(LatticeSagas.SearchApiSagas).length % 2).toEqual(0);
+  });
+
+  test('should expose SyncApiActionFactory', () => {
+    expect(Object.prototype.toString.call(LatticeSagas.SyncApiActionFactory)).toEqual(OBJECT_TAG);
+    expect(Object.keys(LatticeSagas.SyncApiActionFactory).length).toBeGreaterThan(0);
+    expect(Object.keys(LatticeSagas.SyncApiActionFactory).length % 2).toEqual(0);
+  });
+
+  test('should expose SyncApiSagas', () => {
+    expect(Object.prototype.toString.call(LatticeSagas.SyncApiSagas)).toEqual(OBJECT_TAG);
+    expect(Object.keys(LatticeSagas.SyncApiSagas).length).toBeGreaterThan(0);
+    expect(Object.keys(LatticeSagas.SyncApiSagas).length % 2).toEqual(0);
   });
 
 });
