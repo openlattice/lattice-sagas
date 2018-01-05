@@ -6,6 +6,9 @@ import randomUUID from 'uuid/v4';
 import { EntityDataModelApi } from 'lattice';
 
 import {
+  ADD_DST_ET_TO_AT,
+  ADD_PROPERTY_TYPE_TO_ENTITY_TYPE,
+  ADD_SRC_ET_TO_AT,
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
@@ -21,10 +24,16 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  RM_DST_ET_FROM_AT,
+  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  RM_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  addDestinationEntityTypeToAssociationType,
+  addPropertyTypeToEntityType,
+  addSourceEntityTypeToAssociationType,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -40,6 +49,9 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  removeDestinationEntityTypeFromAssociationType,
+  removePropertyTypeFromEntityType,
+  removeSourceEntityTypeFromAssociationType,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
@@ -47,6 +59,12 @@ import {
 } from './EntityDataModelApiActionFactory';
 
 import {
+  addDestinationEntityTypeToAssociationTypeWatcher,
+  addDestinationEntityTypeToAssociationTypeWorker,
+  addPropertyTypeToEntityTypeWatcher,
+  addPropertyTypeToEntityTypeWorker,
+  addSourceEntityTypeToAssociationTypeWatcher,
+  addSourceEntityTypeToAssociationTypeWorker,
   createAssociationTypeWatcher,
   createAssociationTypeWorker,
   createEntityTypeWatcher,
@@ -77,6 +95,12 @@ import {
   getEntityTypeWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
+  removeDestinationEntityTypeFromAssociationTypeWatcher,
+  removeDestinationEntityTypeFromAssociationTypeWorker,
+  removePropertyTypeFromEntityTypeWatcher,
+  removePropertyTypeFromEntityTypeWorker,
+  removeSourceEntityTypeFromAssociationTypeWatcher,
+  removeSourceEntityTypeFromAssociationTypeWorker,
   updateAssociationTypeMetaDataWatcher,
   updateAssociationTypeMetaDataWorker,
   updateEntitySetMetaDataWatcher,
@@ -504,6 +528,90 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
+   * EntityDataModelApiActionFactory.addPropertyTypeToEntityType
+   *
+   */
+
+  describe('addPropertyTypeToEntityTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(addPropertyTypeToEntityTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      addPropertyTypeToEntityTypeWatcher,
+      addPropertyTypeToEntityTypeWorker,
+      ADD_PROPERTY_TYPE_TO_ENTITY_TYPE
+    );
+  });
+
+  describe('addPropertyTypeToEntityTypeWorker', () => {
+
+    testShouldBeGeneratorFunction(addPropertyTypeToEntityTypeWorker);
+
+    const mockActionValue = {
+      entityTypeId: randomUUID(),
+      propertyTypeId: randomUUID()
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.addPropertyTypeToEntityType,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.propertyTypeId],
+      latticeApiReqSeq: addPropertyTypeToEntityType,
+      workerSagaAction: addPropertyTypeToEntityType(mockActionValue),
+      workerSagaToTest: addPropertyTypeToEntityTypeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.addPropertyTypeToEntityType,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.propertyTypeId],
+      latticeApiReqSeq: addPropertyTypeToEntityType,
+      workerSagaAction: addPropertyTypeToEntityType(mockActionValue),
+      workerSagaToTest: addPropertyTypeToEntityTypeWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.removePropertyTypeFromEntityType
+   *
+   */
+
+  describe('removePropertyTypeFromEntityTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(removePropertyTypeFromEntityTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      removePropertyTypeFromEntityTypeWatcher,
+      removePropertyTypeFromEntityTypeWorker,
+      RM_PROPERTY_TYPE_FROM_ENTITY_TYPE
+    );
+  });
+
+  describe('removePropertyTypeFromEntityTypeWorker', () => {
+
+    testShouldBeGeneratorFunction(removePropertyTypeFromEntityTypeWorker);
+
+    const mockActionValue = {
+      entityTypeId: randomUUID(),
+      propertyTypeId: randomUUID()
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.removePropertyTypeFromEntityType,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.propertyTypeId],
+      latticeApiReqSeq: removePropertyTypeFromEntityType,
+      workerSagaAction: removePropertyTypeFromEntityType(mockActionValue),
+      workerSagaToTest: removePropertyTypeFromEntityTypeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.removePropertyTypeFromEntityType,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.propertyTypeId],
+      latticeApiReqSeq: removePropertyTypeFromEntityType,
+      workerSagaAction: removePropertyTypeFromEntityType(mockActionValue),
+      workerSagaToTest: removePropertyTypeFromEntityTypeWorker
+    });
+  });
+
+  /*
+   *
    * PropertyType APIs
    *
    */
@@ -857,6 +965,174 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: updateAssociationTypeMetaData,
       workerSagaAction: updateAssociationTypeMetaData(mockActionValue),
       workerSagaToTest: updateAssociationTypeMetaDataWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.addDestinationEntityTypeToAssociationType
+   *
+   */
+
+  describe('addDestinationEntityTypeToAssociationTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(addDestinationEntityTypeToAssociationTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      addDestinationEntityTypeToAssociationTypeWatcher,
+      addDestinationEntityTypeToAssociationTypeWorker,
+      ADD_DST_ET_TO_AT
+    );
+  });
+
+  describe('addDestinationEntityTypeToAssociationTypeWorker', () => {
+
+    testShouldBeGeneratorFunction(addDestinationEntityTypeToAssociationTypeWorker);
+
+    const mockActionValue = {
+      associationTypeId: randomUUID(),
+      entityTypeId: randomUUID()
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.addDstEntityTypeToAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: addDestinationEntityTypeToAssociationType,
+      workerSagaAction: addDestinationEntityTypeToAssociationType(mockActionValue),
+      workerSagaToTest: addDestinationEntityTypeToAssociationTypeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.addDstEntityTypeToAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: addDestinationEntityTypeToAssociationType,
+      workerSagaAction: addDestinationEntityTypeToAssociationType(mockActionValue),
+      workerSagaToTest: addDestinationEntityTypeToAssociationTypeWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.addSourceEntityTypeToAssociationType
+   *
+   */
+
+  describe('addSourceEntityTypeToAssociationTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(addSourceEntityTypeToAssociationTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      addSourceEntityTypeToAssociationTypeWatcher,
+      addSourceEntityTypeToAssociationTypeWorker,
+      ADD_SRC_ET_TO_AT
+    );
+  });
+
+  describe('addSourceEntityTypeToAssociationTypeWorker', () => {
+
+    testShouldBeGeneratorFunction(addSourceEntityTypeToAssociationTypeWorker);
+
+    const mockActionValue = {
+      associationTypeId: randomUUID(),
+      entityTypeId: randomUUID()
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.addSrcEntityTypeToAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: addSourceEntityTypeToAssociationType,
+      workerSagaAction: addSourceEntityTypeToAssociationType(mockActionValue),
+      workerSagaToTest: addSourceEntityTypeToAssociationTypeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.addSrcEntityTypeToAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: addSourceEntityTypeToAssociationType,
+      workerSagaAction: addSourceEntityTypeToAssociationType(mockActionValue),
+      workerSagaToTest: addSourceEntityTypeToAssociationTypeWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.removeDestinationEntityTypeFromAssociationType
+   *
+   */
+
+  describe('removeDestinationEntityTypeFromAssociationTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(removeDestinationEntityTypeFromAssociationTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      removeDestinationEntityTypeFromAssociationTypeWatcher,
+      removeDestinationEntityTypeFromAssociationTypeWorker,
+      RM_DST_ET_FROM_AT
+    );
+  });
+
+  describe('removeDestinationEntityTypeFromAssociationTypeWorker', () => {
+
+    testShouldBeGeneratorFunction(removeDestinationEntityTypeFromAssociationTypeWorker);
+
+    const mockActionValue = {
+      associationTypeId: randomUUID(),
+      entityTypeId: randomUUID()
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.removeDstEntityTypeFromAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: removeDestinationEntityTypeFromAssociationType,
+      workerSagaAction: removeDestinationEntityTypeFromAssociationType(mockActionValue),
+      workerSagaToTest: removeDestinationEntityTypeFromAssociationTypeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.removeDstEntityTypeFromAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: removeDestinationEntityTypeFromAssociationType,
+      workerSagaAction: removeDestinationEntityTypeFromAssociationType(mockActionValue),
+      workerSagaToTest: removeDestinationEntityTypeFromAssociationTypeWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.removeSourceEntityTypeFromAssociationType
+   *
+   */
+
+  describe('removeSourceEntityTypeFromAssociationTypeWatcher', () => {
+
+    testShouldBeGeneratorFunction(removeSourceEntityTypeFromAssociationTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      removeSourceEntityTypeFromAssociationTypeWatcher,
+      removeSourceEntityTypeFromAssociationTypeWorker,
+      RM_SRC_ET_FROM_AT
+    );
+  });
+
+  describe('removeSourceEntityTypeFromAssociationTypeWorker', () => {
+
+    testShouldBeGeneratorFunction(removeSourceEntityTypeFromAssociationTypeWorker);
+
+    const mockActionValue = {
+      associationTypeId: randomUUID(),
+      entityTypeId: randomUUID()
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.removeSrcEntityTypeFromAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: removeSourceEntityTypeFromAssociationType,
+      workerSagaAction: removeSourceEntityTypeFromAssociationType(mockActionValue),
+      workerSagaToTest: removeSourceEntityTypeFromAssociationTypeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.removeSrcEntityTypeFromAssociationType,
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.entityTypeId],
+      latticeApiReqSeq: removeSourceEntityTypeFromAssociationType,
+      workerSagaAction: removeSourceEntityTypeFromAssociationType(mockActionValue),
+      workerSagaToTest: removeSourceEntityTypeFromAssociationTypeWorker
     });
   });
 
