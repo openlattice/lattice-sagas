@@ -52,6 +52,12 @@ const getEntityType :RequestSequence = newRequestSequence(GET_ENTITY_TYPE);
 const UPDATE_ENTITY_TYPE_METADATA :'UPDATE_ENTITY_TYPE_METADATA' = 'UPDATE_ENTITY_TYPE_METADATA';
 const updateEntityTypeMetaData :RequestSequence = newRequestSequence(UPDATE_ENTITY_TYPE_METADATA);
 
+const ADD_PROPERTY_TYPE_TO_ENTITY_TYPE :'ADD_PROPERTY_TYPE_TO_ENTITY_TYPE' = 'ADD_PROPERTY_TYPE_TO_ENTITY_TYPE';
+const addPropertyTypeToEntityType :RequestSequence = newRequestSequence(ADD_PROPERTY_TYPE_TO_ENTITY_TYPE);
+
+const RM_PROPERTY_TYPE_FROM_ENTITY_TYPE :'RM_PROPERTY_TYPE_FROM_ENTITY_TYPE' = 'RM_PROPERTY_TYPE_FROM_ENTITY_TYPE';
+const removePropertyTypeFromEntityType :RequestSequence = newRequestSequence(RM_PROPERTY_TYPE_FROM_ENTITY_TYPE);
+
 /*
  *
  * PropertyType APIs
@@ -91,6 +97,18 @@ const getAllAssociationTypes :RequestSequence = newRequestSequence(GET_ALL_ASSOC
 const UPDATE_ASSOCIATION_TYPE_METADATA :'UPDATE_ASSOCIATION_TYPE_METADATA' = 'UPDATE_ASSOCIATION_TYPE_METADATA';
 const updateAssociationTypeMetaData :RequestSequence = newRequestSequence(UPDATE_ASSOCIATION_TYPE_METADATA);
 
+const ADD_DST_ET_TO_AT :'ADD_DST_ET_TO_AT' = 'ADD_DST_ET_TO_AT';
+const addDestinationEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_DST_ET_TO_AT);
+
+const ADD_SRC_ET_TO_AT :'ADD_SRC_ET_TO_AT' = 'ADD_SRC_ET_TO_AT';
+const addSourceEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_SRC_ET_TO_AT);
+
+const RM_DST_ET_FROM_AT :'RM_DST_ET_FROM_AT' = 'RM_DST_ET_FROM_AT';
+const removeDestinationEntityTypeFromAssociationType :RequestSequence = newRequestSequence(RM_DST_ET_FROM_AT);
+
+const RM_SRC_ET_FROM_AT :'RM_SRC_ET_FROM_AT' = 'RM_SRC_ET_FROM_AT';
+const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSequence(RM_SRC_ET_FROM_AT);
+
 /*
  *
  * exports
@@ -98,6 +116,9 @@ const updateAssociationTypeMetaData :RequestSequence = newRequestSequence(UPDATE
  */
 
 export {
+  ADD_DST_ET_TO_AT,
+  ADD_PROPERTY_TYPE_TO_ENTITY_TYPE,
+  ADD_SRC_ET_TO_AT,
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
@@ -113,10 +134,16 @@ export {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  RM_DST_ET_FROM_AT,
+  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  RM_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  addDestinationEntityTypeToAssociationType,
+  addPropertyTypeToEntityType,
+  addSourceEntityTypeToAssociationType,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -132,6 +159,9 @@ export {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  removeDestinationEntityTypeFromAssociationType,
+  removePropertyTypeFromEntityType,
+  removeSourceEntityTypeFromAssociationType,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,

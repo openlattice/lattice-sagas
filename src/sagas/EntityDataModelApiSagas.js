@@ -8,6 +8,9 @@ import { EntityDataModelApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
+  ADD_DST_ET_TO_AT,
+  ADD_PROPERTY_TYPE_TO_ENTITY_TYPE,
+  ADD_SRC_ET_TO_AT,
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
@@ -23,10 +26,16 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  RM_DST_ET_FROM_AT,
+  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  RM_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  addDestinationEntityTypeToAssociationType,
+  addPropertyTypeToEntityType,
+  addSourceEntityTypeToAssociationType,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -42,6 +51,9 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  removeDestinationEntityTypeFromAssociationType,
+  removePropertyTypeFromEntityType,
+  removeSourceEntityTypeFromAssociationType,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
@@ -377,6 +389,68 @@ function* updateEntityTypeMetaDataWorker(action :SequenceAction) :Generator<*, R
 }
 
 /*
+ * EntityDataModelApi.addPropertyTypeToEntityType
+ */
+
+function* addPropertyTypeToEntityTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(ADD_PROPERTY_TYPE_TO_ENTITY_TYPE, addPropertyTypeToEntityTypeWorker);
+}
+
+function* addPropertyTypeToEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the EntityType id and the PropertyType id
+    yield put(addPropertyTypeToEntityType.request(action.id, action.value));
+    const { entityTypeId, propertyTypeId } = action.value;
+    response.data = yield call(EntityDataModelApi.addPropertyTypeToEntityType, entityTypeId, propertyTypeId);
+    yield put(addPropertyTypeToEntityType.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(addPropertyTypeToEntityType.failure(action.id, response.error));
+  }
+  finally {
+    yield put(addPropertyTypeToEntityType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.removePropertyTypeFromEntityType
+ */
+
+function* removePropertyTypeFromEntityTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(RM_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
+}
+
+function* removePropertyTypeFromEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the EntityType id and the PropertyType id
+    yield put(removePropertyTypeFromEntityType.request(action.id, action.value));
+    const { entityTypeId, propertyTypeId } = action.value;
+    response.data = yield call(EntityDataModelApi.removePropertyTypeFromEntityType, entityTypeId, propertyTypeId);
+    yield put(removePropertyTypeFromEntityType.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(removePropertyTypeFromEntityType.failure(action.id, response.error));
+  }
+  finally {
+    yield put(removePropertyTypeFromEntityType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
  *
  * PropertyType APIs
  *
@@ -660,12 +734,162 @@ function* updateAssociationTypeMetaDataWorker(action :SequenceAction) :Generator
 }
 
 /*
+ * EntityDataModelApi.addDstEntityTypeToAssociationType
+ */
+
+function* addDestinationEntityTypeToAssociationTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(ADD_DST_ET_TO_AT, addDestinationEntityTypeToAssociationTypeWorker);
+}
+
+function* addDestinationEntityTypeToAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // and the EntityType id being added
+    yield put(addDestinationEntityTypeToAssociationType.request(action.id, action.value));
+    const { associationTypeId, entityTypeId } = action.value;
+    response.data = yield call(
+      EntityDataModelApi.addDstEntityTypeToAssociationType,
+      associationTypeId,
+      entityTypeId
+    );
+    yield put(addDestinationEntityTypeToAssociationType.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(addDestinationEntityTypeToAssociationType.failure(action.id, response.error));
+  }
+  finally {
+    yield put(addDestinationEntityTypeToAssociationType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.addSrcEntityTypeToAssociationType
+ */
+
+function* addSourceEntityTypeToAssociationTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(ADD_SRC_ET_TO_AT, addSourceEntityTypeToAssociationTypeWorker);
+}
+
+function* addSourceEntityTypeToAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // and the EntityType id being added
+    yield put(addSourceEntityTypeToAssociationType.request(action.id, action.value));
+    const { associationTypeId, entityTypeId } = action.value;
+    response.data = yield call(
+      EntityDataModelApi.addSrcEntityTypeToAssociationType,
+      associationTypeId,
+      entityTypeId
+    );
+    yield put(addSourceEntityTypeToAssociationType.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(addSourceEntityTypeToAssociationType.failure(action.id, response.error));
+  }
+  finally {
+    yield put(addSourceEntityTypeToAssociationType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.removeDstEntityTypeFromAssociationType
+ */
+
+function* removeDestinationEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(RM_DST_ET_FROM_AT, removeDestinationEntityTypeFromAssociationTypeWorker);
+}
+
+function* removeDestinationEntityTypeFromAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // and the EntityType id being removed
+    yield put(removeDestinationEntityTypeFromAssociationType.request(action.id, action.value));
+    const { associationTypeId, entityTypeId } = action.value;
+    response.data = yield call(
+      EntityDataModelApi.removeDstEntityTypeFromAssociationType,
+      associationTypeId,
+      entityTypeId
+    );
+    yield put(removeDestinationEntityTypeFromAssociationType.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(removeDestinationEntityTypeFromAssociationType.failure(action.id, response.error));
+  }
+  finally {
+    yield put(removeDestinationEntityTypeFromAssociationType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.removeSrcEntityTypeFromAssociationType
+ */
+
+function* removeSourceEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(RM_SRC_ET_FROM_AT, removeSourceEntityTypeFromAssociationTypeWorker);
+}
+
+function* removeSourceEntityTypeFromAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // and the EntityType id being removed
+    yield put(removeSourceEntityTypeFromAssociationType.request(action.id, action.value));
+    const { associationTypeId, entityTypeId } = action.value;
+    response.data = yield call(
+      EntityDataModelApi.removeSrcEntityTypeFromAssociationType,
+      associationTypeId,
+      entityTypeId
+    );
+    yield put(removeSourceEntityTypeFromAssociationType.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(removeSourceEntityTypeFromAssociationType.failure(action.id, response.error));
+  }
+  finally {
+    yield put(removeSourceEntityTypeFromAssociationType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
  *
  * exports
  *
  */
 
 export {
+  addDestinationEntityTypeToAssociationTypeWatcher,
+  addDestinationEntityTypeToAssociationTypeWorker,
+  addPropertyTypeToEntityTypeWatcher,
+  addPropertyTypeToEntityTypeWorker,
+  addSourceEntityTypeToAssociationTypeWatcher,
+  addSourceEntityTypeToAssociationTypeWorker,
   createAssociationTypeWatcher,
   createAssociationTypeWorker,
   createEntityTypeWatcher,
@@ -696,6 +920,12 @@ export {
   getEntityTypeWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
+  removeDestinationEntityTypeFromAssociationTypeWatcher,
+  removeDestinationEntityTypeFromAssociationTypeWorker,
+  removePropertyTypeFromEntityTypeWatcher,
+  removePropertyTypeFromEntityTypeWorker,
+  removeSourceEntityTypeFromAssociationTypeWatcher,
+  removeSourceEntityTypeFromAssociationTypeWorker,
   updateAssociationTypeMetaDataWatcher,
   updateAssociationTypeMetaDataWorker,
   updateEntitySetMetaDataWatcher,
