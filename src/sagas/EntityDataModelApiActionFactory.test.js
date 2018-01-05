@@ -3,6 +3,9 @@
  */
 
 import {
+  ADD_DST_ET_TO_AT,
+  ADD_PROPERTY_TYPE_TO_ENTITY_TYPE,
+  ADD_SRC_ET_TO_AT,
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
@@ -18,10 +21,16 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  RM_DST_ET_FROM_AT,
+  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  RM_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  addDestinationEntityTypeToAssociationType,
+  addPropertyTypeToEntityType,
+  addSourceEntityTypeToAssociationType,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -37,6 +46,9 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  removeDestinationEntityTypeFromAssociationType,
+  removePropertyTypeFromEntityType,
+  removeSourceEntityTypeFromAssociationType,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
@@ -48,6 +60,18 @@ import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
 describe('EntityDataModelApiActionFactory', () => {
 
   describe('should export action types', () => {
+
+    test('ADD_DST_ET_TO_AT', () => {
+      expect(ADD_DST_ET_TO_AT).toEqual('ADD_DST_ET_TO_AT');
+    });
+
+    test('ADD_PROPERTY_TYPE_TO_ENTITY_TYPE', () => {
+      expect(ADD_PROPERTY_TYPE_TO_ENTITY_TYPE).toEqual('ADD_PROPERTY_TYPE_TO_ENTITY_TYPE');
+    });
+
+    test('ADD_SRC_ET_TO_AT', () => {
+      expect(ADD_SRC_ET_TO_AT).toEqual('ADD_SRC_ET_TO_AT');
+    });
 
     test('CREATE_ASSOCIATION_TYPE', () => {
       expect(CREATE_ASSOCIATION_TYPE).toEqual('CREATE_ASSOCIATION_TYPE');
@@ -109,6 +133,18 @@ describe('EntityDataModelApiActionFactory', () => {
       expect(GET_PROPERTY_TYPE).toEqual('GET_PROPERTY_TYPE');
     });
 
+    test('RM_DST_ET_FROM_AT', () => {
+      expect(RM_DST_ET_FROM_AT).toEqual('RM_DST_ET_FROM_AT');
+    });
+
+    test('RM_PROPERTY_TYPE_FROM_ENTITY_TYPE', () => {
+      expect(RM_PROPERTY_TYPE_FROM_ENTITY_TYPE).toEqual('RM_PROPERTY_TYPE_FROM_ENTITY_TYPE');
+    });
+
+    test('RM_SRC_ET_FROM_AT', () => {
+      expect(RM_SRC_ET_FROM_AT).toEqual('RM_SRC_ET_FROM_AT');
+    });
+
     test('UPDATE_ASSOCIATION_TYPE_METADATA', () => {
       expect(UPDATE_ASSOCIATION_TYPE_METADATA).toEqual('UPDATE_ASSOCIATION_TYPE_METADATA');
     });
@@ -128,6 +164,18 @@ describe('EntityDataModelApiActionFactory', () => {
   });
 
   describe('should export RequestSequence functions', () => {
+
+    describe('addDestinationEntityTypeToAssociationType', () => {
+      testShouldBeRequestSequenceFunction(addDestinationEntityTypeToAssociationType, ADD_DST_ET_TO_AT);
+    });
+
+    describe('addPropertyTypeToEntityType', () => {
+      testShouldBeRequestSequenceFunction(addPropertyTypeToEntityType, ADD_PROPERTY_TYPE_TO_ENTITY_TYPE);
+    });
+
+    describe('addSourceEntityTypeToAssociationType', () => {
+      testShouldBeRequestSequenceFunction(addSourceEntityTypeToAssociationType, ADD_SRC_ET_TO_AT);
+    });
 
     describe('createAssociationType', () => {
       testShouldBeRequestSequenceFunction(createAssociationType, CREATE_ASSOCIATION_TYPE);
@@ -187,6 +235,18 @@ describe('EntityDataModelApiActionFactory', () => {
 
     describe('getPropertyType', () => {
       testShouldBeRequestSequenceFunction(getPropertyType, GET_PROPERTY_TYPE);
+    });
+
+    describe('removeDestinationEntityTypeFromAssociationType', () => {
+      testShouldBeRequestSequenceFunction(removeDestinationEntityTypeFromAssociationType, RM_DST_ET_FROM_AT);
+    });
+
+    describe('removePropertyTypeFromEntityType', () => {
+      testShouldBeRequestSequenceFunction(removePropertyTypeFromEntityType, RM_PROPERTY_TYPE_FROM_ENTITY_TYPE);
+    });
+
+    describe('removeSourceEntityTypeFromAssociationType', () => {
+      testShouldBeRequestSequenceFunction(removeSourceEntityTypeFromAssociationType, RM_SRC_ET_FROM_AT);
     });
 
     describe('updateAssociationTypeMetaData', () => {
