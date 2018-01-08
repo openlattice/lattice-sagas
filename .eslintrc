@@ -1,18 +1,17 @@
 {
+  "parser": "babel-eslint",
   "extends": [
     "airbnb-base",
     "plugin:flowtype/recommended"
   ],
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "jest": true,
-    "node": true
-  },
   "plugins": [
     "flowtype",
     "jest"
   ],
+  "env": {
+    "browser": true,
+    "jest": true
+    },
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
@@ -24,7 +23,7 @@
     }
   },
   "rules": {
-    "arrow-body-style": ["error", "always"],
+    "arrow-body-style": ["error", "as-needed"],
     "brace-style": ["error", "stroustrup"],
     "comma-dangle": ["error", "never"],
     "function-paren-newline": ["error", "consistent"],
@@ -67,6 +66,7 @@
       }
     ],
     "padded-blocks": "off",
+    "prefer-destructuring": "warn",
     "space-before-function-paren": ["error", "never"],
 
     "flowtype/define-flow-type": "error",
