@@ -14,10 +14,12 @@ describe('naming conventions', () => {
 
   test('saga names should end with either "Watcher" or "Worker"', () => {
     fs.readdirSync(SAGAS_DIR)
+      /* eslint-disable arrow-body-style */
       .filter((fileName) => {
         // include only files ending with "Sagas.js"
         return /Sagas\.js$/.test(fileName);
       })
+      /* eslint-enable */
       .forEach((fileName) => {
         // TODO: not sure if using require() is the right thing to do
         /* eslint-disable global-require, import/no-dynamic-require */
