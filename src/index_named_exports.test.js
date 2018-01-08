@@ -16,10 +16,12 @@ describe('lattice-sagas named exports', () => {
   });
 
   fs.readdirSync(SAGAS_DIR)
+    /* eslint-disable arrow-body-style */
     .filter((fileName) => {
       // exclude files that end with ".test.js"
       return !(/\.test\.js$/.test(fileName));
     })
+    /* eslint-enable */
     .forEach((fileName) => {
       const expectedExport = fileName.slice(0, -3); // strip the ".js"
       test(`should export ${expectedExport}`, () => {
