@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.18
+ * lattice-sagas - v0.0.19
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -141,7 +141,7 @@ exports.getAppTypes = getAppTypes;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createEntityAndAssociationData = exports.acquireSyncTicket = exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = exports.ACQUIRE_SYNC_TICKET = undefined;
+exports.getEntitySetData = exports.createEntityAndAssociationData = exports.acquireSyncTicket = exports.GET_ENTITY_SET_DATA = exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = exports.ACQUIRE_SYNC_TICKET = undefined;
 
 var _reduxReqseq = __webpack_require__(0);
 
@@ -152,10 +152,15 @@ var acquireSyncTicket = (0, _reduxReqseq.newRequestSequence)(ACQUIRE_SYNC_TICKET
 var CREATE_ENTITY_AND_ASSOCIATION_DATA = 'CREATE_ENTITY_AND_ASSOCIATION_DATA';
 var createEntityAndAssociationData = (0, _reduxReqseq.newRequestSequence)(CREATE_ENTITY_AND_ASSOCIATION_DATA);
 
+var GET_ENTITY_SET_DATA = 'GET_ENTITY_SET_DATA';
+var getEntitySetData = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_SET_DATA);
+
 exports.ACQUIRE_SYNC_TICKET = ACQUIRE_SYNC_TICKET;
 exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = CREATE_ENTITY_AND_ASSOCIATION_DATA;
+exports.GET_ENTITY_SET_DATA = GET_ENTITY_SET_DATA;
 exports.acquireSyncTicket = acquireSyncTicket;
 exports.createEntityAndAssociationData = createEntityAndAssociationData;
+exports.getEntitySetData = getEntitySetData;
 
 /***/ }),
 /* 5 */
@@ -443,7 +448,7 @@ var SyncApiSagas = _interopRequireWildcard(_SyncApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.18";
+var version = "v0.0.19";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
@@ -733,7 +738,7 @@ exports.getAppTypesWorker = getAppTypesWorker;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createEntityAndAssociationDataWorker = exports.createEntityAndAssociationDataWatcher = exports.acquireSyncTicketWorker = exports.acquireSyncTicketWatcher = undefined;
+exports.getEntitySetDataWorker = exports.getEntitySetDataWatcher = exports.createEntityAndAssociationDataWorker = exports.createEntityAndAssociationDataWatcher = exports.acquireSyncTicketWorker = exports.acquireSyncTicketWatcher = undefined;
 
 var _lattice = __webpack_require__(1);
 
@@ -744,7 +749,9 @@ var _DataApiActionFactory = __webpack_require__(4);
 var _marked = /*#__PURE__*/regeneratorRuntime.mark(acquireSyncTicketWatcher),
     _marked2 = /*#__PURE__*/regeneratorRuntime.mark(acquireSyncTicketWorker),
     _marked3 = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWatcher),
-    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWorker);
+    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWorker),
+    _marked5 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetDataWatcher),
+    _marked6 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetDataWorker);
 
 /* eslint-disable no-use-before-define */
 
@@ -769,7 +776,8 @@ function acquireSyncTicketWatcher() {
 }
 
 function acquireSyncTicketWorker(action) {
-  var response;
+  var response, _action$value, entitySetId, syncId;
+
   return regeneratorRuntime.wrap(function acquireSyncTicketWorker$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -780,43 +788,44 @@ function acquireSyncTicketWorker(action) {
           return (0, _effects.put)(_DataApiActionFactory.acquireSyncTicket.request(action.id, action.value));
 
         case 4:
-          _context2.next = 6;
-          return (0, _effects.call)(_lattice.DataApi.acquireSyncTicket, action.value.entitySetId, action.value.syncId);
+          _action$value = action.value, entitySetId = _action$value.entitySetId, syncId = _action$value.syncId;
+          _context2.next = 7;
+          return (0, _effects.call)(_lattice.DataApi.acquireSyncTicket, entitySetId, syncId);
 
-        case 6:
+        case 7:
           response.data = _context2.sent;
-          _context2.next = 9;
+          _context2.next = 10;
           return (0, _effects.put)(_DataApiActionFactory.acquireSyncTicket.success(action.id, response.data));
 
-        case 9:
-          _context2.next = 16;
+        case 10:
+          _context2.next = 17;
           break;
 
-        case 11:
-          _context2.prev = 11;
+        case 12:
+          _context2.prev = 12;
           _context2.t0 = _context2['catch'](1);
 
           response.error = _context2.t0;
-          _context2.next = 16;
+          _context2.next = 17;
           return (0, _effects.put)(_DataApiActionFactory.acquireSyncTicket.failure(action.id, response.error));
 
-        case 16:
-          _context2.prev = 16;
-          _context2.next = 19;
+        case 17:
+          _context2.prev = 17;
+          _context2.next = 20;
           return (0, _effects.put)(_DataApiActionFactory.acquireSyncTicket.finally(action.id));
 
-        case 19:
-          return _context2.finish(16);
-
         case 20:
-          return _context2.abrupt('return', response);
+          return _context2.finish(17);
 
         case 21:
+          return _context2.abrupt('return', response);
+
+        case 22:
         case 'end':
           return _context2.stop();
       }
     }
-  }, _marked2, this, [[1, 11, 16, 20]]);
+  }, _marked2, this, [[1, 12, 17, 21]]);
 }
 
 /*
@@ -890,10 +899,85 @@ function createEntityAndAssociationDataWorker(action) {
   }, _marked4, this, [[1, 11, 16, 20]]);
 }
 
+/*
+ * DataApi.getEntitySetData
+ */
+
+function getEntitySetDataWatcher() {
+  return regeneratorRuntime.wrap(function getEntitySetDataWatcher$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return (0, _effects.takeEvery)(_DataApiActionFactory.GET_ENTITY_SET_DATA, getEntitySetDataWorker);
+
+        case 2:
+        case 'end':
+          return _context5.stop();
+      }
+    }
+  }, _marked5, this);
+}
+
+function getEntitySetDataWorker(action) {
+  var response, _action$value2, entitySetId, syncId, propertyTypeIds;
+
+  return regeneratorRuntime.wrap(function getEntitySetDataWorker$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          response = {};
+          _context6.prev = 1;
+          _context6.next = 4;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.request(action.id, action.value));
+
+        case 4:
+          _action$value2 = action.value, entitySetId = _action$value2.entitySetId, syncId = _action$value2.syncId, propertyTypeIds = _action$value2.propertyTypeIds;
+          _context6.next = 7;
+          return (0, _effects.call)(_lattice.DataApi.getEntitySetData, entitySetId, syncId, propertyTypeIds);
+
+        case 7:
+          response.data = _context6.sent;
+          _context6.next = 10;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.success(action.id, response.data));
+
+        case 10:
+          _context6.next = 17;
+          break;
+
+        case 12:
+          _context6.prev = 12;
+          _context6.t0 = _context6['catch'](1);
+
+          response.error = _context6.t0;
+          _context6.next = 17;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.failure(action.id, response.error));
+
+        case 17:
+          _context6.prev = 17;
+          _context6.next = 20;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.finally(action.id));
+
+        case 20:
+          return _context6.finish(17);
+
+        case 21:
+          return _context6.abrupt('return', response);
+
+        case 22:
+        case 'end':
+          return _context6.stop();
+      }
+    }
+  }, _marked6, this, [[1, 12, 17, 21]]);
+}
+
 exports.acquireSyncTicketWatcher = acquireSyncTicketWatcher;
 exports.acquireSyncTicketWorker = acquireSyncTicketWorker;
 exports.createEntityAndAssociationDataWatcher = createEntityAndAssociationDataWatcher;
 exports.createEntityAndAssociationDataWorker = createEntityAndAssociationDataWorker;
+exports.getEntitySetDataWatcher = getEntitySetDataWatcher;
+exports.getEntitySetDataWorker = getEntitySetDataWorker;
 
 /***/ }),
 /* 12 */
