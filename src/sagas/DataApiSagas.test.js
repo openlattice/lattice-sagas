@@ -8,15 +8,19 @@ import { DataApi } from 'lattice';
 import {
   ACQUIRE_SYNC_TICKET,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
+  GET_ENTITY_SET_DATA,
   acquireSyncTicket,
-  createEntityAndAssociationData
+  createEntityAndAssociationData,
+  getEntitySetData
 } from './DataApiActionFactory';
 
 import {
   acquireSyncTicketWatcher,
   acquireSyncTicketWorker,
   createEntityAndAssociationDataWatcher,
-  createEntityAndAssociationDataWorker
+  createEntityAndAssociationDataWorker,
+  getEntitySetDataWatcher,
+  getEntitySetDataWorker
 } from './DataApiSagas';
 
 import {
@@ -105,6 +109,49 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: createEntityAndAssociationData,
       workerSagaAction: createEntityAndAssociationData(mockActionValue),
       workerSagaToTest: createEntityAndAssociationDataWorker
+    });
+
+  });
+
+  /*
+   *
+   * DataApiActionFactory.getEntitySetData
+   *
+   */
+
+  describe('getEntitySetDataWatcher', () => {
+    testShouldBeGeneratorFunction(getEntitySetDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntitySetDataWatcher,
+      getEntitySetDataWorker,
+      GET_ENTITY_SET_DATA
+    );
+  });
+
+  describe('getEntitySetDataWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      syncId: randomUUID(),
+      propertyTypeIds: [randomUUID()]
+    };
+
+    testShouldBeGeneratorFunction(getEntitySetDataWorker);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.getEntitySetData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.syncId, mockActionValue.propertyTypeIds],
+      latticeApiReqSeq: getEntitySetData,
+      workerSagaAction: getEntitySetData(mockActionValue),
+      workerSagaToTest: getEntitySetDataWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.getEntitySetData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.syncId, mockActionValue.propertyTypeIds],
+      latticeApiReqSeq: getEntitySetData,
+      workerSagaAction: getEntitySetData(mockActionValue),
+      workerSagaToTest: getEntitySetDataWorker
     });
 
   });
