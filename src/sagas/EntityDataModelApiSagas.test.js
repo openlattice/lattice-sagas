@@ -18,6 +18,7 @@ import {
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
+  GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
@@ -43,6 +44,7 @@ import {
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
+  getAllSchemas,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -83,6 +85,8 @@ import {
   getAllEntityTypesWorker,
   getAllPropertyTypesWatcher,
   getAllPropertyTypesWorker,
+  getAllSchemasWatcher,
+  getAllSchemasWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,
@@ -1133,6 +1137,49 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: removeSourceEntityTypeFromAssociationType,
       workerSagaAction: removeSourceEntityTypeFromAssociationType(mockActionValue),
       workerSagaToTest: removeSourceEntityTypeFromAssociationTypeWorker
+    });
+  });
+
+  /*
+   *
+   * Schema APIs
+   *
+   */
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.getAllSchemas
+   *
+   */
+
+  describe('getAllSchemasWatcher', () => {
+
+    testShouldBeGeneratorFunction(getAllSchemasWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllSchemasWatcher,
+      getAllSchemasWorker,
+      GET_ALL_SCHEMAS
+    );
+  });
+
+  describe('getAllSchemasWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllSchemasWorker);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.getAllSchemas,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllSchemas,
+      workerSagaAction: getAllSchemas(),
+      workerSagaToTest: getAllSchemasWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.getAllSchemas,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllSchemas,
+      workerSagaAction: getAllSchemas(),
+      workerSagaToTest: getAllSchemasWorker
     });
   });
 

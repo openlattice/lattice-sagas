@@ -41,7 +41,7 @@
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-import-resolver-webpack": "^0.8.3",
-    "eslint-loader": "^1.9.0",
+    "eslint-loader": "^2.0.0",
     "eslint-plugin-flowtype": "^2.41.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^21.7.0",
@@ -53,7 +53,7 @@
     "uglifyjs-webpack-plugin": "^1.0.0",
     "uuid": "^3.1.0",
     "webpack": "^4.0.0",
-    "webpack-dev-server": "^2.11.0"
+    "webpack-dev-server": "^3.0.0"
   },
   "scripts": {
     "build": "better-npm-run build",
