@@ -5,8 +5,10 @@
 import {
   ACQUIRE_SYNC_TICKET,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
+  GET_ENTITY_SET_DATA,
   acquireSyncTicket,
-  createEntityAndAssociationData
+  createEntityAndAssociationData,
+  getEntitySetData
 } from './DataApiActionFactory';
 
 import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
@@ -23,6 +25,10 @@ describe('SyncApiActionFactory', () => {
       expect(CREATE_ENTITY_AND_ASSOCIATION_DATA).toEqual('CREATE_ENTITY_AND_ASSOCIATION_DATA');
     });
 
+    test('GET_ENTITY_SET_DATA', () => {
+      expect(GET_ENTITY_SET_DATA).toEqual('GET_ENTITY_SET_DATA');
+    });
+
   });
 
   describe('should export RequestSequence actions', () => {
@@ -33,6 +39,10 @@ describe('SyncApiActionFactory', () => {
 
     describe('createEntityAndAssociationData', () => {
       testShouldBeRequestSequenceFunction(createEntityAndAssociationData, CREATE_ENTITY_AND_ASSOCIATION_DATA);
+    });
+
+    describe('getEntitySetData', () => {
+      testShouldBeRequestSequenceFunction(getEntitySetData, GET_ENTITY_SET_DATA);
     });
 
   });

@@ -111,6 +111,15 @@ const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSeq
 
 /*
  *
+ * Schema APIs
+ *
+ */
+
+const GET_ALL_SCHEMAS :'GET_ALL_SCHEMAS' = 'GET_ALL_SCHEMAS';
+const getAllSchemas :RequestSequence = newRequestSequence(GET_ALL_SCHEMAS);
+
+/*
+ *
  * exports
  *
  */
@@ -128,6 +137,7 @@ export {
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
+  GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
@@ -153,6 +163,7 @@ export {
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
+  getAllSchemas,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
