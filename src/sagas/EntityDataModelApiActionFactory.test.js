@@ -15,6 +15,7 @@ import {
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
+  GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
@@ -40,6 +41,7 @@ import {
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
+  getAllSchemas,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -107,6 +109,10 @@ describe('EntityDataModelApiActionFactory', () => {
 
     test('GET_ALL_PROPERTY_TYPES', () => {
       expect(GET_ALL_PROPERTY_TYPES).toEqual('GET_ALL_PROPERTY_TYPES');
+    });
+
+    test('GET_ALL_SCHEMAS', () => {
+      expect(GET_ALL_SCHEMAS).toEqual('GET_ALL_SCHEMAS');
     });
 
     test('GET_ENTITY_DATA_MODEL', () => {
@@ -211,6 +217,10 @@ describe('EntityDataModelApiActionFactory', () => {
 
     describe('getAllPropertyTypes', () => {
       testShouldBeRequestSequenceFunction(getAllPropertyTypes, GET_ALL_PROPERTY_TYPES);
+    });
+
+    describe('getAllSchemas', () => {
+      testShouldBeRequestSequenceFunction(getAllSchemas, GET_ALL_SCHEMAS);
     });
 
     describe('getEntityDataModel', () => {

@@ -20,6 +20,7 @@ import {
   GET_ALL_ASSOCIATION_TYPES,
   GET_ALL_ENTITY_TYPES,
   GET_ALL_PROPERTY_TYPES,
+  GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_SET,
@@ -45,6 +46,7 @@ import {
   getAllAssociationTypes,
   getAllEntityTypes,
   getAllPropertyTypes,
+  getAllSchemas,
   getEntityDataModel,
   getEntityDataModelProjection,
   getEntitySet,
@@ -879,6 +881,41 @@ function* removeSourceEntityTypeFromAssociationTypeWorker(action :SequenceAction
 
 /*
  *
+ * Schema APIs
+ *
+ */
+
+/*
+ * EntityDataModelApi.getAllSchemas
+ */
+
+function* getAllSchemasWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ALL_SCHEMAS, getAllSchemasWorker);
+}
+
+function* getAllSchemasWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(getAllSchemas.request(action.id, action.value));
+    response.data = yield call(EntityDataModelApi.getAllSchemas);
+    yield put(getAllSchemas.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllSchemas.failure(action.id, response.error));
+  }
+  finally {
+    yield put(getAllSchemas.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
+ *
  * exports
  *
  */
@@ -908,6 +945,8 @@ export {
   getAllEntityTypesWorker,
   getAllPropertyTypesWatcher,
   getAllPropertyTypesWorker,
+  getAllSchemasWatcher,
+  getAllSchemasWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
   getEntityDataModelProjectionWatcher,
