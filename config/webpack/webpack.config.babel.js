@@ -10,6 +10,7 @@ import LIB_PATHS from '../lib/paths.config.js';
 
 import {
   TARGET_ENV,
+  ifDev,
   ifMin,
   isDev,
   isProd,
@@ -63,10 +64,14 @@ export default function webpackConfig() {
       'redux-reqseq': 'redux-reqseq',
       'redux-saga/effects': 'redux-saga/effects'
     },
+    mode: ifDev('development', 'production'),
     module: {
       rules: [
         BABEL_LOADER
       ]
+    },
+    optimization: {
+      minimize: ifMin(true, false)
     },
     output: {
       library: LIB_CONFIG.LIB_NAMESPACE,
@@ -78,7 +83,6 @@ export default function webpackConfig() {
         `${LIB_CONFIG.LIB_FILE_NAME}.js`
       )
     },
-
     performance: {
       hints: false // disable performance hints for now
     },
