@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import * as EntityDataModelApiActionFactory from './EntityDataModelApiActionFactory';
-import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/TestUtils';
+import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
   'ADD_DST_ET_TO_AT',

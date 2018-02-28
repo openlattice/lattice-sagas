@@ -24,7 +24,7 @@ import {
   testWatcherSagaShouldTakeEvery,
   testWorkerSagaShouldHandleFailureCase,
   testWorkerSagaShouldHandleSuccessCase
-} from '../utils/TestUtils';
+} from '../utils/testing/TestUtils';
 
 describe('SearchApiSagas', () => {
 

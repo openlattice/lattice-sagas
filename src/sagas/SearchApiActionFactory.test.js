@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import * as SearchApiActionFactory from './SearchApiActionFactory';
-import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/TestUtils';
+import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
   'SEARCH_ENTITY_NEIGHBORS',

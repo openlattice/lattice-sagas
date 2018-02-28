@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import * as DataApiActionFactory from './DataApiActionFactory';
-import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/TestUtils';
+import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
   'ACQUIRE_SYNC_TICKET',
