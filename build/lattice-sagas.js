@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.20
+ * lattice-sagas - v0.0.21
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -163,7 +163,7 @@ exports.searchEntitySetData = searchEntitySetData;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.removeSourceEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDestinationEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSourceEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDestinationEntityTypeToAssociationType = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.RM_SRC_ET_FROM_AT = exports.RM_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.RM_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
+exports.updateSchema = exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.removeSourceEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDestinationEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSourceEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDestinationEntityTypeToAssociationType = exports.UPDATE_SCHEMA = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.RM_SRC_ET_FROM_AT = exports.RM_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.RM_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
 
 var _reduxReqseq = __webpack_require__(2);
 
@@ -282,6 +282,9 @@ var removeSourceEntityTypeFromAssociationType = (0, _reduxReqseq.newRequestSeque
 var GET_ALL_SCHEMAS = 'GET_ALL_SCHEMAS';
 var getAllSchemas = (0, _reduxReqseq.newRequestSequence)(GET_ALL_SCHEMAS);
 
+var UPDATE_SCHEMA = 'UPDATE_SCHEMA';
+var updateSchema = (0, _reduxReqseq.newRequestSequence)(UPDATE_SCHEMA);
+
 /*
  *
  * exports
@@ -314,6 +317,7 @@ exports.UPDATE_ASSOCIATION_TYPE_METADATA = UPDATE_ASSOCIATION_TYPE_METADATA;
 exports.UPDATE_ENTITY_SET_METADATA = UPDATE_ENTITY_SET_METADATA;
 exports.UPDATE_ENTITY_TYPE_METADATA = UPDATE_ENTITY_TYPE_METADATA;
 exports.UPDATE_PROPERTY_TYPE_METADATA = UPDATE_PROPERTY_TYPE_METADATA;
+exports.UPDATE_SCHEMA = UPDATE_SCHEMA;
 exports.addDestinationEntityTypeToAssociationType = addDestinationEntityTypeToAssociationType;
 exports.addPropertyTypeToEntityType = addPropertyTypeToEntityType;
 exports.addSourceEntityTypeToAssociationType = addSourceEntityTypeToAssociationType;
@@ -340,6 +344,7 @@ exports.updateAssociationTypeMetaData = updateAssociationTypeMetaData;
 exports.updateEntitySetMetaData = updateEntitySetMetaData;
 exports.updateEntityTypeMetaData = updateEntityTypeMetaData;
 exports.updatePropertyTypeMetaData = updatePropertyTypeMetaData;
+exports.updateSchema = updateSchema;
 
 /***/ }),
 /* 6 */
@@ -682,7 +687,7 @@ exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.removeSourceEntityTypeFromAssociationTypeWorker = exports.removeSourceEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDestinationEntityTypeFromAssociationTypeWorker = exports.removeDestinationEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSourceEntityTypeToAssociationTypeWorker = exports.addSourceEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDestinationEntityTypeToAssociationTypeWorker = exports.addDestinationEntityTypeToAssociationTypeWatcher = undefined;
+exports.updateSchemaWorker = exports.updateSchemaWatcher = exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.removeSourceEntityTypeFromAssociationTypeWorker = exports.removeSourceEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDestinationEntityTypeFromAssociationTypeWorker = exports.removeDestinationEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSourceEntityTypeToAssociationTypeWorker = exports.addSourceEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDestinationEntityTypeToAssociationTypeWorker = exports.addDestinationEntityTypeToAssociationTypeWatcher = undefined;
 
 var _lattice = __webpack_require__(1);
 
@@ -741,7 +746,9 @@ var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
     _marked49 = /*#__PURE__*/regeneratorRuntime.mark(removeSourceEntityTypeFromAssociationTypeWatcher),
     _marked50 = /*#__PURE__*/regeneratorRuntime.mark(removeSourceEntityTypeFromAssociationTypeWorker),
     _marked51 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWatcher),
-    _marked52 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWorker);
+    _marked52 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWorker),
+    _marked53 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWatcher),
+    _marked54 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWorker);
 
 /* eslint-disable no-use-before-define */
 
@@ -2655,6 +2662,79 @@ function getAllSchemasWorker(action) {
 }
 
 /*
+ * EntityDataModelApi.updateSchema
+ */
+
+function updateSchemaWatcher() {
+  return regeneratorRuntime.wrap(function updateSchemaWatcher$(_context53) {
+    while (1) {
+      switch (_context53.prev = _context53.next) {
+        case 0:
+          _context53.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_SCHEMA, updateSchemaWorker);
+
+        case 2:
+        case 'end':
+          return _context53.stop();
+      }
+    }
+  }, _marked53, this);
+}
+
+function updateSchemaWorker(seqAction) {
+  var response, _seqAction$value, schemaFqn, entityTypeIds, propertyTypeIds, action;
+
+  return regeneratorRuntime.wrap(function updateSchemaWorker$(_context54) {
+    while (1) {
+      switch (_context54.prev = _context54.next) {
+        case 0:
+          response = {};
+          _context54.prev = 1;
+          _context54.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.request(seqAction.id, seqAction.value));
+
+        case 4:
+          _seqAction$value = seqAction.value, schemaFqn = _seqAction$value.schemaFqn, entityTypeIds = _seqAction$value.entityTypeIds, propertyTypeIds = _seqAction$value.propertyTypeIds, action = _seqAction$value.action;
+          _context54.next = 7;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateSchema, schemaFqn, action, entityTypeIds, propertyTypeIds);
+
+        case 7:
+          response.data = _context54.sent;
+          _context54.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.success(seqAction.id, response.data));
+
+        case 10:
+          _context54.next = 17;
+          break;
+
+        case 12:
+          _context54.prev = 12;
+          _context54.t0 = _context54['catch'](1);
+
+          response.error = _context54.t0;
+          _context54.next = 17;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.failure(seqAction.id, response.error));
+
+        case 17:
+          _context54.prev = 17;
+          _context54.next = 20;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.finally(seqAction.id));
+
+        case 20:
+          return _context54.finish(17);
+
+        case 21:
+          return _context54.abrupt('return', response);
+
+        case 22:
+        case 'end':
+          return _context54.stop();
+      }
+    }
+  }, _marked54, this, [[1, 12, 17, 21]]);
+}
+
+/*
  *
  * exports
  *
@@ -2712,6 +2792,8 @@ exports.updateEntityTypeMetaDataWatcher = updateEntityTypeMetaDataWatcher;
 exports.updateEntityTypeMetaDataWorker = updateEntityTypeMetaDataWorker;
 exports.updatePropertyTypeMetaDataWatcher = updatePropertyTypeMetaDataWatcher;
 exports.updatePropertyTypeMetaDataWorker = updatePropertyTypeMetaDataWorker;
+exports.updateSchemaWatcher = updateSchemaWatcher;
+exports.updateSchemaWorker = updateSchemaWorker;
 
 /***/ }),
 /* 11 */
@@ -3272,7 +3354,7 @@ var SyncApiSagas = _interopRequireWildcard(_SyncApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.20";
+var version = "v0.0.21";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
