@@ -1,40 +1,20 @@
-/*
- * @flow
- */
+import Immutable from 'immutable';
 
-import {
-  SEARCH_ENTITY_NEIGHBORS,
-  SEARCH_ENTITY_SET_DATA,
-  searchEntityNeighbors,
-  searchEntitySetData
-} from './SearchApiActionFactory';
+import * as SearchApiActionFactory from './SearchApiActionFactory';
+import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
+const ACTION_TYPES = Immutable.List([
+  'SEARCH_ENTITY_NEIGHBORS',
+  'SEARCH_ENTITY_SET_DATA'
+]).sort();
+
+const REQSEQ_NAMES = Immutable.List([
+  'searchEntityNeighbors',
+  'searchEntitySetData'
+]).sort();
 
 describe('SearchApiActionFactory', () => {
 
-  describe('should export action types', () => {
-
-    test('SEARCH_ENTITY_NEIGHBORS', () => {
-      expect(SEARCH_ENTITY_NEIGHBORS).toEqual('SEARCH_ENTITY_NEIGHBORS');
-    });
-
-    test('SEARCH_ENTITY_SET_DATA', () => {
-      expect(SEARCH_ENTITY_SET_DATA).toEqual('SEARCH_ENTITY_SET_DATA');
-    });
-
-  });
-
-  describe('should export RequestSequence actions', () => {
-
-    describe('searchEntityNeighbors', () => {
-      testShouldBeRequestSequenceFunction(searchEntityNeighbors, SEARCH_ENTITY_NEIGHBORS);
-    });
-
-    describe('searchEntitySetData', () => {
-      testShouldBeRequestSequenceFunction(searchEntitySetData, SEARCH_ENTITY_SET_DATA);
-    });
-
-  });
-
+  testShouldExportActionTypes(SearchApiActionFactory, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(SearchApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });
