@@ -3,7 +3,7 @@ import path from 'path';
 
 import PACKAGE from '../package.json';
 
-import { OBJECT_TAG } from './utils/TestUtils';
+import { OBJECT_TAG } from './utils/testing/TestUtils';
 
 import * as LatticeSagas from './index';
 

@@ -24,7 +24,7 @@ import {
   testWatcherSagaShouldTakeEvery,
   testWorkerSagaShouldHandleFailureCase,
   testWorkerSagaShouldHandleSuccessCase
-} from '../utils/TestUtils';
+} from '../utils/testing/TestUtils';
 
 describe('AppApiSagas', () => {
 
@@ -119,7 +119,7 @@ describe('AppApiSagas', () => {
     );
   });
 
-  describe('getAppTypes', () => {
+  describe('getAppTypesWorker', () => {
 
     const mockActionValue = [randomUUID(), randomUUID(), randomUUID()];
 

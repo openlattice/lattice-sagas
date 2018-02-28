@@ -1,30 +1,18 @@
-/*
- * @flow
- */
+import Immutable from 'immutable';
 
-import {
-  GET_CURRENT_SYNC_ID,
-  getCurrentSyncId
-} from './SyncApiActionFactory';
+import * as SyncApiActionFactory from './SyncApiActionFactory';
+import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
+const ACTION_TYPES = Immutable.List([
+  'GET_CURRENT_SYNC_ID'
+]).sort();
+
+const REQSEQ_NAMES = Immutable.List([
+  'getCurrentSyncId'
+]).sort();
 
 describe('SyncApiActionFactory', () => {
 
-  describe('should export action types', () => {
-
-    test('GET_CURRENT_SYNC_ID', () => {
-      expect(GET_CURRENT_SYNC_ID).toEqual('GET_CURRENT_SYNC_ID');
-    });
-
-  });
-
-  describe('should export RequestSequence actions', () => {
-
-    describe('getCurrentSyncId', () => {
-      testShouldBeRequestSequenceFunction(getCurrentSyncId, GET_CURRENT_SYNC_ID);
-    });
-
-  });
-
+  testShouldExportActionTypes(SyncApiActionFactory, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(SyncApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });
