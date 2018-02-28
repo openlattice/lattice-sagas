@@ -119,7 +119,7 @@ describe('AppApiSagas', () => {
     );
   });
 
-  describe('getAppTypes', () => {
+  describe('getAppTypesWorker', () => {
 
     const mockActionValue = [randomUUID(), randomUUID(), randomUUID()];
 

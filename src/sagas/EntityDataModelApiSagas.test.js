@@ -32,6 +32,7 @@ import {
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  UPDATE_SCHEMA,
   addDestinationEntityTypeToAssociationType,
   addPropertyTypeToEntityType,
   addSourceEntityTypeToAssociationType,
@@ -57,7 +58,8 @@ import {
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
-  updatePropertyTypeMetaData
+  updatePropertyTypeMetaData,
+  updateSchema
 } from './EntityDataModelApiActionFactory';
 
 import {
@@ -112,7 +114,9 @@ import {
   updateEntityTypeMetaDataWatcher,
   updateEntityTypeMetaDataWorker,
   updatePropertyTypeMetaDataWatcher,
-  updatePropertyTypeMetaDataWorker
+  updatePropertyTypeMetaDataWorker,
+  updateSchemaWatcher,
+  updateSchemaWorker
 } from './EntityDataModelApiSagas';
 
 import {
@@ -1180,6 +1184,55 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getAllSchemas,
       workerSagaAction: getAllSchemas(),
       workerSagaToTest: getAllSchemasWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.updateSchema
+   *
+   */
+
+  describe('updateSchemaWatcher', () => {
+
+    testShouldBeGeneratorFunction(updateSchemaWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateSchemaWatcher,
+      updateSchemaWorker,
+      UPDATE_SCHEMA
+    );
+  });
+
+  describe('updateSchemaWorker', () => {
+
+    testShouldBeGeneratorFunction(updateSchemaWorker);
+
+    const mockSchemaFqn = { namespace: 'NAMESPACE', name: 'NAME' };
+    const mockEntityTypeIds = [randomUUID()];
+    const mockPropertyTypeIds = [randomUUID()];
+    const mockAction = 'AN_ACTION';
+
+    const mockActionValue = {
+      schemaFqn: mockSchemaFqn,
+      action: mockAction,
+      entityTypeIds: mockEntityTypeIds,
+      propertyTypeIds: mockPropertyTypeIds
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.updateSchema,
+      latticeApiParams: [mockSchemaFqn, mockAction, mockEntityTypeIds, mockPropertyTypeIds],
+      latticeApiReqSeq: updateSchema,
+      workerSagaAction: updateSchema(mockActionValue),
+      workerSagaToTest: updateSchemaWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.updateSchema,
+      latticeApiParams: [mockSchemaFqn, mockAction, mockEntityTypeIds, mockPropertyTypeIds],
+      latticeApiReqSeq: updateSchema,
+      workerSagaAction: updateSchema(mockActionValue),
+      workerSagaToTest: updateSchemaWorker
     });
   });
 

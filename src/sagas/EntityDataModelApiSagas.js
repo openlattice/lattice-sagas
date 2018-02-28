@@ -34,6 +34,7 @@ import {
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  UPDATE_SCHEMA,
   addDestinationEntityTypeToAssociationType,
   addPropertyTypeToEntityType,
   addSourceEntityTypeToAssociationType,
@@ -59,7 +60,8 @@ import {
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
-  updatePropertyTypeMetaData
+  updatePropertyTypeMetaData,
+  updateSchema
 } from './EntityDataModelApiActionFactory';
 
 /*
@@ -915,6 +917,47 @@ function* getAllSchemasWorker(action :SequenceAction) :Generator<*, Response, *>
 }
 
 /*
+ * EntityDataModelApi.updateSchema
+ */
+
+function* updateSchemaWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_SCHEMA, updateSchemaWorker);
+}
+
+function* updateSchemaWorker(seqAction :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(updateSchema.request(seqAction.id, seqAction.value));
+    const {
+      schemaFqn,
+      entityTypeIds,
+      propertyTypeIds,
+      action
+    } = seqAction.value;
+    response.data = yield call(
+      EntityDataModelApi.updateSchema,
+      schemaFqn,
+      action,
+      entityTypeIds,
+      propertyTypeIds
+    );
+    yield put(updateSchema.success(seqAction.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateSchema.failure(seqAction.id, response.error));
+  }
+  finally {
+    yield put(updateSchema.finally(seqAction.id));
+  }
+
+  return response;
+}
+
+/*
  *
  * exports
  *
@@ -972,5 +1015,7 @@ export {
   updateEntityTypeMetaDataWatcher,
   updateEntityTypeMetaDataWorker,
   updatePropertyTypeMetaDataWatcher,
-  updatePropertyTypeMetaDataWorker
+  updatePropertyTypeMetaDataWorker,
+  updateSchemaWatcher,
+  updateSchemaWorker
 };

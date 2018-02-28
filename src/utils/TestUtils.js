@@ -1,14 +1,11 @@
-/*
- * @flow
- */
-
+import Immutable from 'immutable';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-export const GENERATOR_TAG :string = '[object Generator]';
-export const GENERATOR_FUNCTION_TAG :string = '[object GeneratorFunction]';
-export const OBJECT_TAG :string = '[object Object]';
+const GENERATOR_TAG = '[object Generator]';
+const GENERATOR_FUNCTION_TAG = '[object GeneratorFunction]';
+export const OBJECT_TAG = '[object Object]';
 
-export function testShouldBeRequestSequenceFunction(functionToTest :any, baseType :string) :void {
+export function testShouldBeRequestSequenceFunction(functionToTest, baseType) {
 
   test('should be a RequestSequence function', () => {
 
@@ -26,21 +23,17 @@ export function testShouldBeRequestSequenceFunction(functionToTest :any, baseTyp
   });
 }
 
-export function testShouldBeGeneratorFunction(functionToTest :any) :void {
+export function testShouldBeGeneratorFunction(functionToTest) {
 
   test('should be a generator function', () => {
     expect(Object.prototype.toString.call(functionToTest)).toEqual(GENERATOR_FUNCTION_TAG);
   });
 }
 
-export function testWatcherSagaShouldTakeEvery(
-  watcherSagaToTest :Function,
-  expectedWorkerSaga :Function,
-  expectedAction :string
-) :void {
+export function testWatcherSagaShouldTakeEvery(watcherSagaToTest, expectedWorkerSaga, expectedAction) {
 
   test('should invoke takeEvery()', () => {
-    const iterator :Generator<*, *, *> = watcherSagaToTest();
+    const iterator = watcherSagaToTest();
     expect(Object.prototype.toString.call(iterator)).toEqual(GENERATOR_TAG);
     expect(iterator.next().value).toEqual(takeEvery(expectedAction, expectedWorkerSaga));
     expect(iterator.next().done).toEqual(true);
@@ -48,7 +41,7 @@ export function testWatcherSagaShouldTakeEvery(
 }
 
 // TODO: this abstraction might not be a great idea
-export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Object) :void {
+export function testWorkerSagaShouldHandleFailureCase(testInvocationParams) {
 
   test('failure case', () => {
 
@@ -120,7 +113,7 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams :Obje
 }
 
 // TODO: this abstraction might not be a great idea
-export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams :Object) :void {
+export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams) {
 
   test('success case', () => {
 
@@ -188,5 +181,42 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams :Obje
     step = iterator.next();
     expect(step.done).toEqual(true);
     expect(step.value).toEqual(mockSagaResponse);
+  });
+}
+
+export function testShouldExportActionTypes(ActionFactory, expectedActionTypes) {
+
+  describe('should export action types', () => {
+
+    test('should export expected action types, sorted alphabetically', () => {
+      const exportedActionTypes = Immutable.OrderedMap(ActionFactory).take(expectedActionTypes.length);
+      expect(exportedActionTypes.keySeq().toJS()).toEqual(expectedActionTypes);
+      expect(exportedActionTypes.valueSeq().toJS()).toEqual(expectedActionTypes);
+    });
+
+    expectedActionTypes.forEach((actionType) => {
+      test(`should export "${actionType}"`, () => {
+        expect(ActionFactory).toHaveProperty(actionType);
+        expect(ActionFactory[actionType]).toEqual(actionType);
+      });
+    });
+  });
+}
+
+export function testShouldExportRequestSequences(ActionFactory, expectedActionTypes, expectedReqSeqNames) {
+
+  describe('should export RequestSequences', () => {
+
+    test('should export expected RequestSequences, sorted alphabetically', () => {
+      const expectedReqSeqs = Immutable.OrderedMap(ActionFactory).takeLast(expectedReqSeqNames.length);
+      expect(expectedReqSeqs.keySeq().toJS()).toEqual(expectedReqSeqNames);
+    });
+
+    expectedReqSeqNames.forEach((reqseqName, index) => {
+      describe(`${reqseqName}`, () => {
+        const expectedActionType = expectedActionTypes[index];
+        testShouldBeRequestSequenceFunction(ActionFactory[reqseqName], ActionFactory[expectedActionType]);
+      });
+    });
   });
 }

@@ -1,46 +1,22 @@
-import {
-  GET_APP,
-  GET_APP_CONFIGS,
-  GET_APP_TYPES,
-  getApp,
-  getAppConfigs,
-  getAppTypes
-} from './AppApiActionFactory';
+import Immutable from 'immutable';
 
-import { testShouldBeRequestSequenceFunction } from '../utils/TestUtils';
+import * as AppApiActionFactory from './AppApiActionFactory';
+import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/TestUtils';
+
+const ACTION_TYPES = Immutable.List([
+  'GET_APP',
+  'GET_APP_CONFIGS',
+  'GET_APP_TYPES'
+]).sort();
+
+const REQSEQ_NAMES = Immutable.List([
+  'getApp',
+  'getAppConfigs',
+  'getAppTypes'
+]).sort();
 
 describe('AppApiActionFactory', () => {
 
-  describe('should export action types', () => {
-
-    test('GET_APP', () => {
-      expect(GET_APP).toEqual('GET_APP');
-    });
-
-    test('GET_APP_CONFIGS', () => {
-      expect(GET_APP_CONFIGS).toEqual('GET_APP_CONFIGS');
-    });
-
-    test('GET_APP_TYPES', () => {
-      expect(GET_APP_TYPES).toEqual('GET_APP_TYPES');
-    });
-
-  });
-
-  describe('should export RequestSequence actions', () => {
-
-    describe('getApp', () => {
-      testShouldBeRequestSequenceFunction(getApp, GET_APP);
-    });
-
-    describe('getAppConfigs', () => {
-      testShouldBeRequestSequenceFunction(getAppConfigs, GET_APP_CONFIGS);
-    });
-
-    describe('getAppTypes', () => {
-      testShouldBeRequestSequenceFunction(getAppTypes, GET_APP_TYPES);
-    });
-
-  });
-
+  testShouldExportActionTypes(AppApiActionFactory, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(AppApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });

@@ -118,6 +118,9 @@ const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSeq
 const GET_ALL_SCHEMAS :'GET_ALL_SCHEMAS' = 'GET_ALL_SCHEMAS';
 const getAllSchemas :RequestSequence = newRequestSequence(GET_ALL_SCHEMAS);
 
+const UPDATE_SCHEMA :'UPDATE_SCHEMA' = 'UPDATE_SCHEMA';
+const updateSchema :RequestSequence = newRequestSequence(UPDATE_SCHEMA);
+
 /*
  *
  * exports
@@ -151,6 +154,7 @@ export {
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
+  UPDATE_SCHEMA,
   addDestinationEntityTypeToAssociationType,
   addPropertyTypeToEntityType,
   addSourceEntityTypeToAssociationType,
@@ -176,5 +180,6 @@ export {
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
-  updatePropertyTypeMetaData
+  updatePropertyTypeMetaData,
+  updateSchema
 };
