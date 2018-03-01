@@ -12,6 +12,7 @@ import {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  CREATE_SCHEMA,
   DELETE_ASSOCIATION_TYPE,
   DELETE_ENTITY_TYPE,
   DELETE_PROPERTY_TYPE,
@@ -39,6 +40,7 @@ import {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  createSchema,
   deleteAssociationType,
   deleteEntityType,
   deletePropertyType,
@@ -75,6 +77,8 @@ import {
   createEntityTypeWorker,
   createPropertyTypeWatcher,
   createPropertyTypeWorker,
+  createSchemaWatcher,
+  createSchemaWorker,
   deleteAssociationTypeWatcher,
   deleteAssociationTypeWorker,
   deleteEntityTypeWatcher,
@@ -1149,6 +1153,43 @@ describe('EntityDataModelApiSagas', () => {
    * Schema APIs
    *
    */
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.createSchema
+   *
+   */
+
+  describe('createSchemaWatcher', () => {
+
+    testShouldBeGeneratorFunction(createSchemaWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createSchemaWatcher,
+      createSchemaWorker,
+      CREATE_SCHEMA
+    );
+  });
+
+  describe('createSchemaWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.createSchema,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createSchema,
+      workerSagaAction: createSchema(mockActionValue),
+      workerSagaToTest: createSchemaWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.createSchema,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createSchema,
+      workerSagaAction: createSchema(mockActionValue),
+      workerSagaToTest: createSchemaWorker
+    });
+  });
 
   /*
    *
