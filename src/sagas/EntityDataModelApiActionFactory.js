@@ -115,6 +115,9 @@ const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSeq
  *
  */
 
+const CREATE_SCHEMA :'CREATE_SCHEMA' = 'CREATE_SCHEMA';
+const createSchema :RequestSequence = newRequestSequence(CREATE_SCHEMA);
+
 const GET_ALL_SCHEMAS :'GET_ALL_SCHEMAS' = 'GET_ALL_SCHEMAS';
 const getAllSchemas :RequestSequence = newRequestSequence(GET_ALL_SCHEMAS);
 
@@ -134,6 +137,7 @@ export {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  CREATE_SCHEMA,
   DELETE_ASSOCIATION_TYPE,
   DELETE_ENTITY_TYPE,
   DELETE_PROPERTY_TYPE,
@@ -161,6 +165,7 @@ export {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  createSchema,
   deleteAssociationType,
   deleteEntityType,
   deletePropertyType,
