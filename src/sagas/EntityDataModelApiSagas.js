@@ -14,6 +14,7 @@ import {
   CREATE_ASSOCIATION_TYPE,
   CREATE_ENTITY_TYPE,
   CREATE_PROPERTY_TYPE,
+  CREATE_SCHEMA,
   DELETE_ASSOCIATION_TYPE,
   DELETE_ENTITY_TYPE,
   DELETE_PROPERTY_TYPE,
@@ -41,6 +42,7 @@ import {
   createAssociationType,
   createEntityType,
   createPropertyType,
+  createSchema,
   deleteAssociationType,
   deleteEntityType,
   deletePropertyType,
@@ -888,6 +890,35 @@ function* removeSourceEntityTypeFromAssociationTypeWorker(action :SequenceAction
  */
 
 /*
+ * EntityDataModelApi.createSchema
+ */
+
+function* createSchemaWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(CREATE_SCHEMA, createSchemaWorker);
+}
+
+function* createSchemaWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    yield put(createSchema.request(action.id, action.value));
+    response.data = yield call(EntityDataModelApi.createSchema, action.value);
+    yield put(createSchema.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(createSchema.failure(action.id, response.error));
+  }
+  finally {
+    yield put(createSchema.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getAllSchemas
  */
 
@@ -976,6 +1007,8 @@ export {
   createEntityTypeWorker,
   createPropertyTypeWatcher,
   createPropertyTypeWorker,
+  createSchemaWatcher,
+  createSchemaWorker,
   deleteAssociationTypeWatcher,
   deleteAssociationTypeWorker,
   deleteEntityTypeWatcher,
