@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.21
+ * lattice-sagas - v0.0.22
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -163,7 +163,7 @@ exports.searchEntitySetData = searchEntitySetData;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateSchema = exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.removeSourceEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDestinationEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSourceEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDestinationEntityTypeToAssociationType = exports.UPDATE_SCHEMA = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.RM_SRC_ET_FROM_AT = exports.RM_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.RM_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
+exports.updateSchema = exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.removeSourceEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDestinationEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createSchema = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSourceEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDestinationEntityTypeToAssociationType = exports.UPDATE_SCHEMA = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.RM_SRC_ET_FROM_AT = exports.RM_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.RM_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_SCHEMA = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
 
 var _reduxReqseq = __webpack_require__(2);
 
@@ -279,6 +279,9 @@ var removeSourceEntityTypeFromAssociationType = (0, _reduxReqseq.newRequestSeque
  *
  */
 
+var CREATE_SCHEMA = 'CREATE_SCHEMA';
+var createSchema = (0, _reduxReqseq.newRequestSequence)(CREATE_SCHEMA);
+
 var GET_ALL_SCHEMAS = 'GET_ALL_SCHEMAS';
 var getAllSchemas = (0, _reduxReqseq.newRequestSequence)(GET_ALL_SCHEMAS);
 
@@ -297,6 +300,7 @@ exports.ADD_SRC_ET_TO_AT = ADD_SRC_ET_TO_AT;
 exports.CREATE_ASSOCIATION_TYPE = CREATE_ASSOCIATION_TYPE;
 exports.CREATE_ENTITY_TYPE = CREATE_ENTITY_TYPE;
 exports.CREATE_PROPERTY_TYPE = CREATE_PROPERTY_TYPE;
+exports.CREATE_SCHEMA = CREATE_SCHEMA;
 exports.DELETE_ASSOCIATION_TYPE = DELETE_ASSOCIATION_TYPE;
 exports.DELETE_ENTITY_TYPE = DELETE_ENTITY_TYPE;
 exports.DELETE_PROPERTY_TYPE = DELETE_PROPERTY_TYPE;
@@ -324,6 +328,7 @@ exports.addSourceEntityTypeToAssociationType = addSourceEntityTypeToAssociationT
 exports.createAssociationType = createAssociationType;
 exports.createEntityType = createEntityType;
 exports.createPropertyType = createPropertyType;
+exports.createSchema = createSchema;
 exports.deleteAssociationType = deleteAssociationType;
 exports.deleteEntityType = deleteEntityType;
 exports.deletePropertyType = deletePropertyType;
@@ -687,7 +692,7 @@ exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateSchemaWorker = exports.updateSchemaWatcher = exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.removeSourceEntityTypeFromAssociationTypeWorker = exports.removeSourceEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDestinationEntityTypeFromAssociationTypeWorker = exports.removeDestinationEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSourceEntityTypeToAssociationTypeWorker = exports.addSourceEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDestinationEntityTypeToAssociationTypeWorker = exports.addDestinationEntityTypeToAssociationTypeWatcher = undefined;
+exports.updateSchemaWorker = exports.updateSchemaWatcher = exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.removeSourceEntityTypeFromAssociationTypeWorker = exports.removeSourceEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDestinationEntityTypeFromAssociationTypeWorker = exports.removeDestinationEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createSchemaWorker = exports.createSchemaWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSourceEntityTypeToAssociationTypeWorker = exports.addSourceEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDestinationEntityTypeToAssociationTypeWorker = exports.addDestinationEntityTypeToAssociationTypeWatcher = undefined;
 
 var _lattice = __webpack_require__(1);
 
@@ -745,10 +750,12 @@ var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
     _marked48 = /*#__PURE__*/regeneratorRuntime.mark(removeDestinationEntityTypeFromAssociationTypeWorker),
     _marked49 = /*#__PURE__*/regeneratorRuntime.mark(removeSourceEntityTypeFromAssociationTypeWatcher),
     _marked50 = /*#__PURE__*/regeneratorRuntime.mark(removeSourceEntityTypeFromAssociationTypeWorker),
-    _marked51 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWatcher),
-    _marked52 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWorker),
-    _marked53 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWatcher),
-    _marked54 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWorker);
+    _marked51 = /*#__PURE__*/regeneratorRuntime.mark(createSchemaWatcher),
+    _marked52 = /*#__PURE__*/regeneratorRuntime.mark(createSchemaWorker),
+    _marked53 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWatcher),
+    _marked54 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWorker),
+    _marked55 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWatcher),
+    _marked56 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWorker);
 
 /* eslint-disable no-use-before-define */
 
@@ -2591,16 +2598,16 @@ function removeSourceEntityTypeFromAssociationTypeWorker(action) {
  */
 
 /*
- * EntityDataModelApi.getAllSchemas
+ * EntityDataModelApi.createSchema
  */
 
-function getAllSchemasWatcher() {
-  return regeneratorRuntime.wrap(function getAllSchemasWatcher$(_context51) {
+function createSchemaWatcher() {
+  return regeneratorRuntime.wrap(function createSchemaWatcher$(_context51) {
     while (1) {
       switch (_context51.prev = _context51.next) {
         case 0:
           _context51.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_SCHEMAS, getAllSchemasWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_SCHEMA, createSchemaWorker);
 
         case 2:
         case 'end':
@@ -2610,25 +2617,25 @@ function getAllSchemasWatcher() {
   }, _marked51, this);
 }
 
-function getAllSchemasWorker(action) {
+function createSchemaWorker(action) {
   var response;
-  return regeneratorRuntime.wrap(function getAllSchemasWorker$(_context52) {
+  return regeneratorRuntime.wrap(function createSchemaWorker$(_context52) {
     while (1) {
       switch (_context52.prev = _context52.next) {
         case 0:
           response = {};
           _context52.prev = 1;
           _context52.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.request(action.id, action.value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.request(action.id, action.value));
 
         case 4:
           _context52.next = 6;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllSchemas);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.createSchema, action.value);
 
         case 6:
           response.data = _context52.sent;
           _context52.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.success(action.id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.success(action.id, response.data));
 
         case 9:
           _context52.next = 16;
@@ -2640,12 +2647,12 @@ function getAllSchemasWorker(action) {
 
           response.error = _context52.t0;
           _context52.next = 16;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.failure(action.id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.failure(action.id, response.error));
 
         case 16:
           _context52.prev = 16;
           _context52.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.finally(action.id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.finally(action.id));
 
         case 19:
           return _context52.finish(16);
@@ -2662,16 +2669,16 @@ function getAllSchemasWorker(action) {
 }
 
 /*
- * EntityDataModelApi.updateSchema
+ * EntityDataModelApi.getAllSchemas
  */
 
-function updateSchemaWatcher() {
-  return regeneratorRuntime.wrap(function updateSchemaWatcher$(_context53) {
+function getAllSchemasWatcher() {
+  return regeneratorRuntime.wrap(function getAllSchemasWatcher$(_context53) {
     while (1) {
       switch (_context53.prev = _context53.next) {
         case 0:
           _context53.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_SCHEMA, updateSchemaWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_SCHEMAS, getAllSchemasWorker);
 
         case 2:
         case 'end':
@@ -2681,57 +2688,128 @@ function updateSchemaWatcher() {
   }, _marked53, this);
 }
 
-function updateSchemaWorker(seqAction) {
-  var response, _seqAction$value, schemaFqn, entityTypeIds, propertyTypeIds, action;
-
-  return regeneratorRuntime.wrap(function updateSchemaWorker$(_context54) {
+function getAllSchemasWorker(action) {
+  var response;
+  return regeneratorRuntime.wrap(function getAllSchemasWorker$(_context54) {
     while (1) {
       switch (_context54.prev = _context54.next) {
         case 0:
           response = {};
           _context54.prev = 1;
           _context54.next = 4;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.request(seqAction.id, seqAction.value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.request(action.id, action.value));
 
         case 4:
-          _seqAction$value = seqAction.value, schemaFqn = _seqAction$value.schemaFqn, entityTypeIds = _seqAction$value.entityTypeIds, propertyTypeIds = _seqAction$value.propertyTypeIds, action = _seqAction$value.action;
-          _context54.next = 7;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updateSchema, schemaFqn, action, entityTypeIds, propertyTypeIds);
+          _context54.next = 6;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllSchemas);
 
-        case 7:
+        case 6:
           response.data = _context54.sent;
-          _context54.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.success(seqAction.id, response.data));
+          _context54.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.success(action.id, response.data));
 
-        case 10:
-          _context54.next = 17;
+        case 9:
+          _context54.next = 16;
           break;
 
-        case 12:
-          _context54.prev = 12;
+        case 11:
+          _context54.prev = 11;
           _context54.t0 = _context54['catch'](1);
 
           response.error = _context54.t0;
-          _context54.next = 17;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.failure(seqAction.id, response.error));
+          _context54.next = 16;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.failure(action.id, response.error));
 
-        case 17:
-          _context54.prev = 17;
-          _context54.next = 20;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.finally(seqAction.id));
+        case 16:
+          _context54.prev = 16;
+          _context54.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.finally(action.id));
+
+        case 19:
+          return _context54.finish(16);
 
         case 20:
-          return _context54.finish(17);
-
-        case 21:
           return _context54.abrupt('return', response);
 
-        case 22:
+        case 21:
         case 'end':
           return _context54.stop();
       }
     }
-  }, _marked54, this, [[1, 12, 17, 21]]);
+  }, _marked54, this, [[1, 11, 16, 20]]);
+}
+
+/*
+ * EntityDataModelApi.updateSchema
+ */
+
+function updateSchemaWatcher() {
+  return regeneratorRuntime.wrap(function updateSchemaWatcher$(_context55) {
+    while (1) {
+      switch (_context55.prev = _context55.next) {
+        case 0:
+          _context55.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_SCHEMA, updateSchemaWorker);
+
+        case 2:
+        case 'end':
+          return _context55.stop();
+      }
+    }
+  }, _marked55, this);
+}
+
+function updateSchemaWorker(seqAction) {
+  var response, _seqAction$value, schemaFqn, entityTypeIds, propertyTypeIds, action;
+
+  return regeneratorRuntime.wrap(function updateSchemaWorker$(_context56) {
+    while (1) {
+      switch (_context56.prev = _context56.next) {
+        case 0:
+          response = {};
+          _context56.prev = 1;
+          _context56.next = 4;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.request(seqAction.id, seqAction.value));
+
+        case 4:
+          _seqAction$value = seqAction.value, schemaFqn = _seqAction$value.schemaFqn, entityTypeIds = _seqAction$value.entityTypeIds, propertyTypeIds = _seqAction$value.propertyTypeIds, action = _seqAction$value.action;
+          _context56.next = 7;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateSchema, schemaFqn, action, entityTypeIds, propertyTypeIds);
+
+        case 7:
+          response.data = _context56.sent;
+          _context56.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.success(seqAction.id, response.data));
+
+        case 10:
+          _context56.next = 17;
+          break;
+
+        case 12:
+          _context56.prev = 12;
+          _context56.t0 = _context56['catch'](1);
+
+          response.error = _context56.t0;
+          _context56.next = 17;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.failure(seqAction.id, response.error));
+
+        case 17:
+          _context56.prev = 17;
+          _context56.next = 20;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.finally(seqAction.id));
+
+        case 20:
+          return _context56.finish(17);
+
+        case 21:
+          return _context56.abrupt('return', response);
+
+        case 22:
+        case 'end':
+          return _context56.stop();
+      }
+    }
+  }, _marked56, this, [[1, 12, 17, 21]]);
 }
 
 /*
@@ -2752,6 +2830,8 @@ exports.createEntityTypeWatcher = createEntityTypeWatcher;
 exports.createEntityTypeWorker = createEntityTypeWorker;
 exports.createPropertyTypeWatcher = createPropertyTypeWatcher;
 exports.createPropertyTypeWorker = createPropertyTypeWorker;
+exports.createSchemaWatcher = createSchemaWatcher;
+exports.createSchemaWorker = createSchemaWorker;
 exports.deleteAssociationTypeWatcher = deleteAssociationTypeWatcher;
 exports.deleteAssociationTypeWorker = deleteAssociationTypeWorker;
 exports.deleteEntityTypeWatcher = deleteEntityTypeWatcher;
@@ -3354,7 +3434,7 @@ var SyncApiSagas = _interopRequireWildcard(_SyncApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.21";
+var version = "v0.0.22";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
