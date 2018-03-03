@@ -55,8 +55,12 @@ const updateEntityTypeMetaData :RequestSequence = newRequestSequence(UPDATE_ENTI
 const ADD_PROPERTY_TYPE_TO_ENTITY_TYPE :'ADD_PROPERTY_TYPE_TO_ENTITY_TYPE' = 'ADD_PROPERTY_TYPE_TO_ENTITY_TYPE';
 const addPropertyTypeToEntityType :RequestSequence = newRequestSequence(ADD_PROPERTY_TYPE_TO_ENTITY_TYPE);
 
-const RM_PROPERTY_TYPE_FROM_ENTITY_TYPE :'RM_PROPERTY_TYPE_FROM_ENTITY_TYPE' = 'RM_PROPERTY_TYPE_FROM_ENTITY_TYPE';
-const removePropertyTypeFromEntityType :RequestSequence = newRequestSequence(RM_PROPERTY_TYPE_FROM_ENTITY_TYPE);
+// eslint-disable-next-line max-len
+const REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE :'REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE' = 'REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE';
+const removePropertyTypeFromEntityType :RequestSequence = newRequestSequence(REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE);
+
+const REORDER_ENTITY_TYPE_PROPERTY_TYPES :'REORDER_ENTITY_TYPE_PROPERTY_TYPES' = 'REORDER_ENTITY_TYPE_PROPERTY_TYPES';
+const reorderEntityTypePropertyTypes :RequestSequence = newRequestSequence(REORDER_ENTITY_TYPE_PROPERTY_TYPES);
 
 /*
  *
@@ -103,11 +107,11 @@ const addDestinationEntityTypeToAssociationType :RequestSequence = newRequestSeq
 const ADD_SRC_ET_TO_AT :'ADD_SRC_ET_TO_AT' = 'ADD_SRC_ET_TO_AT';
 const addSourceEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_SRC_ET_TO_AT);
 
-const RM_DST_ET_FROM_AT :'RM_DST_ET_FROM_AT' = 'RM_DST_ET_FROM_AT';
-const removeDestinationEntityTypeFromAssociationType :RequestSequence = newRequestSequence(RM_DST_ET_FROM_AT);
+const REMOVE_DST_ET_FROM_AT :'REMOVE_DST_ET_FROM_AT' = 'REMOVE_DST_ET_FROM_AT';
+const removeDestinationEntityTypeFromAssociationType :RequestSequence = newRequestSequence(REMOVE_DST_ET_FROM_AT);
 
-const RM_SRC_ET_FROM_AT :'RM_SRC_ET_FROM_AT' = 'RM_SRC_ET_FROM_AT';
-const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSequence(RM_SRC_ET_FROM_AT);
+const REMOVE_SRC_ET_FROM_AT :'REMOVE_SRC_ET_FROM_AT' = 'REMOVE_SRC_ET_FROM_AT';
+const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSequence(REMOVE_SRC_ET_FROM_AT);
 
 /*
  *
@@ -151,9 +155,10 @@ export {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
-  RM_DST_ET_FROM_AT,
-  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
-  RM_SRC_ET_FROM_AT,
+  REMOVE_DST_ET_FROM_AT,
+  REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  REMOVE_SRC_ET_FROM_AT,
+  REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
@@ -182,6 +187,7 @@ export {
   removeDestinationEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
   removeSourceEntityTypeFromAssociationType,
+  reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,

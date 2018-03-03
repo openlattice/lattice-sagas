@@ -26,6 +26,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   RM_DST_ET_FROM_AT,
   RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
   RM_SRC_ET_FROM_AT,
@@ -57,6 +58,7 @@ import {
   removeDestinationEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
   removeSourceEntityTypeFromAssociationType,
+  reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
@@ -111,6 +113,8 @@ import {
   removePropertyTypeFromEntityTypeWorker,
   removeSourceEntityTypeFromAssociationTypeWatcher,
   removeSourceEntityTypeFromAssociationTypeWorker,
+  reorderEntityTypePropertyTypesWatcher,
+  reorderEntityTypePropertyTypesWorker,
   updateAssociationTypeMetaDataWatcher,
   updateAssociationTypeMetaDataWorker,
   updateEntitySetMetaDataWatcher,
@@ -619,6 +623,48 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: removePropertyTypeFromEntityType,
       workerSagaAction: removePropertyTypeFromEntityType(mockActionValue),
       workerSagaToTest: removePropertyTypeFromEntityTypeWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes
+   *
+   */
+
+  describe('reorderEntityTypePropertyTypesWatcher', () => {
+
+    testShouldBeGeneratorFunction(reorderEntityTypePropertyTypesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      reorderEntityTypePropertyTypesWatcher,
+      reorderEntityTypePropertyTypesWorker,
+      REORDER_ENTITY_TYPE_PROPERTY_TYPES
+    );
+  });
+
+  describe('reorderEntityTypePropertyTypesWorker', () => {
+
+    testShouldBeGeneratorFunction(reorderEntityTypePropertyTypesWorker);
+
+    const mockActionValue = {
+      entityTypeId: randomUUID(),
+      propertyTypeIds: [randomUUID(), randomUUID()]
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.reorderPropertyTypesInEntityType,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.propertyTypeIds],
+      latticeApiReqSeq: reorderEntityTypePropertyTypes,
+      workerSagaAction: reorderEntityTypePropertyTypes(mockActionValue),
+      workerSagaToTest: reorderEntityTypePropertyTypesWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.reorderPropertyTypesInEntityType,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.propertyTypeIds],
+      latticeApiReqSeq: reorderEntityTypePropertyTypes,
+      workerSagaAction: reorderEntityTypePropertyTypes(mockActionValue),
+      workerSagaToTest: reorderEntityTypePropertyTypesWorker
     });
   });
 
