@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.0.23
+ * lattice-sagas - v0.0.24
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -1587,7 +1587,7 @@ function removePropertyTypeFromEntityTypeWatcher() {
       switch (_context23.prev = _context23.next) {
         case 0:
           _context23.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.RM_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -2536,7 +2536,7 @@ function removeDestinationEntityTypeFromAssociationTypeWatcher() {
       switch (_context49.prev = _context49.next) {
         case 0:
           _context49.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.RM_DST_ET_FROM_AT, removeDestinationEntityTypeFromAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_DST_ET_FROM_AT, removeDestinationEntityTypeFromAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -2609,7 +2609,7 @@ function removeSourceEntityTypeFromAssociationTypeWatcher() {
       switch (_context51.prev = _context51.next) {
         case 0:
           _context51.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.RM_SRC_ET_FROM_AT, removeSourceEntityTypeFromAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_SRC_ET_FROM_AT, removeSourceEntityTypeFromAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -3517,7 +3517,7 @@ var SyncApiSagas = _interopRequireWildcard(_SyncApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.0.23";
+var version = "v0.0.24";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
