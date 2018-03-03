@@ -28,6 +28,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   RM_DST_ET_FROM_AT,
   RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
   RM_SRC_ET_FROM_AT,
@@ -59,6 +60,7 @@ import {
   removeDestinationEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
   removeSourceEntityTypeFromAssociationType,
+  reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
@@ -451,6 +453,37 @@ function* removePropertyTypeFromEntityTypeWorker(action :SequenceAction) :Genera
   }
   finally {
     yield put(removePropertyTypeFromEntityType.finally(action.id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.reorderPropertyTypesInEntityType
+ */
+
+function* reorderEntityTypePropertyTypesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(REORDER_ENTITY_TYPE_PROPERTY_TYPES, reorderEntityTypePropertyTypesWorker);
+}
+
+function* reorderEntityTypePropertyTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
+
+  const response :Response = {};
+
+  try {
+    // action.value is expected to be an object containing the EntityType id and the PropertyType ids
+    yield put(reorderEntityTypePropertyTypes.request(action.id, action.value));
+    const { entityTypeId, propertyTypeIds } = action.value;
+    response.data = yield call(EntityDataModelApi.reorderPropertyTypesInEntityType, entityTypeId, propertyTypeIds);
+    yield put(reorderEntityTypePropertyTypes.success(action.id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(reorderEntityTypePropertyTypes.failure(action.id, response.error));
+  }
+  finally {
+    yield put(reorderEntityTypePropertyTypes.finally(action.id));
   }
 
   return response;
@@ -1041,6 +1074,8 @@ export {
   removePropertyTypeFromEntityTypeWorker,
   removeSourceEntityTypeFromAssociationTypeWatcher,
   removeSourceEntityTypeFromAssociationTypeWorker,
+  reorderEntityTypePropertyTypesWatcher,
+  reorderEntityTypePropertyTypesWorker,
   updateAssociationTypeMetaDataWatcher,
   updateAssociationTypeMetaDataWorker,
   updateEntitySetMetaDataWatcher,
