@@ -27,9 +27,9 @@ import {
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
-  RM_DST_ET_FROM_AT,
-  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
-  RM_SRC_ET_FROM_AT,
+  REMOVE_DST_ET_FROM_AT,
+  REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  REMOVE_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
@@ -596,7 +596,7 @@ describe('EntityDataModelApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       removePropertyTypeFromEntityTypeWatcher,
       removePropertyTypeFromEntityTypeWorker,
-      RM_PROPERTY_TYPE_FROM_ENTITY_TYPE
+      REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE
     );
   });
 
@@ -1122,7 +1122,7 @@ describe('EntityDataModelApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       removeDestinationEntityTypeFromAssociationTypeWatcher,
       removeDestinationEntityTypeFromAssociationTypeWorker,
-      RM_DST_ET_FROM_AT
+      REMOVE_DST_ET_FROM_AT
     );
   });
 
@@ -1164,7 +1164,7 @@ describe('EntityDataModelApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       removeSourceEntityTypeFromAssociationTypeWatcher,
       removeSourceEntityTypeFromAssociationTypeWorker,
-      RM_SRC_ET_FROM_AT
+      REMOVE_SRC_ET_FROM_AT
     );
   });
 
