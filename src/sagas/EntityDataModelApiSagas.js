@@ -28,10 +28,10 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  REMOVE_DST_ET_FROM_AT,
+  REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
+  REMOVE_SRC_ET_FROM_AT,
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
-  RM_DST_ET_FROM_AT,
-  RM_PROPERTY_TYPE_FROM_ENTITY_TYPE,
-  RM_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
@@ -433,7 +433,7 @@ function* addPropertyTypeToEntityTypeWorker(action :SequenceAction) :Generator<*
 
 function* removePropertyTypeFromEntityTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(RM_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
+  yield takeEvery(REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
 }
 
 function* removePropertyTypeFromEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
@@ -850,7 +850,7 @@ function* addSourceEntityTypeToAssociationTypeWorker(action :SequenceAction) :Ge
 
 function* removeDestinationEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(RM_DST_ET_FROM_AT, removeDestinationEntityTypeFromAssociationTypeWorker);
+  yield takeEvery(REMOVE_DST_ET_FROM_AT, removeDestinationEntityTypeFromAssociationTypeWorker);
 }
 
 function* removeDestinationEntityTypeFromAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
@@ -886,7 +886,7 @@ function* removeDestinationEntityTypeFromAssociationTypeWorker(action :SequenceA
 
 function* removeSourceEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(RM_SRC_ET_FROM_AT, removeSourceEntityTypeFromAssociationTypeWorker);
+  yield takeEvery(REMOVE_SRC_ET_FROM_AT, removeSourceEntityTypeFromAssociationTypeWorker);
 }
 
 function* removeSourceEntityTypeFromAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
