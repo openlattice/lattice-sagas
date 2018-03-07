@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
 
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import Webpack from 'webpack';
 
 import PACKAGE from '../../package.json';
@@ -48,8 +47,6 @@ export default function webpackConfig() {
     __VERSION__: JSON.stringify(`v${PACKAGE.version}`)
   });
 
-  const UGLIFY_PLUGIN = new UglifyJsPlugin();
-
   /*
    * base webpack config
    */
@@ -88,8 +85,7 @@ export default function webpackConfig() {
     },
     plugins: [
       DEFINE_PLUGIN,
-      BANNER_PLUGIN,
-      ...ifMin([UGLIFY_PLUGIN], [])
+      BANNER_PLUGIN
     ],
     resolve: {
       extensions: ['.js'],
