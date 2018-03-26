@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "main": "build/lattice-sagas.js",
   "dependencies": {
-    "lattice": "^0.33.0",
+    "lattice": "^0.34.0",
     "redux-reqseq": "^0.1.1",
     "redux-saga": "^0.16.0"
   },
