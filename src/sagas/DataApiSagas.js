@@ -9,10 +9,8 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
   ACQUIRE_SYNC_TICKET,
-  CREATE_ENTITY_AND_ASSOCIATION_DATA,
   GET_ENTITY_SET_DATA,
   acquireSyncTicket,
-  createEntityAndAssociationData,
   getEntitySetData
 } from './DataApiActionFactory';
 
@@ -52,35 +50,6 @@ function* acquireSyncTicketWorker(action :SequenceAction) :Generator<*, Response
 }
 
 /*
- * DataApi.createEntityAndAssociationData
- */
-
-function* createEntityAndAssociationDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
-}
-
-function* createEntityAndAssociationDataWorker(action :SequenceAction) :Generator<*, *, *> {
-
-  const response :Response = {};
-
-  try {
-    yield put(createEntityAndAssociationData.request(action.id, action.value));
-    response.data = yield call(DataApi.createEntityAndAssociationData, action.value);
-    yield put(createEntityAndAssociationData.success(action.id, response.data));
-  }
-  catch (error) {
-    response.error = error;
-    yield put(createEntityAndAssociationData.failure(action.id, response.error));
-  }
-  finally {
-    yield put(createEntityAndAssociationData.finally(action.id));
-  }
-
-  return response;
-}
-
-/*
  * DataApi.getEntitySetData
  */
 
@@ -113,8 +82,6 @@ function* getEntitySetDataWorker(action :SequenceAction) :Generator<*, *, *> {
 export {
   acquireSyncTicketWatcher,
   acquireSyncTicketWorker,
-  createEntityAndAssociationDataWatcher,
-  createEntityAndAssociationDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker
 };
