@@ -9,10 +9,8 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
   ACQUIRE_SYNC_TICKET,
-  CREATE_ENTITY_AND_ASSOCIATION_DATA,
   GET_ENTITY_SET_DATA,
   acquireSyncTicket,
-  createEntityAndAssociationData,
   getEntitySetData
 } from './DataApiActionFactory';
 
