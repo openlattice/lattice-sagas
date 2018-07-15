@@ -7,18 +7,14 @@ import { DataApi } from 'lattice';
 
 import {
   ACQUIRE_SYNC_TICKET,
-  CREATE_ENTITY_AND_ASSOCIATION_DATA,
   GET_ENTITY_SET_DATA,
   acquireSyncTicket,
-  createEntityAndAssociationData,
   getEntitySetData
 } from './DataApiActionFactory';
 
 import {
   acquireSyncTicketWatcher,
   acquireSyncTicketWorker,
-  createEntityAndAssociationDataWatcher,
-  createEntityAndAssociationDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker
 } from './DataApiSagas';
@@ -70,45 +66,6 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: acquireSyncTicket,
       workerSagaAction: acquireSyncTicket(mockActionValue),
       workerSagaToTest: acquireSyncTicketWorker
-    });
-
-  });
-
-  /*
-   *
-   * DataApiActionFactory.createEntityAndAssociationData
-   *
-   */
-
-  describe('createEntityAndAssociationDataWatcher', () => {
-    testShouldBeGeneratorFunction(createEntityAndAssociationDataWatcher);
-    testWatcherSagaShouldTakeEvery(
-      createEntityAndAssociationDataWatcher,
-      createEntityAndAssociationDataWorker,
-      CREATE_ENTITY_AND_ASSOCIATION_DATA
-    );
-  });
-
-  describe('createEntityAndAssociationDataWorker', () => {
-
-    const mockActionValue = randomUUID();
-
-    testShouldBeGeneratorFunction(createEntityAndAssociationDataWorker);
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataApi.createEntityAndAssociationData,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: createEntityAndAssociationData,
-      workerSagaAction: createEntityAndAssociationData(mockActionValue),
-      workerSagaToTest: createEntityAndAssociationDataWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataApi.createEntityAndAssociationData,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: createEntityAndAssociationData,
-      workerSagaAction: createEntityAndAssociationData(mockActionValue),
-      workerSagaToTest: createEntityAndAssociationDataWorker
     });
 
   });
