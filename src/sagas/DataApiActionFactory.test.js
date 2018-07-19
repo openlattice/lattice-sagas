@@ -4,13 +4,11 @@ import * as DataApiActionFactory from './DataApiActionFactory';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
-  'ACQUIRE_SYNC_TICKET',
-  'GET_ENTITY_SET_DATA'
+  'GET_ENTITY_SET_DATA',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
-  'acquireSyncTicket',
-  'getEntitySetData'
+  'getEntitySetData',
 ]).sort();
 
 describe('DataApiActionFactory', () => {

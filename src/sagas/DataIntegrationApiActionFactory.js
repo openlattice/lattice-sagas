@@ -9,5 +9,5 @@ const createEntityAndAssociationData :RequestSequence = newRequestSequence(CREAT
 
 export {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
-  createEntityAndAssociationData
+  createEntityAndAssociationData,
 };

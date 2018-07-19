@@ -12,8 +12,6 @@ import * as EntityDataModelApiActionFactory from './sagas/EntityDataModelApiActi
 import * as EntityDataModelApiSagas from './sagas/EntityDataModelApiSagas';
 import * as SearchApiActionFactory from './sagas/SearchApiActionFactory';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
-import * as SyncApiActionFactory from './sagas/SyncApiActionFactory';
-import * as SyncApiSagas from './sagas/SyncApiSagas';
 
 // injected by Webpack.DefinePlugin
 declare var __VERSION__ :string;
@@ -30,8 +28,6 @@ export {
   EntityDataModelApiSagas,
   SearchApiActionFactory,
   SearchApiSagas,
-  SyncApiActionFactory,
-  SyncApiSagas,
   version
 };
 
@@ -46,7 +42,5 @@ export default {
   EntityDataModelApiSagas,
   SearchApiActionFactory,
   SearchApiSagas,
-  SyncApiActionFactory,
-  SyncApiSagas,
   version
 };

@@ -4,11 +4,11 @@ import * as DataIntegrationApiActionFactory from './DataIntegrationApiActionFact
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
-  'CREATE_ENTITY_AND_ASSOCIATION_DATA'
+  'CREATE_ENTITY_AND_ASSOCIATION_DATA',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
-  'createEntityAndAssociationData'
+  'createEntityAndAssociationData',
 ]).sort();
 
 describe('DataIntegrationApiActionFactory', () => {

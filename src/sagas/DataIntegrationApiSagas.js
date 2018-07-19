@@ -9,7 +9,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
-  createEntityAndAssociationData
+  createEntityAndAssociationData,
 } from './DataIntegrationApiActionFactory';
 
 declare type Response = {
@@ -18,7 +18,9 @@ declare type Response = {
 };
 
 /*
+ *
  * DataIntegrationApi.createEntityAndAssociationData
+ *
  */
 
 function* createEntityAndAssociationDataWatcher() :Generator<*, *, *> {
@@ -48,5 +50,5 @@ function* createEntityAndAssociationDataWorker(action :SequenceAction) :Generato
 
 export {
   createEntityAndAssociationDataWatcher,
-  createEntityAndAssociationDataWorker
+  createEntityAndAssociationDataWorker,
 };
