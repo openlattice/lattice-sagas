@@ -22,7 +22,7 @@ import {
   testWorkerSagaShouldHandleSuccessCase
 } from '../utils/testing/TestUtils';
 
-describe('DataApiSagas', () => {
+describe('DataIntegrationApiSagas', () => {
 
   /*
    *
