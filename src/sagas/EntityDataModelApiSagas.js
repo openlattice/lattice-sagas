@@ -7,6 +7,9 @@
 import { EntityDataModelApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
+import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+
 import {
   ADD_DST_ET_TO_AT,
   ADD_PROPERTY_TYPE_TO_ENTITY_TYPE,
@@ -37,9 +40,9 @@ import {
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
   UPDATE_SCHEMA,
-  addDestinationEntityTypeToAssociationType,
+  addDstEntityTypeToAssociationType,
   addPropertyTypeToEntityType,
-  addSourceEntityTypeToAssociationType,
+  addSrcEntityTypeToAssociationType,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -57,9 +60,9 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
-  removeDestinationEntityTypeFromAssociationType,
+  removeDstEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
-  removeSourceEntityTypeFromAssociationType,
+  removeSrcEntityTypeFromAssociationType,
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,
@@ -71,12 +74,6 @@ import {
 /*
  * types
  */
-
-// TODO: move out to global Flow definition for the library
-declare type Response = {
-  data ? :any;
-  error ? :any;
-};
 
 /*
  *
@@ -93,21 +90,28 @@ function* getEntityDataModelWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ENTITY_DATA_MODEL, getEntityDataModelWorker);
 }
 
-function* getEntityDataModelWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getEntityDataModelWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ENTITY_DATA_MODEL)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const response :Object = {};
+  const { id } = seqAction;
 
   try {
-    yield put(getEntityDataModel.request(action.id, action.value));
+    yield put(getEntityDataModel.request(id));
     response.data = yield call(EntityDataModelApi.getEntityDataModel);
-    yield put(getEntityDataModel.success(action.id, response.data));
+    yield put(getEntityDataModel.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityDataModel.failure(action.id, response.error));
+    yield put(getEntityDataModel.failure(id, response.error));
   }
   finally {
-    yield put(getEntityDataModel.finally(action.id));
+    yield put(getEntityDataModel.finally(id));
   }
 
   return response;
@@ -122,22 +126,35 @@ function* getEntityDataModelProjectionWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ENTITY_DATA_MODEL_PROJECTION, getEntityDataModelProjectionWorker);
 }
 
-function* getEntityDataModelProjectionWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getEntityDataModelProjectionWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ENTITY_DATA_MODEL_PROJECTION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the projection
-    yield put(getEntityDataModelProjection.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, action.value);
-    yield put(getEntityDataModelProjection.success(action.id, response.data));
+    // value is expected to be the projection
+    yield put(getEntityDataModelProjection.request(id, value));
+    response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, value);
+    yield put(getEntityDataModelProjection.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityDataModelProjection.failure(action.id, response.error));
+    yield put(getEntityDataModelProjection.failure(id, response.error));
   }
   finally {
-    yield put(getEntityDataModelProjection.finally(action.id));
+    yield put(getEntityDataModelProjection.finally(id));
   }
 
   return response;
@@ -158,22 +175,35 @@ function* getEntitySetWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ENTITY_SET, getEntitySetWorker);
 }
 
-function* getEntitySetWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ENTITY_SET)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the EntitySet id
-    yield put(getEntitySet.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.getEntitySet, action.value);
-    yield put(getEntitySet.success(action.id, response.data));
+    // value is expected to be the EntitySet id
+    yield put(getEntitySet.request(id, value));
+    response.data = yield call(EntityDataModelApi.getEntitySet, value);
+    yield put(getEntitySet.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntitySet.failure(action.id, response.error));
+    yield put(getEntitySet.failure(id, response.error));
   }
   finally {
-    yield put(getEntitySet.finally(action.id));
+    yield put(getEntitySet.finally(id));
   }
 
   return response;
@@ -188,22 +218,35 @@ function* getEntitySetIdWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ENTITY_SET_ID, getEntitySetIdWorker);
 }
 
-function* getEntitySetIdWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getEntitySetIdWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ENTITY_SET_ID)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the EntitySet name
-    yield put(getEntitySetId.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.getEntitySetId, action.value);
-    yield put(getEntitySetId.success(action.id, response.data));
+    // value is expected to be the EntitySet name
+    yield put(getEntitySetId.request(id, value));
+    response.data = yield call(EntityDataModelApi.getEntitySetId, value);
+    yield put(getEntitySetId.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntitySetId.failure(action.id, response.error));
+    yield put(getEntitySetId.failure(id, response.error));
   }
   finally {
-    yield put(getEntitySetId.finally(action.id));
+    yield put(getEntitySetId.finally(id));
   }
 
   return response;
@@ -218,23 +261,36 @@ function* updateEntitySetMetaDataWatcher() :Generator<*, void, *> {
   yield takeEvery(UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
 }
 
-function* updateEntitySetMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* updateEntitySetMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, UPDATE_ENTITY_SET_METADATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, metadata } = value;
 
   try {
-    // action.value is expected to be an object containing the EntitySet id and metadata
-    yield put(updateEntitySetMetaData.request(action.id, action.value));
-    const { id, metadata } = action.value;
-    response.data = yield call(EntityDataModelApi.updateEntitySetMetaData, id, metadata);
-    yield put(updateEntitySetMetaData.success(action.id, response.data));
+    // value is expected to be an object containing the EntitySet id and metadata
+    yield put(updateEntitySetMetaData.request(id, value));
+    response.data = yield call(EntityDataModelApi.updateEntitySetMetaData, entitySetId, metadata);
+    yield put(updateEntitySetMetaData.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateEntitySetMetaData.failure(action.id, response.error));
+    yield put(updateEntitySetMetaData.failure(id, response.error));
   }
   finally {
-    yield put(updateEntitySetMetaData.finally(action.id));
+    yield put(updateEntitySetMetaData.finally(id));
   }
 
   return response;
@@ -255,22 +311,35 @@ function* createEntityTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(CREATE_ENTITY_TYPE, createEntityTypeWorker);
 }
 
-function* createEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* createEntityTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, CREATE_ENTITY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the EntityType object
-    yield put(createEntityType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.createEntityType, action.value);
-    yield put(createEntityType.success(action.id, response.data));
+    // value is expected to be the EntityType object
+    yield put(createEntityType.request(id, value));
+    response.data = yield call(EntityDataModelApi.createEntityType, value);
+    yield put(createEntityType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createEntityType.failure(action.id, response.error));
+    yield put(createEntityType.failure(id, response.error));
   }
   finally {
-    yield put(createEntityType.finally(action.id));
+    yield put(createEntityType.finally(id));
   }
 
   return response;
@@ -285,22 +354,35 @@ function* deleteEntityTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(DELETE_ENTITY_TYPE, deleteEntityTypeWorker);
 }
 
-function* deleteEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* deleteEntityTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, DELETE_ENTITY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the EntityType id
-    yield put(deleteEntityType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.deleteEntityType, action.value);
-    yield put(deleteEntityType.success(action.id, response.data));
+    // value is expected to be the EntityType id
+    yield put(deleteEntityType.request(id, value));
+    response.data = yield call(EntityDataModelApi.deleteEntityType, value);
+    yield put(deleteEntityType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(deleteEntityType.failure(action.id, response.error));
+    yield put(deleteEntityType.failure(id, response.error));
   }
   finally {
-    yield put(deleteEntityType.finally(action.id));
+    yield put(deleteEntityType.finally(id));
   }
 
   return response;
@@ -315,21 +397,28 @@ function* getAllEntityTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_ENTITY_TYPES, getAllEntityTypesWorker);
 }
 
-function* getAllEntityTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getAllEntityTypesWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ALL_ENTITY_TYPES)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const response :Object = {};
+  const { id } = seqAction;
 
   try {
-    yield put(getAllEntityTypes.request(action.id, action.value));
+    yield put(getAllEntityTypes.request(id));
     response.data = yield call(EntityDataModelApi.getAllEntityTypes);
-    yield put(getAllEntityTypes.success(action.id, response.data));
+    yield put(getAllEntityTypes.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllEntityTypes.failure(action.id, response.error));
+    yield put(getAllEntityTypes.failure(id, response.error));
   }
   finally {
-    yield put(getAllEntityTypes.finally(action.id));
+    yield put(getAllEntityTypes.finally(id));
   }
 
   return response;
@@ -344,22 +433,35 @@ function* getEntityTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ENTITY_TYPE, getEntityTypeWorker);
 }
 
-function* getEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getEntityTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ENTITY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the EntityType id
-    yield put(getEntityType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.getEntityType, action.value);
-    yield put(getEntityType.success(action.id, response.data));
+    // value is expected to be the EntityType id
+    yield put(getEntityType.request(id, value));
+    response.data = yield call(EntityDataModelApi.getEntityType, value);
+    yield put(getEntityType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getEntityType.failure(action.id, response.error));
+    yield put(getEntityType.failure(id, response.error));
   }
   finally {
-    yield put(getEntityType.finally(action.id));
+    yield put(getEntityType.finally(id));
   }
 
   return response;
@@ -374,23 +476,36 @@ function* updateEntityTypeMetaDataWatcher() :Generator<*, void, *> {
   yield takeEvery(UPDATE_ENTITY_TYPE_METADATA, updateEntityTypeMetaDataWorker);
 }
 
-function* updateEntityTypeMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* updateEntityTypeMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, UPDATE_ENTITY_TYPE_METADATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityTypeId, metadata } = value;
 
   try {
-    // action.value is expected to be an object containing the EntityType id and metadata
-    yield put(updateEntityTypeMetaData.request(action.id, action.value));
-    const { id, metadata } = action.value;
-    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
-    yield put(updateEntityTypeMetaData.success(action.id, response.data));
+    // value is expected to be an object containing the EntityType id and metadata
+    yield put(updateEntityTypeMetaData.request(id, value));
+    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, entityTypeId, metadata);
+    yield put(updateEntityTypeMetaData.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateEntityTypeMetaData.failure(action.id, response.error));
+    yield put(updateEntityTypeMetaData.failure(id, response.error));
   }
   finally {
-    yield put(updateEntityTypeMetaData.finally(action.id));
+    yield put(updateEntityTypeMetaData.finally(id));
   }
 
   return response;
@@ -405,23 +520,36 @@ function* addPropertyTypeToEntityTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(ADD_PROPERTY_TYPE_TO_ENTITY_TYPE, addPropertyTypeToEntityTypeWorker);
 }
 
-function* addPropertyTypeToEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* addPropertyTypeToEntityTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, ADD_PROPERTY_TYPE_TO_ENTITY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityTypeId, propertyTypeId } = value;
 
   try {
-    // action.value is expected to be an object containing the EntityType id and the PropertyType id
-    yield put(addPropertyTypeToEntityType.request(action.id, action.value));
-    const { entityTypeId, propertyTypeId } = action.value;
+    // value is expected to be an object containing the EntityType id and the PropertyType id
+    yield put(addPropertyTypeToEntityType.request(id, value));
     response.data = yield call(EntityDataModelApi.addPropertyTypeToEntityType, entityTypeId, propertyTypeId);
-    yield put(addPropertyTypeToEntityType.success(action.id, response.data));
+    yield put(addPropertyTypeToEntityType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(addPropertyTypeToEntityType.failure(action.id, response.error));
+    yield put(addPropertyTypeToEntityType.failure(id, response.error));
   }
   finally {
-    yield put(addPropertyTypeToEntityType.finally(action.id));
+    yield put(addPropertyTypeToEntityType.finally(id));
   }
 
   return response;
@@ -436,23 +564,36 @@ function* removePropertyTypeFromEntityTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
 }
 
-function* removePropertyTypeFromEntityTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* removePropertyTypeFromEntityTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityTypeId, propertyTypeId } = value;
 
   try {
-    // action.value is expected to be an object containing the EntityType id and the PropertyType id
-    yield put(removePropertyTypeFromEntityType.request(action.id, action.value));
-    const { entityTypeId, propertyTypeId } = action.value;
+    // value is expected to be an object containing the EntityType id and the PropertyType id
+    yield put(removePropertyTypeFromEntityType.request(id, value));
     response.data = yield call(EntityDataModelApi.removePropertyTypeFromEntityType, entityTypeId, propertyTypeId);
-    yield put(removePropertyTypeFromEntityType.success(action.id, response.data));
+    yield put(removePropertyTypeFromEntityType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(removePropertyTypeFromEntityType.failure(action.id, response.error));
+    yield put(removePropertyTypeFromEntityType.failure(id, response.error));
   }
   finally {
-    yield put(removePropertyTypeFromEntityType.finally(action.id));
+    yield put(removePropertyTypeFromEntityType.finally(id));
   }
 
   return response;
@@ -467,23 +608,36 @@ function* reorderEntityTypePropertyTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(REORDER_ENTITY_TYPE_PROPERTY_TYPES, reorderEntityTypePropertyTypesWorker);
 }
 
-function* reorderEntityTypePropertyTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* reorderEntityTypePropertyTypesWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, REORDER_ENTITY_TYPE_PROPERTY_TYPES)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityTypeId, propertyTypeIds } = value;
 
   try {
-    // action.value is expected to be an object containing the EntityType id and the PropertyType ids
-    yield put(reorderEntityTypePropertyTypes.request(action.id, action.value));
-    const { entityTypeId, propertyTypeIds } = action.value;
+    // value is expected to be an object containing the EntityType id and the PropertyType ids
+    yield put(reorderEntityTypePropertyTypes.request(id, value));
     response.data = yield call(EntityDataModelApi.reorderPropertyTypesInEntityType, entityTypeId, propertyTypeIds);
-    yield put(reorderEntityTypePropertyTypes.success(action.id, response.data));
+    yield put(reorderEntityTypePropertyTypes.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(reorderEntityTypePropertyTypes.failure(action.id, response.error));
+    yield put(reorderEntityTypePropertyTypes.failure(id, response.error));
   }
   finally {
-    yield put(reorderEntityTypePropertyTypes.finally(action.id));
+    yield put(reorderEntityTypePropertyTypes.finally(id));
   }
 
   return response;
@@ -504,22 +658,35 @@ function* createPropertyTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(CREATE_PROPERTY_TYPE, createPropertyTypeWorker);
 }
 
-function* createPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* createPropertyTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, CREATE_PROPERTY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the PropertyType object
-    yield put(createPropertyType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.createPropertyType, action.value);
-    yield put(createPropertyType.success(action.id, response.data));
+    // value is expected to be the PropertyType object
+    yield put(createPropertyType.request(id, value));
+    response.data = yield call(EntityDataModelApi.createPropertyType, value);
+    yield put(createPropertyType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createPropertyType.failure(action.id, response.error));
+    yield put(createPropertyType.failure(id, response.error));
   }
   finally {
-    yield put(createPropertyType.finally(action.id));
+    yield put(createPropertyType.finally(id));
   }
 
   return response;
@@ -534,22 +701,35 @@ function* deletePropertyTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(DELETE_PROPERTY_TYPE, deletePropertyTypeWorker);
 }
 
-function* deletePropertyTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* deletePropertyTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, DELETE_PROPERTY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the PropertyType id
-    yield put(deletePropertyType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.deletePropertyType, action.value);
-    yield put(deletePropertyType.success(action.id, response.data));
+    // value is expected to be the PropertyType id
+    yield put(deletePropertyType.request(id, value));
+    response.data = yield call(EntityDataModelApi.deletePropertyType, value);
+    yield put(deletePropertyType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(deletePropertyType.failure(action.id, response.error));
+    yield put(deletePropertyType.failure(id, response.error));
   }
   finally {
-    yield put(deletePropertyType.finally(action.id));
+    yield put(deletePropertyType.finally(id));
   }
 
   return response;
@@ -564,21 +744,28 @@ function* getAllPropertyTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
 }
 
-function* getAllPropertyTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getAllPropertyTypesWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ALL_PROPERTY_TYPES)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const response :Object = {};
+  const { id } = seqAction;
 
   try {
-    yield put(getAllPropertyTypes.request(action.id, action.value));
+    yield put(getAllPropertyTypes.request(id));
     response.data = yield call(EntityDataModelApi.getAllPropertyTypes);
-    yield put(getAllPropertyTypes.success(action.id, response.data));
+    yield put(getAllPropertyTypes.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllPropertyTypes.failure(action.id, response.error));
+    yield put(getAllPropertyTypes.failure(id, response.error));
   }
   finally {
-    yield put(getAllPropertyTypes.finally(action.id));
+    yield put(getAllPropertyTypes.finally(id));
   }
 
   return response;
@@ -593,22 +780,35 @@ function* getPropertyTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_PROPERTY_TYPE, getPropertyTypeWorker);
 }
 
-function* getPropertyTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getPropertyTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_PROPERTY_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the PropertyType id
-    yield put(getPropertyType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.getPropertyType, action.value);
-    yield put(getPropertyType.success(action.id, response.data));
+    // value is expected to be the PropertyType id
+    yield put(getPropertyType.request(id, value));
+    response.data = yield call(EntityDataModelApi.getPropertyType, value);
+    yield put(getPropertyType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getPropertyType.failure(action.id, response.error));
+    yield put(getPropertyType.failure(id, response.error));
   }
   finally {
-    yield put(getPropertyType.finally(action.id));
+    yield put(getPropertyType.finally(id));
   }
 
   return response;
@@ -623,23 +823,36 @@ function* updatePropertyTypeMetaDataWatcher() :Generator<*, void, *> {
   yield takeEvery(UPDATE_PROPERTY_TYPE_METADATA, updatePropertyTypeMetaDataWorker);
 }
 
-function* updatePropertyTypeMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* updatePropertyTypeMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, UPDATE_PROPERTY_TYPE_METADATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { propertyTypeId, metadata } = value;
 
   try {
-    // action.value is expected to be an object containing the PropertyType id and metadata
-    yield put(updatePropertyTypeMetaData.request(action.id, action.value));
-    const { id, metadata } = action.value;
-    response.data = yield call(EntityDataModelApi.updatePropertyTypeMetaData, id, metadata);
-    yield put(updatePropertyTypeMetaData.success(action.id, response.data));
+    // value is expected to be an object containing the PropertyType id and metadata
+    yield put(updatePropertyTypeMetaData.request(id, value));
+    response.data = yield call(EntityDataModelApi.updatePropertyTypeMetaData, propertyTypeId, metadata);
+    yield put(updatePropertyTypeMetaData.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updatePropertyTypeMetaData.failure(action.id, response.error));
+    yield put(updatePropertyTypeMetaData.failure(id, response.error));
   }
   finally {
-    yield put(updatePropertyTypeMetaData.finally(action.id));
+    yield put(updatePropertyTypeMetaData.finally(id));
   }
 
   return response;
@@ -660,22 +873,35 @@ function* createAssociationTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(CREATE_ASSOCIATION_TYPE, createAssociationTypeWorker);
 }
 
-function* createAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* createAssociationTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, CREATE_ASSOCIATION_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the AssociationType object
-    yield put(createAssociationType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.createAssociationType, action.value);
-    yield put(createAssociationType.success(action.id, response.data));
+    // value is expected to be the AssociationType object
+    yield put(createAssociationType.request(id, value));
+    response.data = yield call(EntityDataModelApi.createAssociationType, value);
+    yield put(createAssociationType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createAssociationType.failure(action.id, response.error));
+    yield put(createAssociationType.failure(id, response.error));
   }
   finally {
-    yield put(createAssociationType.finally(action.id));
+    yield put(createAssociationType.finally(id));
   }
 
   return response;
@@ -690,22 +916,35 @@ function* deleteAssociationTypeWatcher() :Generator<*, void, *> {
   yield takeEvery(DELETE_ASSOCIATION_TYPE, deleteAssociationTypeWorker);
 }
 
-function* deleteAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* deleteAssociationTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, DELETE_ASSOCIATION_TYPE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    // action.value is expected to be the AssociationType id
-    yield put(deleteAssociationType.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.deleteAssociationType, action.value);
-    yield put(deleteAssociationType.success(action.id, response.data));
+    // value is expected to be the AssociationType id
+    yield put(deleteAssociationType.request(id, value));
+    response.data = yield call(EntityDataModelApi.deleteAssociationType, value);
+    yield put(deleteAssociationType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(deleteAssociationType.failure(action.id, response.error));
+    yield put(deleteAssociationType.failure(id, response.error));
   }
   finally {
-    yield put(deleteAssociationType.finally(action.id));
+    yield put(deleteAssociationType.finally(id));
   }
 
   return response;
@@ -720,21 +959,28 @@ function* getAllAssociationTypesWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
 }
 
-function* getAllAssociationTypesWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getAllAssociationTypesWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ALL_ASSOCIATION_TYPES)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const response :Object = {};
+  const { id } = seqAction;
 
   try {
-    yield put(getAllAssociationTypes.request(action.id, action.value));
+    yield put(getAllAssociationTypes.request(id));
     response.data = yield call(EntityDataModelApi.getAllAssociationTypes);
-    yield put(getAllAssociationTypes.success(action.id, response.data));
+    yield put(getAllAssociationTypes.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllAssociationTypes.failure(action.id, response.error));
+    yield put(getAllAssociationTypes.failure(id, response.error));
   }
   finally {
-    yield put(getAllAssociationTypes.finally(action.id));
+    yield put(getAllAssociationTypes.finally(id));
   }
 
   return response;
@@ -749,24 +995,37 @@ function* updateAssociationTypeMetaDataWatcher() :Generator<*, void, *> {
   yield takeEvery(UPDATE_ASSOCIATION_TYPE_METADATA, updateAssociationTypeMetaDataWorker);
 }
 
-function* updateAssociationTypeMetaDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* updateAssociationTypeMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, UPDATE_ASSOCIATION_TYPE_METADATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityTypeId, metadata } = value;
 
   try {
-    // action.value is expected to be an object containing the AssociationType's EntityType id and metadata
-    yield put(updateAssociationTypeMetaData.request(action.id, action.value));
-    const { id, metadata } = action.value;
+    // value is expected to be an object containing the AssociationType's EntityType id and metadata
+    yield put(updateAssociationTypeMetaData.request(id, value));
     // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
-    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, id, metadata);
-    yield put(updateAssociationTypeMetaData.success(action.id, response.data));
+    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, entityTypeId, metadata);
+    yield put(updateAssociationTypeMetaData.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateAssociationTypeMetaData.failure(action.id, response.error));
+    yield put(updateAssociationTypeMetaData.failure(id, response.error));
   }
   finally {
-    yield put(updateAssociationTypeMetaData.finally(action.id));
+    yield put(updateAssociationTypeMetaData.finally(id));
   }
 
   return response;
@@ -776,33 +1035,42 @@ function* updateAssociationTypeMetaDataWorker(action :SequenceAction) :Generator
  * EntityDataModelApi.addDstEntityTypeToAssociationType
  */
 
-function* addDestinationEntityTypeToAssociationTypeWatcher() :Generator<*, void, *> {
+function* addDstEntityTypeToAssociationTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(ADD_DST_ET_TO_AT, addDestinationEntityTypeToAssociationTypeWorker);
+  yield takeEvery(ADD_DST_ET_TO_AT, addDstEntityTypeToAssociationTypeWorker);
 }
 
-function* addDestinationEntityTypeToAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* addDstEntityTypeToAssociationTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, ADD_DST_ET_TO_AT)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { associationTypeId, entityTypeId } = value;
 
   try {
-    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // value is expected to be an object containing the AssociationType's EntityType id being updated,
     // and the EntityType id being added
-    yield put(addDestinationEntityTypeToAssociationType.request(action.id, action.value));
-    const { associationTypeId, entityTypeId } = action.value;
-    response.data = yield call(
-      EntityDataModelApi.addDstEntityTypeToAssociationType,
-      associationTypeId,
-      entityTypeId
-    );
-    yield put(addDestinationEntityTypeToAssociationType.success(action.id, response.data));
+    yield put(addDstEntityTypeToAssociationType.request(id, value));
+    response.data = yield call(EntityDataModelApi.addDstEntityTypeToAssociationType, associationTypeId, entityTypeId);
+    yield put(addDstEntityTypeToAssociationType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(addDestinationEntityTypeToAssociationType.failure(action.id, response.error));
+    yield put(addDstEntityTypeToAssociationType.failure(id, response.error));
   }
   finally {
-    yield put(addDestinationEntityTypeToAssociationType.finally(action.id));
+    yield put(addDstEntityTypeToAssociationType.finally(id));
   }
 
   return response;
@@ -812,33 +1080,42 @@ function* addDestinationEntityTypeToAssociationTypeWorker(action :SequenceAction
  * EntityDataModelApi.addSrcEntityTypeToAssociationType
  */
 
-function* addSourceEntityTypeToAssociationTypeWatcher() :Generator<*, void, *> {
+function* addSrcEntityTypeToAssociationTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(ADD_SRC_ET_TO_AT, addSourceEntityTypeToAssociationTypeWorker);
+  yield takeEvery(ADD_SRC_ET_TO_AT, addSrcEntityTypeToAssociationTypeWorker);
 }
 
-function* addSourceEntityTypeToAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* addSrcEntityTypeToAssociationTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, ADD_SRC_ET_TO_AT)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { associationTypeId, entityTypeId } = value;
 
   try {
-    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // value is expected to be an object containing the AssociationType's EntityType id being updated,
     // and the EntityType id being added
-    yield put(addSourceEntityTypeToAssociationType.request(action.id, action.value));
-    const { associationTypeId, entityTypeId } = action.value;
-    response.data = yield call(
-      EntityDataModelApi.addSrcEntityTypeToAssociationType,
-      associationTypeId,
-      entityTypeId
-    );
-    yield put(addSourceEntityTypeToAssociationType.success(action.id, response.data));
+    yield put(addSrcEntityTypeToAssociationType.request(id, value));
+    response.data = yield call(EntityDataModelApi.addSrcEntityTypeToAssociationType, associationTypeId, entityTypeId);
+    yield put(addSrcEntityTypeToAssociationType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(addSourceEntityTypeToAssociationType.failure(action.id, response.error));
+    yield put(addSrcEntityTypeToAssociationType.failure(id, response.error));
   }
   finally {
-    yield put(addSourceEntityTypeToAssociationType.finally(action.id));
+    yield put(addSrcEntityTypeToAssociationType.finally(id));
   }
 
   return response;
@@ -848,33 +1125,46 @@ function* addSourceEntityTypeToAssociationTypeWorker(action :SequenceAction) :Ge
  * EntityDataModelApi.removeDstEntityTypeFromAssociationType
  */
 
-function* removeDestinationEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
+function* removeDstEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(REMOVE_DST_ET_FROM_AT, removeDestinationEntityTypeFromAssociationTypeWorker);
+  yield takeEvery(REMOVE_DST_ET_FROM_AT, removeDstEntityTypeFromAssociationTypeWorker);
 }
 
-function* removeDestinationEntityTypeFromAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* removeDstEntityTypeFromAssociationTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, REMOVE_DST_ET_FROM_AT)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { associationTypeId, entityTypeId } = value;
 
   try {
-    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // value is expected to be an object containing the AssociationType's EntityType id being updated,
     // and the EntityType id being removed
-    yield put(removeDestinationEntityTypeFromAssociationType.request(action.id, action.value));
-    const { associationTypeId, entityTypeId } = action.value;
+    yield put(removeDstEntityTypeFromAssociationType.request(id, value));
     response.data = yield call(
       EntityDataModelApi.removeDstEntityTypeFromAssociationType,
       associationTypeId,
       entityTypeId
     );
-    yield put(removeDestinationEntityTypeFromAssociationType.success(action.id, response.data));
+    yield put(removeDstEntityTypeFromAssociationType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(removeDestinationEntityTypeFromAssociationType.failure(action.id, response.error));
+    yield put(removeDstEntityTypeFromAssociationType.failure(id, response.error));
   }
   finally {
-    yield put(removeDestinationEntityTypeFromAssociationType.finally(action.id));
+    yield put(removeDstEntityTypeFromAssociationType.finally(id));
   }
 
   return response;
@@ -884,33 +1174,46 @@ function* removeDestinationEntityTypeFromAssociationTypeWorker(action :SequenceA
  * EntityDataModelApi.removeSrcEntityTypeFromAssociationType
  */
 
-function* removeSourceEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
+function* removeSrcEntityTypeFromAssociationTypeWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(REMOVE_SRC_ET_FROM_AT, removeSourceEntityTypeFromAssociationTypeWorker);
+  yield takeEvery(REMOVE_SRC_ET_FROM_AT, removeSrcEntityTypeFromAssociationTypeWorker);
 }
 
-function* removeSourceEntityTypeFromAssociationTypeWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* removeSrcEntityTypeFromAssociationTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, REMOVE_SRC_ET_FROM_AT)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { associationTypeId, entityTypeId } = value;
 
   try {
-    // action.value is expected to be an object containing the AssociationType's EntityType id being updated,
+    // value is expected to be an object containing the AssociationType's EntityType id being updated,
     // and the EntityType id being removed
-    yield put(removeSourceEntityTypeFromAssociationType.request(action.id, action.value));
-    const { associationTypeId, entityTypeId } = action.value;
+    yield put(removeSrcEntityTypeFromAssociationType.request(id, value));
     response.data = yield call(
       EntityDataModelApi.removeSrcEntityTypeFromAssociationType,
       associationTypeId,
       entityTypeId
     );
-    yield put(removeSourceEntityTypeFromAssociationType.success(action.id, response.data));
+    yield put(removeSrcEntityTypeFromAssociationType.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(removeSourceEntityTypeFromAssociationType.failure(action.id, response.error));
+    yield put(removeSrcEntityTypeFromAssociationType.failure(id, response.error));
   }
   finally {
-    yield put(removeSourceEntityTypeFromAssociationType.finally(action.id));
+    yield put(removeSrcEntityTypeFromAssociationType.finally(id));
   }
 
   return response;
@@ -931,21 +1234,34 @@ function* createSchemaWatcher() :Generator<*, void, *> {
   yield takeEvery(CREATE_SCHEMA, createSchemaWorker);
 }
 
-function* createSchemaWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* createSchemaWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, CREATE_SCHEMA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
 
   try {
-    yield put(createSchema.request(action.id, action.value));
-    response.data = yield call(EntityDataModelApi.createSchema, action.value);
-    yield put(createSchema.success(action.id, response.data));
+    yield put(createSchema.request(id, value));
+    response.data = yield call(EntityDataModelApi.createSchema, value);
+    yield put(createSchema.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(createSchema.failure(action.id, response.error));
+    yield put(createSchema.failure(id, response.error));
   }
   finally {
-    yield put(createSchema.finally(action.id));
+    yield put(createSchema.finally(id));
   }
 
   return response;
@@ -960,21 +1276,28 @@ function* getAllSchemasWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ALL_SCHEMAS, getAllSchemasWorker);
 }
 
-function* getAllSchemasWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* getAllSchemasWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, GET_ALL_SCHEMAS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const response :Object = {};
+  const { id } = seqAction;
 
   try {
-    yield put(getAllSchemas.request(action.id, action.value));
+    yield put(getAllSchemas.request(id));
     response.data = yield call(EntityDataModelApi.getAllSchemas);
-    yield put(getAllSchemas.success(action.id, response.data));
+    yield put(getAllSchemas.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(getAllSchemas.failure(action.id, response.error));
+    yield put(getAllSchemas.failure(id, response.error));
   }
   finally {
-    yield put(getAllSchemas.finally(action.id));
+    yield put(getAllSchemas.finally(id));
   }
 
   return response;
@@ -989,18 +1312,31 @@ function* updateSchemaWatcher() :Generator<*, void, *> {
   yield takeEvery(UPDATE_SCHEMA, updateSchemaWorker);
 }
 
-function* updateSchemaWorker(seqAction :SequenceAction) :Generator<*, Response, *> {
+function* updateSchemaWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, UPDATE_SCHEMA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const {
+    schemaFqn,
+    entityTypeIds,
+    propertyTypeIds,
+    action
+  } = value;
 
   try {
-    yield put(updateSchema.request(seqAction.id, seqAction.value));
-    const {
-      schemaFqn,
-      entityTypeIds,
-      propertyTypeIds,
-      action
-    } = seqAction.value;
+    yield put(updateSchema.request(id, value));
     response.data = yield call(
       EntityDataModelApi.updateSchema,
       schemaFqn,
@@ -1008,14 +1344,14 @@ function* updateSchemaWorker(seqAction :SequenceAction) :Generator<*, Response, 
       entityTypeIds,
       propertyTypeIds
     );
-    yield put(updateSchema.success(seqAction.id, response.data));
+    yield put(updateSchema.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(updateSchema.failure(seqAction.id, response.error));
+    yield put(updateSchema.failure(id, response.error));
   }
   finally {
-    yield put(updateSchema.finally(seqAction.id));
+    yield put(updateSchema.finally(id));
   }
 
   return response;
@@ -1028,12 +1364,12 @@ function* updateSchemaWorker(seqAction :SequenceAction) :Generator<*, Response, 
  */
 
 export {
-  addDestinationEntityTypeToAssociationTypeWatcher,
-  addDestinationEntityTypeToAssociationTypeWorker,
+  addDstEntityTypeToAssociationTypeWatcher,
+  addDstEntityTypeToAssociationTypeWorker,
   addPropertyTypeToEntityTypeWatcher,
   addPropertyTypeToEntityTypeWorker,
-  addSourceEntityTypeToAssociationTypeWatcher,
-  addSourceEntityTypeToAssociationTypeWorker,
+  addSrcEntityTypeToAssociationTypeWatcher,
+  addSrcEntityTypeToAssociationTypeWorker,
   createAssociationTypeWatcher,
   createAssociationTypeWorker,
   createEntityTypeWatcher,
@@ -1068,12 +1404,12 @@ export {
   getEntityTypeWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
-  removeDestinationEntityTypeFromAssociationTypeWatcher,
-  removeDestinationEntityTypeFromAssociationTypeWorker,
+  removeDstEntityTypeFromAssociationTypeWatcher,
+  removeDstEntityTypeFromAssociationTypeWorker,
   removePropertyTypeFromEntityTypeWatcher,
   removePropertyTypeFromEntityTypeWorker,
-  removeSourceEntityTypeFromAssociationTypeWatcher,
-  removeSourceEntityTypeFromAssociationTypeWorker,
+  removeSrcEntityTypeFromAssociationTypeWatcher,
+  removeSrcEntityTypeFromAssociationTypeWorker,
   reorderEntityTypePropertyTypesWatcher,
   reorderEntityTypePropertyTypesWorker,
   updateAssociationTypeMetaDataWatcher,

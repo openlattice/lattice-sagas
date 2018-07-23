@@ -7,6 +7,9 @@
 import { SearchApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
+import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+
 import {
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_SET_DATA,
@@ -14,10 +17,6 @@ import {
   searchEntitySetData
 } from './SearchApiActionFactory';
 
-declare type Response = {
-  data ? :any;
-  error ? :any;
-};
 
 /*
  * SearchApi.searchEntityNeighbors
@@ -28,21 +27,35 @@ function* searchEntityNeighborsWatcher() :Generator<*, void, *> {
   yield takeEvery(SEARCH_ENTITY_NEIGHBORS, searchEntityNeighborsWorker);
 }
 
-function* searchEntityNeighborsWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, SEARCH_ENTITY_NEIGHBORS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityId, entitySetId } = value;
 
   try {
-    yield put(searchEntityNeighbors.request(action.id, action.value));
-    response.data = yield call(SearchApi.searchEntityNeighbors, action.value.entitySetId, action.value.entityId);
-    yield put(searchEntityNeighbors.success(action.id, response.data));
+    yield put(searchEntityNeighbors.request(id, value));
+    response.data = yield call(SearchApi.searchEntityNeighbors, entitySetId, entityId);
+    yield put(searchEntityNeighbors.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(searchEntityNeighbors.failure(action.id, response.error));
+    yield put(searchEntityNeighbors.failure(id, response.error));
   }
   finally {
-    yield put(searchEntityNeighbors.finally(action.id));
+    yield put(searchEntityNeighbors.finally(id));
   }
 
   return response;
@@ -57,21 +70,35 @@ function* searchEntitySetDataWatcher() :Generator<*, void, *> {
   yield takeEvery(SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
 }
 
-function* searchEntitySetDataWorker(action :SequenceAction) :Generator<*, Response, *> {
+function* searchEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  const response :Response = {};
+  if (!isValidAction(seqAction, SEARCH_ENTITY_SET_DATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, searchOptions } = value;
 
   try {
-    yield put(searchEntitySetData.request(action.id, action.value));
-    response.data = yield call(SearchApi.searchEntitySetData, action.value.entitySetId, action.value.searchOptions);
-    yield put(searchEntitySetData.success(action.id, response.data));
+    yield put(searchEntitySetData.request(id, value));
+    response.data = yield call(SearchApi.searchEntitySetData, entitySetId, searchOptions);
+    yield put(searchEntitySetData.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(searchEntitySetData.failure(action.id, response.error));
+    yield put(searchEntitySetData.failure(id, response.error));
   }
   finally {
-    yield put(searchEntitySetData.finally(action.id));
+    yield put(searchEntitySetData.finally(id));
   }
 
   return response;

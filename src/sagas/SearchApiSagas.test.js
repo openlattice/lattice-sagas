@@ -21,9 +21,10 @@ import {
 
 import {
   testShouldBeGeneratorFunction,
+  testShouldFailOnInvalidAction,
   testWatcherSagaShouldTakeEvery,
   testWorkerSagaShouldHandleFailureCase,
-  testWorkerSagaShouldHandleSuccessCase
+  testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
 
 describe('SearchApiSagas', () => {
@@ -51,6 +52,7 @@ describe('SearchApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(searchEntityNeighborsWorker);
+    testShouldFailOnInvalidAction(searchEntityNeighborsWorker, SEARCH_ENTITY_NEIGHBORS);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: SearchApi.searchEntityNeighbors,
@@ -93,6 +95,7 @@ describe('SearchApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(searchEntitySetDataWorker);
+    testShouldFailOnInvalidAction(searchEntitySetDataWorker, SEARCH_ENTITY_SET_DATA);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: SearchApi.searchEntitySetData,

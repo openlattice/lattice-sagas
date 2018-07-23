@@ -21,9 +21,10 @@ import {
 
 import {
   testShouldBeGeneratorFunction,
+  testShouldFailOnInvalidAction,
   testWatcherSagaShouldTakeEvery,
   testWorkerSagaShouldHandleFailureCase,
-  testWorkerSagaShouldHandleSuccessCase
+  testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
 
 describe('AppApiSagas', () => {
@@ -48,6 +49,7 @@ describe('AppApiSagas', () => {
     const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(getAppWorker);
+    testShouldFailOnInvalidAction(getAppWorker, GET_APP);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: AppApi.getAppByName,
@@ -86,6 +88,7 @@ describe('AppApiSagas', () => {
     const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(getAppConfigsWorker);
+    testShouldFailOnInvalidAction(getAppConfigsWorker, GET_APP_CONFIGS);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: AppApi.getConfigurations,
@@ -124,6 +127,7 @@ describe('AppApiSagas', () => {
     const mockActionValue = [randomUUID(), randomUUID(), randomUUID()];
 
     testShouldBeGeneratorFunction(getAppTypesWorker);
+    testShouldFailOnInvalidAction(getAppTypesWorker, GET_APP_TYPES);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: AppApi.getAppTypesForAppTypeIds,

@@ -1,9 +1,9 @@
 import Immutable from 'immutable';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-const GENERATOR_TAG = '[object Generator]';
-const GENERATOR_FUNCTION_TAG = '[object GeneratorFunction]';
-export const OBJECT_TAG = '[object Object]';
+import { GENERATOR_FUNCTION_TAG, GENERATOR_TAG } from '../Constants';
+import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../Errors';
+import { INVALID_PARAMS, INVALID_PARAMS_NOT_DEFINED } from './Invalid';
 
 export function testShouldBeRequestSequenceFunction(functionToTest, baseType) {
 
@@ -38,6 +38,23 @@ export function testWatcherSagaShouldTakeEvery(watcherSagaToTest, expectedWorker
     expect(iterator.next().value).toEqual(takeEvery(expectedAction, expectedWorkerSaga));
     expect(iterator.next().done).toEqual(true);
   });
+}
+
+export function testShouldFailOnInvalidAction(workerSagaToTest, baseActionType, isValueRequired = true) {
+
+  INVALID_PARAMS.forEach((invalidParam) => {
+    const iterator = workerSagaToTest(invalidParam);
+    const step = iterator.next();
+    expect(step.value).toEqual({ error: ERR_INVALID_ACTION });
+  });
+
+  if (isValueRequired) {
+    INVALID_PARAMS_NOT_DEFINED.forEach((invalidParam) => {
+      const iterator = workerSagaToTest({ id: 'fakeId', type: baseActionType, value: invalidParam });
+      const step = iterator.next();
+      expect(step.value).toEqual({ error: ERR_ACTION_VALUE_NOT_DEFINED });
+    });
+  }
 }
 
 // TODO: this abstraction might not be a great idea
