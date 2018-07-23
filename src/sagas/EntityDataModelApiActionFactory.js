@@ -102,16 +102,16 @@ const UPDATE_ASSOCIATION_TYPE_METADATA :'UPDATE_ASSOCIATION_TYPE_METADATA' = 'UP
 const updateAssociationTypeMetaData :RequestSequence = newRequestSequence(UPDATE_ASSOCIATION_TYPE_METADATA);
 
 const ADD_DST_ET_TO_AT :'ADD_DST_ET_TO_AT' = 'ADD_DST_ET_TO_AT';
-const addDestinationEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_DST_ET_TO_AT);
+const addDstEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_DST_ET_TO_AT);
 
 const ADD_SRC_ET_TO_AT :'ADD_SRC_ET_TO_AT' = 'ADD_SRC_ET_TO_AT';
-const addSourceEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_SRC_ET_TO_AT);
+const addSrcEntityTypeToAssociationType :RequestSequence = newRequestSequence(ADD_SRC_ET_TO_AT);
 
 const REMOVE_DST_ET_FROM_AT :'REMOVE_DST_ET_FROM_AT' = 'REMOVE_DST_ET_FROM_AT';
-const removeDestinationEntityTypeFromAssociationType :RequestSequence = newRequestSequence(REMOVE_DST_ET_FROM_AT);
+const removeDstEntityTypeFromAssociationType :RequestSequence = newRequestSequence(REMOVE_DST_ET_FROM_AT);
 
 const REMOVE_SRC_ET_FROM_AT :'REMOVE_SRC_ET_FROM_AT' = 'REMOVE_SRC_ET_FROM_AT';
-const removeSourceEntityTypeFromAssociationType :RequestSequence = newRequestSequence(REMOVE_SRC_ET_FROM_AT);
+const removeSrcEntityTypeFromAssociationType :RequestSequence = newRequestSequence(REMOVE_SRC_ET_FROM_AT);
 
 /*
  *
@@ -164,9 +164,9 @@ export {
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
   UPDATE_SCHEMA,
-  addDestinationEntityTypeToAssociationType,
+  addDstEntityTypeToAssociationType,
   addPropertyTypeToEntityType,
-  addSourceEntityTypeToAssociationType,
+  addSrcEntityTypeToAssociationType,
   createAssociationType,
   createEntityType,
   createPropertyType,
@@ -184,9 +184,9 @@ export {
   getEntitySetId,
   getEntityType,
   getPropertyType,
-  removeDestinationEntityTypeFromAssociationType,
+  removeDstEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
-  removeSourceEntityTypeFromAssociationType,
+  removeSrcEntityTypeFromAssociationType,
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntitySetMetaData,

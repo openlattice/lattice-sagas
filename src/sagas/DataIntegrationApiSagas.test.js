@@ -17,9 +17,10 @@ import {
 
 import {
   testShouldBeGeneratorFunction,
+  testShouldFailOnInvalidAction,
   testWatcherSagaShouldTakeEvery,
   testWorkerSagaShouldHandleFailureCase,
-  testWorkerSagaShouldHandleSuccessCase
+  testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
 
 describe('DataIntegrationApiSagas', () => {
@@ -45,6 +46,7 @@ describe('DataIntegrationApiSagas', () => {
     const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(createEntityAndAssociationDataWorker);
+    testShouldFailOnInvalidAction(createEntityAndAssociationDataWorker, CREATE_ENTITY_AND_ASSOCIATION_DATA);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataIntegrationApi.createEntityAndAssociationData,

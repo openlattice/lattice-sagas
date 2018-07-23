@@ -36,9 +36,9 @@ const ACTION_TYPES = Immutable.List([
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
-  'addDestinationEntityTypeToAssociationType',
+  'addDstEntityTypeToAssociationType',
   'addPropertyTypeToEntityType',
-  'addSourceEntityTypeToAssociationType',
+  'addSrcEntityTypeToAssociationType',
   'createAssociationType',
   'createEntityType',
   'createPropertyType',
@@ -56,9 +56,9 @@ const REQSEQ_NAMES = Immutable.List([
   'getEntitySetId',
   'getEntityType',
   'getPropertyType',
-  'removeDestinationEntityTypeFromAssociationType',
+  'removeDstEntityTypeFromAssociationType',
   'removePropertyTypeFromEntityType',
-  'removeSourceEntityTypeFromAssociationType',
+  'removeSrcEntityTypeFromAssociationType',
   'reorderEntityTypePropertyTypes',
   'updateAssociationTypeMetaData',
   'updateEntitySetMetaData',

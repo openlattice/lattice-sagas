@@ -17,9 +17,10 @@ import {
 
 import {
   testShouldBeGeneratorFunction,
+  testShouldFailOnInvalidAction,
   testWatcherSagaShouldTakeEvery,
   testWorkerSagaShouldHandleFailureCase,
-  testWorkerSagaShouldHandleSuccessCase
+  testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
 
 describe('DataApiSagas', () => {
@@ -49,6 +50,7 @@ describe('DataApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(getEntitySetDataWorker);
+    testShouldFailOnInvalidAction(getEntitySetDataWorker, GET_ENTITY_SET_DATA);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataApi.getEntitySetData,
