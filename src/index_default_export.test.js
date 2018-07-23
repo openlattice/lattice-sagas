@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import PACKAGE from '../package.json';
-import { OBJECT_TAG } from './utils/testing/TestUtils';
+import { OBJECT_TAG } from './utils/Constants';
 
 import LatticeSagas from './index';
 
