@@ -1039,14 +1039,14 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(updateAssociationTypeMetaDataWorker, UPDATE_ASSOCIATION_TYPE_METADATA);
 
     const mockActionValue = {
-      entityTypeId: randomUUID(),
+      associationTypeId: randomUUID(),
       metadata: randomUUID()
     };
 
     // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.updateEntityTypeMetaData,
-      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.metadata],
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.metadata],
       latticeApiReqSeq: updateAssociationTypeMetaData,
       workerSagaAction: updateAssociationTypeMetaData(mockActionValue),
       workerSagaToTest: updateAssociationTypeMetaDataWorker
@@ -1054,7 +1054,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: EntityDataModelApi.updateEntityTypeMetaData,
-      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.metadata],
+      latticeApiParams: [mockActionValue.associationTypeId, mockActionValue.metadata],
       latticeApiReqSeq: updateAssociationTypeMetaData,
       workerSagaAction: updateAssociationTypeMetaData(mockActionValue),
       workerSagaToTest: updateAssociationTypeMetaDataWorker
