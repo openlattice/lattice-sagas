@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.2.0
+ * lattice-sagas - v0.3.0
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -2742,7 +2742,7 @@ function updateAssociationTypeMetaDataWatcher() {
 }
 
 function updateAssociationTypeMetaDataWorker(seqAction) {
-  var id, value, response, entityTypeId, metadata;
+  var id, value, response, associationTypeId, metadata;
   return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWorker$(_context44) {
     while (1) {
       switch (_context44.prev = _context44.next) {
@@ -2770,14 +2770,14 @@ function updateAssociationTypeMetaDataWorker(seqAction) {
 
         case 5:
           response = {};
-          entityTypeId = value.entityTypeId, metadata = value.metadata;
+          associationTypeId = value.associationTypeId, metadata = value.metadata;
           _context44.prev = 7;
           _context44.next = 10;
           return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.request(id, value));
 
         case 10:
           _context44.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, entityTypeId, metadata);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, associationTypeId, metadata);
 
         case 12:
           response.data = _context44.sent;
@@ -4173,7 +4173,7 @@ var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.2.0";
+var version = "v0.3.0";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
