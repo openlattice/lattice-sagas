@@ -1011,13 +1011,13 @@ function* updateAssociationTypeMetaDataWorker(seqAction :SequenceAction) :Genera
   }
 
   const response :Object = {};
-  const { entityTypeId, metadata } = value;
+  const { associationTypeId, metadata } = value;
 
   try {
     // value is expected to be an object containing the AssociationType's EntityType id and metadata
     yield put(updateAssociationTypeMetaData.request(id, value));
     // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
-    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, entityTypeId, metadata);
+    response.data = yield call(EntityDataModelApi.updateEntityTypeMetaData, associationTypeId, metadata);
     yield put(updateAssociationTypeMetaData.success(id, response.data));
   }
   catch (error) {
