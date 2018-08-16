@@ -26,7 +26,9 @@ import {
   GET_ALL_PROPERTY_TYPES,
   GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
+  GET_ENTITY_DATA_MODEL_DIFF,
   GET_ENTITY_DATA_MODEL_PROJECTION,
+  GET_ENTITY_DATA_MODEL_VERSION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
@@ -36,6 +38,7 @@ import {
   REMOVE_SRC_ET_FROM_AT,
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
+  UPDATE_ENTITY_DATA_MODEL,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -55,7 +58,9 @@ import {
   getAllPropertyTypes,
   getAllSchemas,
   getEntityDataModel,
+  getEntityDataModelDiff,
   getEntityDataModelProjection,
+  getEntityDataModelVersion,
   getEntitySet,
   getEntitySetId,
   getEntityType,
@@ -65,6 +70,7 @@ import {
   removeSrcEntityTypeFromAssociationType,
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
+  updateEntityDataModel,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
@@ -118,6 +124,48 @@ function* getEntityDataModelWorker(seqAction :SequenceAction) :Generator<*, *, *
 }
 
 /*
+ * EntityDataModelApi.getEntityDataModelDiff
+ */
+
+function* getEntityDataModelDiffWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ENTITY_DATA_MODEL_DIFF, getEntityDataModelDiffWorker);
+}
+
+function* getEntityDataModelDiffWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ENTITY_DATA_MODEL_DIFF)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(getEntityDataModelDiff.request(id));
+    response.data = yield call(EntityDataModelApi.getEntityDataModelDiff, value);
+    yield put(getEntityDataModelDiff.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntityDataModelDiff.failure(id, response.error));
+  }
+  finally {
+    yield put(getEntityDataModelDiff.finally(id));
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.getEntityDataModelProjection
  */
 
@@ -144,7 +192,6 @@ function* getEntityDataModelProjectionWorker(seqAction :SequenceAction) :Generat
   const response :Object = {};
 
   try {
-    // value is expected to be the projection
     yield put(getEntityDataModelProjection.request(id, value));
     response.data = yield call(EntityDataModelApi.getEntityDataModelProjection, value);
     yield put(getEntityDataModelProjection.success(id, response.data));
@@ -155,6 +202,84 @@ function* getEntityDataModelProjectionWorker(seqAction :SequenceAction) :Generat
   }
   finally {
     yield put(getEntityDataModelProjection.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.getEntityDataModelVersion
+ */
+
+function* getEntityDataModelVersionWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ENTITY_DATA_MODEL_VERSION, getEntityDataModelVersionWorker);
+}
+
+function* getEntityDataModelVersionWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ENTITY_DATA_MODEL_VERSION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const response :Object = {};
+  const { id } = seqAction;
+
+  try {
+    yield put(getEntityDataModelVersion.request(id));
+    response.data = yield call(EntityDataModelApi.getEntityDataModelVersion);
+    yield put(getEntityDataModelVersion.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntityDataModelVersion.failure(id, response.error));
+  }
+  finally {
+    yield put(getEntityDataModelVersion.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ * EntityDataModelApi.updateEntityDataModel
+ */
+
+function* updateEntityDataModelWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_ENTITY_DATA_MODEL, updateEntityDataModelWorker);
+}
+
+function* updateEntityDataModelWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, UPDATE_ENTITY_DATA_MODEL)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(updateEntityDataModel.request(id, value));
+    response.data = yield call(EntityDataModelApi.updateEntityDataModel, value);
+    yield put(updateEntityDataModel.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateEntityDataModel.failure(id, response.error));
+  }
+  finally {
+    yield put(updateEntityDataModel.finally(id));
   }
 
   return response;
@@ -1394,8 +1519,12 @@ export {
   getAllSchemasWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
+  getEntityDataModelDiffWatcher,
+  getEntityDataModelDiffWorker,
   getEntityDataModelProjectionWatcher,
   getEntityDataModelProjectionWorker,
+  getEntityDataModelVersionWatcher,
+  getEntityDataModelVersionWorker,
   getEntitySetWatcher,
   getEntitySetWorker,
   getEntitySetIdWatcher,
@@ -1414,6 +1543,8 @@ export {
   reorderEntityTypePropertyTypesWorker,
   updateAssociationTypeMetaDataWatcher,
   updateAssociationTypeMetaDataWorker,
+  updateEntityDataModelWatcher,
+  updateEntityDataModelWorker,
   updateEntitySetMetaDataWatcher,
   updateEntitySetMetaDataWorker,
   updateEntityTypeMetaDataWatcher,
