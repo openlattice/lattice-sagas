@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.3.0
+ * lattice-sagas - v0.4.0
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -200,7 +200,7 @@ exports.searchEntitySetData = searchEntitySetData;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateSchema = exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateAssociationTypeMetaData = exports.reorderEntityTypePropertyTypes = exports.removeSrcEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDstEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelProjection = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createSchema = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSrcEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDstEntityTypeToAssociationType = exports.UPDATE_SCHEMA = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.REORDER_ENTITY_TYPE_PROPERTY_TYPES = exports.REMOVE_SRC_ET_FROM_AT = exports.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.REMOVE_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_SCHEMA = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
+exports.updateSchema = exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateEntityDataModel = exports.updateAssociationTypeMetaData = exports.reorderEntityTypePropertyTypes = exports.removeSrcEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDstEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelVersion = exports.getEntityDataModelProjection = exports.getEntityDataModelDiff = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createSchema = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSrcEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDstEntityTypeToAssociationType = exports.UPDATE_SCHEMA = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ENTITY_DATA_MODEL = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.REORDER_ENTITY_TYPE_PROPERTY_TYPES = exports.REMOVE_SRC_ET_FROM_AT = exports.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.REMOVE_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_VERSION = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL_DIFF = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_SCHEMA = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
 
 var _reduxReqseq = __webpack_require__(4);
 
@@ -214,8 +214,17 @@ var GET_ENTITY_DATA_MODEL = 'GET_ENTITY_DATA_MODEL';
 
 var getEntityDataModel = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_DATA_MODEL);
 
+var GET_ENTITY_DATA_MODEL_DIFF = 'GET_ENTITY_DATA_MODEL_DIFF';
+var getEntityDataModelDiff = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_DATA_MODEL_DIFF);
+
 var GET_ENTITY_DATA_MODEL_PROJECTION = 'GET_ENTITY_DATA_MODEL_PROJECTION';
 var getEntityDataModelProjection = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_DATA_MODEL_PROJECTION);
+
+var GET_ENTITY_DATA_MODEL_VERSION = 'GET_ENTITY_DATA_MODEL_VERSION';
+var getEntityDataModelVersion = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_DATA_MODEL_VERSION);
+
+var UPDATE_ENTITY_DATA_MODEL = 'UPDATE_ENTITY_DATA_MODEL';
+var updateEntityDataModel = (0, _reduxReqseq.newRequestSequence)(UPDATE_ENTITY_DATA_MODEL);
 
 /*
  *
@@ -350,7 +359,9 @@ exports.GET_ALL_ENTITY_TYPES = GET_ALL_ENTITY_TYPES;
 exports.GET_ALL_PROPERTY_TYPES = GET_ALL_PROPERTY_TYPES;
 exports.GET_ALL_SCHEMAS = GET_ALL_SCHEMAS;
 exports.GET_ENTITY_DATA_MODEL = GET_ENTITY_DATA_MODEL;
+exports.GET_ENTITY_DATA_MODEL_DIFF = GET_ENTITY_DATA_MODEL_DIFF;
 exports.GET_ENTITY_DATA_MODEL_PROJECTION = GET_ENTITY_DATA_MODEL_PROJECTION;
+exports.GET_ENTITY_DATA_MODEL_VERSION = GET_ENTITY_DATA_MODEL_VERSION;
 exports.GET_ENTITY_SET = GET_ENTITY_SET;
 exports.GET_ENTITY_SET_ID = GET_ENTITY_SET_ID;
 exports.GET_ENTITY_TYPE = GET_ENTITY_TYPE;
@@ -360,6 +371,7 @@ exports.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE = REMOVE_PROPERTY_TYPE_FROM_ENTITY
 exports.REMOVE_SRC_ET_FROM_AT = REMOVE_SRC_ET_FROM_AT;
 exports.REORDER_ENTITY_TYPE_PROPERTY_TYPES = REORDER_ENTITY_TYPE_PROPERTY_TYPES;
 exports.UPDATE_ASSOCIATION_TYPE_METADATA = UPDATE_ASSOCIATION_TYPE_METADATA;
+exports.UPDATE_ENTITY_DATA_MODEL = UPDATE_ENTITY_DATA_MODEL;
 exports.UPDATE_ENTITY_SET_METADATA = UPDATE_ENTITY_SET_METADATA;
 exports.UPDATE_ENTITY_TYPE_METADATA = UPDATE_ENTITY_TYPE_METADATA;
 exports.UPDATE_PROPERTY_TYPE_METADATA = UPDATE_PROPERTY_TYPE_METADATA;
@@ -379,7 +391,9 @@ exports.getAllEntityTypes = getAllEntityTypes;
 exports.getAllPropertyTypes = getAllPropertyTypes;
 exports.getAllSchemas = getAllSchemas;
 exports.getEntityDataModel = getEntityDataModel;
+exports.getEntityDataModelDiff = getEntityDataModelDiff;
 exports.getEntityDataModelProjection = getEntityDataModelProjection;
+exports.getEntityDataModelVersion = getEntityDataModelVersion;
 exports.getEntitySet = getEntitySet;
 exports.getEntitySetId = getEntitySetId;
 exports.getEntityType = getEntityType;
@@ -389,6 +403,7 @@ exports.removePropertyTypeFromEntityType = removePropertyTypeFromEntityType;
 exports.removeSrcEntityTypeFromAssociationType = removeSrcEntityTypeFromAssociationType;
 exports.reorderEntityTypePropertyTypes = reorderEntityTypePropertyTypes;
 exports.updateAssociationTypeMetaData = updateAssociationTypeMetaData;
+exports.updateEntityDataModel = updateEntityDataModel;
 exports.updateEntitySetMetaData = updateEntitySetMetaData;
 exports.updateEntityTypeMetaData = updateEntityTypeMetaData;
 exports.updatePropertyTypeMetaData = updatePropertyTypeMetaData;
@@ -699,7 +714,7 @@ exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateSchemaWorker = exports.updateSchemaWatcher = exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.reorderEntityTypePropertyTypesWorker = exports.reorderEntityTypePropertyTypesWatcher = exports.removeSrcEntityTypeFromAssociationTypeWorker = exports.removeSrcEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDstEntityTypeFromAssociationTypeWorker = exports.removeDstEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createSchemaWorker = exports.createSchemaWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSrcEntityTypeToAssociationTypeWorker = exports.addSrcEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDstEntityTypeToAssociationTypeWorker = exports.addDstEntityTypeToAssociationTypeWatcher = undefined;
+exports.updateSchemaWorker = exports.updateSchemaWatcher = exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateEntityDataModelWorker = exports.updateEntityDataModelWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.reorderEntityTypePropertyTypesWorker = exports.reorderEntityTypePropertyTypesWatcher = exports.removeSrcEntityTypeFromAssociationTypeWorker = exports.removeSrcEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDstEntityTypeFromAssociationTypeWorker = exports.removeDstEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelVersionWorker = exports.getEntityDataModelVersionWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelDiffWorker = exports.getEntityDataModelDiffWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createSchemaWorker = exports.createSchemaWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSrcEntityTypeToAssociationTypeWorker = exports.addSrcEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDstEntityTypeToAssociationTypeWorker = exports.addDstEntityTypeToAssociationTypeWatcher = undefined;
 
 var _lattice = __webpack_require__(3);
 
@@ -713,62 +728,68 @@ var _EntityDataModelApiActionFactory = __webpack_require__(6);
 
 var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
     _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWorker),
-    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelProjectionWatcher),
-    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelProjectionWorker),
-    _marked5 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetWatcher),
-    _marked6 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetWorker),
-    _marked7 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetIdWatcher),
-    _marked8 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetIdWorker),
-    _marked9 = /*#__PURE__*/regeneratorRuntime.mark(updateEntitySetMetaDataWatcher),
-    _marked10 = /*#__PURE__*/regeneratorRuntime.mark(updateEntitySetMetaDataWorker),
-    _marked11 = /*#__PURE__*/regeneratorRuntime.mark(createEntityTypeWatcher),
-    _marked12 = /*#__PURE__*/regeneratorRuntime.mark(createEntityTypeWorker),
-    _marked13 = /*#__PURE__*/regeneratorRuntime.mark(deleteEntityTypeWatcher),
-    _marked14 = /*#__PURE__*/regeneratorRuntime.mark(deleteEntityTypeWorker),
-    _marked15 = /*#__PURE__*/regeneratorRuntime.mark(getAllEntityTypesWatcher),
-    _marked16 = /*#__PURE__*/regeneratorRuntime.mark(getAllEntityTypesWorker),
-    _marked17 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWatcher),
-    _marked18 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWorker),
-    _marked19 = /*#__PURE__*/regeneratorRuntime.mark(updateEntityTypeMetaDataWatcher),
-    _marked20 = /*#__PURE__*/regeneratorRuntime.mark(updateEntityTypeMetaDataWorker),
-    _marked21 = /*#__PURE__*/regeneratorRuntime.mark(addPropertyTypeToEntityTypeWatcher),
-    _marked22 = /*#__PURE__*/regeneratorRuntime.mark(addPropertyTypeToEntityTypeWorker),
-    _marked23 = /*#__PURE__*/regeneratorRuntime.mark(removePropertyTypeFromEntityTypeWatcher),
-    _marked24 = /*#__PURE__*/regeneratorRuntime.mark(removePropertyTypeFromEntityTypeWorker),
-    _marked25 = /*#__PURE__*/regeneratorRuntime.mark(reorderEntityTypePropertyTypesWatcher),
-    _marked26 = /*#__PURE__*/regeneratorRuntime.mark(reorderEntityTypePropertyTypesWorker),
-    _marked27 = /*#__PURE__*/regeneratorRuntime.mark(createPropertyTypeWatcher),
-    _marked28 = /*#__PURE__*/regeneratorRuntime.mark(createPropertyTypeWorker),
-    _marked29 = /*#__PURE__*/regeneratorRuntime.mark(deletePropertyTypeWatcher),
-    _marked30 = /*#__PURE__*/regeneratorRuntime.mark(deletePropertyTypeWorker),
-    _marked31 = /*#__PURE__*/regeneratorRuntime.mark(getAllPropertyTypesWatcher),
-    _marked32 = /*#__PURE__*/regeneratorRuntime.mark(getAllPropertyTypesWorker),
-    _marked33 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWatcher),
-    _marked34 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWorker),
-    _marked35 = /*#__PURE__*/regeneratorRuntime.mark(updatePropertyTypeMetaDataWatcher),
-    _marked36 = /*#__PURE__*/regeneratorRuntime.mark(updatePropertyTypeMetaDataWorker),
-    _marked37 = /*#__PURE__*/regeneratorRuntime.mark(createAssociationTypeWatcher),
-    _marked38 = /*#__PURE__*/regeneratorRuntime.mark(createAssociationTypeWorker),
-    _marked39 = /*#__PURE__*/regeneratorRuntime.mark(deleteAssociationTypeWatcher),
-    _marked40 = /*#__PURE__*/regeneratorRuntime.mark(deleteAssociationTypeWorker),
-    _marked41 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWatcher),
-    _marked42 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWorker),
-    _marked43 = /*#__PURE__*/regeneratorRuntime.mark(updateAssociationTypeMetaDataWatcher),
-    _marked44 = /*#__PURE__*/regeneratorRuntime.mark(updateAssociationTypeMetaDataWorker),
-    _marked45 = /*#__PURE__*/regeneratorRuntime.mark(addDstEntityTypeToAssociationTypeWatcher),
-    _marked46 = /*#__PURE__*/regeneratorRuntime.mark(addDstEntityTypeToAssociationTypeWorker),
-    _marked47 = /*#__PURE__*/regeneratorRuntime.mark(addSrcEntityTypeToAssociationTypeWatcher),
-    _marked48 = /*#__PURE__*/regeneratorRuntime.mark(addSrcEntityTypeToAssociationTypeWorker),
-    _marked49 = /*#__PURE__*/regeneratorRuntime.mark(removeDstEntityTypeFromAssociationTypeWatcher),
-    _marked50 = /*#__PURE__*/regeneratorRuntime.mark(removeDstEntityTypeFromAssociationTypeWorker),
-    _marked51 = /*#__PURE__*/regeneratorRuntime.mark(removeSrcEntityTypeFromAssociationTypeWatcher),
-    _marked52 = /*#__PURE__*/regeneratorRuntime.mark(removeSrcEntityTypeFromAssociationTypeWorker),
-    _marked53 = /*#__PURE__*/regeneratorRuntime.mark(createSchemaWatcher),
-    _marked54 = /*#__PURE__*/regeneratorRuntime.mark(createSchemaWorker),
-    _marked55 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWatcher),
-    _marked56 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWorker),
-    _marked57 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWatcher),
-    _marked58 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWorker);
+    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelDiffWatcher),
+    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelDiffWorker),
+    _marked5 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelProjectionWatcher),
+    _marked6 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelProjectionWorker),
+    _marked7 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelVersionWatcher),
+    _marked8 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelVersionWorker),
+    _marked9 = /*#__PURE__*/regeneratorRuntime.mark(updateEntityDataModelWatcher),
+    _marked10 = /*#__PURE__*/regeneratorRuntime.mark(updateEntityDataModelWorker),
+    _marked11 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetWatcher),
+    _marked12 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetWorker),
+    _marked13 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetIdWatcher),
+    _marked14 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetIdWorker),
+    _marked15 = /*#__PURE__*/regeneratorRuntime.mark(updateEntitySetMetaDataWatcher),
+    _marked16 = /*#__PURE__*/regeneratorRuntime.mark(updateEntitySetMetaDataWorker),
+    _marked17 = /*#__PURE__*/regeneratorRuntime.mark(createEntityTypeWatcher),
+    _marked18 = /*#__PURE__*/regeneratorRuntime.mark(createEntityTypeWorker),
+    _marked19 = /*#__PURE__*/regeneratorRuntime.mark(deleteEntityTypeWatcher),
+    _marked20 = /*#__PURE__*/regeneratorRuntime.mark(deleteEntityTypeWorker),
+    _marked21 = /*#__PURE__*/regeneratorRuntime.mark(getAllEntityTypesWatcher),
+    _marked22 = /*#__PURE__*/regeneratorRuntime.mark(getAllEntityTypesWorker),
+    _marked23 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWatcher),
+    _marked24 = /*#__PURE__*/regeneratorRuntime.mark(getEntityTypeWorker),
+    _marked25 = /*#__PURE__*/regeneratorRuntime.mark(updateEntityTypeMetaDataWatcher),
+    _marked26 = /*#__PURE__*/regeneratorRuntime.mark(updateEntityTypeMetaDataWorker),
+    _marked27 = /*#__PURE__*/regeneratorRuntime.mark(addPropertyTypeToEntityTypeWatcher),
+    _marked28 = /*#__PURE__*/regeneratorRuntime.mark(addPropertyTypeToEntityTypeWorker),
+    _marked29 = /*#__PURE__*/regeneratorRuntime.mark(removePropertyTypeFromEntityTypeWatcher),
+    _marked30 = /*#__PURE__*/regeneratorRuntime.mark(removePropertyTypeFromEntityTypeWorker),
+    _marked31 = /*#__PURE__*/regeneratorRuntime.mark(reorderEntityTypePropertyTypesWatcher),
+    _marked32 = /*#__PURE__*/regeneratorRuntime.mark(reorderEntityTypePropertyTypesWorker),
+    _marked33 = /*#__PURE__*/regeneratorRuntime.mark(createPropertyTypeWatcher),
+    _marked34 = /*#__PURE__*/regeneratorRuntime.mark(createPropertyTypeWorker),
+    _marked35 = /*#__PURE__*/regeneratorRuntime.mark(deletePropertyTypeWatcher),
+    _marked36 = /*#__PURE__*/regeneratorRuntime.mark(deletePropertyTypeWorker),
+    _marked37 = /*#__PURE__*/regeneratorRuntime.mark(getAllPropertyTypesWatcher),
+    _marked38 = /*#__PURE__*/regeneratorRuntime.mark(getAllPropertyTypesWorker),
+    _marked39 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWatcher),
+    _marked40 = /*#__PURE__*/regeneratorRuntime.mark(getPropertyTypeWorker),
+    _marked41 = /*#__PURE__*/regeneratorRuntime.mark(updatePropertyTypeMetaDataWatcher),
+    _marked42 = /*#__PURE__*/regeneratorRuntime.mark(updatePropertyTypeMetaDataWorker),
+    _marked43 = /*#__PURE__*/regeneratorRuntime.mark(createAssociationTypeWatcher),
+    _marked44 = /*#__PURE__*/regeneratorRuntime.mark(createAssociationTypeWorker),
+    _marked45 = /*#__PURE__*/regeneratorRuntime.mark(deleteAssociationTypeWatcher),
+    _marked46 = /*#__PURE__*/regeneratorRuntime.mark(deleteAssociationTypeWorker),
+    _marked47 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWatcher),
+    _marked48 = /*#__PURE__*/regeneratorRuntime.mark(getAllAssociationTypesWorker),
+    _marked49 = /*#__PURE__*/regeneratorRuntime.mark(updateAssociationTypeMetaDataWatcher),
+    _marked50 = /*#__PURE__*/regeneratorRuntime.mark(updateAssociationTypeMetaDataWorker),
+    _marked51 = /*#__PURE__*/regeneratorRuntime.mark(addDstEntityTypeToAssociationTypeWatcher),
+    _marked52 = /*#__PURE__*/regeneratorRuntime.mark(addDstEntityTypeToAssociationTypeWorker),
+    _marked53 = /*#__PURE__*/regeneratorRuntime.mark(addSrcEntityTypeToAssociationTypeWatcher),
+    _marked54 = /*#__PURE__*/regeneratorRuntime.mark(addSrcEntityTypeToAssociationTypeWorker),
+    _marked55 = /*#__PURE__*/regeneratorRuntime.mark(removeDstEntityTypeFromAssociationTypeWatcher),
+    _marked56 = /*#__PURE__*/regeneratorRuntime.mark(removeDstEntityTypeFromAssociationTypeWorker),
+    _marked57 = /*#__PURE__*/regeneratorRuntime.mark(removeSrcEntityTypeFromAssociationTypeWatcher),
+    _marked58 = /*#__PURE__*/regeneratorRuntime.mark(removeSrcEntityTypeFromAssociationTypeWorker),
+    _marked59 = /*#__PURE__*/regeneratorRuntime.mark(createSchemaWatcher),
+    _marked60 = /*#__PURE__*/regeneratorRuntime.mark(createSchemaWorker),
+    _marked61 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWatcher),
+    _marked62 = /*#__PURE__*/regeneratorRuntime.mark(getAllSchemasWorker),
+    _marked63 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWatcher),
+    _marked64 = /*#__PURE__*/regeneratorRuntime.mark(updateSchemaWorker);
 
 /* eslint-disable no-use-before-define */
 
@@ -865,16 +886,16 @@ function getEntityDataModelWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.getEntityDataModelProjection
+ * EntityDataModelApi.getEntityDataModelDiff
  */
 
-function getEntityDataModelProjectionWatcher() {
-  return regeneratorRuntime.wrap(function getEntityDataModelProjectionWatcher$(_context3) {
+function getEntityDataModelDiffWatcher() {
+  return regeneratorRuntime.wrap(function getEntityDataModelDiffWatcher$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_PROJECTION, getEntityDataModelProjectionWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_DIFF, getEntityDataModelDiffWorker);
 
         case 2:
         case 'end':
@@ -884,13 +905,13 @@ function getEntityDataModelProjectionWatcher() {
   }, _marked3, this);
 }
 
-function getEntityDataModelProjectionWorker(seqAction) {
+function getEntityDataModelDiffWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function getEntityDataModelProjectionWorker$(_context4) {
+  return regeneratorRuntime.wrap(function getEntityDataModelDiffWorker$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_PROJECTION)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_DIFF)) {
             _context4.next = 2;
             break;
           }
@@ -915,16 +936,16 @@ function getEntityDataModelProjectionWorker(seqAction) {
           response = {};
           _context4.prev = 6;
           _context4.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelDiff.request(id, value));
 
         case 9:
           _context4.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityDataModelProjection, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityDataModelDiff, value);
 
         case 11:
           response.data = _context4.sent;
           _context4.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelDiff.success(id, response.data));
 
         case 14:
           _context4.next = 21;
@@ -936,12 +957,12 @@ function getEntityDataModelProjectionWorker(seqAction) {
 
           response.error = _context4.t0;
           _context4.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelDiff.failure(id, response.error));
 
         case 21:
           _context4.prev = 21;
           _context4.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelDiff.finally(id));
 
         case 24:
           return _context4.finish(21);
@@ -958,22 +979,16 @@ function getEntityDataModelProjectionWorker(seqAction) {
 }
 
 /*
- *
- * EntitySet APIs
- *
+ * EntityDataModelApi.getEntityDataModelProjection
  */
 
-/*
- * EntityDataModelApi.getEntitySet
- */
-
-function getEntitySetWatcher() {
-  return regeneratorRuntime.wrap(function getEntitySetWatcher$(_context5) {
+function getEntityDataModelProjectionWatcher() {
+  return regeneratorRuntime.wrap(function getEntityDataModelProjectionWatcher$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_SET, getEntitySetWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_PROJECTION, getEntityDataModelProjectionWorker);
 
         case 2:
         case 'end':
@@ -983,13 +998,13 @@ function getEntitySetWatcher() {
   }, _marked5, this);
 }
 
-function getEntitySetWorker(seqAction) {
+function getEntityDataModelProjectionWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function getEntitySetWorker$(_context6) {
+  return regeneratorRuntime.wrap(function getEntityDataModelProjectionWorker$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_SET)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_PROJECTION)) {
             _context6.next = 2;
             break;
           }
@@ -1014,16 +1029,16 @@ function getEntitySetWorker(seqAction) {
           response = {};
           _context6.prev = 6;
           _context6.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.request(id, value));
 
         case 9:
           _context6.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntitySet, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityDataModelProjection, value);
 
         case 11:
           response.data = _context6.sent;
           _context6.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.success(id, response.data));
 
         case 14:
           _context6.next = 21;
@@ -1035,12 +1050,12 @@ function getEntitySetWorker(seqAction) {
 
           response.error = _context6.t0;
           _context6.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.failure(id, response.error));
 
         case 21:
           _context6.prev = 21;
           _context6.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelProjection.finally(id));
 
         case 24:
           return _context6.finish(21);
@@ -1057,16 +1072,16 @@ function getEntitySetWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.getEntitySetId
+ * EntityDataModelApi.getEntityDataModelVersion
  */
 
-function getEntitySetIdWatcher() {
-  return regeneratorRuntime.wrap(function getEntitySetIdWatcher$(_context7) {
+function getEntityDataModelVersionWatcher() {
+  return regeneratorRuntime.wrap(function getEntityDataModelVersionWatcher$(_context7) {
     while (1) {
       switch (_context7.prev = _context7.next) {
         case 0:
           _context7.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_SET_ID, getEntitySetIdWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_VERSION, getEntityDataModelVersionWorker);
 
         case 2:
         case 'end':
@@ -1076,13 +1091,13 @@ function getEntitySetIdWatcher() {
   }, _marked7, this);
 }
 
-function getEntitySetIdWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function getEntitySetIdWorker$(_context8) {
+function getEntityDataModelVersionWorker(seqAction) {
+  var response, id;
+  return regeneratorRuntime.wrap(function getEntityDataModelVersionWorker$(_context8) {
     while (1) {
       switch (_context8.prev = _context8.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_SET_ID)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_DATA_MODEL_VERSION)) {
             _context8.next = 2;
             break;
           }
@@ -1092,74 +1107,63 @@ function getEntitySetIdWorker(seqAction) {
           });
 
         case 2:
-          id = seqAction.id, value = seqAction.value;
-
-          if (!(value === null || value === undefined)) {
-            _context8.next = 5;
-            break;
-          }
-
-          return _context8.abrupt('return', {
-            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
-          });
-
-        case 5:
           response = {};
-          _context8.prev = 6;
+          id = seqAction.id;
+          _context8.prev = 4;
+          _context8.next = 7;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelVersion.request(id));
+
+        case 7:
           _context8.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.request(id, value));
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityDataModelVersion);
 
         case 9:
-          _context8.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntitySetId, value);
-
-        case 11:
           response.data = _context8.sent;
-          _context8.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.success(id, response.data));
+          _context8.next = 12;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelVersion.success(id, response.data));
 
-        case 14:
-          _context8.next = 21;
+        case 12:
+          _context8.next = 19;
           break;
 
-        case 16:
-          _context8.prev = 16;
-          _context8.t0 = _context8['catch'](6);
+        case 14:
+          _context8.prev = 14;
+          _context8.t0 = _context8['catch'](4);
 
           response.error = _context8.t0;
-          _context8.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.failure(id, response.error));
+          _context8.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelVersion.failure(id, response.error));
 
-        case 21:
-          _context8.prev = 21;
-          _context8.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.finally(id));
+        case 19:
+          _context8.prev = 19;
+          _context8.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityDataModelVersion.finally(id));
 
-        case 24:
-          return _context8.finish(21);
+        case 22:
+          return _context8.finish(19);
 
-        case 25:
+        case 23:
           return _context8.abrupt('return', response);
 
-        case 26:
+        case 24:
         case 'end':
           return _context8.stop();
       }
     }
-  }, _marked8, this, [[6, 16, 21, 25]]);
+  }, _marked8, this, [[4, 14, 19, 23]]);
 }
 
 /*
- * EntityDataModelApi.updateEntitySetMetaData
+ * EntityDataModelApi.updateEntityDataModel
  */
 
-function updateEntitySetMetaDataWatcher() {
-  return regeneratorRuntime.wrap(function updateEntitySetMetaDataWatcher$(_context9) {
+function updateEntityDataModelWatcher() {
+  return regeneratorRuntime.wrap(function updateEntityDataModelWatcher$(_context9) {
     while (1) {
       switch (_context9.prev = _context9.next) {
         case 0:
           _context9.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ENTITY_DATA_MODEL, updateEntityDataModelWorker);
 
         case 2:
         case 'end':
@@ -1169,13 +1173,13 @@ function updateEntitySetMetaDataWatcher() {
   }, _marked9, this);
 }
 
-function updateEntitySetMetaDataWorker(seqAction) {
-  var id, value, response, entitySetId, metadata;
-  return regeneratorRuntime.wrap(function updateEntitySetMetaDataWorker$(_context10) {
+function updateEntityDataModelWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function updateEntityDataModelWorker$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ENTITY_SET_METADATA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ENTITY_DATA_MODEL)) {
             _context10.next = 2;
             break;
           }
@@ -1198,68 +1202,67 @@ function updateEntitySetMetaDataWorker(seqAction) {
 
         case 5:
           response = {};
-          entitySetId = value.entitySetId, metadata = value.metadata;
-          _context10.prev = 7;
-          _context10.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.request(id, value));
+          _context10.prev = 6;
+          _context10.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityDataModel.request(id, value));
 
-        case 10:
-          _context10.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntitySetMetaData, entitySetId, metadata);
+        case 9:
+          _context10.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityDataModel, value);
 
-        case 12:
+        case 11:
           response.data = _context10.sent;
-          _context10.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.success(id, response.data));
+          _context10.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityDataModel.success(id, response.data));
 
-        case 15:
-          _context10.next = 22;
+        case 14:
+          _context10.next = 21;
           break;
 
-        case 17:
-          _context10.prev = 17;
-          _context10.t0 = _context10['catch'](7);
+        case 16:
+          _context10.prev = 16;
+          _context10.t0 = _context10['catch'](6);
 
           response.error = _context10.t0;
-          _context10.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.failure(id, response.error));
+          _context10.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityDataModel.failure(id, response.error));
 
-        case 22:
-          _context10.prev = 22;
-          _context10.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.finally(id));
+        case 21:
+          _context10.prev = 21;
+          _context10.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityDataModel.finally(id));
+
+        case 24:
+          return _context10.finish(21);
 
         case 25:
-          return _context10.finish(22);
-
-        case 26:
           return _context10.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context10.stop();
       }
     }
-  }, _marked10, this, [[7, 17, 22, 26]]);
+  }, _marked10, this, [[6, 16, 21, 25]]);
 }
 
 /*
  *
- * EntityType APIs
+ * EntitySet APIs
  *
  */
 
 /*
- * EntityDataModelApi.createEntityType
+ * EntityDataModelApi.getEntitySet
  */
 
-function createEntityTypeWatcher() {
-  return regeneratorRuntime.wrap(function createEntityTypeWatcher$(_context11) {
+function getEntitySetWatcher() {
+  return regeneratorRuntime.wrap(function getEntitySetWatcher$(_context11) {
     while (1) {
       switch (_context11.prev = _context11.next) {
         case 0:
           _context11.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_ENTITY_TYPE, createEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_SET, getEntitySetWorker);
 
         case 2:
         case 'end':
@@ -1269,13 +1272,13 @@ function createEntityTypeWatcher() {
   }, _marked11, this);
 }
 
-function createEntityTypeWorker(seqAction) {
+function getEntitySetWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function createEntityTypeWorker$(_context12) {
+  return regeneratorRuntime.wrap(function getEntitySetWorker$(_context12) {
     while (1) {
       switch (_context12.prev = _context12.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_ENTITY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_SET)) {
             _context12.next = 2;
             break;
           }
@@ -1300,16 +1303,16 @@ function createEntityTypeWorker(seqAction) {
           response = {};
           _context12.prev = 6;
           _context12.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.request(id, value));
 
         case 9:
           _context12.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.createEntityType, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntitySet, value);
 
         case 11:
           response.data = _context12.sent;
           _context12.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.success(id, response.data));
 
         case 14:
           _context12.next = 21;
@@ -1321,12 +1324,12 @@ function createEntityTypeWorker(seqAction) {
 
           response.error = _context12.t0;
           _context12.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.failure(id, response.error));
 
         case 21:
           _context12.prev = 21;
           _context12.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySet.finally(id));
 
         case 24:
           return _context12.finish(21);
@@ -1343,16 +1346,16 @@ function createEntityTypeWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.deleteEntityType
+ * EntityDataModelApi.getEntitySetId
  */
 
-function deleteEntityTypeWatcher() {
-  return regeneratorRuntime.wrap(function deleteEntityTypeWatcher$(_context13) {
+function getEntitySetIdWatcher() {
+  return regeneratorRuntime.wrap(function getEntitySetIdWatcher$(_context13) {
     while (1) {
       switch (_context13.prev = _context13.next) {
         case 0:
           _context13.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.DELETE_ENTITY_TYPE, deleteEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_SET_ID, getEntitySetIdWorker);
 
         case 2:
         case 'end':
@@ -1362,13 +1365,13 @@ function deleteEntityTypeWatcher() {
   }, _marked13, this);
 }
 
-function deleteEntityTypeWorker(seqAction) {
+function getEntitySetIdWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function deleteEntityTypeWorker$(_context14) {
+  return regeneratorRuntime.wrap(function getEntitySetIdWorker$(_context14) {
     while (1) {
       switch (_context14.prev = _context14.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.DELETE_ENTITY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_SET_ID)) {
             _context14.next = 2;
             break;
           }
@@ -1393,16 +1396,16 @@ function deleteEntityTypeWorker(seqAction) {
           response = {};
           _context14.prev = 6;
           _context14.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.request(id, value));
 
         case 9:
           _context14.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.deleteEntityType, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntitySetId, value);
 
         case 11:
           response.data = _context14.sent;
           _context14.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.success(id, response.data));
 
         case 14:
           _context14.next = 21;
@@ -1414,12 +1417,12 @@ function deleteEntityTypeWorker(seqAction) {
 
           response.error = _context14.t0;
           _context14.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.failure(id, response.error));
 
         case 21:
           _context14.prev = 21;
           _context14.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntitySetId.finally(id));
 
         case 24:
           return _context14.finish(21);
@@ -1436,16 +1439,16 @@ function deleteEntityTypeWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.getAllEntityTypes
+ * EntityDataModelApi.updateEntitySetMetaData
  */
 
-function getAllEntityTypesWatcher() {
-  return regeneratorRuntime.wrap(function getAllEntityTypesWatcher$(_context15) {
+function updateEntitySetMetaDataWatcher() {
+  return regeneratorRuntime.wrap(function updateEntitySetMetaDataWatcher$(_context15) {
     while (1) {
       switch (_context15.prev = _context15.next) {
         case 0:
           _context15.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_ENTITY_TYPES, getAllEntityTypesWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
 
         case 2:
         case 'end':
@@ -1455,13 +1458,13 @@ function getAllEntityTypesWatcher() {
   }, _marked15, this);
 }
 
-function getAllEntityTypesWorker(seqAction) {
-  var response, id;
-  return regeneratorRuntime.wrap(function getAllEntityTypesWorker$(_context16) {
+function updateEntitySetMetaDataWorker(seqAction) {
+  var id, value, response, entitySetId, metadata;
+  return regeneratorRuntime.wrap(function updateEntitySetMetaDataWorker$(_context16) {
     while (1) {
       switch (_context16.prev = _context16.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_ENTITY_TYPES)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ENTITY_SET_METADATA)) {
             _context16.next = 2;
             break;
           }
@@ -1471,63 +1474,81 @@ function getAllEntityTypesWorker(seqAction) {
           });
 
         case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context16.next = 5;
+            break;
+          }
+
+          return _context16.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
           response = {};
-          id = seqAction.id;
-          _context16.prev = 4;
-          _context16.next = 7;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.request(id));
+          entitySetId = value.entitySetId, metadata = value.metadata;
+          _context16.prev = 7;
+          _context16.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.request(id, value));
 
-        case 7:
-          _context16.next = 9;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllEntityTypes);
-
-        case 9:
-          response.data = _context16.sent;
+        case 10:
           _context16.next = 12;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.success(id, response.data));
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntitySetMetaData, entitySetId, metadata);
 
         case 12:
-          _context16.next = 19;
+          response.data = _context16.sent;
+          _context16.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.success(id, response.data));
+
+        case 15:
+          _context16.next = 22;
           break;
 
-        case 14:
-          _context16.prev = 14;
-          _context16.t0 = _context16['catch'](4);
+        case 17:
+          _context16.prev = 17;
+          _context16.t0 = _context16['catch'](7);
 
           response.error = _context16.t0;
-          _context16.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.failure(id, response.error));
-
-        case 19:
-          _context16.prev = 19;
           _context16.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.failure(id, response.error));
 
         case 22:
-          return _context16.finish(19);
+          _context16.prev = 22;
+          _context16.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntitySetMetaData.finally(id));
 
-        case 23:
+        case 25:
+          return _context16.finish(22);
+
+        case 26:
           return _context16.abrupt('return', response);
 
-        case 24:
+        case 27:
         case 'end':
           return _context16.stop();
       }
     }
-  }, _marked16, this, [[4, 14, 19, 23]]);
+  }, _marked16, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.getEntityType
+ *
+ * EntityType APIs
+ *
  */
 
-function getEntityTypeWatcher() {
-  return regeneratorRuntime.wrap(function getEntityTypeWatcher$(_context17) {
+/*
+ * EntityDataModelApi.createEntityType
+ */
+
+function createEntityTypeWatcher() {
+  return regeneratorRuntime.wrap(function createEntityTypeWatcher$(_context17) {
     while (1) {
       switch (_context17.prev = _context17.next) {
         case 0:
           _context17.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_TYPE, getEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_ENTITY_TYPE, createEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -1537,13 +1558,13 @@ function getEntityTypeWatcher() {
   }, _marked17, this);
 }
 
-function getEntityTypeWorker(seqAction) {
+function createEntityTypeWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function getEntityTypeWorker$(_context18) {
+  return regeneratorRuntime.wrap(function createEntityTypeWorker$(_context18) {
     while (1) {
       switch (_context18.prev = _context18.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_ENTITY_TYPE)) {
             _context18.next = 2;
             break;
           }
@@ -1568,16 +1589,16 @@ function getEntityTypeWorker(seqAction) {
           response = {};
           _context18.prev = 6;
           _context18.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.request(id, value));
 
         case 9:
           _context18.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityType, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.createEntityType, value);
 
         case 11:
           response.data = _context18.sent;
           _context18.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.success(id, response.data));
 
         case 14:
           _context18.next = 21;
@@ -1589,12 +1610,12 @@ function getEntityTypeWorker(seqAction) {
 
           response.error = _context18.t0;
           _context18.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.failure(id, response.error));
 
         case 21:
           _context18.prev = 21;
           _context18.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createEntityType.finally(id));
 
         case 24:
           return _context18.finish(21);
@@ -1611,16 +1632,16 @@ function getEntityTypeWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.updateEntityTypeMetaData
+ * EntityDataModelApi.deleteEntityType
  */
 
-function updateEntityTypeMetaDataWatcher() {
-  return regeneratorRuntime.wrap(function updateEntityTypeMetaDataWatcher$(_context19) {
+function deleteEntityTypeWatcher() {
+  return regeneratorRuntime.wrap(function deleteEntityTypeWatcher$(_context19) {
     while (1) {
       switch (_context19.prev = _context19.next) {
         case 0:
           _context19.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ENTITY_TYPE_METADATA, updateEntityTypeMetaDataWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.DELETE_ENTITY_TYPE, deleteEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -1630,13 +1651,13 @@ function updateEntityTypeMetaDataWatcher() {
   }, _marked19, this);
 }
 
-function updateEntityTypeMetaDataWorker(seqAction) {
-  var id, value, response, entityTypeId, metadata;
-  return regeneratorRuntime.wrap(function updateEntityTypeMetaDataWorker$(_context20) {
+function deleteEntityTypeWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function deleteEntityTypeWorker$(_context20) {
     while (1) {
       switch (_context20.prev = _context20.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ENTITY_TYPE_METADATA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.DELETE_ENTITY_TYPE)) {
             _context20.next = 2;
             break;
           }
@@ -1659,62 +1680,61 @@ function updateEntityTypeMetaDataWorker(seqAction) {
 
         case 5:
           response = {};
-          entityTypeId = value.entityTypeId, metadata = value.metadata;
-          _context20.prev = 7;
-          _context20.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.request(id, value));
+          _context20.prev = 6;
+          _context20.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.request(id, value));
 
-        case 10:
-          _context20.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, entityTypeId, metadata);
+        case 9:
+          _context20.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.deleteEntityType, value);
 
-        case 12:
+        case 11:
           response.data = _context20.sent;
-          _context20.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.success(id, response.data));
+          _context20.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.success(id, response.data));
 
-        case 15:
-          _context20.next = 22;
+        case 14:
+          _context20.next = 21;
           break;
 
-        case 17:
-          _context20.prev = 17;
-          _context20.t0 = _context20['catch'](7);
+        case 16:
+          _context20.prev = 16;
+          _context20.t0 = _context20['catch'](6);
 
           response.error = _context20.t0;
-          _context20.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.failure(id, response.error));
+          _context20.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.failure(id, response.error));
 
-        case 22:
-          _context20.prev = 22;
-          _context20.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.finally(id));
+        case 21:
+          _context20.prev = 21;
+          _context20.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteEntityType.finally(id));
+
+        case 24:
+          return _context20.finish(21);
 
         case 25:
-          return _context20.finish(22);
-
-        case 26:
           return _context20.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context20.stop();
       }
     }
-  }, _marked20, this, [[7, 17, 22, 26]]);
+  }, _marked20, this, [[6, 16, 21, 25]]);
 }
 
 /*
- * EntityDataModelApi.addPropertyTypeToEntityType
+ * EntityDataModelApi.getAllEntityTypes
  */
 
-function addPropertyTypeToEntityTypeWatcher() {
-  return regeneratorRuntime.wrap(function addPropertyTypeToEntityTypeWatcher$(_context21) {
+function getAllEntityTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAllEntityTypesWatcher$(_context21) {
     while (1) {
       switch (_context21.prev = _context21.next) {
         case 0:
           _context21.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE, addPropertyTypeToEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_ENTITY_TYPES, getAllEntityTypesWorker);
 
         case 2:
         case 'end':
@@ -1724,13 +1744,13 @@ function addPropertyTypeToEntityTypeWatcher() {
   }, _marked21, this);
 }
 
-function addPropertyTypeToEntityTypeWorker(seqAction) {
-  var id, value, response, entityTypeId, propertyTypeId;
-  return regeneratorRuntime.wrap(function addPropertyTypeToEntityTypeWorker$(_context22) {
+function getAllEntityTypesWorker(seqAction) {
+  var response, id;
+  return regeneratorRuntime.wrap(function getAllEntityTypesWorker$(_context22) {
     while (1) {
       switch (_context22.prev = _context22.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_ENTITY_TYPES)) {
             _context22.next = 2;
             break;
           }
@@ -1740,75 +1760,63 @@ function addPropertyTypeToEntityTypeWorker(seqAction) {
           });
 
         case 2:
-          id = seqAction.id, value = seqAction.value;
-
-          if (!(value === null || value === undefined)) {
-            _context22.next = 5;
-            break;
-          }
-
-          return _context22.abrupt('return', {
-            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
-          });
-
-        case 5:
           response = {};
-          entityTypeId = value.entityTypeId, propertyTypeId = value.propertyTypeId;
-          _context22.prev = 7;
-          _context22.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.request(id, value));
+          id = seqAction.id;
+          _context22.prev = 4;
+          _context22.next = 7;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.request(id));
 
-        case 10:
+        case 7:
+          _context22.next = 9;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllEntityTypes);
+
+        case 9:
+          response.data = _context22.sent;
           _context22.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.addPropertyTypeToEntityType, entityTypeId, propertyTypeId);
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.success(id, response.data));
 
         case 12:
-          response.data = _context22.sent;
-          _context22.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.success(id, response.data));
-
-        case 15:
-          _context22.next = 22;
+          _context22.next = 19;
           break;
 
-        case 17:
-          _context22.prev = 17;
-          _context22.t0 = _context22['catch'](7);
+        case 14:
+          _context22.prev = 14;
+          _context22.t0 = _context22['catch'](4);
 
           response.error = _context22.t0;
+          _context22.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.failure(id, response.error));
+
+        case 19:
+          _context22.prev = 19;
           _context22.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllEntityTypes.finally(id));
 
         case 22:
-          _context22.prev = 22;
-          _context22.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.finally(id));
+          return _context22.finish(19);
 
-        case 25:
-          return _context22.finish(22);
-
-        case 26:
+        case 23:
           return _context22.abrupt('return', response);
 
-        case 27:
+        case 24:
         case 'end':
           return _context22.stop();
       }
     }
-  }, _marked22, this, [[7, 17, 22, 26]]);
+  }, _marked22, this, [[4, 14, 19, 23]]);
 }
 
 /*
- * EntityDataModelApi.removePropertyTypeFromEntityType
+ * EntityDataModelApi.getEntityType
  */
 
-function removePropertyTypeFromEntityTypeWatcher() {
-  return regeneratorRuntime.wrap(function removePropertyTypeFromEntityTypeWatcher$(_context23) {
+function getEntityTypeWatcher() {
+  return regeneratorRuntime.wrap(function getEntityTypeWatcher$(_context23) {
     while (1) {
       switch (_context23.prev = _context23.next) {
         case 0:
           _context23.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ENTITY_TYPE, getEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -1818,13 +1826,13 @@ function removePropertyTypeFromEntityTypeWatcher() {
   }, _marked23, this);
 }
 
-function removePropertyTypeFromEntityTypeWorker(seqAction) {
-  var id, value, response, entityTypeId, propertyTypeId;
-  return regeneratorRuntime.wrap(function removePropertyTypeFromEntityTypeWorker$(_context24) {
+function getEntityTypeWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function getEntityTypeWorker$(_context24) {
     while (1) {
       switch (_context24.prev = _context24.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ENTITY_TYPE)) {
             _context24.next = 2;
             break;
           }
@@ -1847,62 +1855,61 @@ function removePropertyTypeFromEntityTypeWorker(seqAction) {
 
         case 5:
           response = {};
-          entityTypeId = value.entityTypeId, propertyTypeId = value.propertyTypeId;
-          _context24.prev = 7;
-          _context24.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.request(id, value));
+          _context24.prev = 6;
+          _context24.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.request(id, value));
 
-        case 10:
-          _context24.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.removePropertyTypeFromEntityType, entityTypeId, propertyTypeId);
+        case 9:
+          _context24.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getEntityType, value);
 
-        case 12:
+        case 11:
           response.data = _context24.sent;
-          _context24.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.success(id, response.data));
+          _context24.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.success(id, response.data));
 
-        case 15:
-          _context24.next = 22;
+        case 14:
+          _context24.next = 21;
           break;
 
-        case 17:
-          _context24.prev = 17;
-          _context24.t0 = _context24['catch'](7);
+        case 16:
+          _context24.prev = 16;
+          _context24.t0 = _context24['catch'](6);
 
           response.error = _context24.t0;
-          _context24.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.failure(id, response.error));
+          _context24.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.failure(id, response.error));
 
-        case 22:
-          _context24.prev = 22;
-          _context24.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.finally(id));
+        case 21:
+          _context24.prev = 21;
+          _context24.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getEntityType.finally(id));
+
+        case 24:
+          return _context24.finish(21);
 
         case 25:
-          return _context24.finish(22);
-
-        case 26:
           return _context24.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context24.stop();
       }
     }
-  }, _marked24, this, [[7, 17, 22, 26]]);
+  }, _marked24, this, [[6, 16, 21, 25]]);
 }
 
 /*
- * EntityDataModelApi.reorderPropertyTypesInEntityType
+ * EntityDataModelApi.updateEntityTypeMetaData
  */
 
-function reorderEntityTypePropertyTypesWatcher() {
-  return regeneratorRuntime.wrap(function reorderEntityTypePropertyTypesWatcher$(_context25) {
+function updateEntityTypeMetaDataWatcher() {
+  return regeneratorRuntime.wrap(function updateEntityTypeMetaDataWatcher$(_context25) {
     while (1) {
       switch (_context25.prev = _context25.next) {
         case 0:
           _context25.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REORDER_ENTITY_TYPE_PROPERTY_TYPES, reorderEntityTypePropertyTypesWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ENTITY_TYPE_METADATA, updateEntityTypeMetaDataWorker);
 
         case 2:
         case 'end':
@@ -1912,13 +1919,13 @@ function reorderEntityTypePropertyTypesWatcher() {
   }, _marked25, this);
 }
 
-function reorderEntityTypePropertyTypesWorker(seqAction) {
-  var id, value, response, entityTypeId, propertyTypeIds;
-  return regeneratorRuntime.wrap(function reorderEntityTypePropertyTypesWorker$(_context26) {
+function updateEntityTypeMetaDataWorker(seqAction) {
+  var id, value, response, entityTypeId, metadata;
+  return regeneratorRuntime.wrap(function updateEntityTypeMetaDataWorker$(_context26) {
     while (1) {
       switch (_context26.prev = _context26.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REORDER_ENTITY_TYPE_PROPERTY_TYPES)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ENTITY_TYPE_METADATA)) {
             _context26.next = 2;
             break;
           }
@@ -1941,19 +1948,19 @@ function reorderEntityTypePropertyTypesWorker(seqAction) {
 
         case 5:
           response = {};
-          entityTypeId = value.entityTypeId, propertyTypeIds = value.propertyTypeIds;
+          entityTypeId = value.entityTypeId, metadata = value.metadata;
           _context26.prev = 7;
           _context26.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.request(id, value));
 
         case 10:
           _context26.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.reorderPropertyTypesInEntityType, entityTypeId, propertyTypeIds);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, entityTypeId, metadata);
 
         case 12:
           response.data = _context26.sent;
           _context26.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.success(id, response.data));
 
         case 15:
           _context26.next = 22;
@@ -1965,12 +1972,12 @@ function reorderEntityTypePropertyTypesWorker(seqAction) {
 
           response.error = _context26.t0;
           _context26.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.failure(id, response.error));
 
         case 22:
           _context26.prev = 22;
           _context26.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateEntityTypeMetaData.finally(id));
 
         case 25:
           return _context26.finish(22);
@@ -1987,22 +1994,16 @@ function reorderEntityTypePropertyTypesWorker(seqAction) {
 }
 
 /*
- *
- * PropertyType APIs
- *
+ * EntityDataModelApi.addPropertyTypeToEntityType
  */
 
-/*
- * EntityDataModelApi.createPropertyType
- */
-
-function createPropertyTypeWatcher() {
-  return regeneratorRuntime.wrap(function createPropertyTypeWatcher$(_context27) {
+function addPropertyTypeToEntityTypeWatcher() {
+  return regeneratorRuntime.wrap(function addPropertyTypeToEntityTypeWatcher$(_context27) {
     while (1) {
       switch (_context27.prev = _context27.next) {
         case 0:
           _context27.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_PROPERTY_TYPE, createPropertyTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE, addPropertyTypeToEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -2012,13 +2013,13 @@ function createPropertyTypeWatcher() {
   }, _marked27, this);
 }
 
-function createPropertyTypeWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function createPropertyTypeWorker$(_context28) {
+function addPropertyTypeToEntityTypeWorker(seqAction) {
+  var id, value, response, entityTypeId, propertyTypeId;
+  return regeneratorRuntime.wrap(function addPropertyTypeToEntityTypeWorker$(_context28) {
     while (1) {
       switch (_context28.prev = _context28.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_PROPERTY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE)) {
             _context28.next = 2;
             break;
           }
@@ -2041,61 +2042,62 @@ function createPropertyTypeWorker(seqAction) {
 
         case 5:
           response = {};
-          _context28.prev = 6;
-          _context28.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.request(id, value));
+          entityTypeId = value.entityTypeId, propertyTypeId = value.propertyTypeId;
+          _context28.prev = 7;
+          _context28.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.request(id, value));
 
-        case 9:
-          _context28.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.createPropertyType, value);
+        case 10:
+          _context28.next = 12;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.addPropertyTypeToEntityType, entityTypeId, propertyTypeId);
 
-        case 11:
+        case 12:
           response.data = _context28.sent;
-          _context28.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.success(id, response.data));
+          _context28.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.success(id, response.data));
 
-        case 14:
-          _context28.next = 21;
+        case 15:
+          _context28.next = 22;
           break;
 
-        case 16:
-          _context28.prev = 16;
-          _context28.t0 = _context28['catch'](6);
+        case 17:
+          _context28.prev = 17;
+          _context28.t0 = _context28['catch'](7);
 
           response.error = _context28.t0;
-          _context28.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.failure(id, response.error));
+          _context28.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.failure(id, response.error));
 
-        case 21:
-          _context28.prev = 21;
-          _context28.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.finally(id));
-
-        case 24:
-          return _context28.finish(21);
+        case 22:
+          _context28.prev = 22;
+          _context28.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addPropertyTypeToEntityType.finally(id));
 
         case 25:
-          return _context28.abrupt('return', response);
+          return _context28.finish(22);
 
         case 26:
+          return _context28.abrupt('return', response);
+
+        case 27:
         case 'end':
           return _context28.stop();
       }
     }
-  }, _marked28, this, [[6, 16, 21, 25]]);
+  }, _marked28, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.deletePropertyType
+ * EntityDataModelApi.removePropertyTypeFromEntityType
  */
 
-function deletePropertyTypeWatcher() {
-  return regeneratorRuntime.wrap(function deletePropertyTypeWatcher$(_context29) {
+function removePropertyTypeFromEntityTypeWatcher() {
+  return regeneratorRuntime.wrap(function removePropertyTypeFromEntityTypeWatcher$(_context29) {
     while (1) {
       switch (_context29.prev = _context29.next) {
         case 0:
           _context29.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.DELETE_PROPERTY_TYPE, deletePropertyTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE, removePropertyTypeFromEntityTypeWorker);
 
         case 2:
         case 'end':
@@ -2105,13 +2107,13 @@ function deletePropertyTypeWatcher() {
   }, _marked29, this);
 }
 
-function deletePropertyTypeWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function deletePropertyTypeWorker$(_context30) {
+function removePropertyTypeFromEntityTypeWorker(seqAction) {
+  var id, value, response, entityTypeId, propertyTypeId;
+  return regeneratorRuntime.wrap(function removePropertyTypeFromEntityTypeWorker$(_context30) {
     while (1) {
       switch (_context30.prev = _context30.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.DELETE_PROPERTY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE)) {
             _context30.next = 2;
             break;
           }
@@ -2134,61 +2136,62 @@ function deletePropertyTypeWorker(seqAction) {
 
         case 5:
           response = {};
-          _context30.prev = 6;
-          _context30.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.request(id, value));
+          entityTypeId = value.entityTypeId, propertyTypeId = value.propertyTypeId;
+          _context30.prev = 7;
+          _context30.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.request(id, value));
 
-        case 9:
-          _context30.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.deletePropertyType, value);
+        case 10:
+          _context30.next = 12;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.removePropertyTypeFromEntityType, entityTypeId, propertyTypeId);
 
-        case 11:
+        case 12:
           response.data = _context30.sent;
-          _context30.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.success(id, response.data));
+          _context30.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.success(id, response.data));
 
-        case 14:
-          _context30.next = 21;
+        case 15:
+          _context30.next = 22;
           break;
 
-        case 16:
-          _context30.prev = 16;
-          _context30.t0 = _context30['catch'](6);
+        case 17:
+          _context30.prev = 17;
+          _context30.t0 = _context30['catch'](7);
 
           response.error = _context30.t0;
-          _context30.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.failure(id, response.error));
+          _context30.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.failure(id, response.error));
 
-        case 21:
-          _context30.prev = 21;
-          _context30.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.finally(id));
-
-        case 24:
-          return _context30.finish(21);
+        case 22:
+          _context30.prev = 22;
+          _context30.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removePropertyTypeFromEntityType.finally(id));
 
         case 25:
-          return _context30.abrupt('return', response);
+          return _context30.finish(22);
 
         case 26:
+          return _context30.abrupt('return', response);
+
+        case 27:
         case 'end':
           return _context30.stop();
       }
     }
-  }, _marked30, this, [[6, 16, 21, 25]]);
+  }, _marked30, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.getAllPropertyTypes
+ * EntityDataModelApi.reorderPropertyTypesInEntityType
  */
 
-function getAllPropertyTypesWatcher() {
-  return regeneratorRuntime.wrap(function getAllPropertyTypesWatcher$(_context31) {
+function reorderEntityTypePropertyTypesWatcher() {
+  return regeneratorRuntime.wrap(function reorderEntityTypePropertyTypesWatcher$(_context31) {
     while (1) {
       switch (_context31.prev = _context31.next) {
         case 0:
           _context31.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REORDER_ENTITY_TYPE_PROPERTY_TYPES, reorderEntityTypePropertyTypesWorker);
 
         case 2:
         case 'end':
@@ -2198,13 +2201,13 @@ function getAllPropertyTypesWatcher() {
   }, _marked31, this);
 }
 
-function getAllPropertyTypesWorker(seqAction) {
-  var response, id;
-  return regeneratorRuntime.wrap(function getAllPropertyTypesWorker$(_context32) {
+function reorderEntityTypePropertyTypesWorker(seqAction) {
+  var id, value, response, entityTypeId, propertyTypeIds;
+  return regeneratorRuntime.wrap(function reorderEntityTypePropertyTypesWorker$(_context32) {
     while (1) {
       switch (_context32.prev = _context32.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_PROPERTY_TYPES)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REORDER_ENTITY_TYPE_PROPERTY_TYPES)) {
             _context32.next = 2;
             break;
           }
@@ -2214,63 +2217,81 @@ function getAllPropertyTypesWorker(seqAction) {
           });
 
         case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context32.next = 5;
+            break;
+          }
+
+          return _context32.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
           response = {};
-          id = seqAction.id;
-          _context32.prev = 4;
-          _context32.next = 7;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.request(id));
+          entityTypeId = value.entityTypeId, propertyTypeIds = value.propertyTypeIds;
+          _context32.prev = 7;
+          _context32.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.request(id, value));
 
-        case 7:
-          _context32.next = 9;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllPropertyTypes);
-
-        case 9:
-          response.data = _context32.sent;
+        case 10:
           _context32.next = 12;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.success(id, response.data));
+          return (0, _effects.call)(_lattice.EntityDataModelApi.reorderPropertyTypesInEntityType, entityTypeId, propertyTypeIds);
 
         case 12:
-          _context32.next = 19;
+          response.data = _context32.sent;
+          _context32.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.success(id, response.data));
+
+        case 15:
+          _context32.next = 22;
           break;
 
-        case 14:
-          _context32.prev = 14;
-          _context32.t0 = _context32['catch'](4);
+        case 17:
+          _context32.prev = 17;
+          _context32.t0 = _context32['catch'](7);
 
           response.error = _context32.t0;
-          _context32.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.failure(id, response.error));
-
-        case 19:
-          _context32.prev = 19;
           _context32.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.failure(id, response.error));
 
         case 22:
-          return _context32.finish(19);
+          _context32.prev = 22;
+          _context32.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes.finally(id));
 
-        case 23:
+        case 25:
+          return _context32.finish(22);
+
+        case 26:
           return _context32.abrupt('return', response);
 
-        case 24:
+        case 27:
         case 'end':
           return _context32.stop();
       }
     }
-  }, _marked32, this, [[4, 14, 19, 23]]);
+  }, _marked32, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.getPropertyType
+ *
+ * PropertyType APIs
+ *
  */
 
-function getPropertyTypeWatcher() {
-  return regeneratorRuntime.wrap(function getPropertyTypeWatcher$(_context33) {
+/*
+ * EntityDataModelApi.createPropertyType
+ */
+
+function createPropertyTypeWatcher() {
+  return regeneratorRuntime.wrap(function createPropertyTypeWatcher$(_context33) {
     while (1) {
       switch (_context33.prev = _context33.next) {
         case 0:
           _context33.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_PROPERTY_TYPE, getPropertyTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_PROPERTY_TYPE, createPropertyTypeWorker);
 
         case 2:
         case 'end':
@@ -2280,13 +2301,13 @@ function getPropertyTypeWatcher() {
   }, _marked33, this);
 }
 
-function getPropertyTypeWorker(seqAction) {
+function createPropertyTypeWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function getPropertyTypeWorker$(_context34) {
+  return regeneratorRuntime.wrap(function createPropertyTypeWorker$(_context34) {
     while (1) {
       switch (_context34.prev = _context34.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_PROPERTY_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_PROPERTY_TYPE)) {
             _context34.next = 2;
             break;
           }
@@ -2311,16 +2332,16 @@ function getPropertyTypeWorker(seqAction) {
           response = {};
           _context34.prev = 6;
           _context34.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.request(id, value));
 
         case 9:
           _context34.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getPropertyType, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.createPropertyType, value);
 
         case 11:
           response.data = _context34.sent;
           _context34.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.success(id, response.data));
 
         case 14:
           _context34.next = 21;
@@ -2332,12 +2353,12 @@ function getPropertyTypeWorker(seqAction) {
 
           response.error = _context34.t0;
           _context34.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.failure(id, response.error));
 
         case 21:
           _context34.prev = 21;
           _context34.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createPropertyType.finally(id));
 
         case 24:
           return _context34.finish(21);
@@ -2354,16 +2375,16 @@ function getPropertyTypeWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.updatePropertyTypeMetaData
+ * EntityDataModelApi.deletePropertyType
  */
 
-function updatePropertyTypeMetaDataWatcher() {
-  return regeneratorRuntime.wrap(function updatePropertyTypeMetaDataWatcher$(_context35) {
+function deletePropertyTypeWatcher() {
+  return regeneratorRuntime.wrap(function deletePropertyTypeWatcher$(_context35) {
     while (1) {
       switch (_context35.prev = _context35.next) {
         case 0:
           _context35.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_PROPERTY_TYPE_METADATA, updatePropertyTypeMetaDataWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.DELETE_PROPERTY_TYPE, deletePropertyTypeWorker);
 
         case 2:
         case 'end':
@@ -2373,13 +2394,13 @@ function updatePropertyTypeMetaDataWatcher() {
   }, _marked35, this);
 }
 
-function updatePropertyTypeMetaDataWorker(seqAction) {
-  var id, value, response, propertyTypeId, metadata;
-  return regeneratorRuntime.wrap(function updatePropertyTypeMetaDataWorker$(_context36) {
+function deletePropertyTypeWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function deletePropertyTypeWorker$(_context36) {
     while (1) {
       switch (_context36.prev = _context36.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_PROPERTY_TYPE_METADATA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.DELETE_PROPERTY_TYPE)) {
             _context36.next = 2;
             break;
           }
@@ -2402,68 +2423,61 @@ function updatePropertyTypeMetaDataWorker(seqAction) {
 
         case 5:
           response = {};
-          propertyTypeId = value.propertyTypeId, metadata = value.metadata;
-          _context36.prev = 7;
-          _context36.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.request(id, value));
+          _context36.prev = 6;
+          _context36.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.request(id, value));
 
-        case 10:
-          _context36.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updatePropertyTypeMetaData, propertyTypeId, metadata);
+        case 9:
+          _context36.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.deletePropertyType, value);
 
-        case 12:
+        case 11:
           response.data = _context36.sent;
-          _context36.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.success(id, response.data));
+          _context36.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.success(id, response.data));
 
-        case 15:
-          _context36.next = 22;
+        case 14:
+          _context36.next = 21;
           break;
 
-        case 17:
-          _context36.prev = 17;
-          _context36.t0 = _context36['catch'](7);
+        case 16:
+          _context36.prev = 16;
+          _context36.t0 = _context36['catch'](6);
 
           response.error = _context36.t0;
-          _context36.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.failure(id, response.error));
+          _context36.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.failure(id, response.error));
 
-        case 22:
-          _context36.prev = 22;
-          _context36.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.finally(id));
+        case 21:
+          _context36.prev = 21;
+          _context36.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deletePropertyType.finally(id));
+
+        case 24:
+          return _context36.finish(21);
 
         case 25:
-          return _context36.finish(22);
-
-        case 26:
           return _context36.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context36.stop();
       }
     }
-  }, _marked36, this, [[7, 17, 22, 26]]);
+  }, _marked36, this, [[6, 16, 21, 25]]);
 }
 
 /*
- *
- * AssociationType APIs
- *
+ * EntityDataModelApi.getAllPropertyTypes
  */
 
-/*
- * EntityDataModelApi.createAssociationType
- */
-
-function createAssociationTypeWatcher() {
-  return regeneratorRuntime.wrap(function createAssociationTypeWatcher$(_context37) {
+function getAllPropertyTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAllPropertyTypesWatcher$(_context37) {
     while (1) {
       switch (_context37.prev = _context37.next) {
         case 0:
           _context37.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_ASSOCIATION_TYPE, createAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_PROPERTY_TYPES, getAllPropertyTypesWorker);
 
         case 2:
         case 'end':
@@ -2473,13 +2487,13 @@ function createAssociationTypeWatcher() {
   }, _marked37, this);
 }
 
-function createAssociationTypeWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function createAssociationTypeWorker$(_context38) {
+function getAllPropertyTypesWorker(seqAction) {
+  var response, id;
+  return regeneratorRuntime.wrap(function getAllPropertyTypesWorker$(_context38) {
     while (1) {
       switch (_context38.prev = _context38.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_ASSOCIATION_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_PROPERTY_TYPES)) {
             _context38.next = 2;
             break;
           }
@@ -2489,74 +2503,63 @@ function createAssociationTypeWorker(seqAction) {
           });
 
         case 2:
-          id = seqAction.id, value = seqAction.value;
-
-          if (!(value === null || value === undefined)) {
-            _context38.next = 5;
-            break;
-          }
-
-          return _context38.abrupt('return', {
-            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
-          });
-
-        case 5:
           response = {};
-          _context38.prev = 6;
+          id = seqAction.id;
+          _context38.prev = 4;
+          _context38.next = 7;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.request(id));
+
+        case 7:
           _context38.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.request(id, value));
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllPropertyTypes);
 
         case 9:
-          _context38.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.createAssociationType, value);
-
-        case 11:
           response.data = _context38.sent;
-          _context38.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.success(id, response.data));
+          _context38.next = 12;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.success(id, response.data));
 
-        case 14:
-          _context38.next = 21;
+        case 12:
+          _context38.next = 19;
           break;
 
-        case 16:
-          _context38.prev = 16;
-          _context38.t0 = _context38['catch'](6);
+        case 14:
+          _context38.prev = 14;
+          _context38.t0 = _context38['catch'](4);
 
           response.error = _context38.t0;
-          _context38.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.failure(id, response.error));
+          _context38.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.failure(id, response.error));
 
-        case 21:
-          _context38.prev = 21;
-          _context38.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.finally(id));
+        case 19:
+          _context38.prev = 19;
+          _context38.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllPropertyTypes.finally(id));
 
-        case 24:
-          return _context38.finish(21);
+        case 22:
+          return _context38.finish(19);
 
-        case 25:
+        case 23:
           return _context38.abrupt('return', response);
 
-        case 26:
+        case 24:
         case 'end':
           return _context38.stop();
       }
     }
-  }, _marked38, this, [[6, 16, 21, 25]]);
+  }, _marked38, this, [[4, 14, 19, 23]]);
 }
 
 /*
- * EntityDataModelApi.deleteAssociationType
+ * EntityDataModelApi.getPropertyType
  */
 
-function deleteAssociationTypeWatcher() {
-  return regeneratorRuntime.wrap(function deleteAssociationTypeWatcher$(_context39) {
+function getPropertyTypeWatcher() {
+  return regeneratorRuntime.wrap(function getPropertyTypeWatcher$(_context39) {
     while (1) {
       switch (_context39.prev = _context39.next) {
         case 0:
           _context39.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.DELETE_ASSOCIATION_TYPE, deleteAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_PROPERTY_TYPE, getPropertyTypeWorker);
 
         case 2:
         case 'end':
@@ -2566,13 +2569,13 @@ function deleteAssociationTypeWatcher() {
   }, _marked39, this);
 }
 
-function deleteAssociationTypeWorker(seqAction) {
+function getPropertyTypeWorker(seqAction) {
   var id, value, response;
-  return regeneratorRuntime.wrap(function deleteAssociationTypeWorker$(_context40) {
+  return regeneratorRuntime.wrap(function getPropertyTypeWorker$(_context40) {
     while (1) {
       switch (_context40.prev = _context40.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.DELETE_ASSOCIATION_TYPE)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_PROPERTY_TYPE)) {
             _context40.next = 2;
             break;
           }
@@ -2597,16 +2600,16 @@ function deleteAssociationTypeWorker(seqAction) {
           response = {};
           _context40.prev = 6;
           _context40.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.request(id, value));
 
         case 9:
           _context40.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.deleteAssociationType, value);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getPropertyType, value);
 
         case 11:
           response.data = _context40.sent;
           _context40.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.success(id, response.data));
 
         case 14:
           _context40.next = 21;
@@ -2618,12 +2621,12 @@ function deleteAssociationTypeWorker(seqAction) {
 
           response.error = _context40.t0;
           _context40.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.failure(id, response.error));
 
         case 21:
           _context40.prev = 21;
           _context40.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getPropertyType.finally(id));
 
         case 24:
           return _context40.finish(21);
@@ -2640,16 +2643,16 @@ function deleteAssociationTypeWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.getAllAssociationTypes
+ * EntityDataModelApi.updatePropertyTypeMetaData
  */
 
-function getAllAssociationTypesWatcher() {
-  return regeneratorRuntime.wrap(function getAllAssociationTypesWatcher$(_context41) {
+function updatePropertyTypeMetaDataWatcher() {
+  return regeneratorRuntime.wrap(function updatePropertyTypeMetaDataWatcher$(_context41) {
     while (1) {
       switch (_context41.prev = _context41.next) {
         case 0:
           _context41.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_PROPERTY_TYPE_METADATA, updatePropertyTypeMetaDataWorker);
 
         case 2:
         case 'end':
@@ -2659,13 +2662,13 @@ function getAllAssociationTypesWatcher() {
   }, _marked41, this);
 }
 
-function getAllAssociationTypesWorker(seqAction) {
-  var response, id;
-  return regeneratorRuntime.wrap(function getAllAssociationTypesWorker$(_context42) {
+function updatePropertyTypeMetaDataWorker(seqAction) {
+  var id, value, response, propertyTypeId, metadata;
+  return regeneratorRuntime.wrap(function updatePropertyTypeMetaDataWorker$(_context42) {
     while (1) {
       switch (_context42.prev = _context42.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_ASSOCIATION_TYPES)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_PROPERTY_TYPE_METADATA)) {
             _context42.next = 2;
             break;
           }
@@ -2675,63 +2678,81 @@ function getAllAssociationTypesWorker(seqAction) {
           });
 
         case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context42.next = 5;
+            break;
+          }
+
+          return _context42.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
           response = {};
-          id = seqAction.id;
-          _context42.prev = 4;
-          _context42.next = 7;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.request(id));
+          propertyTypeId = value.propertyTypeId, metadata = value.metadata;
+          _context42.prev = 7;
+          _context42.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.request(id, value));
 
-        case 7:
-          _context42.next = 9;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllAssociationTypes);
-
-        case 9:
-          response.data = _context42.sent;
+        case 10:
           _context42.next = 12;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.success(id, response.data));
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updatePropertyTypeMetaData, propertyTypeId, metadata);
 
         case 12:
-          _context42.next = 19;
+          response.data = _context42.sent;
+          _context42.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.success(id, response.data));
+
+        case 15:
+          _context42.next = 22;
           break;
 
-        case 14:
-          _context42.prev = 14;
-          _context42.t0 = _context42['catch'](4);
+        case 17:
+          _context42.prev = 17;
+          _context42.t0 = _context42['catch'](7);
 
           response.error = _context42.t0;
-          _context42.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.failure(id, response.error));
-
-        case 19:
-          _context42.prev = 19;
           _context42.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.failure(id, response.error));
 
         case 22:
-          return _context42.finish(19);
+          _context42.prev = 22;
+          _context42.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updatePropertyTypeMetaData.finally(id));
 
-        case 23:
+        case 25:
+          return _context42.finish(22);
+
+        case 26:
           return _context42.abrupt('return', response);
 
-        case 24:
+        case 27:
         case 'end':
           return _context42.stop();
       }
     }
-  }, _marked42, this, [[4, 14, 19, 23]]);
+  }, _marked42, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.updateEntityTypeMetaData
+ *
+ * AssociationType APIs
+ *
  */
 
-function updateAssociationTypeMetaDataWatcher() {
-  return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWatcher$(_context43) {
+/*
+ * EntityDataModelApi.createAssociationType
+ */
+
+function createAssociationTypeWatcher() {
+  return regeneratorRuntime.wrap(function createAssociationTypeWatcher$(_context43) {
     while (1) {
       switch (_context43.prev = _context43.next) {
         case 0:
           _context43.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ASSOCIATION_TYPE_METADATA, updateAssociationTypeMetaDataWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_ASSOCIATION_TYPE, createAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -2741,13 +2762,13 @@ function updateAssociationTypeMetaDataWatcher() {
   }, _marked43, this);
 }
 
-function updateAssociationTypeMetaDataWorker(seqAction) {
-  var id, value, response, associationTypeId, metadata;
-  return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWorker$(_context44) {
+function createAssociationTypeWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function createAssociationTypeWorker$(_context44) {
     while (1) {
       switch (_context44.prev = _context44.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ASSOCIATION_TYPE_METADATA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_ASSOCIATION_TYPE)) {
             _context44.next = 2;
             break;
           }
@@ -2770,62 +2791,61 @@ function updateAssociationTypeMetaDataWorker(seqAction) {
 
         case 5:
           response = {};
-          associationTypeId = value.associationTypeId, metadata = value.metadata;
-          _context44.prev = 7;
-          _context44.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.request(id, value));
+          _context44.prev = 6;
+          _context44.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.request(id, value));
 
-        case 10:
-          _context44.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, associationTypeId, metadata);
+        case 9:
+          _context44.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.createAssociationType, value);
 
-        case 12:
+        case 11:
           response.data = _context44.sent;
-          _context44.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.success(id, response.data));
+          _context44.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.success(id, response.data));
 
-        case 15:
-          _context44.next = 22;
+        case 14:
+          _context44.next = 21;
           break;
 
-        case 17:
-          _context44.prev = 17;
-          _context44.t0 = _context44['catch'](7);
+        case 16:
+          _context44.prev = 16;
+          _context44.t0 = _context44['catch'](6);
 
           response.error = _context44.t0;
-          _context44.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.failure(id, response.error));
+          _context44.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.failure(id, response.error));
 
-        case 22:
-          _context44.prev = 22;
-          _context44.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.finally(id));
+        case 21:
+          _context44.prev = 21;
+          _context44.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createAssociationType.finally(id));
+
+        case 24:
+          return _context44.finish(21);
 
         case 25:
-          return _context44.finish(22);
-
-        case 26:
           return _context44.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context44.stop();
       }
     }
-  }, _marked44, this, [[7, 17, 22, 26]]);
+  }, _marked44, this, [[6, 16, 21, 25]]);
 }
 
 /*
- * EntityDataModelApi.addDstEntityTypeToAssociationType
+ * EntityDataModelApi.deleteAssociationType
  */
 
-function addDstEntityTypeToAssociationTypeWatcher() {
-  return regeneratorRuntime.wrap(function addDstEntityTypeToAssociationTypeWatcher$(_context45) {
+function deleteAssociationTypeWatcher() {
+  return regeneratorRuntime.wrap(function deleteAssociationTypeWatcher$(_context45) {
     while (1) {
       switch (_context45.prev = _context45.next) {
         case 0:
           _context45.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.ADD_DST_ET_TO_AT, addDstEntityTypeToAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.DELETE_ASSOCIATION_TYPE, deleteAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -2835,13 +2855,13 @@ function addDstEntityTypeToAssociationTypeWatcher() {
   }, _marked45, this);
 }
 
-function addDstEntityTypeToAssociationTypeWorker(seqAction) {
-  var id, value, response, associationTypeId, entityTypeId;
-  return regeneratorRuntime.wrap(function addDstEntityTypeToAssociationTypeWorker$(_context46) {
+function deleteAssociationTypeWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function deleteAssociationTypeWorker$(_context46) {
     while (1) {
       switch (_context46.prev = _context46.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.ADD_DST_ET_TO_AT)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.DELETE_ASSOCIATION_TYPE)) {
             _context46.next = 2;
             break;
           }
@@ -2864,62 +2884,61 @@ function addDstEntityTypeToAssociationTypeWorker(seqAction) {
 
         case 5:
           response = {};
-          associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
-          _context46.prev = 7;
-          _context46.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.request(id, value));
+          _context46.prev = 6;
+          _context46.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.request(id, value));
 
-        case 10:
-          _context46.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.addDstEntityTypeToAssociationType, associationTypeId, entityTypeId);
+        case 9:
+          _context46.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.deleteAssociationType, value);
 
-        case 12:
+        case 11:
           response.data = _context46.sent;
-          _context46.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.success(id, response.data));
+          _context46.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.success(id, response.data));
 
-        case 15:
-          _context46.next = 22;
+        case 14:
+          _context46.next = 21;
           break;
 
-        case 17:
-          _context46.prev = 17;
-          _context46.t0 = _context46['catch'](7);
+        case 16:
+          _context46.prev = 16;
+          _context46.t0 = _context46['catch'](6);
 
           response.error = _context46.t0;
-          _context46.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.failure(id, response.error));
+          _context46.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.failure(id, response.error));
 
-        case 22:
-          _context46.prev = 22;
-          _context46.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.finally(id));
+        case 21:
+          _context46.prev = 21;
+          _context46.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.deleteAssociationType.finally(id));
+
+        case 24:
+          return _context46.finish(21);
 
         case 25:
-          return _context46.finish(22);
-
-        case 26:
           return _context46.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context46.stop();
       }
     }
-  }, _marked46, this, [[7, 17, 22, 26]]);
+  }, _marked46, this, [[6, 16, 21, 25]]);
 }
 
 /*
- * EntityDataModelApi.addSrcEntityTypeToAssociationType
+ * EntityDataModelApi.getAllAssociationTypes
  */
 
-function addSrcEntityTypeToAssociationTypeWatcher() {
-  return regeneratorRuntime.wrap(function addSrcEntityTypeToAssociationTypeWatcher$(_context47) {
+function getAllAssociationTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAllAssociationTypesWatcher$(_context47) {
     while (1) {
       switch (_context47.prev = _context47.next) {
         case 0:
           _context47.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.ADD_SRC_ET_TO_AT, addSrcEntityTypeToAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_ASSOCIATION_TYPES, getAllAssociationTypesWorker);
 
         case 2:
         case 'end':
@@ -2929,13 +2948,13 @@ function addSrcEntityTypeToAssociationTypeWatcher() {
   }, _marked47, this);
 }
 
-function addSrcEntityTypeToAssociationTypeWorker(seqAction) {
-  var id, value, response, associationTypeId, entityTypeId;
-  return regeneratorRuntime.wrap(function addSrcEntityTypeToAssociationTypeWorker$(_context48) {
+function getAllAssociationTypesWorker(seqAction) {
+  var response, id;
+  return regeneratorRuntime.wrap(function getAllAssociationTypesWorker$(_context48) {
     while (1) {
       switch (_context48.prev = _context48.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.ADD_SRC_ET_TO_AT)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_ASSOCIATION_TYPES)) {
             _context48.next = 2;
             break;
           }
@@ -2945,75 +2964,63 @@ function addSrcEntityTypeToAssociationTypeWorker(seqAction) {
           });
 
         case 2:
-          id = seqAction.id, value = seqAction.value;
-
-          if (!(value === null || value === undefined)) {
-            _context48.next = 5;
-            break;
-          }
-
-          return _context48.abrupt('return', {
-            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
-          });
-
-        case 5:
           response = {};
-          associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
-          _context48.prev = 7;
-          _context48.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.request(id, value));
+          id = seqAction.id;
+          _context48.prev = 4;
+          _context48.next = 7;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.request(id));
 
-        case 10:
+        case 7:
+          _context48.next = 9;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllAssociationTypes);
+
+        case 9:
+          response.data = _context48.sent;
           _context48.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.addSrcEntityTypeToAssociationType, associationTypeId, entityTypeId);
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.success(id, response.data));
 
         case 12:
-          response.data = _context48.sent;
-          _context48.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.success(id, response.data));
-
-        case 15:
-          _context48.next = 22;
+          _context48.next = 19;
           break;
 
-        case 17:
-          _context48.prev = 17;
-          _context48.t0 = _context48['catch'](7);
+        case 14:
+          _context48.prev = 14;
+          _context48.t0 = _context48['catch'](4);
 
           response.error = _context48.t0;
+          _context48.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.failure(id, response.error));
+
+        case 19:
+          _context48.prev = 19;
           _context48.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllAssociationTypes.finally(id));
 
         case 22:
-          _context48.prev = 22;
-          _context48.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.finally(id));
+          return _context48.finish(19);
 
-        case 25:
-          return _context48.finish(22);
-
-        case 26:
+        case 23:
           return _context48.abrupt('return', response);
 
-        case 27:
+        case 24:
         case 'end':
           return _context48.stop();
       }
     }
-  }, _marked48, this, [[7, 17, 22, 26]]);
+  }, _marked48, this, [[4, 14, 19, 23]]);
 }
 
 /*
- * EntityDataModelApi.removeDstEntityTypeFromAssociationType
+ * EntityDataModelApi.updateEntityTypeMetaData
  */
 
-function removeDstEntityTypeFromAssociationTypeWatcher() {
-  return regeneratorRuntime.wrap(function removeDstEntityTypeFromAssociationTypeWatcher$(_context49) {
+function updateAssociationTypeMetaDataWatcher() {
+  return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWatcher$(_context49) {
     while (1) {
       switch (_context49.prev = _context49.next) {
         case 0:
           _context49.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_DST_ET_FROM_AT, removeDstEntityTypeFromAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_ASSOCIATION_TYPE_METADATA, updateAssociationTypeMetaDataWorker);
 
         case 2:
         case 'end':
@@ -3023,13 +3030,13 @@ function removeDstEntityTypeFromAssociationTypeWatcher() {
   }, _marked49, this);
 }
 
-function removeDstEntityTypeFromAssociationTypeWorker(seqAction) {
-  var id, value, response, associationTypeId, entityTypeId;
-  return regeneratorRuntime.wrap(function removeDstEntityTypeFromAssociationTypeWorker$(_context50) {
+function updateAssociationTypeMetaDataWorker(seqAction) {
+  var id, value, response, associationTypeId, metadata;
+  return regeneratorRuntime.wrap(function updateAssociationTypeMetaDataWorker$(_context50) {
     while (1) {
       switch (_context50.prev = _context50.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REMOVE_DST_ET_FROM_AT)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_ASSOCIATION_TYPE_METADATA)) {
             _context50.next = 2;
             break;
           }
@@ -3052,19 +3059,19 @@ function removeDstEntityTypeFromAssociationTypeWorker(seqAction) {
 
         case 5:
           response = {};
-          associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
+          associationTypeId = value.associationTypeId, metadata = value.metadata;
           _context50.prev = 7;
           _context50.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.request(id, value));
 
         case 10:
           _context50.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.removeDstEntityTypeFromAssociationType, associationTypeId, entityTypeId);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateEntityTypeMetaData, associationTypeId, metadata);
 
         case 12:
           response.data = _context50.sent;
           _context50.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.success(id, response.data));
 
         case 15:
           _context50.next = 22;
@@ -3076,12 +3083,12 @@ function removeDstEntityTypeFromAssociationTypeWorker(seqAction) {
 
           response.error = _context50.t0;
           _context50.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.failure(id, response.error));
 
         case 22:
           _context50.prev = 22;
           _context50.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateAssociationTypeMetaData.finally(id));
 
         case 25:
           return _context50.finish(22);
@@ -3098,16 +3105,16 @@ function removeDstEntityTypeFromAssociationTypeWorker(seqAction) {
 }
 
 /*
- * EntityDataModelApi.removeSrcEntityTypeFromAssociationType
+ * EntityDataModelApi.addDstEntityTypeToAssociationType
  */
 
-function removeSrcEntityTypeFromAssociationTypeWatcher() {
-  return regeneratorRuntime.wrap(function removeSrcEntityTypeFromAssociationTypeWatcher$(_context51) {
+function addDstEntityTypeToAssociationTypeWatcher() {
+  return regeneratorRuntime.wrap(function addDstEntityTypeToAssociationTypeWatcher$(_context51) {
     while (1) {
       switch (_context51.prev = _context51.next) {
         case 0:
           _context51.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_SRC_ET_FROM_AT, removeSrcEntityTypeFromAssociationTypeWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.ADD_DST_ET_TO_AT, addDstEntityTypeToAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -3117,13 +3124,13 @@ function removeSrcEntityTypeFromAssociationTypeWatcher() {
   }, _marked51, this);
 }
 
-function removeSrcEntityTypeFromAssociationTypeWorker(seqAction) {
+function addDstEntityTypeToAssociationTypeWorker(seqAction) {
   var id, value, response, associationTypeId, entityTypeId;
-  return regeneratorRuntime.wrap(function removeSrcEntityTypeFromAssociationTypeWorker$(_context52) {
+  return regeneratorRuntime.wrap(function addDstEntityTypeToAssociationTypeWorker$(_context52) {
     while (1) {
       switch (_context52.prev = _context52.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REMOVE_SRC_ET_FROM_AT)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.ADD_DST_ET_TO_AT)) {
             _context52.next = 2;
             break;
           }
@@ -3149,16 +3156,16 @@ function removeSrcEntityTypeFromAssociationTypeWorker(seqAction) {
           associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
           _context52.prev = 7;
           _context52.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.request(id, value));
 
         case 10:
           _context52.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.removeSrcEntityTypeFromAssociationType, associationTypeId, entityTypeId);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.addDstEntityTypeToAssociationType, associationTypeId, entityTypeId);
 
         case 12:
           response.data = _context52.sent;
           _context52.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.success(id, response.data));
 
         case 15:
           _context52.next = 22;
@@ -3170,12 +3177,12 @@ function removeSrcEntityTypeFromAssociationTypeWorker(seqAction) {
 
           response.error = _context52.t0;
           _context52.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.failure(id, response.error));
 
         case 22:
           _context52.prev = 22;
           _context52.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType.finally(id));
 
         case 25:
           return _context52.finish(22);
@@ -3192,22 +3199,16 @@ function removeSrcEntityTypeFromAssociationTypeWorker(seqAction) {
 }
 
 /*
- *
- * Schema APIs
- *
+ * EntityDataModelApi.addSrcEntityTypeToAssociationType
  */
 
-/*
- * EntityDataModelApi.createSchema
- */
-
-function createSchemaWatcher() {
-  return regeneratorRuntime.wrap(function createSchemaWatcher$(_context53) {
+function addSrcEntityTypeToAssociationTypeWatcher() {
+  return regeneratorRuntime.wrap(function addSrcEntityTypeToAssociationTypeWatcher$(_context53) {
     while (1) {
       switch (_context53.prev = _context53.next) {
         case 0:
           _context53.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_SCHEMA, createSchemaWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.ADD_SRC_ET_TO_AT, addSrcEntityTypeToAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -3217,13 +3218,13 @@ function createSchemaWatcher() {
   }, _marked53, this);
 }
 
-function createSchemaWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function createSchemaWorker$(_context54) {
+function addSrcEntityTypeToAssociationTypeWorker(seqAction) {
+  var id, value, response, associationTypeId, entityTypeId;
+  return regeneratorRuntime.wrap(function addSrcEntityTypeToAssociationTypeWorker$(_context54) {
     while (1) {
       switch (_context54.prev = _context54.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_SCHEMA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.ADD_SRC_ET_TO_AT)) {
             _context54.next = 2;
             break;
           }
@@ -3246,61 +3247,62 @@ function createSchemaWorker(seqAction) {
 
         case 5:
           response = {};
-          _context54.prev = 6;
-          _context54.next = 9;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.request(id, value));
+          associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
+          _context54.prev = 7;
+          _context54.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.request(id, value));
 
-        case 9:
-          _context54.next = 11;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.createSchema, value);
+        case 10:
+          _context54.next = 12;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.addSrcEntityTypeToAssociationType, associationTypeId, entityTypeId);
 
-        case 11:
+        case 12:
           response.data = _context54.sent;
-          _context54.next = 14;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.success(id, response.data));
+          _context54.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.success(id, response.data));
 
-        case 14:
-          _context54.next = 21;
+        case 15:
+          _context54.next = 22;
           break;
 
-        case 16:
-          _context54.prev = 16;
-          _context54.t0 = _context54['catch'](6);
+        case 17:
+          _context54.prev = 17;
+          _context54.t0 = _context54['catch'](7);
 
           response.error = _context54.t0;
-          _context54.next = 21;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.failure(id, response.error));
+          _context54.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.failure(id, response.error));
 
-        case 21:
-          _context54.prev = 21;
-          _context54.next = 24;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.finally(id));
-
-        case 24:
-          return _context54.finish(21);
+        case 22:
+          _context54.prev = 22;
+          _context54.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType.finally(id));
 
         case 25:
-          return _context54.abrupt('return', response);
+          return _context54.finish(22);
 
         case 26:
+          return _context54.abrupt('return', response);
+
+        case 27:
         case 'end':
           return _context54.stop();
       }
     }
-  }, _marked54, this, [[6, 16, 21, 25]]);
+  }, _marked54, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.getAllSchemas
+ * EntityDataModelApi.removeDstEntityTypeFromAssociationType
  */
 
-function getAllSchemasWatcher() {
-  return regeneratorRuntime.wrap(function getAllSchemasWatcher$(_context55) {
+function removeDstEntityTypeFromAssociationTypeWatcher() {
+  return regeneratorRuntime.wrap(function removeDstEntityTypeFromAssociationTypeWatcher$(_context55) {
     while (1) {
       switch (_context55.prev = _context55.next) {
         case 0:
           _context55.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_SCHEMAS, getAllSchemasWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_DST_ET_FROM_AT, removeDstEntityTypeFromAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -3310,13 +3312,13 @@ function getAllSchemasWatcher() {
   }, _marked55, this);
 }
 
-function getAllSchemasWorker(seqAction) {
-  var response, id;
-  return regeneratorRuntime.wrap(function getAllSchemasWorker$(_context56) {
+function removeDstEntityTypeFromAssociationTypeWorker(seqAction) {
+  var id, value, response, associationTypeId, entityTypeId;
+  return regeneratorRuntime.wrap(function removeDstEntityTypeFromAssociationTypeWorker$(_context56) {
     while (1) {
       switch (_context56.prev = _context56.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_SCHEMAS)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REMOVE_DST_ET_FROM_AT)) {
             _context56.next = 2;
             break;
           }
@@ -3326,63 +3328,75 @@ function getAllSchemasWorker(seqAction) {
           });
 
         case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context56.next = 5;
+            break;
+          }
+
+          return _context56.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
           response = {};
-          id = seqAction.id;
-          _context56.prev = 4;
-          _context56.next = 7;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.request(id));
+          associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
+          _context56.prev = 7;
+          _context56.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.request(id, value));
 
-        case 7:
-          _context56.next = 9;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllSchemas);
-
-        case 9:
-          response.data = _context56.sent;
+        case 10:
           _context56.next = 12;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.success(id, response.data));
+          return (0, _effects.call)(_lattice.EntityDataModelApi.removeDstEntityTypeFromAssociationType, associationTypeId, entityTypeId);
 
         case 12:
-          _context56.next = 19;
+          response.data = _context56.sent;
+          _context56.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.success(id, response.data));
+
+        case 15:
+          _context56.next = 22;
           break;
 
-        case 14:
-          _context56.prev = 14;
-          _context56.t0 = _context56['catch'](4);
+        case 17:
+          _context56.prev = 17;
+          _context56.t0 = _context56['catch'](7);
 
           response.error = _context56.t0;
-          _context56.next = 19;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.failure(id, response.error));
-
-        case 19:
-          _context56.prev = 19;
           _context56.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.failure(id, response.error));
 
         case 22:
-          return _context56.finish(19);
+          _context56.prev = 22;
+          _context56.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType.finally(id));
 
-        case 23:
+        case 25:
+          return _context56.finish(22);
+
+        case 26:
           return _context56.abrupt('return', response);
 
-        case 24:
+        case 27:
         case 'end':
           return _context56.stop();
       }
     }
-  }, _marked56, this, [[4, 14, 19, 23]]);
+  }, _marked56, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * EntityDataModelApi.updateSchema
+ * EntityDataModelApi.removeSrcEntityTypeFromAssociationType
  */
 
-function updateSchemaWatcher() {
-  return regeneratorRuntime.wrap(function updateSchemaWatcher$(_context57) {
+function removeSrcEntityTypeFromAssociationTypeWatcher() {
+  return regeneratorRuntime.wrap(function removeSrcEntityTypeFromAssociationTypeWatcher$(_context57) {
     while (1) {
       switch (_context57.prev = _context57.next) {
         case 0:
           _context57.next = 2;
-          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_SCHEMA, updateSchemaWorker);
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.REMOVE_SRC_ET_FROM_AT, removeSrcEntityTypeFromAssociationTypeWorker);
 
         case 2:
         case 'end':
@@ -3392,13 +3406,13 @@ function updateSchemaWatcher() {
   }, _marked57, this);
 }
 
-function updateSchemaWorker(seqAction) {
-  var id, value, response, schemaFqn, entityTypeIds, propertyTypeIds, action;
-  return regeneratorRuntime.wrap(function updateSchemaWorker$(_context58) {
+function removeSrcEntityTypeFromAssociationTypeWorker(seqAction) {
+  var id, value, response, associationTypeId, entityTypeId;
+  return regeneratorRuntime.wrap(function removeSrcEntityTypeFromAssociationTypeWorker$(_context58) {
     while (1) {
       switch (_context58.prev = _context58.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_SCHEMA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.REMOVE_SRC_ET_FROM_AT)) {
             _context58.next = 2;
             break;
           }
@@ -3421,19 +3435,19 @@ function updateSchemaWorker(seqAction) {
 
         case 5:
           response = {};
-          schemaFqn = value.schemaFqn, entityTypeIds = value.entityTypeIds, propertyTypeIds = value.propertyTypeIds, action = value.action;
+          associationTypeId = value.associationTypeId, entityTypeId = value.entityTypeId;
           _context58.prev = 7;
           _context58.next = 10;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.request(id, value));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.request(id, value));
 
         case 10:
           _context58.next = 12;
-          return (0, _effects.call)(_lattice.EntityDataModelApi.updateSchema, schemaFqn, action, entityTypeIds, propertyTypeIds);
+          return (0, _effects.call)(_lattice.EntityDataModelApi.removeSrcEntityTypeFromAssociationType, associationTypeId, entityTypeId);
 
         case 12:
           response.data = _context58.sent;
           _context58.next = 15;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.success(id, response.data));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.success(id, response.data));
 
         case 15:
           _context58.next = 22;
@@ -3445,12 +3459,12 @@ function updateSchemaWorker(seqAction) {
 
           response.error = _context58.t0;
           _context58.next = 22;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.failure(id, response.error));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.failure(id, response.error));
 
         case 22:
           _context58.prev = 22;
           _context58.next = 25;
-          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.finally(id));
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType.finally(id));
 
         case 25:
           return _context58.finish(22);
@@ -3464,6 +3478,281 @@ function updateSchemaWorker(seqAction) {
       }
     }
   }, _marked58, this, [[7, 17, 22, 26]]);
+}
+
+/*
+ *
+ * Schema APIs
+ *
+ */
+
+/*
+ * EntityDataModelApi.createSchema
+ */
+
+function createSchemaWatcher() {
+  return regeneratorRuntime.wrap(function createSchemaWatcher$(_context59) {
+    while (1) {
+      switch (_context59.prev = _context59.next) {
+        case 0:
+          _context59.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.CREATE_SCHEMA, createSchemaWorker);
+
+        case 2:
+        case 'end':
+          return _context59.stop();
+      }
+    }
+  }, _marked59, this);
+}
+
+function createSchemaWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function createSchemaWorker$(_context60) {
+    while (1) {
+      switch (_context60.prev = _context60.next) {
+        case 0:
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.CREATE_SCHEMA)) {
+            _context60.next = 2;
+            break;
+          }
+
+          return _context60.abrupt('return', {
+            error: _Errors.ERR_INVALID_ACTION
+          });
+
+        case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context60.next = 5;
+            break;
+          }
+
+          return _context60.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
+          response = {};
+          _context60.prev = 6;
+          _context60.next = 9;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.request(id, value));
+
+        case 9:
+          _context60.next = 11;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.createSchema, value);
+
+        case 11:
+          response.data = _context60.sent;
+          _context60.next = 14;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.success(id, response.data));
+
+        case 14:
+          _context60.next = 21;
+          break;
+
+        case 16:
+          _context60.prev = 16;
+          _context60.t0 = _context60['catch'](6);
+
+          response.error = _context60.t0;
+          _context60.next = 21;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.failure(id, response.error));
+
+        case 21:
+          _context60.prev = 21;
+          _context60.next = 24;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.createSchema.finally(id));
+
+        case 24:
+          return _context60.finish(21);
+
+        case 25:
+          return _context60.abrupt('return', response);
+
+        case 26:
+        case 'end':
+          return _context60.stop();
+      }
+    }
+  }, _marked60, this, [[6, 16, 21, 25]]);
+}
+
+/*
+ * EntityDataModelApi.getAllSchemas
+ */
+
+function getAllSchemasWatcher() {
+  return regeneratorRuntime.wrap(function getAllSchemasWatcher$(_context61) {
+    while (1) {
+      switch (_context61.prev = _context61.next) {
+        case 0:
+          _context61.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.GET_ALL_SCHEMAS, getAllSchemasWorker);
+
+        case 2:
+        case 'end':
+          return _context61.stop();
+      }
+    }
+  }, _marked61, this);
+}
+
+function getAllSchemasWorker(seqAction) {
+  var response, id;
+  return regeneratorRuntime.wrap(function getAllSchemasWorker$(_context62) {
+    while (1) {
+      switch (_context62.prev = _context62.next) {
+        case 0:
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.GET_ALL_SCHEMAS)) {
+            _context62.next = 2;
+            break;
+          }
+
+          return _context62.abrupt('return', {
+            error: _Errors.ERR_INVALID_ACTION
+          });
+
+        case 2:
+          response = {};
+          id = seqAction.id;
+          _context62.prev = 4;
+          _context62.next = 7;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.request(id));
+
+        case 7:
+          _context62.next = 9;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.getAllSchemas);
+
+        case 9:
+          response.data = _context62.sent;
+          _context62.next = 12;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.success(id, response.data));
+
+        case 12:
+          _context62.next = 19;
+          break;
+
+        case 14:
+          _context62.prev = 14;
+          _context62.t0 = _context62['catch'](4);
+
+          response.error = _context62.t0;
+          _context62.next = 19;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.failure(id, response.error));
+
+        case 19:
+          _context62.prev = 19;
+          _context62.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.getAllSchemas.finally(id));
+
+        case 22:
+          return _context62.finish(19);
+
+        case 23:
+          return _context62.abrupt('return', response);
+
+        case 24:
+        case 'end':
+          return _context62.stop();
+      }
+    }
+  }, _marked62, this, [[4, 14, 19, 23]]);
+}
+
+/*
+ * EntityDataModelApi.updateSchema
+ */
+
+function updateSchemaWatcher() {
+  return regeneratorRuntime.wrap(function updateSchemaWatcher$(_context63) {
+    while (1) {
+      switch (_context63.prev = _context63.next) {
+        case 0:
+          _context63.next = 2;
+          return (0, _effects.takeEvery)(_EntityDataModelApiActionFactory.UPDATE_SCHEMA, updateSchemaWorker);
+
+        case 2:
+        case 'end':
+          return _context63.stop();
+      }
+    }
+  }, _marked63, this);
+}
+
+function updateSchemaWorker(seqAction) {
+  var id, value, response, schemaFqn, entityTypeIds, propertyTypeIds, action;
+  return regeneratorRuntime.wrap(function updateSchemaWorker$(_context64) {
+    while (1) {
+      switch (_context64.prev = _context64.next) {
+        case 0:
+          if ((0, _Utils.isValidAction)(seqAction, _EntityDataModelApiActionFactory.UPDATE_SCHEMA)) {
+            _context64.next = 2;
+            break;
+          }
+
+          return _context64.abrupt('return', {
+            error: _Errors.ERR_INVALID_ACTION
+          });
+
+        case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context64.next = 5;
+            break;
+          }
+
+          return _context64.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
+          response = {};
+          schemaFqn = value.schemaFqn, entityTypeIds = value.entityTypeIds, propertyTypeIds = value.propertyTypeIds, action = value.action;
+          _context64.prev = 7;
+          _context64.next = 10;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.request(id, value));
+
+        case 10:
+          _context64.next = 12;
+          return (0, _effects.call)(_lattice.EntityDataModelApi.updateSchema, schemaFqn, action, entityTypeIds, propertyTypeIds);
+
+        case 12:
+          response.data = _context64.sent;
+          _context64.next = 15;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.success(id, response.data));
+
+        case 15:
+          _context64.next = 22;
+          break;
+
+        case 17:
+          _context64.prev = 17;
+          _context64.t0 = _context64['catch'](7);
+
+          response.error = _context64.t0;
+          _context64.next = 22;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.failure(id, response.error));
+
+        case 22:
+          _context64.prev = 22;
+          _context64.next = 25;
+          return (0, _effects.put)(_EntityDataModelApiActionFactory.updateSchema.finally(id));
+
+        case 25:
+          return _context64.finish(22);
+
+        case 26:
+          return _context64.abrupt('return', response);
+
+        case 27:
+        case 'end':
+          return _context64.stop();
+      }
+    }
+  }, _marked64, this, [[7, 17, 22, 26]]);
 }
 
 /*
@@ -3502,8 +3791,12 @@ exports.getAllSchemasWatcher = getAllSchemasWatcher;
 exports.getAllSchemasWorker = getAllSchemasWorker;
 exports.getEntityDataModelWatcher = getEntityDataModelWatcher;
 exports.getEntityDataModelWorker = getEntityDataModelWorker;
+exports.getEntityDataModelDiffWatcher = getEntityDataModelDiffWatcher;
+exports.getEntityDataModelDiffWorker = getEntityDataModelDiffWorker;
 exports.getEntityDataModelProjectionWatcher = getEntityDataModelProjectionWatcher;
 exports.getEntityDataModelProjectionWorker = getEntityDataModelProjectionWorker;
+exports.getEntityDataModelVersionWatcher = getEntityDataModelVersionWatcher;
+exports.getEntityDataModelVersionWorker = getEntityDataModelVersionWorker;
 exports.getEntitySetWatcher = getEntitySetWatcher;
 exports.getEntitySetWorker = getEntitySetWorker;
 exports.getEntitySetIdWatcher = getEntitySetIdWatcher;
@@ -3522,6 +3815,8 @@ exports.reorderEntityTypePropertyTypesWatcher = reorderEntityTypePropertyTypesWa
 exports.reorderEntityTypePropertyTypesWorker = reorderEntityTypePropertyTypesWorker;
 exports.updateAssociationTypeMetaDataWatcher = updateAssociationTypeMetaDataWatcher;
 exports.updateAssociationTypeMetaDataWorker = updateAssociationTypeMetaDataWorker;
+exports.updateEntityDataModelWatcher = updateEntityDataModelWatcher;
+exports.updateEntityDataModelWorker = updateEntityDataModelWorker;
 exports.updateEntitySetMetaDataWatcher = updateEntitySetMetaDataWatcher;
 exports.updateEntitySetMetaDataWorker = updateEntitySetMetaDataWorker;
 exports.updateEntityTypeMetaDataWatcher = updateEntityTypeMetaDataWatcher;
@@ -4173,7 +4468,7 @@ var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 // injected by Webpack.DefinePlugin
-var version = "v0.3.0";
+var version = "v0.4.0";
 
 exports.AppApiActionFactory = AppApiActionFactory;
 exports.AppApiSagas = AppApiSagas;
