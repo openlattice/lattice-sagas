@@ -150,7 +150,7 @@ function* getEntityDataModelDiffWorker(seqAction :SequenceAction) :Generator<*, 
   const response :Object = {};
 
   try {
-    yield put(getEntityDataModelDiff.request(id));
+    yield put(getEntityDataModelDiff.request(id, value));
     response.data = yield call(EntityDataModelApi.getEntityDataModelDiff, value);
     yield put(getEntityDataModelDiff.success(id, response.data));
   }
