@@ -21,7 +21,9 @@ import {
   GET_ALL_PROPERTY_TYPES,
   GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
+  GET_ENTITY_DATA_MODEL_DIFF,
   GET_ENTITY_DATA_MODEL_PROJECTION,
+  GET_ENTITY_DATA_MODEL_VERSION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
@@ -31,6 +33,7 @@ import {
   REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
   REMOVE_SRC_ET_FROM_AT,
   UPDATE_ASSOCIATION_TYPE_METADATA,
+  UPDATE_ENTITY_DATA_MODEL,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -50,7 +53,9 @@ import {
   getAllPropertyTypes,
   getAllSchemas,
   getEntityDataModel,
+  getEntityDataModelDiff,
   getEntityDataModelProjection,
+  getEntityDataModelVersion,
   getEntitySet,
   getEntitySetId,
   getEntityType,
@@ -60,6 +65,7 @@ import {
   removeSrcEntityTypeFromAssociationType,
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
+  updateEntityDataModel,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
@@ -97,8 +103,12 @@ import {
   getAllSchemasWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
+  getEntityDataModelDiffWatcher,
+  getEntityDataModelDiffWorker,
   getEntityDataModelProjectionWatcher,
   getEntityDataModelProjectionWorker,
+  getEntityDataModelVersionWatcher,
+  getEntityDataModelVersionWorker,
   getEntitySetWatcher,
   getEntitySetWorker,
   getEntitySetIdWatcher,
@@ -117,6 +127,8 @@ import {
   reorderEntityTypePropertyTypesWorker,
   updateAssociationTypeMetaDataWatcher,
   updateAssociationTypeMetaDataWorker,
+  updateEntityDataModelWatcher,
+  updateEntityDataModelWorker,
   updateEntitySetMetaDataWatcher,
   updateEntitySetMetaDataWorker,
   updateEntityTypeMetaDataWatcher,
@@ -183,6 +195,46 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
+   * EntityDataModelApiActionFactory.getEntityDataModelDiff
+   *
+   */
+
+  describe('getEntityDataModelDiffWatcher', () => {
+
+    testShouldBeGeneratorFunction(getEntityDataModelDiffWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntityDataModelDiffWatcher,
+      getEntityDataModelDiffWorker,
+      GET_ENTITY_DATA_MODEL_DIFF
+    );
+  });
+
+  describe('getEntityDataModelDiffWorker', () => {
+
+    testShouldBeGeneratorFunction(getEntityDataModelDiffWorker);
+    testShouldFailOnInvalidAction(getEntityDataModelDiffWorker, GET_ENTITY_DATA_MODEL_DIFF);
+
+    const mockActionValue = randomUUID();
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.getEntityDataModelDiff,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntityDataModelDiff,
+      workerSagaAction: getEntityDataModelDiff(mockActionValue),
+      workerSagaToTest: getEntityDataModelDiffWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.getEntityDataModelDiff,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntityDataModelDiff,
+      workerSagaAction: getEntityDataModelDiff(mockActionValue),
+      workerSagaToTest: getEntityDataModelDiffWorker
+    });
+  });
+
+  /*
+   *
    * EntityDataModelApiActionFactory.getEntityDataModelProjection
    *
    */
@@ -218,6 +270,84 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getEntityDataModelProjection,
       workerSagaAction: getEntityDataModelProjection(mockActionValue),
       workerSagaToTest: getEntityDataModelProjectionWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.getEntityDataModelVersion
+   *
+   */
+
+  describe('getEntityDataModelVersionWatcher', () => {
+
+    testShouldBeGeneratorFunction(getEntityDataModelVersionWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntityDataModelVersionWatcher,
+      getEntityDataModelVersionWorker,
+      GET_ENTITY_DATA_MODEL_VERSION
+    );
+  });
+
+  describe('getEntityDataModelVersionWorker', () => {
+
+    testShouldBeGeneratorFunction(getEntityDataModelVersionWorker);
+    testShouldFailOnInvalidAction(getEntityDataModelVersionWorker, GET_ENTITY_DATA_MODEL_VERSION, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.getEntityDataModelVersion,
+      latticeApiParams: [],
+      latticeApiReqSeq: getEntityDataModelVersion,
+      workerSagaAction: getEntityDataModelVersion(),
+      workerSagaToTest: getEntityDataModelVersionWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.getEntityDataModelVersion,
+      latticeApiParams: [],
+      latticeApiReqSeq: getEntityDataModelVersion,
+      workerSagaAction: getEntityDataModelVersion(),
+      workerSagaToTest: getEntityDataModelVersionWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActionFactory.updateEntityDataModel
+   *
+   */
+
+  describe('updateEntityDataModelWatcher', () => {
+
+    testShouldBeGeneratorFunction(updateEntityDataModelWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateEntityDataModelWatcher,
+      updateEntityDataModelWorker,
+      UPDATE_ENTITY_DATA_MODEL
+    );
+  });
+
+  describe('updateEntityDataModelWorker', () => {
+
+    testShouldBeGeneratorFunction(updateEntityDataModelWorker);
+    testShouldFailOnInvalidAction(updateEntityDataModelWorker, UPDATE_ENTITY_DATA_MODEL);
+
+    const mockActionValue = randomUUID();
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.updateEntityDataModel,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: updateEntityDataModel,
+      workerSagaAction: updateEntityDataModel(mockActionValue),
+      workerSagaToTest: updateEntityDataModelWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.updateEntityDataModel,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: updateEntityDataModel,
+      workerSagaAction: updateEntityDataModel(mockActionValue),
+      workerSagaToTest: updateEntityDataModelWorker
     });
   });
 
