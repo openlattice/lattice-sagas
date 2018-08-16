@@ -13,8 +13,17 @@ import { newRequestSequence } from 'redux-reqseq';
 const GET_ENTITY_DATA_MODEL :'GET_ENTITY_DATA_MODEL' = 'GET_ENTITY_DATA_MODEL';
 const getEntityDataModel :RequestSequence = newRequestSequence(GET_ENTITY_DATA_MODEL);
 
+const GET_ENTITY_DATA_MODEL_DIFF :'GET_ENTITY_DATA_MODEL_DIFF' = 'GET_ENTITY_DATA_MODEL_DIFF';
+const getEntityDataModelDiff :RequestSequence = newRequestSequence(GET_ENTITY_DATA_MODEL_DIFF);
+
 const GET_ENTITY_DATA_MODEL_PROJECTION :'GET_ENTITY_DATA_MODEL_PROJECTION' = 'GET_ENTITY_DATA_MODEL_PROJECTION';
 const getEntityDataModelProjection :RequestSequence = newRequestSequence(GET_ENTITY_DATA_MODEL_PROJECTION);
+
+const GET_ENTITY_DATA_MODEL_VERSION :'GET_ENTITY_DATA_MODEL_VERSION' = 'GET_ENTITY_DATA_MODEL_VERSION';
+const getEntityDataModelVersion :RequestSequence = newRequestSequence(GET_ENTITY_DATA_MODEL_VERSION);
+
+const UPDATE_ENTITY_DATA_MODEL :'UPDATE_ENTITY_DATA_MODEL' = 'UPDATE_ENTITY_DATA_MODEL';
+const updateEntityDataModel :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA_MODEL);
 
 /*
  *
@@ -150,7 +159,9 @@ export {
   GET_ALL_PROPERTY_TYPES,
   GET_ALL_SCHEMAS,
   GET_ENTITY_DATA_MODEL,
+  GET_ENTITY_DATA_MODEL_DIFF,
   GET_ENTITY_DATA_MODEL_PROJECTION,
+  GET_ENTITY_DATA_MODEL_VERSION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
@@ -160,6 +171,7 @@ export {
   REMOVE_SRC_ET_FROM_AT,
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
+  UPDATE_ENTITY_DATA_MODEL,
   UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
@@ -179,7 +191,9 @@ export {
   getAllPropertyTypes,
   getAllSchemas,
   getEntityDataModel,
+  getEntityDataModelDiff,
   getEntityDataModelProjection,
+  getEntityDataModelVersion,
   getEntitySet,
   getEntitySetId,
   getEntityType,
@@ -189,6 +203,7 @@ export {
   removeSrcEntityTypeFromAssociationType,
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
+  updateEntityDataModel,
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
