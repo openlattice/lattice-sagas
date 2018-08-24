@@ -1,6 +1,6 @@
 /*!
  * 
- * lattice-sagas - v0.4.0
+ * lattice-sagas - v0.5.0
  * 
  * https://github.com/openlattice/lattice-sagas
  * 
@@ -9,14 +9,14 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("redux-saga/effects"), require("lattice"), require("redux-reqseq"));
+		module.exports = factory(require("redux-reqseq"), require("lattice"), require("redux-saga/effects"));
 	else if(typeof define === 'function' && define.amd)
-		define(["redux-saga/effects", "lattice", "redux-reqseq"], factory);
+		define(["redux-reqseq", "lattice", "redux-saga/effects"], factory);
 	else if(typeof exports === 'object')
-		exports["LatticeSagas"] = factory(require("redux-saga/effects"), require("lattice"), require("redux-reqseq"));
+		exports["LatticeSagas"] = factory(require("redux-reqseq"), require("lattice"), require("redux-saga/effects"));
 	else
-		root["LatticeSagas"] = factory(root["redux-saga/effects"], root["lattice"], root["redux-reqseq"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE__2__, __WEBPACK_EXTERNAL_MODULE__3__, __WEBPACK_EXTERNAL_MODULE__4__) {
+		root["LatticeSagas"] = factory(root["redux-reqseq"], root["lattice"], root["redux-saga/effects"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE__0__, __WEBPACK_EXTERNAL_MODULE__1__, __WEBPACK_EXTERNAL_MODULE__2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -100,11 +100,42 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__0__;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__1__;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__2__;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ERR_INVALID_ACTION = exports.ERR_INVALID_ACTION = 'invalid parameter: action must be a valid SequenceAction';
+var ERR_ACTION_VALUE_NOT_DEFINED = exports.ERR_ACTION_VALUE_NOT_DEFINED = 'invalid parameter: action.value is required and must be defined';
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115,7 +146,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isValidAction = undefined;
 
-var _Constants = __webpack_require__(14);
+var _Constants = __webpack_require__(13);
 
 function isValidActionId(value) {
 
@@ -134,37 +165,6 @@ function isValidAction(action, baseType) {
 exports.isValidAction = isValidAction;
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var ERR_INVALID_ACTION = exports.ERR_INVALID_ACTION = 'invalid parameter: action must be a valid SequenceAction';
-var ERR_ACTION_VALUE_NOT_DEFINED = exports.ERR_ACTION_VALUE_NOT_DEFINED = 'invalid parameter: action.value is required and must be defined';
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__2__;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__4__;
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -174,21 +174,26 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__4__;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchEntitySetData = exports.searchEntityNeighbors = exports.SEARCH_ENTITY_SET_DATA = exports.SEARCH_ENTITY_NEIGHBORS = undefined;
+exports.getAppTypes = exports.getAppConfigs = exports.getApp = exports.GET_APP_TYPES = exports.GET_APP_CONFIGS = exports.GET_APP = undefined;
 
-var _reduxReqseq = __webpack_require__(4);
+var _reduxReqseq = __webpack_require__(0);
 
-var SEARCH_ENTITY_NEIGHBORS = 'SEARCH_ENTITY_NEIGHBORS';
+var GET_APP = 'GET_APP';
 
-var searchEntityNeighbors = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_NEIGHBORS);
+var getApp = (0, _reduxReqseq.newRequestSequence)(GET_APP);
 
-var SEARCH_ENTITY_SET_DATA = 'SEARCH_ENTITY_SET_DATA';
-var searchEntitySetData = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_SET_DATA);
+var GET_APP_CONFIGS = 'GET_APP_CONFIGS';
+var getAppConfigs = (0, _reduxReqseq.newRequestSequence)(GET_APP_CONFIGS);
 
-exports.SEARCH_ENTITY_NEIGHBORS = SEARCH_ENTITY_NEIGHBORS;
-exports.SEARCH_ENTITY_SET_DATA = SEARCH_ENTITY_SET_DATA;
-exports.searchEntityNeighbors = searchEntityNeighbors;
-exports.searchEntitySetData = searchEntitySetData;
+var GET_APP_TYPES = 'GET_APP_TYPES';
+var getAppTypes = (0, _reduxReqseq.newRequestSequence)(GET_APP_TYPES);
+
+exports.GET_APP = GET_APP;
+exports.GET_APP_CONFIGS = GET_APP_CONFIGS;
+exports.GET_APP_TYPES = GET_APP_TYPES;
+exports.getApp = getApp;
+exports.getAppConfigs = getAppConfigs;
+exports.getAppTypes = getAppTypes;
 
 /***/ }),
 /* 6 */
@@ -200,9 +205,51 @@ exports.searchEntitySetData = searchEntitySetData;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getEntitySetData = exports.GET_ENTITY_SET_DATA = undefined;
+
+var _reduxReqseq = __webpack_require__(0);
+
+var GET_ENTITY_SET_DATA = 'GET_ENTITY_SET_DATA';
+
+var getEntitySetData = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_SET_DATA);
+
+exports.GET_ENTITY_SET_DATA = GET_ENTITY_SET_DATA;
+exports.getEntitySetData = getEntitySetData;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createEntityAndAssociationData = exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = undefined;
+
+var _reduxReqseq = __webpack_require__(0);
+
+var CREATE_ENTITY_AND_ASSOCIATION_DATA = 'CREATE_ENTITY_AND_ASSOCIATION_DATA';
+
+var createEntityAndAssociationData = (0, _reduxReqseq.newRequestSequence)(CREATE_ENTITY_AND_ASSOCIATION_DATA);
+
+exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = CREATE_ENTITY_AND_ASSOCIATION_DATA;
+exports.createEntityAndAssociationData = createEntityAndAssociationData;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.updateSchema = exports.updatePropertyTypeMetaData = exports.updateEntityTypeMetaData = exports.updateEntitySetMetaData = exports.updateEntityDataModel = exports.updateAssociationTypeMetaData = exports.reorderEntityTypePropertyTypes = exports.removeSrcEntityTypeFromAssociationType = exports.removePropertyTypeFromEntityType = exports.removeDstEntityTypeFromAssociationType = exports.getPropertyType = exports.getEntityType = exports.getEntitySetId = exports.getEntitySet = exports.getEntityDataModelVersion = exports.getEntityDataModelProjection = exports.getEntityDataModelDiff = exports.getEntityDataModel = exports.getAllSchemas = exports.getAllPropertyTypes = exports.getAllEntityTypes = exports.getAllAssociationTypes = exports.deletePropertyType = exports.deleteEntityType = exports.deleteAssociationType = exports.createSchema = exports.createPropertyType = exports.createEntityType = exports.createAssociationType = exports.addSrcEntityTypeToAssociationType = exports.addPropertyTypeToEntityType = exports.addDstEntityTypeToAssociationType = exports.UPDATE_SCHEMA = exports.UPDATE_PROPERTY_TYPE_METADATA = exports.UPDATE_ENTITY_TYPE_METADATA = exports.UPDATE_ENTITY_SET_METADATA = exports.UPDATE_ENTITY_DATA_MODEL = exports.UPDATE_ASSOCIATION_TYPE_METADATA = exports.REORDER_ENTITY_TYPE_PROPERTY_TYPES = exports.REMOVE_SRC_ET_FROM_AT = exports.REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE = exports.REMOVE_DST_ET_FROM_AT = exports.GET_PROPERTY_TYPE = exports.GET_ENTITY_TYPE = exports.GET_ENTITY_SET_ID = exports.GET_ENTITY_SET = exports.GET_ENTITY_DATA_MODEL_VERSION = exports.GET_ENTITY_DATA_MODEL_PROJECTION = exports.GET_ENTITY_DATA_MODEL_DIFF = exports.GET_ENTITY_DATA_MODEL = exports.GET_ALL_SCHEMAS = exports.GET_ALL_PROPERTY_TYPES = exports.GET_ALL_ENTITY_TYPES = exports.GET_ALL_ASSOCIATION_TYPES = exports.DELETE_PROPERTY_TYPE = exports.DELETE_ENTITY_TYPE = exports.DELETE_ASSOCIATION_TYPE = exports.CREATE_SCHEMA = exports.CREATE_PROPERTY_TYPE = exports.CREATE_ENTITY_TYPE = exports.CREATE_ASSOCIATION_TYPE = exports.ADD_SRC_ET_TO_AT = exports.ADD_PROPERTY_TYPE_TO_ENTITY_TYPE = exports.ADD_DST_ET_TO_AT = undefined;
 
-var _reduxReqseq = __webpack_require__(4);
+var _reduxReqseq = __webpack_require__(0);
 
 /*
  *
@@ -410,48 +457,6 @@ exports.updatePropertyTypeMetaData = updatePropertyTypeMetaData;
 exports.updateSchema = updateSchema;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createEntityAndAssociationData = exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = undefined;
-
-var _reduxReqseq = __webpack_require__(4);
-
-var CREATE_ENTITY_AND_ASSOCIATION_DATA = 'CREATE_ENTITY_AND_ASSOCIATION_DATA';
-
-var createEntityAndAssociationData = (0, _reduxReqseq.newRequestSequence)(CREATE_ENTITY_AND_ASSOCIATION_DATA);
-
-exports.CREATE_ENTITY_AND_ASSOCIATION_DATA = CREATE_ENTITY_AND_ASSOCIATION_DATA;
-exports.createEntityAndAssociationData = createEntityAndAssociationData;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getEntitySetData = exports.GET_ENTITY_SET_DATA = undefined;
-
-var _reduxReqseq = __webpack_require__(4);
-
-var GET_ENTITY_SET_DATA = 'GET_ENTITY_SET_DATA';
-
-var getEntitySetData = (0, _reduxReqseq.newRequestSequence)(GET_ENTITY_SET_DATA);
-
-exports.GET_ENTITY_SET_DATA = GET_ENTITY_SET_DATA;
-exports.getEntitySetData = getEntitySetData;
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -461,29 +466,36 @@ exports.getEntitySetData = getEntitySetData;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getAppTypes = exports.getAppConfigs = exports.getApp = exports.GET_APP_TYPES = exports.GET_APP_CONFIGS = exports.GET_APP = undefined;
+exports.searchEntitySetData = exports.searchEntityNeighborsBulk = exports.searchEntityNeighbors = exports.SEARCH_ENTITY_SET_DATA = exports.SEARCH_ENTITY_NEIGHBORS_BULK = exports.SEARCH_ENTITY_NEIGHBORS = undefined;
 
-var _reduxReqseq = __webpack_require__(4);
+var _reduxReqseq = __webpack_require__(0);
 
-var GET_APP = 'GET_APP';
+var SEARCH_ENTITY_NEIGHBORS = 'SEARCH_ENTITY_NEIGHBORS';
 
-var getApp = (0, _reduxReqseq.newRequestSequence)(GET_APP);
+var searchEntityNeighbors = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_NEIGHBORS);
 
-var GET_APP_CONFIGS = 'GET_APP_CONFIGS';
-var getAppConfigs = (0, _reduxReqseq.newRequestSequence)(GET_APP_CONFIGS);
+var SEARCH_ENTITY_NEIGHBORS_BULK = 'SEARCH_ENTITY_NEIGHBORS_BULK';
+var searchEntityNeighborsBulk = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_NEIGHBORS_BULK);
 
-var GET_APP_TYPES = 'GET_APP_TYPES';
-var getAppTypes = (0, _reduxReqseq.newRequestSequence)(GET_APP_TYPES);
+var SEARCH_ENTITY_SET_DATA = 'SEARCH_ENTITY_SET_DATA';
+var searchEntitySetData = (0, _reduxReqseq.newRequestSequence)(SEARCH_ENTITY_SET_DATA);
 
-exports.GET_APP = GET_APP;
-exports.GET_APP_CONFIGS = GET_APP_CONFIGS;
-exports.GET_APP_TYPES = GET_APP_TYPES;
-exports.getApp = getApp;
-exports.getAppConfigs = getAppConfigs;
-exports.getAppTypes = getAppTypes;
+exports.SEARCH_ENTITY_NEIGHBORS = SEARCH_ENTITY_NEIGHBORS;
+exports.SEARCH_ENTITY_NEIGHBORS_BULK = SEARCH_ENTITY_NEIGHBORS_BULK;
+exports.SEARCH_ENTITY_SET_DATA = SEARCH_ENTITY_SET_DATA;
+exports.searchEntityNeighbors = searchEntityNeighbors;
+exports.searchEntityNeighborsBulk = searchEntityNeighborsBulk;
+exports.searchEntitySetData = searchEntitySetData;
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(11);
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -492,36 +504,120 @@ exports.getAppTypes = getAppTypes;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchEntitySetDataWorker = exports.searchEntitySetDataWatcher = exports.searchEntityNeighborsWorker = exports.searchEntityNeighborsWatcher = undefined;
+exports.version = exports.SearchApiSagas = exports.SearchApiActionFactory = exports.EntityDataModelApiSagas = exports.EntityDataModelApiActionFactory = exports.DataIntegrationApiSagas = exports.DataIntegrationApiActionFactory = exports.DataApiSagas = exports.DataApiActionFactory = exports.AppApiSagas = exports.AppApiActionFactory = undefined;
 
-var _lattice = __webpack_require__(3);
+var _AppApiActionFactory = __webpack_require__(5);
+
+var AppApiActionFactory = _interopRequireWildcard(_AppApiActionFactory);
+
+var _AppApiSagas = __webpack_require__(12);
+
+var AppApiSagas = _interopRequireWildcard(_AppApiSagas);
+
+var _DataApiActionFactory = __webpack_require__(6);
+
+var DataApiActionFactory = _interopRequireWildcard(_DataApiActionFactory);
+
+var _DataApiSagas = __webpack_require__(14);
+
+var DataApiSagas = _interopRequireWildcard(_DataApiSagas);
+
+var _DataIntegrationApiActionFactory = __webpack_require__(7);
+
+var DataIntegrationApiActionFactory = _interopRequireWildcard(_DataIntegrationApiActionFactory);
+
+var _DataIntegrationApiSagas = __webpack_require__(15);
+
+var DataIntegrationApiSagas = _interopRequireWildcard(_DataIntegrationApiSagas);
+
+var _EntityDataModelApiActionFactory = __webpack_require__(8);
+
+var EntityDataModelApiActionFactory = _interopRequireWildcard(_EntityDataModelApiActionFactory);
+
+var _EntityDataModelApiSagas = __webpack_require__(16);
+
+var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
+
+var _SearchApiActionFactory = __webpack_require__(9);
+
+var SearchApiActionFactory = _interopRequireWildcard(_SearchApiActionFactory);
+
+var _SearchApiSagas = __webpack_require__(17);
+
+var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+// injected by Webpack.DefinePlugin
+var version = "v0.5.0";
+
+exports.AppApiActionFactory = AppApiActionFactory;
+exports.AppApiSagas = AppApiSagas;
+exports.DataApiActionFactory = DataApiActionFactory;
+exports.DataApiSagas = DataApiSagas;
+exports.DataIntegrationApiActionFactory = DataIntegrationApiActionFactory;
+exports.DataIntegrationApiSagas = DataIntegrationApiSagas;
+exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
+exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
+exports.SearchApiActionFactory = SearchApiActionFactory;
+exports.SearchApiSagas = SearchApiSagas;
+exports.version = version;
+exports.default = {
+  AppApiActionFactory: AppApiActionFactory,
+  AppApiSagas: AppApiSagas,
+  DataApiActionFactory: DataApiActionFactory,
+  DataApiSagas: DataApiSagas,
+  DataIntegrationApiActionFactory: DataIntegrationApiActionFactory,
+  DataIntegrationApiSagas: DataIntegrationApiSagas,
+  EntityDataModelApiActionFactory: EntityDataModelApiActionFactory,
+  EntityDataModelApiSagas: EntityDataModelApiSagas,
+  SearchApiActionFactory: SearchApiActionFactory,
+  SearchApiSagas: SearchApiSagas,
+  version: version
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAppTypesWorker = exports.getAppTypesWatcher = exports.getAppConfigsWorker = exports.getAppConfigsWatcher = exports.getAppWorker = exports.getAppWatcher = undefined;
+
+var _lattice = __webpack_require__(1);
 
 var _effects = __webpack_require__(2);
 
-var _Errors = __webpack_require__(1);
+var _Errors = __webpack_require__(3);
 
-var _Utils = __webpack_require__(0);
+var _Utils = __webpack_require__(4);
 
-var _SearchApiActionFactory = __webpack_require__(5);
+var _AppApiActionFactory = __webpack_require__(5);
 
-var _marked = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsWatcher),
-    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsWorker),
-    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWatcher),
-    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWorker);
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(getAppWatcher),
+    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getAppWorker),
+    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(getAppConfigsWatcher),
+    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(getAppConfigsWorker),
+    _marked5 = /*#__PURE__*/regeneratorRuntime.mark(getAppTypesWatcher),
+    _marked6 = /*#__PURE__*/regeneratorRuntime.mark(getAppTypesWorker);
 
 /* eslint-disable no-use-before-define */
 
 /*
- * SearchApi.searchEntityNeighbors
+ * AppApi.getAppByName
  */
 
-function searchEntityNeighborsWatcher() {
-  return regeneratorRuntime.wrap(function searchEntityNeighborsWatcher$(_context) {
+function getAppWatcher() {
+  return regeneratorRuntime.wrap(function getAppWatcher$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS, searchEntityNeighborsWorker);
+          return (0, _effects.takeEvery)(_AppApiActionFactory.GET_APP, getAppWorker);
 
         case 2:
         case 'end':
@@ -531,13 +627,13 @@ function searchEntityNeighborsWatcher() {
   }, _marked, this);
 }
 
-function searchEntityNeighborsWorker(seqAction) {
-  var id, value, response, entityId, entitySetId;
-  return regeneratorRuntime.wrap(function searchEntityNeighborsWorker$(_context2) {
+function getAppWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function getAppWorker$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS)) {
+          if ((0, _Utils.isValidAction)(seqAction, _AppApiActionFactory.GET_APP)) {
             _context2.next = 2;
             break;
           }
@@ -560,62 +656,61 @@ function searchEntityNeighborsWorker(seqAction) {
 
         case 5:
           response = {};
-          entityId = value.entityId, entitySetId = value.entitySetId;
-          _context2.prev = 7;
-          _context2.next = 10;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.request(id, value));
+          _context2.prev = 6;
+          _context2.next = 9;
+          return (0, _effects.put)(_AppApiActionFactory.getApp.request(id, value));
 
-        case 10:
-          _context2.next = 12;
-          return (0, _effects.call)(_lattice.SearchApi.searchEntityNeighbors, entitySetId, entityId);
+        case 9:
+          _context2.next = 11;
+          return (0, _effects.call)(_lattice.AppApi.getAppByName, value);
 
-        case 12:
+        case 11:
           response.data = _context2.sent;
-          _context2.next = 15;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.success(id, response.data));
+          _context2.next = 14;
+          return (0, _effects.put)(_AppApiActionFactory.getApp.success(id, response.data));
 
-        case 15:
-          _context2.next = 22;
+        case 14:
+          _context2.next = 21;
           break;
 
-        case 17:
-          _context2.prev = 17;
-          _context2.t0 = _context2['catch'](7);
+        case 16:
+          _context2.prev = 16;
+          _context2.t0 = _context2['catch'](6);
 
           response.error = _context2.t0;
-          _context2.next = 22;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.failure(id, response.error));
+          _context2.next = 21;
+          return (0, _effects.put)(_AppApiActionFactory.getApp.failure(id, response.error));
 
-        case 22:
-          _context2.prev = 22;
-          _context2.next = 25;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.finally(id));
+        case 21:
+          _context2.prev = 21;
+          _context2.next = 24;
+          return (0, _effects.put)(_AppApiActionFactory.getApp.finally(id));
+
+        case 24:
+          return _context2.finish(21);
 
         case 25:
-          return _context2.finish(22);
-
-        case 26:
           return _context2.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context2.stop();
       }
     }
-  }, _marked2, this, [[7, 17, 22, 26]]);
+  }, _marked2, this, [[6, 16, 21, 25]]);
 }
 
 /*
- * SearchApi.searchEntitySetData
+ * AppApi.getConfigurations
  */
 
-function searchEntitySetDataWatcher() {
-  return regeneratorRuntime.wrap(function searchEntitySetDataWatcher$(_context3) {
+function getAppConfigsWatcher() {
+  return regeneratorRuntime.wrap(function getAppConfigsWatcher$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.next = 2;
-          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
+          return (0, _effects.takeEvery)(_AppApiActionFactory.GET_APP_CONFIGS, getAppConfigsWorker);
 
         case 2:
         case 'end':
@@ -625,13 +720,13 @@ function searchEntitySetDataWatcher() {
   }, _marked3, this);
 }
 
-function searchEntitySetDataWorker(seqAction) {
-  var id, value, response, entitySetId, searchOptions;
-  return regeneratorRuntime.wrap(function searchEntitySetDataWorker$(_context4) {
+function getAppConfigsWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function getAppConfigsWorker$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _SearchApiActionFactory.SEARCH_ENTITY_SET_DATA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _AppApiActionFactory.GET_APP_CONFIGS)) {
             _context4.next = 2;
             break;
           }
@@ -654,58 +749,422 @@ function searchEntitySetDataWorker(seqAction) {
 
         case 5:
           response = {};
-          entitySetId = value.entitySetId, searchOptions = value.searchOptions;
-          _context4.prev = 7;
-          _context4.next = 10;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.request(id, value));
+          _context4.prev = 6;
+          _context4.next = 9;
+          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.request(id, value));
 
-        case 10:
-          _context4.next = 12;
-          return (0, _effects.call)(_lattice.SearchApi.searchEntitySetData, entitySetId, searchOptions);
+        case 9:
+          _context4.next = 11;
+          return (0, _effects.call)(_lattice.AppApi.getConfigurations, value);
 
-        case 12:
+        case 11:
           response.data = _context4.sent;
-          _context4.next = 15;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.success(id, response.data));
+          _context4.next = 14;
+          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.success(id, response.data));
 
-        case 15:
-          _context4.next = 22;
+        case 14:
+          _context4.next = 21;
           break;
 
-        case 17:
-          _context4.prev = 17;
-          _context4.t0 = _context4['catch'](7);
+        case 16:
+          _context4.prev = 16;
+          _context4.t0 = _context4['catch'](6);
 
           response.error = _context4.t0;
-          _context4.next = 22;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.failure(id, response.error));
+          _context4.next = 21;
+          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.failure(id, response.error));
 
-        case 22:
-          _context4.prev = 22;
-          _context4.next = 25;
-          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.finally(id));
+        case 21:
+          _context4.prev = 21;
+          _context4.next = 24;
+          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.finally(id));
+
+        case 24:
+          return _context4.finish(21);
 
         case 25:
-          return _context4.finish(22);
-
-        case 26:
           return _context4.abrupt('return', response);
 
-        case 27:
+        case 26:
         case 'end':
           return _context4.stop();
       }
     }
-  }, _marked4, this, [[7, 17, 22, 26]]);
+  }, _marked4, this, [[6, 16, 21, 25]]);
 }
 
-exports.searchEntityNeighborsWatcher = searchEntityNeighborsWatcher;
-exports.searchEntityNeighborsWorker = searchEntityNeighborsWorker;
-exports.searchEntitySetDataWatcher = searchEntitySetDataWatcher;
-exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
+/*
+ * AppApi.getAppTypesForAppTypeIds
+ */
+
+function getAppTypesWatcher() {
+  return regeneratorRuntime.wrap(function getAppTypesWatcher$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return (0, _effects.takeEvery)(_AppApiActionFactory.GET_APP_TYPES, getAppTypesWorker);
+
+        case 2:
+        case 'end':
+          return _context5.stop();
+      }
+    }
+  }, _marked5, this);
+}
+
+function getAppTypesWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function getAppTypesWorker$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          if ((0, _Utils.isValidAction)(seqAction, _AppApiActionFactory.GET_APP_TYPES)) {
+            _context6.next = 2;
+            break;
+          }
+
+          return _context6.abrupt('return', {
+            error: _Errors.ERR_INVALID_ACTION
+          });
+
+        case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context6.next = 5;
+            break;
+          }
+
+          return _context6.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
+          response = {};
+          _context6.prev = 6;
+          _context6.next = 9;
+          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.request(id, value));
+
+        case 9:
+          _context6.next = 11;
+          return (0, _effects.call)(_lattice.AppApi.getAppTypesForAppTypeIds, value);
+
+        case 11:
+          response.data = _context6.sent;
+          _context6.next = 14;
+          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.success(id, response.data));
+
+        case 14:
+          _context6.next = 21;
+          break;
+
+        case 16:
+          _context6.prev = 16;
+          _context6.t0 = _context6['catch'](6);
+
+          response.error = _context6.t0;
+          _context6.next = 21;
+          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.failure(id, response.error));
+
+        case 21:
+          _context6.prev = 21;
+          _context6.next = 24;
+          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.finally(id));
+
+        case 24:
+          return _context6.finish(21);
+
+        case 25:
+          return _context6.abrupt('return', response);
+
+        case 26:
+        case 'end':
+          return _context6.stop();
+      }
+    }
+  }, _marked6, this, [[6, 16, 21, 25]]);
+}
+
+/*
+ *
+ * exports
+ *
+ */
+
+exports.getAppWatcher = getAppWatcher;
+exports.getAppWorker = getAppWorker;
+exports.getAppConfigsWatcher = getAppConfigsWatcher;
+exports.getAppConfigsWorker = getAppConfigsWorker;
+exports.getAppTypesWatcher = getAppTypesWatcher;
+exports.getAppTypesWorker = getAppTypesWorker;
 
 /***/ }),
-/* 11 */
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var GENERATOR_FUNCTION_TAG = exports.GENERATOR_FUNCTION_TAG = '[object GeneratorFunction]';
+var GENERATOR_TAG = exports.GENERATOR_TAG = '[object Generator]';
+var OBJECT_TAG = exports.OBJECT_TAG = '[object Object]';
+var STRING_TAG = exports.STRING_TAG = '[object String]';
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getEntitySetDataWorker = exports.getEntitySetDataWatcher = undefined;
+
+var _lattice = __webpack_require__(1);
+
+var _effects = __webpack_require__(2);
+
+var _Errors = __webpack_require__(3);
+
+var _Utils = __webpack_require__(4);
+
+var _DataApiActionFactory = __webpack_require__(6);
+
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetDataWatcher),
+    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetDataWorker);
+
+/* eslint-disable no-use-before-define */
+
+/*
+ * DataApi.getEntitySetData
+ */
+
+function getEntitySetDataWatcher() {
+  return regeneratorRuntime.wrap(function getEntitySetDataWatcher$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0, _effects.takeEvery)(_DataApiActionFactory.GET_ENTITY_SET_DATA, getEntitySetDataWorker);
+
+        case 2:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+function getEntitySetDataWorker(seqAction) {
+  var id, value, response, entitySetId, propertyTypeIds, entityKeyIds;
+  return regeneratorRuntime.wrap(function getEntitySetDataWorker$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          if ((0, _Utils.isValidAction)(seqAction, _DataApiActionFactory.GET_ENTITY_SET_DATA)) {
+            _context2.next = 2;
+            break;
+          }
+
+          return _context2.abrupt('return', {
+            error: _Errors.ERR_INVALID_ACTION
+          });
+
+        case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context2.next = 5;
+            break;
+          }
+
+          return _context2.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
+          response = {};
+          entitySetId = value.entitySetId, propertyTypeIds = value.propertyTypeIds, entityKeyIds = value.entityKeyIds;
+          _context2.prev = 7;
+          _context2.next = 10;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.request(id, value));
+
+        case 10:
+          _context2.next = 12;
+          return (0, _effects.call)(_lattice.DataApi.getEntitySetData, entitySetId, propertyTypeIds, entityKeyIds);
+
+        case 12:
+          response.data = _context2.sent;
+          _context2.next = 15;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.success(id, response.data));
+
+        case 15:
+          _context2.next = 22;
+          break;
+
+        case 17:
+          _context2.prev = 17;
+          _context2.t0 = _context2['catch'](7);
+
+          response.error = _context2.t0;
+          _context2.next = 22;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.failure(id, response.error));
+
+        case 22:
+          _context2.prev = 22;
+          _context2.next = 25;
+          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.finally(id));
+
+        case 25:
+          return _context2.finish(22);
+
+        case 26:
+          return _context2.abrupt('return', response);
+
+        case 27:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, _marked2, this, [[7, 17, 22, 26]]);
+}
+
+exports.getEntitySetDataWatcher = getEntitySetDataWatcher;
+exports.getEntitySetDataWorker = getEntitySetDataWorker;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createEntityAndAssociationDataWorker = exports.createEntityAndAssociationDataWatcher = undefined;
+
+var _lattice = __webpack_require__(1);
+
+var _effects = __webpack_require__(2);
+
+var _Errors = __webpack_require__(3);
+
+var _Utils = __webpack_require__(4);
+
+var _DataIntegrationApiActionFactory = __webpack_require__(7);
+
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWatcher),
+    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWorker);
+
+/* eslint-disable no-use-before-define */
+
+/*
+ *
+ * DataIntegrationApi.createEntityAndAssociationData
+ *
+ */
+
+function createEntityAndAssociationDataWatcher() {
+  return regeneratorRuntime.wrap(function createEntityAndAssociationDataWatcher$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return (0, _effects.takeEvery)(_DataIntegrationApiActionFactory.CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
+
+        case 2:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _marked, this);
+}
+
+function createEntityAndAssociationDataWorker(seqAction) {
+  var id, value, response;
+  return regeneratorRuntime.wrap(function createEntityAndAssociationDataWorker$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          if ((0, _Utils.isValidAction)(seqAction, _DataIntegrationApiActionFactory.CREATE_ENTITY_AND_ASSOCIATION_DATA)) {
+            _context2.next = 2;
+            break;
+          }
+
+          return _context2.abrupt('return', {
+            error: _Errors.ERR_INVALID_ACTION
+          });
+
+        case 2:
+          id = seqAction.id, value = seqAction.value;
+
+          if (!(value === null || value === undefined)) {
+            _context2.next = 5;
+            break;
+          }
+
+          return _context2.abrupt('return', {
+            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
+          });
+
+        case 5:
+          response = {};
+          _context2.prev = 6;
+          _context2.next = 9;
+          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.request(id, value));
+
+        case 9:
+          _context2.next = 11;
+          return (0, _effects.call)(_lattice.DataIntegrationApi.createEntityAndAssociationData, value);
+
+        case 11:
+          response.data = _context2.sent;
+          _context2.next = 14;
+          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.success(id, response.data));
+
+        case 14:
+          _context2.next = 21;
+          break;
+
+        case 16:
+          _context2.prev = 16;
+          _context2.t0 = _context2['catch'](6);
+
+          response.error = _context2.t0;
+          _context2.next = 21;
+          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.failure(id, response.error));
+
+        case 21:
+          _context2.prev = 21;
+          _context2.next = 24;
+          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.finally(id));
+
+        case 24:
+          return _context2.finish(21);
+
+        case 25:
+          return _context2.abrupt('return', response);
+
+        case 26:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, _marked2, this, [[6, 16, 21, 25]]);
+}
+
+exports.createEntityAndAssociationDataWatcher = createEntityAndAssociationDataWatcher;
+exports.createEntityAndAssociationDataWorker = createEntityAndAssociationDataWorker;
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -716,15 +1175,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateSchemaWorker = exports.updateSchemaWatcher = exports.updatePropertyTypeMetaDataWorker = exports.updatePropertyTypeMetaDataWatcher = exports.updateEntityTypeMetaDataWorker = exports.updateEntityTypeMetaDataWatcher = exports.updateEntitySetMetaDataWorker = exports.updateEntitySetMetaDataWatcher = exports.updateEntityDataModelWorker = exports.updateEntityDataModelWatcher = exports.updateAssociationTypeMetaDataWorker = exports.updateAssociationTypeMetaDataWatcher = exports.reorderEntityTypePropertyTypesWorker = exports.reorderEntityTypePropertyTypesWatcher = exports.removeSrcEntityTypeFromAssociationTypeWorker = exports.removeSrcEntityTypeFromAssociationTypeWatcher = exports.removePropertyTypeFromEntityTypeWorker = exports.removePropertyTypeFromEntityTypeWatcher = exports.removeDstEntityTypeFromAssociationTypeWorker = exports.removeDstEntityTypeFromAssociationTypeWatcher = exports.getPropertyTypeWorker = exports.getPropertyTypeWatcher = exports.getEntityTypeWorker = exports.getEntityTypeWatcher = exports.getEntitySetIdWorker = exports.getEntitySetIdWatcher = exports.getEntitySetWorker = exports.getEntitySetWatcher = exports.getEntityDataModelVersionWorker = exports.getEntityDataModelVersionWatcher = exports.getEntityDataModelProjectionWorker = exports.getEntityDataModelProjectionWatcher = exports.getEntityDataModelDiffWorker = exports.getEntityDataModelDiffWatcher = exports.getEntityDataModelWorker = exports.getEntityDataModelWatcher = exports.getAllSchemasWorker = exports.getAllSchemasWatcher = exports.getAllPropertyTypesWorker = exports.getAllPropertyTypesWatcher = exports.getAllEntityTypesWorker = exports.getAllEntityTypesWatcher = exports.getAllAssociationTypesWorker = exports.getAllAssociationTypesWatcher = exports.deletePropertyTypeWorker = exports.deletePropertyTypeWatcher = exports.deleteEntityTypeWorker = exports.deleteEntityTypeWatcher = exports.deleteAssociationTypeWorker = exports.deleteAssociationTypeWatcher = exports.createSchemaWorker = exports.createSchemaWatcher = exports.createPropertyTypeWorker = exports.createPropertyTypeWatcher = exports.createEntityTypeWorker = exports.createEntityTypeWatcher = exports.createAssociationTypeWorker = exports.createAssociationTypeWatcher = exports.addSrcEntityTypeToAssociationTypeWorker = exports.addSrcEntityTypeToAssociationTypeWatcher = exports.addPropertyTypeToEntityTypeWorker = exports.addPropertyTypeToEntityTypeWatcher = exports.addDstEntityTypeToAssociationTypeWorker = exports.addDstEntityTypeToAssociationTypeWatcher = undefined;
 
-var _lattice = __webpack_require__(3);
+var _lattice = __webpack_require__(1);
 
 var _effects = __webpack_require__(2);
 
-var _Errors = __webpack_require__(1);
+var _Errors = __webpack_require__(3);
 
-var _Utils = __webpack_require__(0);
+var _Utils = __webpack_require__(4);
 
-var _EntityDataModelApiActionFactory = __webpack_require__(6);
+var _EntityDataModelApiActionFactory = __webpack_require__(8);
 
 var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWatcher),
     _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getEntityDataModelWorker),
@@ -3827,7 +4286,7 @@ exports.updateSchemaWatcher = updateSchemaWatcher;
 exports.updateSchemaWorker = updateSchemaWorker;
 
 /***/ }),
-/* 12 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3836,36 +4295,38 @@ exports.updateSchemaWorker = updateSchemaWorker;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createEntityAndAssociationDataWorker = exports.createEntityAndAssociationDataWatcher = undefined;
+exports.searchEntitySetDataWorker = exports.searchEntitySetDataWatcher = exports.searchEntityNeighborsBulkWorker = exports.searchEntityNeighborsBulkWatcher = exports.searchEntityNeighborsWorker = exports.searchEntityNeighborsWatcher = undefined;
 
-var _lattice = __webpack_require__(3);
+var _lattice = __webpack_require__(1);
 
 var _effects = __webpack_require__(2);
 
-var _Errors = __webpack_require__(1);
+var _Errors = __webpack_require__(3);
 
-var _Utils = __webpack_require__(0);
+var _Utils = __webpack_require__(4);
 
-var _DataIntegrationApiActionFactory = __webpack_require__(7);
+var _SearchApiActionFactory = __webpack_require__(9);
 
-var _marked = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWatcher),
-    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(createEntityAndAssociationDataWorker);
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsWatcher),
+    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsWorker),
+    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsBulkWatcher),
+    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(searchEntityNeighborsBulkWorker),
+    _marked5 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWatcher),
+    _marked6 = /*#__PURE__*/regeneratorRuntime.mark(searchEntitySetDataWorker);
 
 /* eslint-disable no-use-before-define */
 
 /*
- *
- * DataIntegrationApi.createEntityAndAssociationData
- *
+ * SearchApi.searchEntityNeighbors
  */
 
-function createEntityAndAssociationDataWatcher() {
-  return regeneratorRuntime.wrap(function createEntityAndAssociationDataWatcher$(_context) {
+function searchEntityNeighborsWatcher() {
+  return regeneratorRuntime.wrap(function searchEntityNeighborsWatcher$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return (0, _effects.takeEvery)(_DataIntegrationApiActionFactory.CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
+          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS, searchEntityNeighborsWorker);
 
         case 2:
         case 'end':
@@ -3875,13 +4336,13 @@ function createEntityAndAssociationDataWatcher() {
   }, _marked, this);
 }
 
-function createEntityAndAssociationDataWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function createEntityAndAssociationDataWorker$(_context2) {
+function searchEntityNeighborsWorker(seqAction) {
+  var id, value, response, entityId, entitySetId;
+  return regeneratorRuntime.wrap(function searchEntityNeighborsWorker$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _DataIntegrationApiActionFactory.CREATE_ENTITY_AND_ASSOCIATION_DATA)) {
+          if ((0, _Utils.isValidAction)(seqAction, _SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS)) {
             _context2.next = 2;
             break;
           }
@@ -3904,142 +4365,19 @@ function createEntityAndAssociationDataWorker(seqAction) {
 
         case 5:
           response = {};
-          _context2.prev = 6;
-          _context2.next = 9;
-          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.request(id, value));
-
-        case 9:
-          _context2.next = 11;
-          return (0, _effects.call)(_lattice.DataIntegrationApi.createEntityAndAssociationData, value);
-
-        case 11:
-          response.data = _context2.sent;
-          _context2.next = 14;
-          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.success(id, response.data));
-
-        case 14:
-          _context2.next = 21;
-          break;
-
-        case 16:
-          _context2.prev = 16;
-          _context2.t0 = _context2['catch'](6);
-
-          response.error = _context2.t0;
-          _context2.next = 21;
-          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.failure(id, response.error));
-
-        case 21:
-          _context2.prev = 21;
-          _context2.next = 24;
-          return (0, _effects.put)(_DataIntegrationApiActionFactory.createEntityAndAssociationData.finally(id));
-
-        case 24:
-          return _context2.finish(21);
-
-        case 25:
-          return _context2.abrupt('return', response);
-
-        case 26:
-        case 'end':
-          return _context2.stop();
-      }
-    }
-  }, _marked2, this, [[6, 16, 21, 25]]);
-}
-
-exports.createEntityAndAssociationDataWatcher = createEntityAndAssociationDataWatcher;
-exports.createEntityAndAssociationDataWorker = createEntityAndAssociationDataWorker;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getEntitySetDataWorker = exports.getEntitySetDataWatcher = undefined;
-
-var _lattice = __webpack_require__(3);
-
-var _effects = __webpack_require__(2);
-
-var _Errors = __webpack_require__(1);
-
-var _Utils = __webpack_require__(0);
-
-var _DataApiActionFactory = __webpack_require__(8);
-
-var _marked = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetDataWatcher),
-    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getEntitySetDataWorker);
-
-/* eslint-disable no-use-before-define */
-
-/*
- * DataApi.getEntitySetData
- */
-
-function getEntitySetDataWatcher() {
-  return regeneratorRuntime.wrap(function getEntitySetDataWatcher$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return (0, _effects.takeEvery)(_DataApiActionFactory.GET_ENTITY_SET_DATA, getEntitySetDataWorker);
-
-        case 2:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, _marked, this);
-}
-
-function getEntitySetDataWorker(seqAction) {
-  var id, value, response, entitySetId, propertyTypeIds, entityKeyIds;
-  return regeneratorRuntime.wrap(function getEntitySetDataWorker$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _DataApiActionFactory.GET_ENTITY_SET_DATA)) {
-            _context2.next = 2;
-            break;
-          }
-
-          return _context2.abrupt('return', {
-            error: _Errors.ERR_INVALID_ACTION
-          });
-
-        case 2:
-          id = seqAction.id, value = seqAction.value;
-
-          if (!(value === null || value === undefined)) {
-            _context2.next = 5;
-            break;
-          }
-
-          return _context2.abrupt('return', {
-            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
-          });
-
-        case 5:
-          response = {};
-          entitySetId = value.entitySetId, propertyTypeIds = value.propertyTypeIds, entityKeyIds = value.entityKeyIds;
+          entityId = value.entityId, entitySetId = value.entitySetId;
           _context2.prev = 7;
           _context2.next = 10;
-          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.request(id, value));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.request(id, value));
 
         case 10:
           _context2.next = 12;
-          return (0, _effects.call)(_lattice.DataApi.getEntitySetData, entitySetId, propertyTypeIds, entityKeyIds);
+          return (0, _effects.call)(_lattice.SearchApi.searchEntityNeighbors, entitySetId, entityId);
 
         case 12:
           response.data = _context2.sent;
           _context2.next = 15;
-          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.success(id, response.data));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.success(id, response.data));
 
         case 15:
           _context2.next = 22;
@@ -4051,12 +4389,12 @@ function getEntitySetDataWorker(seqAction) {
 
           response.error = _context2.t0;
           _context2.next = 22;
-          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.failure(id, response.error));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.failure(id, response.error));
 
         case 22:
           _context2.prev = 22;
           _context2.next = 25;
-          return (0, _effects.put)(_DataApiActionFactory.getEntitySetData.finally(id));
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighbors.finally(id));
 
         case 25:
           return _context2.finish(22);
@@ -4072,159 +4410,17 @@ function getEntitySetDataWorker(seqAction) {
   }, _marked2, this, [[7, 17, 22, 26]]);
 }
 
-exports.getEntitySetDataWatcher = getEntitySetDataWatcher;
-exports.getEntitySetDataWorker = getEntitySetDataWorker;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var GENERATOR_FUNCTION_TAG = exports.GENERATOR_FUNCTION_TAG = '[object GeneratorFunction]';
-var GENERATOR_TAG = exports.GENERATOR_TAG = '[object Generator]';
-var OBJECT_TAG = exports.OBJECT_TAG = '[object Object]';
-var STRING_TAG = exports.STRING_TAG = '[object String]';
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getAppTypesWorker = exports.getAppTypesWatcher = exports.getAppConfigsWorker = exports.getAppConfigsWatcher = exports.getAppWorker = exports.getAppWatcher = undefined;
-
-var _lattice = __webpack_require__(3);
-
-var _effects = __webpack_require__(2);
-
-var _Errors = __webpack_require__(1);
-
-var _Utils = __webpack_require__(0);
-
-var _AppApiActionFactory = __webpack_require__(9);
-
-var _marked = /*#__PURE__*/regeneratorRuntime.mark(getAppWatcher),
-    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(getAppWorker),
-    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(getAppConfigsWatcher),
-    _marked4 = /*#__PURE__*/regeneratorRuntime.mark(getAppConfigsWorker),
-    _marked5 = /*#__PURE__*/regeneratorRuntime.mark(getAppTypesWatcher),
-    _marked6 = /*#__PURE__*/regeneratorRuntime.mark(getAppTypesWorker);
-
-/* eslint-disable no-use-before-define */
-
 /*
- * AppApi.getAppByName
+ * SearchApi.searchEntityNeighborsBulk
  */
 
-function getAppWatcher() {
-  return regeneratorRuntime.wrap(function getAppWatcher$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return (0, _effects.takeEvery)(_AppApiActionFactory.GET_APP, getAppWorker);
-
-        case 2:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, _marked, this);
-}
-
-function getAppWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function getAppWorker$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _AppApiActionFactory.GET_APP)) {
-            _context2.next = 2;
-            break;
-          }
-
-          return _context2.abrupt('return', {
-            error: _Errors.ERR_INVALID_ACTION
-          });
-
-        case 2:
-          id = seqAction.id, value = seqAction.value;
-
-          if (!(value === null || value === undefined)) {
-            _context2.next = 5;
-            break;
-          }
-
-          return _context2.abrupt('return', {
-            error: _Errors.ERR_ACTION_VALUE_NOT_DEFINED
-          });
-
-        case 5:
-          response = {};
-          _context2.prev = 6;
-          _context2.next = 9;
-          return (0, _effects.put)(_AppApiActionFactory.getApp.request(id, value));
-
-        case 9:
-          _context2.next = 11;
-          return (0, _effects.call)(_lattice.AppApi.getAppByName, value);
-
-        case 11:
-          response.data = _context2.sent;
-          _context2.next = 14;
-          return (0, _effects.put)(_AppApiActionFactory.getApp.success(id, response.data));
-
-        case 14:
-          _context2.next = 21;
-          break;
-
-        case 16:
-          _context2.prev = 16;
-          _context2.t0 = _context2['catch'](6);
-
-          response.error = _context2.t0;
-          _context2.next = 21;
-          return (0, _effects.put)(_AppApiActionFactory.getApp.failure(id, response.error));
-
-        case 21:
-          _context2.prev = 21;
-          _context2.next = 24;
-          return (0, _effects.put)(_AppApiActionFactory.getApp.finally(id));
-
-        case 24:
-          return _context2.finish(21);
-
-        case 25:
-          return _context2.abrupt('return', response);
-
-        case 26:
-        case 'end':
-          return _context2.stop();
-      }
-    }
-  }, _marked2, this, [[6, 16, 21, 25]]);
-}
-
-/*
- * AppApi.getConfigurations
- */
-
-function getAppConfigsWatcher() {
-  return regeneratorRuntime.wrap(function getAppConfigsWatcher$(_context3) {
+function searchEntityNeighborsBulkWatcher() {
+  return regeneratorRuntime.wrap(function searchEntityNeighborsBulkWatcher$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.next = 2;
-          return (0, _effects.takeEvery)(_AppApiActionFactory.GET_APP_CONFIGS, getAppConfigsWorker);
+          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS_BULK, searchEntityNeighborsBulkWorker);
 
         case 2:
         case 'end':
@@ -4234,13 +4430,13 @@ function getAppConfigsWatcher() {
   }, _marked3, this);
 }
 
-function getAppConfigsWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function getAppConfigsWorker$(_context4) {
+function searchEntityNeighborsBulkWorker(seqAction) {
+  var id, value, response, entityIds, entitySetId;
+  return regeneratorRuntime.wrap(function searchEntityNeighborsBulkWorker$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _AppApiActionFactory.GET_APP_CONFIGS)) {
+          if ((0, _Utils.isValidAction)(seqAction, _SearchApiActionFactory.SEARCH_ENTITY_NEIGHBORS_BULK)) {
             _context4.next = 2;
             break;
           }
@@ -4263,61 +4459,62 @@ function getAppConfigsWorker(seqAction) {
 
         case 5:
           response = {};
-          _context4.prev = 6;
-          _context4.next = 9;
-          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.request(id, value));
+          entityIds = value.entityIds, entitySetId = value.entitySetId;
+          _context4.prev = 7;
+          _context4.next = 10;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighborsBulk.request(id, value));
 
-        case 9:
-          _context4.next = 11;
-          return (0, _effects.call)(_lattice.AppApi.getConfigurations, value);
+        case 10:
+          _context4.next = 12;
+          return (0, _effects.call)(_lattice.SearchApi.searchEntityNeighborsBulk, entitySetId, entityIds);
 
-        case 11:
+        case 12:
           response.data = _context4.sent;
-          _context4.next = 14;
-          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.success(id, response.data));
+          _context4.next = 15;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighborsBulk.success(id, response.data));
 
-        case 14:
-          _context4.next = 21;
+        case 15:
+          _context4.next = 22;
           break;
 
-        case 16:
-          _context4.prev = 16;
-          _context4.t0 = _context4['catch'](6);
+        case 17:
+          _context4.prev = 17;
+          _context4.t0 = _context4['catch'](7);
 
           response.error = _context4.t0;
-          _context4.next = 21;
-          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.failure(id, response.error));
+          _context4.next = 22;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighborsBulk.failure(id, response.error));
 
-        case 21:
-          _context4.prev = 21;
-          _context4.next = 24;
-          return (0, _effects.put)(_AppApiActionFactory.getAppConfigs.finally(id));
-
-        case 24:
-          return _context4.finish(21);
+        case 22:
+          _context4.prev = 22;
+          _context4.next = 25;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntityNeighborsBulk.finally(id));
 
         case 25:
-          return _context4.abrupt('return', response);
+          return _context4.finish(22);
 
         case 26:
+          return _context4.abrupt('return', response);
+
+        case 27:
         case 'end':
           return _context4.stop();
       }
     }
-  }, _marked4, this, [[6, 16, 21, 25]]);
+  }, _marked4, this, [[7, 17, 22, 26]]);
 }
 
 /*
- * AppApi.getAppTypesForAppTypeIds
+ * SearchApi.searchEntitySetData
  */
 
-function getAppTypesWatcher() {
-  return regeneratorRuntime.wrap(function getAppTypesWatcher$(_context5) {
+function searchEntitySetDataWatcher() {
+  return regeneratorRuntime.wrap(function searchEntitySetDataWatcher$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.next = 2;
-          return (0, _effects.takeEvery)(_AppApiActionFactory.GET_APP_TYPES, getAppTypesWorker);
+          return (0, _effects.takeEvery)(_SearchApiActionFactory.SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
 
         case 2:
         case 'end':
@@ -4327,13 +4524,13 @@ function getAppTypesWatcher() {
   }, _marked5, this);
 }
 
-function getAppTypesWorker(seqAction) {
-  var id, value, response;
-  return regeneratorRuntime.wrap(function getAppTypesWorker$(_context6) {
+function searchEntitySetDataWorker(seqAction) {
+  var id, value, response, entitySetId, searchOptions;
+  return regeneratorRuntime.wrap(function searchEntitySetDataWorker$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          if ((0, _Utils.isValidAction)(seqAction, _AppApiActionFactory.GET_APP_TYPES)) {
+          if ((0, _Utils.isValidAction)(seqAction, _SearchApiActionFactory.SEARCH_ENTITY_SET_DATA)) {
             _context6.next = 2;
             break;
           }
@@ -4356,151 +4553,57 @@ function getAppTypesWorker(seqAction) {
 
         case 5:
           response = {};
-          _context6.prev = 6;
-          _context6.next = 9;
-          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.request(id, value));
+          entitySetId = value.entitySetId, searchOptions = value.searchOptions;
+          _context6.prev = 7;
+          _context6.next = 10;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.request(id, value));
 
-        case 9:
-          _context6.next = 11;
-          return (0, _effects.call)(_lattice.AppApi.getAppTypesForAppTypeIds, value);
+        case 10:
+          _context6.next = 12;
+          return (0, _effects.call)(_lattice.SearchApi.searchEntitySetData, entitySetId, searchOptions);
 
-        case 11:
+        case 12:
           response.data = _context6.sent;
-          _context6.next = 14;
-          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.success(id, response.data));
+          _context6.next = 15;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.success(id, response.data));
 
-        case 14:
-          _context6.next = 21;
+        case 15:
+          _context6.next = 22;
           break;
 
-        case 16:
-          _context6.prev = 16;
-          _context6.t0 = _context6['catch'](6);
+        case 17:
+          _context6.prev = 17;
+          _context6.t0 = _context6['catch'](7);
 
           response.error = _context6.t0;
-          _context6.next = 21;
-          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.failure(id, response.error));
+          _context6.next = 22;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.failure(id, response.error));
 
-        case 21:
-          _context6.prev = 21;
-          _context6.next = 24;
-          return (0, _effects.put)(_AppApiActionFactory.getAppTypes.finally(id));
-
-        case 24:
-          return _context6.finish(21);
+        case 22:
+          _context6.prev = 22;
+          _context6.next = 25;
+          return (0, _effects.put)(_SearchApiActionFactory.searchEntitySetData.finally(id));
 
         case 25:
-          return _context6.abrupt('return', response);
+          return _context6.finish(22);
 
         case 26:
+          return _context6.abrupt('return', response);
+
+        case 27:
         case 'end':
           return _context6.stop();
       }
     }
-  }, _marked6, this, [[6, 16, 21, 25]]);
+  }, _marked6, this, [[7, 17, 22, 26]]);
 }
 
-/*
- *
- * exports
- *
- */
-
-exports.getAppWatcher = getAppWatcher;
-exports.getAppWorker = getAppWorker;
-exports.getAppConfigsWatcher = getAppConfigsWatcher;
-exports.getAppConfigsWorker = getAppConfigsWorker;
-exports.getAppTypesWatcher = getAppTypesWatcher;
-exports.getAppTypesWorker = getAppTypesWorker;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.version = exports.SearchApiSagas = exports.SearchApiActionFactory = exports.EntityDataModelApiSagas = exports.EntityDataModelApiActionFactory = exports.DataIntegrationApiSagas = exports.DataIntegrationApiActionFactory = exports.DataApiSagas = exports.DataApiActionFactory = exports.AppApiSagas = exports.AppApiActionFactory = undefined;
-
-var _AppApiActionFactory = __webpack_require__(9);
-
-var AppApiActionFactory = _interopRequireWildcard(_AppApiActionFactory);
-
-var _AppApiSagas = __webpack_require__(15);
-
-var AppApiSagas = _interopRequireWildcard(_AppApiSagas);
-
-var _DataApiActionFactory = __webpack_require__(8);
-
-var DataApiActionFactory = _interopRequireWildcard(_DataApiActionFactory);
-
-var _DataApiSagas = __webpack_require__(13);
-
-var DataApiSagas = _interopRequireWildcard(_DataApiSagas);
-
-var _DataIntegrationApiActionFactory = __webpack_require__(7);
-
-var DataIntegrationApiActionFactory = _interopRequireWildcard(_DataIntegrationApiActionFactory);
-
-var _DataIntegrationApiSagas = __webpack_require__(12);
-
-var DataIntegrationApiSagas = _interopRequireWildcard(_DataIntegrationApiSagas);
-
-var _EntityDataModelApiActionFactory = __webpack_require__(6);
-
-var EntityDataModelApiActionFactory = _interopRequireWildcard(_EntityDataModelApiActionFactory);
-
-var _EntityDataModelApiSagas = __webpack_require__(11);
-
-var EntityDataModelApiSagas = _interopRequireWildcard(_EntityDataModelApiSagas);
-
-var _SearchApiActionFactory = __webpack_require__(5);
-
-var SearchApiActionFactory = _interopRequireWildcard(_SearchApiActionFactory);
-
-var _SearchApiSagas = __webpack_require__(10);
-
-var SearchApiSagas = _interopRequireWildcard(_SearchApiSagas);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-// injected by Webpack.DefinePlugin
-var version = "v0.4.0";
-
-exports.AppApiActionFactory = AppApiActionFactory;
-exports.AppApiSagas = AppApiSagas;
-exports.DataApiActionFactory = DataApiActionFactory;
-exports.DataApiSagas = DataApiSagas;
-exports.DataIntegrationApiActionFactory = DataIntegrationApiActionFactory;
-exports.DataIntegrationApiSagas = DataIntegrationApiSagas;
-exports.EntityDataModelApiActionFactory = EntityDataModelApiActionFactory;
-exports.EntityDataModelApiSagas = EntityDataModelApiSagas;
-exports.SearchApiActionFactory = SearchApiActionFactory;
-exports.SearchApiSagas = SearchApiSagas;
-exports.version = version;
-exports.default = {
-  AppApiActionFactory: AppApiActionFactory,
-  AppApiSagas: AppApiSagas,
-  DataApiActionFactory: DataApiActionFactory,
-  DataApiSagas: DataApiSagas,
-  DataIntegrationApiActionFactory: DataIntegrationApiActionFactory,
-  DataIntegrationApiSagas: DataIntegrationApiSagas,
-  EntityDataModelApiActionFactory: EntityDataModelApiActionFactory,
-  EntityDataModelApiSagas: EntityDataModelApiSagas,
-  SearchApiActionFactory: SearchApiActionFactory,
-  SearchApiSagas: SearchApiSagas,
-  version: version
-};
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(16);
-
+exports.searchEntityNeighborsWatcher = searchEntityNeighborsWatcher;
+exports.searchEntityNeighborsWorker = searchEntityNeighborsWorker;
+exports.searchEntityNeighborsBulkWatcher = searchEntityNeighborsBulkWatcher;
+exports.searchEntityNeighborsBulkWorker = searchEntityNeighborsBulkWorker;
+exports.searchEntitySetDataWatcher = searchEntitySetDataWatcher;
+exports.searchEntitySetDataWorker = searchEntitySetDataWorker;
 
 /***/ })
 /******/ ]);
