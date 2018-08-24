@@ -5,11 +5,13 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = Immutable.List([
   'SEARCH_ENTITY_NEIGHBORS',
-  'SEARCH_ENTITY_SET_DATA'
+  'SEARCH_ENTITY_NEIGHBORS_BULK',
+  'SEARCH_ENTITY_SET_DATA',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
   'searchEntityNeighbors',
+  'searchEntityNeighborsBulk',
   'searchEntitySetData'
 ]).sort();
 
