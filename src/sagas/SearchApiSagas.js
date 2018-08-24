@@ -12,9 +12,11 @@ import { isValidAction } from '../utils/Utils';
 
 import {
   SEARCH_ENTITY_NEIGHBORS,
+  SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_SET_DATA,
   searchEntityNeighbors,
-  searchEntitySetData
+  searchEntityNeighborsBulk,
+  searchEntitySetData,
 } from './SearchApiActionFactory';
 
 
@@ -56,6 +58,49 @@ function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *
   }
   finally {
     yield put(searchEntityNeighbors.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ * SearchApi.searchEntityNeighborsBulk
+ */
+
+function* searchEntityNeighborsBulkWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_NEIGHBORS_BULK, searchEntityNeighborsBulkWorker);
+}
+
+function* searchEntityNeighborsBulkWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, SEARCH_ENTITY_NEIGHBORS_BULK)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entityIds, entitySetId } = value;
+
+  try {
+    yield put(searchEntityNeighborsBulk.request(id, value));
+    response.data = yield call(SearchApi.searchEntityNeighborsBulk, entitySetId, entityIds);
+    yield put(searchEntityNeighborsBulk.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(searchEntityNeighborsBulk.failure(id, response.error));
+  }
+  finally {
+    yield put(searchEntityNeighborsBulk.finally(id));
   }
 
   return response;
@@ -107,6 +152,8 @@ function* searchEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, 
 export {
   searchEntityNeighborsWatcher,
   searchEntityNeighborsWorker,
+  searchEntityNeighborsBulkWatcher,
+  searchEntityNeighborsBulkWorker,
   searchEntitySetDataWatcher,
-  searchEntitySetDataWorker
+  searchEntitySetDataWorker,
 };
