@@ -201,38 +201,38 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams) {
   });
 }
 
-export function testShouldExportActionTypes(ActionFactory, expectedActionTypes) {
+export function testShouldExportActionTypes(Actions, expectedActionTypes) {
 
   describe('should export action types', () => {
 
     test('should export expected action types, sorted alphabetically', () => {
-      const exportedActionTypes = Immutable.OrderedMap(ActionFactory).take(expectedActionTypes.length);
+      const exportedActionTypes = Immutable.OrderedMap(Actions).take(expectedActionTypes.length);
       expect(exportedActionTypes.keySeq().toJS()).toEqual(expectedActionTypes);
       expect(exportedActionTypes.valueSeq().toJS()).toEqual(expectedActionTypes);
     });
 
     expectedActionTypes.forEach((actionType) => {
       test(`should export "${actionType}"`, () => {
-        expect(ActionFactory).toHaveProperty(actionType);
-        expect(ActionFactory[actionType]).toEqual(actionType);
+        expect(Actions).toHaveProperty(actionType);
+        expect(Actions[actionType]).toEqual(actionType);
       });
     });
   });
 }
 
-export function testShouldExportRequestSequences(ActionFactory, expectedActionTypes, expectedReqSeqNames) {
+export function testShouldExportRequestSequences(Actions, expectedActionTypes, expectedReqSeqNames) {
 
   describe('should export RequestSequences', () => {
 
     test('should export expected RequestSequences, sorted alphabetically', () => {
-      const expectedReqSeqs = Immutable.OrderedMap(ActionFactory).takeLast(expectedReqSeqNames.length);
+      const expectedReqSeqs = Immutable.OrderedMap(Actions).takeLast(expectedReqSeqNames.length);
       expect(expectedReqSeqs.keySeq().toJS()).toEqual(expectedReqSeqNames);
     });
 
     expectedReqSeqNames.forEach((reqseqName, index) => {
       describe(`${reqseqName}`, () => {
         const expectedActionType = expectedActionTypes[index];
-        testShouldBeRequestSequenceFunction(ActionFactory[reqseqName], ActionFactory[expectedActionType]);
+        testShouldBeRequestSequenceFunction(Actions[reqseqName], Actions[expectedActionType]);
       });
     });
   });

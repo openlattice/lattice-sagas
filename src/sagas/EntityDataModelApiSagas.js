@@ -75,7 +75,7 @@ import {
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
   updateSchema
-} from './EntityDataModelApiActionFactory';
+} from './EntityDataModelApiActions';
 
 /*
  * types

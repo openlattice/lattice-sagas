@@ -8,7 +8,7 @@ import {
   getApp,
   getAppConfigs,
   getAppTypes
-} from './AppApiActionFactory';
+} from './AppApiActions';
 
 import {
   getAppWatcher,
@@ -31,7 +31,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
-   * AppApiActionFactory.getApp
+   * AppApiActions.getApp
    *
    */
 
@@ -70,7 +70,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
-   * AppApiActionFactory.getAppConfigs
+   * AppApiActions.getAppConfigs
    *
    */
 
@@ -109,7 +109,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
-   * AppApiActionFactory.getAppTypes
+   * AppApiActions.getAppTypes
    *
    */
 

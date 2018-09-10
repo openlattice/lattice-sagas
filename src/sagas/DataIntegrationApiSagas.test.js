@@ -8,7 +8,7 @@ import { DataIntegrationApi } from 'lattice';
 import {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   createEntityAndAssociationData,
-} from './DataIntegrationApiActionFactory';
+} from './DataIntegrationApiActions';
 
 import {
   createEntityAndAssociationDataWatcher,
@@ -28,7 +28,7 @@ describe('DataIntegrationApiSagas', () => {
   /*
    *
    * DataIntegrationApi.createEntityAndAssociationData
-   * DataIntegrationApiActionFactory.createEntityAndAssociationData
+   * DataIntegrationApiActions.createEntityAndAssociationData
    *
    */
 

@@ -12,7 +12,7 @@ import {
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntitySetData,
-} from './SearchApiActionFactory';
+} from './SearchApiActions';
 
 import {
   searchEntityNeighborsWatcher,
@@ -35,7 +35,7 @@ describe('SearchApiSagas', () => {
 
   /*
    *
-   * SearchApiActionFactory.searchEntityNeighbors
+   * SearchApiActions.searchEntityNeighbors
    *
    */
 
@@ -78,7 +78,7 @@ describe('SearchApiSagas', () => {
 
   /*
    *
-   * SearchApiActionFactory.searchEntityNeighborsBulk
+   * SearchApiActions.searchEntityNeighborsBulk
    *
    */
 
@@ -121,7 +121,7 @@ describe('SearchApiSagas', () => {
 
   /*
    *
-   * SearchApiActionFactory.searchEntitySetData
+   * SearchApiActions.searchEntitySetData
    *
    */
 
