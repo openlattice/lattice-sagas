@@ -1,18 +1,20 @@
-import Immutable from 'immutable';
+import { Set } from 'immutable';
 
-import * as DataApiActionFactory from './DataApiActionFactory';
+import * as DataApiActions from './DataApiActionFactory';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
+const ACTION_TYPES = Set([
+  'GET_ENTITY_SET_DATA',
   'GET_ENTITY_SET_DATA',
 ]).sort();
 
-const REQSEQ_NAMES = Immutable.List([
+const REQSEQ_NAMES = Set([
+  'getEntityData',
   'getEntitySetData',
 ]).sort();
 
-describe('DataApiActionFactory', () => {
+describe('DataApiActions', () => {
 
-  testShouldExportActionTypes(DataApiActionFactory, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(DataApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(DataApiActions, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(DataApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });

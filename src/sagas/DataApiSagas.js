@@ -11,9 +11,54 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
+  GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
+  getEntityData,
   getEntitySetData
 } from './DataApiActionFactory';
+
+/*
+ * DataApi.getEntityData
+ */
+
+function* getEntityDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ENTITY_DATA, getEntityDataWorker);
+}
+
+function* getEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ENTITY_DATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, entityKeyId } = value;
+
+  try {
+    yield put(getEntityData.request(id, value));
+    response.data = yield call(DataApi.getEntityData, entitySetId, entityKeyId);
+    yield put(getEntityData.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntityData.failure(id, response.error));
+  }
+  finally {
+    yield put(getEntityData.finally(id));
+  }
+
+  return response;
+}
 
 /*
  * DataApi.getEntitySetData
@@ -59,6 +104,8 @@ function* getEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 }
 
 export {
+  getEntityDataWatcher,
+  getEntityDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker,
 };

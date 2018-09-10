@@ -26,7 +26,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
-    "lattice": "^0.38.1",
+    "lattice": "^0.39.0",
     "redux-reqseq": "^0.1.1",
     "redux-saga": "^0.16.0"
   },
