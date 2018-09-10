@@ -4,7 +4,7 @@ import * as DataApiActions from './DataApiActionFactory';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Set([
-  'GET_ENTITY_SET_DATA',
+  'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
 ]).sort();
 
