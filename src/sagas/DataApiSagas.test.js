@@ -6,13 +6,17 @@ import randomUUID from 'uuid/v4';
 import { DataApi } from 'lattice';
 
 import {
+  GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
-  getEntitySetData
+  getEntityData,
+  getEntitySetData,
 } from './DataApiActionFactory';
 
 import {
+  getEntityDataWatcher,
+  getEntityDataWorker,
   getEntitySetDataWatcher,
-  getEntitySetDataWorker
+  getEntitySetDataWorker,
 } from './DataApiSagas';
 
 import {
@@ -24,6 +28,50 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('DataApiSagas', () => {
+
+  /*
+   *
+   * DataApi.getEntityData
+   * DataApiActionFactory.getEntityData
+   *
+   */
+
+  describe('getEntityDataWatcher', () => {
+    testShouldBeGeneratorFunction(getEntityDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntityDataWatcher,
+      getEntityDataWorker,
+      GET_ENTITY_DATA
+    );
+  });
+
+  describe('getEntityDataWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      entityKeyId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(getEntityDataWorker);
+    testShouldFailOnInvalidAction(getEntityDataWorker, GET_ENTITY_DATA);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.getEntityData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId],
+      latticeApiReqSeq: getEntityData,
+      workerSagaAction: getEntityData(mockActionValue),
+      workerSagaToTest: getEntityDataWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.getEntityData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId],
+      latticeApiReqSeq: getEntityData,
+      workerSagaAction: getEntityData(mockActionValue),
+      workerSagaToTest: getEntityDataWorker
+    });
+
+  });
 
   /*
    *
