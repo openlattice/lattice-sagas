@@ -17,7 +17,7 @@ import {
   getApp,
   getAppConfigs,
   getAppTypes
-} from './AppApiActionFactory';
+} from './AppApiActions';
 
 /*
  * AppApi.getAppByName

@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import * as SearchApiActionFactory from './SearchApiActionFactory';
+import * as SearchApiActions from './SearchApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
@@ -15,8 +15,8 @@ const REQSEQ_NAMES = Immutable.List([
   'searchEntitySetData'
 ]).sort();
 
-describe('SearchApiActionFactory', () => {
+describe('SearchApiActions', () => {
 
-  testShouldExportActionTypes(SearchApiActionFactory, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(SearchApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(SearchApiActions, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(SearchApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });

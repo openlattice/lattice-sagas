@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import * as EntityDataModelApiActionFactory from './EntityDataModelApiActionFactory';
+import * as EntityDataModelApiActions from './EntityDataModelApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
@@ -73,8 +73,8 @@ const REQSEQ_NAMES = Immutable.List([
   'updateSchema'
 ]).sort();
 
-describe('EntityDataModelApiActionFactory', () => {
+describe('EntityDataModelApiActions', () => {
 
-  testShouldExportActionTypes(EntityDataModelApiActionFactory, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(EntityDataModelApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(EntityDataModelApiActions, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(EntityDataModelApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });

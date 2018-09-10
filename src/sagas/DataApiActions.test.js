@@ -1,6 +1,6 @@
 import { Set } from 'immutable';
 
-import * as DataApiActions from './DataApiActionFactory';
+import * as DataApiActions from './DataApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Set([

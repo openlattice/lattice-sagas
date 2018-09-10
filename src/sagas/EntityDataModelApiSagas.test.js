@@ -70,7 +70,7 @@ import {
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
   updateSchema
-} from './EntityDataModelApiActionFactory';
+} from './EntityDataModelApiActions';
 
 import {
   addDstEntityTypeToAssociationTypeWatcher,
@@ -157,7 +157,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntityDataModel
+   * EntityDataModelApiActions.getEntityDataModel
    *
    */
 
@@ -195,7 +195,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntityDataModelDiff
+   * EntityDataModelApiActions.getEntityDataModelDiff
    *
    */
 
@@ -235,7 +235,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntityDataModelProjection
+   * EntityDataModelApiActions.getEntityDataModelProjection
    *
    */
 
@@ -275,7 +275,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntityDataModelVersion
+   * EntityDataModelApiActions.getEntityDataModelVersion
    *
    */
 
@@ -313,7 +313,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.updateEntityDataModel
+   * EntityDataModelApiActions.updateEntityDataModel
    *
    */
 
@@ -359,7 +359,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntitySet
+   * EntityDataModelApiActions.getEntitySet
    *
    */
 
@@ -399,7 +399,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntitySetId
+   * EntityDataModelApiActions.getEntitySetId
    *
    */
 
@@ -439,7 +439,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.updateEntitySetMetaData
+   * EntityDataModelApiActions.updateEntitySetMetaData
    *
    */
 
@@ -488,7 +488,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.createEntityType
+   * EntityDataModelApiActions.createEntityType
    *
    */
 
@@ -528,7 +528,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.deleteEntityType
+   * EntityDataModelApiActions.deleteEntityType
    *
    */
 
@@ -568,7 +568,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getAllEntityTypes
+   * EntityDataModelApiActions.getAllEntityTypes
    *
    */
 
@@ -606,7 +606,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getEntityType
+   * EntityDataModelApiActions.getEntityType
    *
    */
 
@@ -646,7 +646,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.updateEntityTypeMetaData
+   * EntityDataModelApiActions.updateEntityTypeMetaData
    *
    */
 
@@ -689,7 +689,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.addPropertyTypeToEntityType
+   * EntityDataModelApiActions.addPropertyTypeToEntityType
    *
    */
 
@@ -732,7 +732,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.removePropertyTypeFromEntityType
+   * EntityDataModelApiActions.removePropertyTypeFromEntityType
    *
    */
 
@@ -775,7 +775,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.reorderEntityTypePropertyTypes
+   * EntityDataModelApiActions.reorderEntityTypePropertyTypes
    *
    */
 
@@ -824,7 +824,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.createPropertyType
+   * EntityDataModelApiActions.createPropertyType
    *
    */
 
@@ -864,7 +864,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.deletePropertyType
+   * EntityDataModelApiActions.deletePropertyType
    *
    */
 
@@ -904,7 +904,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getAllPropertyTypes
+   * EntityDataModelApiActions.getAllPropertyTypes
    *
    */
 
@@ -942,7 +942,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getPropertyType
+   * EntityDataModelApiActions.getPropertyType
    *
    */
 
@@ -982,7 +982,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.updatePropertyTypeMetaData
+   * EntityDataModelApiActions.updatePropertyTypeMetaData
    *
    */
 
@@ -1031,7 +1031,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.createAssociationType
+   * EntityDataModelApiActions.createAssociationType
    *
    */
 
@@ -1071,7 +1071,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.deleteAssociationType
+   * EntityDataModelApiActions.deleteAssociationType
    *
    */
 
@@ -1111,7 +1111,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getAllAssociationTypes
+   * EntityDataModelApiActions.getAllAssociationTypes
    *
    */
 
@@ -1149,7 +1149,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.updateAssociationTypeMetaData
+   * EntityDataModelApiActions.updateAssociationTypeMetaData
    *
    */
 
@@ -1193,7 +1193,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.addDstEntityTypeToAssociationType
+   * EntityDataModelApiActions.addDstEntityTypeToAssociationType
    *
    */
 
@@ -1236,7 +1236,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.addSrcEntityTypeToAssociationType
+   * EntityDataModelApiActions.addSrcEntityTypeToAssociationType
    *
    */
 
@@ -1279,7 +1279,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.removeDstEntityTypeFromAssociationType
+   * EntityDataModelApiActions.removeDstEntityTypeFromAssociationType
    *
    */
 
@@ -1322,7 +1322,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.removeSrcEntityTypeFromAssociationType
+   * EntityDataModelApiActions.removeSrcEntityTypeFromAssociationType
    *
    */
 
@@ -1371,7 +1371,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.createSchema
+   * EntityDataModelApiActions.createSchema
    *
    */
 
@@ -1411,7 +1411,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.getAllSchemas
+   * EntityDataModelApiActions.getAllSchemas
    *
    */
 
@@ -1449,7 +1449,7 @@ describe('EntityDataModelApiSagas', () => {
 
   /*
    *
-   * EntityDataModelApiActionFactory.updateSchema
+   * EntityDataModelApiActions.updateSchema
    *
    */
 

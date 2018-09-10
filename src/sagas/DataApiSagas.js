@@ -15,7 +15,7 @@ import {
   GET_ENTITY_SET_DATA,
   getEntityData,
   getEntitySetData
-} from './DataApiActionFactory';
+} from './DataApiActions';
 
 /*
  * DataApi.getEntityData
