@@ -17,7 +17,7 @@ import {
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntitySetData,
-} from './SearchApiActionFactory';
+} from './SearchApiActions';
 
 
 /*

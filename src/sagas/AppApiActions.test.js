@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import * as AppApiActionFactory from './AppApiActionFactory';
+import * as AppApiActions from './AppApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
@@ -15,8 +15,8 @@ const REQSEQ_NAMES = Immutable.List([
   'getAppTypes'
 ]).sort();
 
-describe('AppApiActionFactory', () => {
+describe('AppApiActions', () => {
 
-  testShouldExportActionTypes(AppApiActionFactory, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(AppApiActionFactory, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(AppApiActions, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(AppApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });

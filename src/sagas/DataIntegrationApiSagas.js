@@ -13,7 +13,7 @@ import { isValidAction } from '../utils/Utils';
 import {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   createEntityAndAssociationData,
-} from './DataIntegrationApiActionFactory';
+} from './DataIntegrationApiActions';
 
 /*
  *

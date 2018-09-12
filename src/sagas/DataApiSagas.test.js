@@ -10,7 +10,7 @@ import {
   GET_ENTITY_SET_DATA,
   getEntityData,
   getEntitySetData,
-} from './DataApiActionFactory';
+} from './DataApiActions';
 
 import {
   getEntityDataWatcher,
@@ -32,7 +32,7 @@ describe('DataApiSagas', () => {
   /*
    *
    * DataApi.getEntityData
-   * DataApiActionFactory.getEntityData
+   * DataApiActions.getEntityData
    *
    */
 
@@ -76,7 +76,7 @@ describe('DataApiSagas', () => {
   /*
    *
    * DataApi.getEntitySetData
-   * DataApiActionFactory.getEntitySetData
+   * DataApiActions.getEntitySetData
    *
    */
 

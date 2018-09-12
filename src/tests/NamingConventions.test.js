@@ -5,10 +5,10 @@ const SAGAS_DIR = path.join(__dirname, '../sagas');
 
 describe('naming conventions', () => {
 
-  test('file names in src/sagas should end with either "ActionFactory" or "Sagas"', () => {
+  test('file names in src/sagas should end with either "Actions" or "Sagas"', () => {
     fs.readdirSync(SAGAS_DIR)
       .forEach((fileName) => {
-        expect(fileName).toMatch(/ActionFactory(\.test)?\.js$|Sagas(\.test)?\.js$/);
+        expect(fileName).toMatch(/Actions(\.test)?\.js$|Sagas(\.test)?\.js$/);
       });
   });
 

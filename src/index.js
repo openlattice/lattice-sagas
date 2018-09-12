@@ -2,15 +2,15 @@
  * @flow
  */
 
-import * as AppApiActionFactory from './sagas/AppApiActionFactory';
+import * as AppApiActions from './sagas/AppApiActions';
 import * as AppApiSagas from './sagas/AppApiSagas';
-import * as DataApiActionFactory from './sagas/DataApiActionFactory';
+import * as DataApiActions from './sagas/DataApiActions';
 import * as DataApiSagas from './sagas/DataApiSagas';
-import * as DataIntegrationApiActionFactory from './sagas/DataIntegrationApiActionFactory';
+import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
 import * as DataIntegrationApiSagas from './sagas/DataIntegrationApiSagas';
-import * as EntityDataModelApiActionFactory from './sagas/EntityDataModelApiActionFactory';
+import * as EntityDataModelApiActions from './sagas/EntityDataModelApiActions';
 import * as EntityDataModelApiSagas from './sagas/EntityDataModelApiSagas';
-import * as SearchApiActionFactory from './sagas/SearchApiActionFactory';
+import * as SearchApiActions from './sagas/SearchApiActions';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
 
 // injected by Webpack.DefinePlugin
@@ -18,29 +18,34 @@ declare var __VERSION__ :string;
 const version :string = __VERSION__;
 
 export {
-  AppApiActionFactory,
+  AppApiActions,
+  AppApiActions as AppApiActionFactory,
   AppApiSagas,
-  DataApiActionFactory,
+  DataApiActions,
+  DataApiActions as DataApiActionFactory,
   DataApiSagas,
-  DataIntegrationApiActionFactory,
+  DataIntegrationApiActions,
+  DataIntegrationApiActions as DataIntegrationApiActionFactory,
   DataIntegrationApiSagas,
-  EntityDataModelApiActionFactory,
+  EntityDataModelApiActions,
+  EntityDataModelApiActions as EntityDataModelApiActionFactory,
   EntityDataModelApiSagas,
-  SearchApiActionFactory,
+  SearchApiActions,
+  SearchApiActions as SearchApiActionFactory,
   SearchApiSagas,
   version
 };
 
 export default {
-  AppApiActionFactory,
+  AppApiActions,
   AppApiSagas,
-  DataApiActionFactory,
+  DataApiActions,
   DataApiSagas,
-  DataIntegrationApiActionFactory,
+  DataIntegrationApiActions,
   DataIntegrationApiSagas,
-  EntityDataModelApiActionFactory,
+  EntityDataModelApiActions,
   EntityDataModelApiSagas,
-  SearchApiActionFactory,
+  SearchApiActions,
   SearchApiSagas,
   version
 };
