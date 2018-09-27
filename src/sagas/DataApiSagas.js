@@ -13,8 +13,10 @@ import { isValidAction } from '../utils/Utils';
 import {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
+  UPDATE_ENTITY_DATA,
   getEntityData,
-  getEntitySetData
+  getEntitySetData,
+  updateEntityData,
 } from './DataApiActions';
 
 /*
@@ -103,9 +105,54 @@ function* getEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
   return response;
 }
 
+/*
+ * DataApi.updateEntityData
+ */
+
+function* updateEntityDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(UPDATE_ENTITY_DATA, updateEntityDataWorker);
+}
+
+function* updateEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, UPDATE_ENTITY_DATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, entities, updateType } = value;
+
+  try {
+    yield put(updateEntityData.request(id, value));
+    response.data = yield call(DataApi.updateEntityData, entitySetId, entities, updateType);
+    yield put(updateEntityData.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateEntityData.failure(id, response.error));
+  }
+  finally {
+    yield put(updateEntityData.finally(id));
+  }
+
+  return response;
+}
+
 export {
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker,
+  updateEntityDataWatcher,
+  updateEntityDataWorker,
 };
