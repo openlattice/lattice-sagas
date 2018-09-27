@@ -6,11 +6,13 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 const ACTION_TYPES = Set([
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
+  'UPDATE_ENTITY_DATA',
 ]).sort();
 
 const REQSEQ_NAMES = Set([
   'getEntityData',
   'getEntitySetData',
+  'updateEntityData',
 ]).sort();
 
 describe('DataApiActions', () => {
