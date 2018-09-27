@@ -8,8 +8,10 @@ import { DataApi } from 'lattice';
 import {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
+  UPDATE_ENTITY_DATA,
   getEntityData,
   getEntitySetData,
+  updateEntityData,
 } from './DataApiActions';
 
 import {
@@ -17,6 +19,8 @@ import {
   getEntityDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker,
+  updateEntityDataWatcher,
+  updateEntityDataWorker,
 } from './DataApiSagas';
 
 import {
@@ -114,6 +118,51 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: getEntitySetData,
       workerSagaAction: getEntitySetData(mockActionValue),
       workerSagaToTest: getEntitySetDataWorker
+    });
+
+  });
+
+  /*
+   *
+   * DataApi.updateEntityData
+   * DataApiActions.updateEntityData
+   *
+   */
+
+  describe('updateEntityDataWatcher', () => {
+    testShouldBeGeneratorFunction(updateEntityDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateEntityDataWatcher,
+      updateEntityDataWorker,
+      UPDATE_ENTITY_DATA
+    );
+  });
+
+  describe('updateEntityDataWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      entities: randomUUID(),
+      updateType: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(updateEntityDataWorker);
+    testShouldFailOnInvalidAction(updateEntityDataWorker, UPDATE_ENTITY_DATA);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.updateEntityData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entities, mockActionValue.updateType],
+      latticeApiReqSeq: updateEntityData,
+      workerSagaAction: updateEntityData(mockActionValue),
+      workerSagaToTest: updateEntityDataWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.updateEntityData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entities, mockActionValue.updateType],
+      latticeApiReqSeq: updateEntityData,
+      workerSagaAction: updateEntityData(mockActionValue),
+      workerSagaToTest: updateEntityDataWorker
     });
 
   });
