@@ -6,15 +6,19 @@ import randomUUID from 'uuid/v4';
 import { DataApi } from 'lattice';
 
 import {
+  CLEAR_ENTITY_FROM_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
+  clearEntityFromEntitySet,
   getEntityData,
   getEntitySetData,
   updateEntityData,
 } from './DataApiActions';
 
 import {
+  clearEntityFromEntitySetWatcher,
+  clearEntityFromEntitySetWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
@@ -32,6 +36,50 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('DataApiSagas', () => {
+
+  /*
+   *
+   * DataApi.clearEntityFromEntitySet
+   * DataApiActions.clearEntityFromEntitySet
+   *
+   */
+
+  describe('clearEntityFromEntitySetWatcher', () => {
+    testShouldBeGeneratorFunction(clearEntityFromEntitySetWatcher);
+    testWatcherSagaShouldTakeEvery(
+      clearEntityFromEntitySetWatcher,
+      clearEntityFromEntitySetWorker,
+      CLEAR_ENTITY_FROM_ENTITY_SET
+    );
+  });
+
+  describe('clearEntityFromEntitySetWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      entityKeyId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(clearEntityFromEntitySetWorker);
+    testShouldFailOnInvalidAction(clearEntityFromEntitySetWorker, CLEAR_ENTITY_FROM_ENTITY_SET);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.clearEntityFromEntitySet,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId],
+      latticeApiReqSeq: clearEntityFromEntitySet,
+      workerSagaAction: clearEntityFromEntitySet(mockActionValue),
+      workerSagaToTest: clearEntityFromEntitySetWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.clearEntityFromEntitySet,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId],
+      latticeApiReqSeq: clearEntityFromEntitySet,
+      workerSagaAction: clearEntityFromEntitySet(mockActionValue),
+      workerSagaToTest: clearEntityFromEntitySetWorker
+    });
+
+  });
 
   /*
    *

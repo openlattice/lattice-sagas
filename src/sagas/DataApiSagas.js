@@ -11,16 +11,67 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
+  CLEAR_ENTITY_FROM_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
+  clearEntityFromEntitySet,
   getEntityData,
   getEntitySetData,
   updateEntityData,
 } from './DataApiActions';
 
 /*
+ *
+ * DataApi.clearEntityFromEntitySet
+ * DataApiActions.clearEntityFromEntitySet
+ *
+ */
+
+function* clearEntityFromEntitySetWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CLEAR_ENTITY_FROM_ENTITY_SET, clearEntityFromEntitySetWorker);
+}
+
+function* clearEntityFromEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, CLEAR_ENTITY_FROM_ENTITY_SET)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, entityKeyId } = value;
+
+  try {
+    yield put(clearEntityFromEntitySet.request(id, value));
+    response.data = yield call(DataApi.clearEntityFromEntitySet, entitySetId, entityKeyId);
+    yield put(clearEntityFromEntitySet.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(clearEntityFromEntitySet.failure(id, response.error));
+  }
+  finally {
+    yield put(clearEntityFromEntitySet.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
  * DataApi.getEntityData
+ * DataApiActions.getEntityData
+ *
  */
 
 function* getEntityDataWatcher() :Generator<*, *, *> {
@@ -63,7 +114,10 @@ function* getEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 }
 
 /*
+ *
  * DataApi.getEntitySetData
+ * DataApiActions.getEntitySetData
+ *
  */
 
 function* getEntitySetDataWatcher() :Generator<*, *, *> {
@@ -106,7 +160,10 @@ function* getEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 }
 
 /*
+ *
  * DataApi.updateEntityData
+ * DataApiActions.updateEntityData
+ *
  */
 
 function* updateEntityDataWatcher() :Generator<*, *, *> {
@@ -149,6 +206,8 @@ function* updateEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 }
 
 export {
+  clearEntityFromEntitySetWatcher,
+  clearEntityFromEntitySetWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
