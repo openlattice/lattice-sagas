@@ -5,6 +5,8 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = Set([
   'CLEAR_ENTITY_FROM_ENTITY_SET',
+  'CREATE_ENTITY_AND_ASSOCIATION_DATA',
+  'CREATE_OR_MERGE_ENTITY_DATA',
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
   'UPDATE_ENTITY_DATA',
@@ -12,6 +14,8 @@ const ACTION_TYPES = Set([
 
 const REQSEQ_NAMES = Set([
   'clearEntityFromEntitySet',
+  'createEntityAndAssociationData',
+  'createOrMergeEntityData',
   'getEntityData',
   'getEntitySetData',
   'updateEntityData',
