@@ -12,10 +12,14 @@ import { isValidAction } from '../utils/Utils';
 
 import {
   CLEAR_ENTITY_FROM_ENTITY_SET,
+  CREATE_ENTITY_AND_ASSOCIATION_DATA,
+  CREATE_OR_MERGE_ENTITY_DATA,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
   clearEntityFromEntitySet,
+  createEntityAndAssociationData,
+  createOrMergeEntityData,
   getEntityData,
   getEntitySetData,
   updateEntityData,
@@ -62,6 +66,97 @@ function* clearEntityFromEntitySetWorker(seqAction :SequenceAction) :Generator<*
   }
   finally {
     yield put(clearEntityFromEntitySet.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
+ * DataApi.createEntityAndAssociationData
+ * DataApiActions.createEntityAndAssociationData
+ *
+ */
+
+function* createEntityAndAssociationDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
+}
+
+function* createEntityAndAssociationDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, CREATE_ENTITY_AND_ASSOCIATION_DATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(createEntityAndAssociationData.request(id, value));
+    response.data = yield call(DataApi.createEntityAndAssociationData, value);
+    yield put(createEntityAndAssociationData.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(createEntityAndAssociationData.failure(id, response.error));
+  }
+  finally {
+    yield put(createEntityAndAssociationData.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
+ * DataApi.createOrMergeEntityData
+ * DataApiActions.createOrMergeEntityData
+ *
+ */
+
+function* createOrMergeEntityDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_OR_MERGE_ENTITY_DATA, createOrMergeEntityDataWorker);
+}
+
+function* createOrMergeEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, CREATE_OR_MERGE_ENTITY_DATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, entityData } = value;
+
+  try {
+    yield put(createOrMergeEntityData.request(id, value));
+    response.data = yield call(DataApi.createOrMergeEntityData, entitySetId, entityData);
+    yield put(createOrMergeEntityData.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(createOrMergeEntityData.failure(id, response.error));
+  }
+  finally {
+    yield put(createOrMergeEntityData.finally(id));
   }
 
   return response;
@@ -208,6 +303,10 @@ function* updateEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 export {
   clearEntityFromEntitySetWatcher,
   clearEntityFromEntitySetWorker,
+  createEntityAndAssociationDataWatcher,
+  createEntityAndAssociationDataWorker,
+  createOrMergeEntityDataWatcher,
+  createOrMergeEntityDataWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,

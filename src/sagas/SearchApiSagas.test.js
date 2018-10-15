@@ -74,6 +74,44 @@ describe('SearchApiSagas', () => {
       workerSagaToTest: searchEntityNeighborsWorker
     });
 
+    /*
+     * TODO: delete everything below, only for backwards compatibility
+     */
+
+    const mockActionValue2 = {
+      entityId: randomUUID(),
+      entityKeyId: randomUUID(),
+      entitySetId: randomUUID(),
+    };
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: SearchApi.searchEntityNeighbors,
+      latticeApiParams: [mockActionValue2.entitySetId, mockActionValue2.entityKeyId],
+      latticeApiReqSeq: searchEntityNeighbors,
+      workerSagaAction: searchEntityNeighbors(mockActionValue2),
+      workerSagaToTest: searchEntityNeighborsWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.searchEntityNeighbors,
+      latticeApiParams: [mockActionValue2.entitySetId, mockActionValue2.entityKeyId],
+      latticeApiReqSeq: searchEntityNeighbors,
+      workerSagaAction: searchEntityNeighbors(mockActionValue2),
+      workerSagaToTest: searchEntityNeighborsWorker
+    });
+
+    const mockActionValue3 = {
+      entitySetId: randomUUID(),
+    };
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.searchEntityNeighbors,
+      latticeApiParams: [mockActionValue3.entitySetId, undefined],
+      latticeApiReqSeq: searchEntityNeighbors,
+      workerSagaAction: searchEntityNeighbors(mockActionValue3),
+      workerSagaToTest: searchEntityNeighborsWorker
+    });
+
   });
 
   /*

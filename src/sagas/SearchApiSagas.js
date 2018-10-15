@@ -45,11 +45,20 @@ function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *
   }
 
   const response :Object = {};
-  const { entityId, entitySetId } = value;
+  const { entitySetId } = value;
+  let entityKeyId;
+  if (value.entityKeyId) {
+    // for forwards compatibility
+    entityKeyId = value.entityKeyId;
+  }
+  else if (value.entityId) {
+    // for backwards compatibility
+    entityKeyId = value.entityId;
+  }
 
   try {
     yield put(searchEntityNeighbors.request(id, value));
-    response.data = yield call(SearchApi.searchEntityNeighbors, entitySetId, entityId);
+    response.data = yield call(SearchApi.searchEntityNeighbors, entitySetId, entityKeyId);
     yield put(searchEntityNeighbors.success(id, response.data));
   }
   catch (error) {
