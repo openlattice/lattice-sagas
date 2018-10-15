@@ -106,7 +106,7 @@ describe('SearchApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: SearchApi.searchEntityNeighbors,
-      latticeApiParams: [mockActionValue3.entitySetId],
+      latticeApiParams: [mockActionValue3.entitySetId, undefined],
       latticeApiReqSeq: searchEntityNeighbors,
       workerSagaAction: searchEntityNeighbors(mockActionValue3),
       workerSagaToTest: searchEntityNeighborsWorker
