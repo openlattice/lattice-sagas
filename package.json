@@ -24,8 +24,8 @@
   "license": "GPL-3.0",
   "main": "build/lattice-sagas.js",
   "dependencies": {
-    "lattice": "^0.43.0",
-    "redux-reqseq": "^0.1.1",
+    "lattice": "^0.46.0",
+    "redux-reqseq": "^0.2.0",
     "redux-saga": "^0.16.0"
   },
   "devDependencies": {
@@ -49,8 +49,8 @@
     "eslint-loader": "^2.1.0",
     "eslint-plugin-flowtype": "^3.0.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.22.0",
-    "flow-bin": "^0.83.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "flow-bin": "^0.87.0",
     "immutable": "4.0.0-rc.9",
     "jest": "^23.5.0",
     "moment": "^2.22.0",

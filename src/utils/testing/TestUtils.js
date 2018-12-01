@@ -119,7 +119,8 @@ export function testWorkerSagaShouldHandleFailureCase(testInvocationParams) {
     expect(step.value).toEqual(
       put({
         id: workerSagaAction.id,
-        type: latticeApiReqSeq.FINALLY
+        type: latticeApiReqSeq.FINALLY,
+        value: {},
       })
     );
 
@@ -191,7 +192,8 @@ export function testWorkerSagaShouldHandleSuccessCase(testInvocationParams) {
     expect(step.value).toEqual(
       put({
         id: workerSagaAction.id,
-        type: latticeApiReqSeq.FINALLY
+        type: latticeApiReqSeq.FINALLY,
+        value: {},
       })
     );
 

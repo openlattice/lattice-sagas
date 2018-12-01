@@ -13,9 +13,11 @@ import { isValidAction } from '../utils/Utils';
 import {
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
+  SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
+  searchEntityNeighborsWithFilter,
   searchEntitySetData,
 } from './SearchApiActions';
 
@@ -116,6 +118,49 @@ function* searchEntityNeighborsBulkWorker(seqAction :SequenceAction) :Generator<
 }
 
 /*
+ * SearchApi.searchEntityNeighborsWithFilter
+ */
+
+function* searchEntityNeighborsWithFilterWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_NEIGHBORS_FILTER, searchEntityNeighborsWithFilterWorker);
+}
+
+function* searchEntityNeighborsWithFilterWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, SEARCH_ENTITY_NEIGHBORS_FILTER)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, filter } = value;
+
+  try {
+    yield put(searchEntityNeighborsWithFilter.request(id, value));
+    response.data = yield call(SearchApi.searchEntityNeighborsWithFilter, entitySetId, filter);
+    yield put(searchEntityNeighborsWithFilter.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(searchEntityNeighborsWithFilter.failure(id, response.error));
+  }
+  finally {
+    yield put(searchEntityNeighborsWithFilter.finally(id));
+  }
+
+  return response;
+}
+
+/*
  * SearchApi.searchEntitySetData
  */
 
@@ -163,6 +208,8 @@ export {
   searchEntityNeighborsWorker,
   searchEntityNeighborsBulkWatcher,
   searchEntityNeighborsBulkWorker,
+  searchEntityNeighborsWithFilterWatcher,
+  searchEntityNeighborsWithFilterWorker,
   searchEntitySetDataWatcher,
   searchEntitySetDataWorker,
 };
