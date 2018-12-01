@@ -8,9 +8,11 @@ import { SearchApi } from 'lattice';
 import {
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
+  SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
+  searchEntityNeighborsWithFilter,
   searchEntitySetData,
 } from './SearchApiActions';
 
@@ -19,6 +21,8 @@ import {
   searchEntityNeighborsWorker,
   searchEntityNeighborsBulkWatcher,
   searchEntityNeighborsBulkWorker,
+  searchEntityNeighborsWithFilterWatcher,
+  searchEntityNeighborsWithFilterWorker,
   searchEntitySetDataWatcher,
   searchEntitySetDataWorker,
 } from './SearchApiSagas';
@@ -153,6 +157,51 @@ describe('SearchApiSagas', () => {
       latticeApiReqSeq: searchEntityNeighborsBulk,
       workerSagaAction: searchEntityNeighborsBulk(mockActionValue),
       workerSagaToTest: searchEntityNeighborsBulkWorker
+    });
+
+  });
+
+  /*
+   *
+   * SearchApiActions.searchEntityNeighborsWithFilter
+   *
+   */
+
+  describe('searchEntityNeighborsWithFilterWatcher', () => {
+    testShouldBeGeneratorFunction(searchEntityNeighborsWithFilterWatcher);
+    testWatcherSagaShouldTakeEvery(
+      searchEntityNeighborsWithFilterWatcher,
+      searchEntityNeighborsWithFilterWorker,
+      SEARCH_ENTITY_NEIGHBORS_FILTER,
+    );
+  });
+
+  describe('searchEntityNeighborsWithFilterWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      filter: {
+        entityKeyIds: [randomUUID()],
+      },
+    };
+
+    testShouldBeGeneratorFunction(searchEntityNeighborsWithFilterWorker);
+    testShouldFailOnInvalidAction(searchEntityNeighborsWithFilterWorker, SEARCH_ENTITY_NEIGHBORS_FILTER);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: SearchApi.searchEntityNeighborsWithFilter,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter],
+      latticeApiReqSeq: searchEntityNeighborsWithFilter,
+      workerSagaAction: searchEntityNeighborsWithFilter(mockActionValue),
+      workerSagaToTest: searchEntityNeighborsWithFilterWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.searchEntityNeighborsWithFilter,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter],
+      latticeApiReqSeq: searchEntityNeighborsWithFilter,
+      workerSagaAction: searchEntityNeighborsWithFilter(mockActionValue),
+      workerSagaToTest: searchEntityNeighborsWithFilterWorker
     });
 
   });
