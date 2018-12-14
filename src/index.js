@@ -10,6 +10,8 @@ import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
 import * as DataIntegrationApiSagas from './sagas/DataIntegrationApiSagas';
 import * as EntityDataModelApiActions from './sagas/EntityDataModelApiActions';
 import * as EntityDataModelApiSagas from './sagas/EntityDataModelApiSagas';
+import * as OrganizationsApiActions from './sagas/OrganizationsApiActions';
+import * as OrganizationsApiSagas from './sagas/OrganizationsApiSagas';
 import * as SearchApiActions from './sagas/SearchApiActions';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
 
@@ -30,6 +32,8 @@ export {
   EntityDataModelApiActions,
   EntityDataModelApiActions as EntityDataModelApiActionFactory,
   EntityDataModelApiSagas,
+  OrganizationsApiActions,
+  OrganizationsApiSagas,
   SearchApiActions,
   SearchApiActions as SearchApiActionFactory,
   SearchApiSagas,
@@ -45,6 +49,8 @@ export default {
   DataIntegrationApiSagas,
   EntityDataModelApiActions,
   EntityDataModelApiSagas,
+  OrganizationsApiActions,
+  OrganizationsApiSagas,
   SearchApiActions,
   SearchApiSagas,
   version
