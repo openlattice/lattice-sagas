@@ -7,6 +7,7 @@
 import { SearchApi } from 'lattice';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
+import { ARRAY_TAG } from '../utils/Constants';
 import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
 import { isValidAction } from '../utils/Utils';
 
@@ -21,9 +22,11 @@ import {
   searchEntitySetData,
 } from './SearchApiActions';
 
-
 /*
- * SearchApi.searchEntityNeighbors
+ *
+ * SearchApi.searchEntityNeighbors()
+ * SearchApiActions.searchEntityNeighbors()
+ *
  */
 
 function* searchEntityNeighborsWatcher() :Generator<*, void, *> {
@@ -75,7 +78,10 @@ function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *
 }
 
 /*
- * SearchApi.searchEntityNeighborsBulk
+ *
+ * SearchApi.searchEntityNeighborsBulk()
+ * SearchApiActions.searchEntityNeighborsBulk()
+ *
  */
 
 function* searchEntityNeighborsBulkWatcher() :Generator<*, void, *> {
@@ -118,7 +124,10 @@ function* searchEntityNeighborsBulkWorker(seqAction :SequenceAction) :Generator<
 }
 
 /*
- * SearchApi.searchEntityNeighborsWithFilter
+ *
+ * SearchApi.searchEntityNeighborsWithFilter()
+ * SearchApiActions.searchEntityNeighborsWithFilter()
+ *
  */
 
 function* searchEntityNeighborsWithFilterWatcher() :Generator<*, void, *> {
@@ -161,7 +170,11 @@ function* searchEntityNeighborsWithFilterWorker(seqAction :SequenceAction) :Gene
 }
 
 /*
- * SearchApi.searchEntitySetData
+ *
+ * SearchApi.advancedSearchEntitySetData()
+ * SearchApi.searchEntitySetData()
+ * SearchApiActions.searchEntitySetData()
+ *
  */
 
 function* searchEntitySetDataWatcher() :Generator<*, void, *> {
@@ -189,7 +202,13 @@ function* searchEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, 
 
   try {
     yield put(searchEntitySetData.request(id, value));
-    response.data = yield call(SearchApi.searchEntitySetData, entitySetId, searchOptions);
+    const { searchFields } = searchOptions;
+    if (searchFields && Object.prototype.toString.call(searchFields) === ARRAY_TAG) {
+      response.data = yield call(SearchApi.advancedSearchEntitySetData, entitySetId, searchOptions);
+    }
+    else {
+      response.data = yield call(SearchApi.searchEntitySetData, entitySetId, searchOptions);
+    }
     yield put(searchEntitySetData.success(id, response.data));
   }
   catch (error) {
