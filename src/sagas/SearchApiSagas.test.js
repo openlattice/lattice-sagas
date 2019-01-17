@@ -223,28 +223,60 @@ describe('SearchApiSagas', () => {
 
   describe('searchEntitySetDataWorker', () => {
 
-    const mockActionValue = {
-      entitySetId: randomUUID(),
-      searchOptions: randomUUID()
-    };
+    describe('SearchApi.searchEntitySetData()', () => {
 
-    testShouldBeGeneratorFunction(searchEntitySetDataWorker);
-    testShouldFailOnInvalidAction(searchEntitySetDataWorker, SEARCH_ENTITY_SET_DATA);
+      const mockActionValue = {
+        entitySetId: randomUUID(),
+        searchOptions: { searchTerm: randomUUID() },
+      };
 
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: SearchApi.searchEntitySetData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.searchOptions],
-      latticeApiReqSeq: searchEntitySetData,
-      workerSagaAction: searchEntitySetData(mockActionValue),
-      workerSagaToTest: searchEntitySetDataWorker
+      testShouldBeGeneratorFunction(searchEntitySetDataWorker);
+      testShouldFailOnInvalidAction(searchEntitySetDataWorker, SEARCH_ENTITY_SET_DATA);
+
+      testWorkerSagaShouldHandleSuccessCase({
+        latticeApi: SearchApi.searchEntitySetData,
+        latticeApiParams: [mockActionValue.entitySetId, mockActionValue.searchOptions],
+        latticeApiReqSeq: searchEntitySetData,
+        workerSagaAction: searchEntitySetData(mockActionValue),
+        workerSagaToTest: searchEntitySetDataWorker
+      });
+
+      testWorkerSagaShouldHandleFailureCase({
+        latticeApi: SearchApi.searchEntitySetData,
+        latticeApiParams: [mockActionValue.entitySetId, mockActionValue.searchOptions],
+        latticeApiReqSeq: searchEntitySetData,
+        workerSagaAction: searchEntitySetData(mockActionValue),
+        workerSagaToTest: searchEntitySetDataWorker
+      });
+
     });
 
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: SearchApi.searchEntitySetData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.searchOptions],
-      latticeApiReqSeq: searchEntitySetData,
-      workerSagaAction: searchEntitySetData(mockActionValue),
-      workerSagaToTest: searchEntitySetDataWorker
+    describe('SearchApi.advancedSearchEntitySetData()', () => {
+
+      const mockActionValue = {
+        entitySetId: randomUUID(),
+        searchOptions: { searchFields: [{ searchTerm: randomUUID() }] },
+      };
+
+      testShouldBeGeneratorFunction(searchEntitySetDataWorker);
+      testShouldFailOnInvalidAction(searchEntitySetDataWorker, SEARCH_ENTITY_SET_DATA);
+
+      testWorkerSagaShouldHandleSuccessCase({
+        latticeApi: SearchApi.advancedSearchEntitySetData,
+        latticeApiParams: [mockActionValue.entitySetId, mockActionValue.searchOptions],
+        latticeApiReqSeq: searchEntitySetData,
+        workerSagaAction: searchEntitySetData(mockActionValue),
+        workerSagaToTest: searchEntitySetDataWorker
+      });
+
+      testWorkerSagaShouldHandleFailureCase({
+        latticeApi: SearchApi.advancedSearchEntitySetData,
+        latticeApiParams: [mockActionValue.entitySetId, mockActionValue.searchOptions],
+        latticeApiReqSeq: searchEntitySetData,
+        workerSagaAction: searchEntitySetData(mockActionValue),
+        workerSagaToTest: searchEntitySetDataWorker
+      });
+
     });
 
   });

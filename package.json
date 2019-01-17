@@ -24,7 +24,7 @@
   "license": "GPL-3.0",
   "main": "build/lattice-sagas.js",
   "dependencies": {
-    "lattice": "^0.46.0",
+    "lattice": "^0.48.4",
     "redux-reqseq": "^0.2.0",
     "redux-saga": "^0.16.0"
   },
@@ -50,12 +50,12 @@
     "eslint-plugin-flowtype": "^3.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.0.0",
-    "flow-bin": "^0.89.0",
+    "flow-bin": "^0.90.0",
     "immutable": "4.0.0-rc.9",
     "jest": "^23.5.0",
     "moment": "^2.22.0",
     "npm-run-all": "^4.1.0",
-    "rimraf": "2.6.0",
+    "rimraf": "2.6.3",
     "uuid": "^3.3.0",
     "webpack": "^4.18.0",
     "webpack-cli": "^3.1.0",
