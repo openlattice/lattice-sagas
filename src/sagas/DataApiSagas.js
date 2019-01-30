@@ -23,6 +23,8 @@ import {
   getEntityData,
   getEntitySetData,
   updateEntityData,
+  DELETE_ALL_ENTITIES_FROM_ENTITY_SET,
+  deleteAllEntitiesFromEntitySet,
 } from './DataApiActions';
 
 /*
@@ -157,6 +159,52 @@ function* createOrMergeEntityDataWorker(seqAction :SequenceAction) :Generator<*,
   }
   finally {
     yield put(createOrMergeEntityData.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
+ * DataApi.deleteAllEntitiesFromEntitySet
+ * DataApiActions.deleteAllEntitiesFromEntitySet
+ *
+ */
+
+function* deleteAllEntitiesFromEntitySetWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ALL_ENTITIES_FROM_ENTITY_SET, deleteAllEntitiesFromEntitySetWorker);
+}
+
+function* deleteAllEntitiesFromEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, DELETE_ALL_ENTITIES_FROM_ENTITY_SET)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, deleteType } = value;
+
+  try {
+    yield put(deleteAllEntitiesFromEntitySet.request(id, value));
+    response.data = yield call(DataApi.deleteAllEntitiesFromEntitySet, entitySetId, deleteType);
+    yield put(deleteAllEntitiesFromEntitySet.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteAllEntitiesFromEntitySet.failure(id, response.error));
+  }
+  finally {
+    yield put(deleteAllEntitiesFromEntitySet.finally(id));
   }
 
   return response;
@@ -307,6 +355,8 @@ export {
   createEntityAndAssociationDataWorker,
   createOrMergeEntityDataWatcher,
   createOrMergeEntityDataWorker,
+  deleteAllEntitiesFromEntitySetWatcher,
+  deleteAllEntitiesFromEntitySetWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,

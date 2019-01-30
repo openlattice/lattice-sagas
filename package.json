@@ -24,7 +24,7 @@
   "license": "GPL-3.0",
   "main": "build/lattice-sagas.js",
   "dependencies": {
-    "lattice": "^0.48.4",
+    "lattice": "^0.49.0",
     "redux-reqseq": "^0.2.0",
     "redux-saga": "^0.16.0"
   },
