@@ -9,12 +9,14 @@ import {
   CLEAR_ENTITY_FROM_ENTITY_SET,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
+  DELETE_ALL_ENTITIES_FROM_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
   clearEntityFromEntitySet,
   createEntityAndAssociationData,
   createOrMergeEntityData,
+  deleteAllEntitiesFromEntitySet,
   getEntityData,
   getEntitySetData,
   updateEntityData,
@@ -27,6 +29,8 @@ import {
   createEntityAndAssociationDataWorker,
   createOrMergeEntityDataWatcher,
   createOrMergeEntityDataWorker,
+  deleteAllEntitiesFromEntitySetWatcher,
+  deleteAllEntitiesFromEntitySetWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
@@ -170,6 +174,50 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: createOrMergeEntityData,
       workerSagaAction: createOrMergeEntityData(mockActionValue),
       workerSagaToTest: createOrMergeEntityDataWorker
+    });
+
+  });
+
+  /*
+   *
+   * DataApi.deleteAllEntitiesFromEntitySet
+   * DataApiActions.deleteAllEntitiesFromEntitySet
+   *
+   */
+
+  describe('deleteAllEntitiesFromEntitySetWatcher', () => {
+    testShouldBeGeneratorFunction(deleteAllEntitiesFromEntitySetWatcher);
+    testWatcherSagaShouldTakeEvery(
+      deleteAllEntitiesFromEntitySetWatcher,
+      deleteAllEntitiesFromEntitySetWorker,
+      DELETE_ALL_ENTITIES_FROM_ENTITY_SET
+    );
+  });
+
+  describe('deleteAllEntitiesFromEntitySetWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      deleteType: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(deleteAllEntitiesFromEntitySetWorker);
+    testShouldFailOnInvalidAction(deleteAllEntitiesFromEntitySetWorker, DELETE_ALL_ENTITIES_FROM_ENTITY_SET);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.deleteAllEntitiesFromEntitySet,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.deleteType],
+      latticeApiReqSeq: deleteAllEntitiesFromEntitySet,
+      workerSagaAction: deleteAllEntitiesFromEntitySet(mockActionValue),
+      workerSagaToTest: deleteAllEntitiesFromEntitySetWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.deleteAllEntitiesFromEntitySet,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.deleteType],
+      latticeApiReqSeq: deleteAllEntitiesFromEntitySet,
+      workerSagaAction: deleteAllEntitiesFromEntitySet(mockActionValue),
+      workerSagaToTest: deleteAllEntitiesFromEntitySetWorker
     });
 
   });
