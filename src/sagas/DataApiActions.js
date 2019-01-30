@@ -22,6 +22,7 @@ const getEntitySetData :RequestSequence = newRequestSequence(GET_ENTITY_SET_DATA
 const UPDATE_ENTITY_DATA :'UPDATE_ENTITY_DATA' = 'UPDATE_ENTITY_DATA';
 const updateEntityData :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA);
 
+// eslint-disable-next-line max-len
 const DELETE_ALL_ENTITIES_FROM_ENTITY_SET :'DELETE_ALL_ENTITIES_FROM_ENTITY_SET' = 'DELETE_ALL_ENTITIES_FROM_ENTITY_SET';
 const deleteAllEntitiesFromEntitySet :RequestSequence = newRequestSequence(DELETE_ALL_ENTITIES_FROM_ENTITY_SET);
 
