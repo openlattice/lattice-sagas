@@ -4,20 +4,20 @@ import * as DataApiActions from './DataApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Set([
-  'CLEAR_ENTITY_FROM_ENTITY_SET',
   'CREATE_ENTITY_AND_ASSOCIATION_DATA',
   'CREATE_OR_MERGE_ENTITY_DATA',
-  'DELETE_ALL_ENTITIES_FROM_ENTITY_SET',
+  'DELETE_ENTITY',
+  'DELETE_ENTITY_SET',
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
   'UPDATE_ENTITY_DATA',
 ]).sort();
 
 const REQSEQ_NAMES = Set([
-  'clearEntityFromEntitySet',
   'createEntityAndAssociationData',
   'createOrMergeEntityData',
-  'deleteAllEntitiesFromEntitySet',
+  'deleteEntity',
+  'deleteEntitySet',
   'getEntityData',
   'getEntitySetData',
   'updateEntityData',
