@@ -74,7 +74,7 @@ import {
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
-  updateSchema
+  updateSchema,
 } from './EntityDataModelApiActions';
 
 /*
@@ -1454,17 +1454,17 @@ function* updateSchemaWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
   const response :Object = {};
   const {
-    schemaFqn,
+    action,
     entityTypeIds,
     propertyTypeIds,
-    action
+    schemaFQN,
   } = value;
 
   try {
     yield put(updateSchema.request(id, value));
     response.data = yield call(
       EntityDataModelApi.updateSchema,
-      schemaFqn,
+      schemaFQN,
       action,
       entityTypeIds,
       propertyTypeIds
@@ -1552,5 +1552,5 @@ export {
   updatePropertyTypeMetaDataWatcher,
   updatePropertyTypeMetaDataWorker,
   updateSchemaWatcher,
-  updateSchemaWorker
+  updateSchemaWorker,
 };
