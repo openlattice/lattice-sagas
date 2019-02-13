@@ -3,7 +3,7 @@
  */
 
 import randomUUID from 'uuid/v4';
-import { EntityDataModelApi } from 'lattice';
+import { EntityDataModelApi, Models } from 'lattice';
 
 import {
   ADD_DST_ET_TO_AT,
@@ -69,7 +69,7 @@ import {
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
-  updateSchema
+  updateSchema,
 } from './EntityDataModelApiActions';
 
 import {
@@ -136,7 +136,7 @@ import {
   updatePropertyTypeMetaDataWatcher,
   updatePropertyTypeMetaDataWorker,
   updateSchemaWatcher,
-  updateSchemaWorker
+  updateSchemaWorker,
 } from './EntityDataModelApiSagas';
 
 import {
@@ -146,6 +146,8 @@ import {
   testWorkerSagaShouldHandleFailureCase,
   testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
+
+const { FullyQualifiedName } = Models;
 
 describe('EntityDataModelApiSagas', () => {
 
@@ -1459,7 +1461,7 @@ describe('EntityDataModelApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       updateSchemaWatcher,
       updateSchemaWorker,
-      UPDATE_SCHEMA
+      UPDATE_SCHEMA,
     );
   });
 
@@ -1468,13 +1470,13 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(updateSchemaWorker);
     testShouldFailOnInvalidAction(updateSchemaWorker, UPDATE_SCHEMA);
 
-    const mockSchemaFqn = { namespace: 'NAMESPACE', name: 'NAME' };
+    const mockSchemaFQN = new FullyQualifiedName({ namespace: 'NAMESPACE', name: 'NAME' });
     const mockEntityTypeIds = [randomUUID()];
     const mockPropertyTypeIds = [randomUUID()];
     const mockAction = 'AN_ACTION';
 
     const mockActionValue = {
-      schemaFqn: mockSchemaFqn,
+      schemaFQN: mockSchemaFQN,
       action: mockAction,
       entityTypeIds: mockEntityTypeIds,
       propertyTypeIds: mockPropertyTypeIds
@@ -1482,7 +1484,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.updateSchema,
-      latticeApiParams: [mockSchemaFqn, mockAction, mockEntityTypeIds, mockPropertyTypeIds],
+      latticeApiParams: [mockSchemaFQN, mockAction, mockEntityTypeIds, mockPropertyTypeIds],
       latticeApiReqSeq: updateSchema,
       workerSagaAction: updateSchema(mockActionValue),
       workerSagaToTest: updateSchemaWorker
@@ -1490,7 +1492,7 @@ describe('EntityDataModelApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: EntityDataModelApi.updateSchema,
-      latticeApiParams: [mockSchemaFqn, mockAction, mockEntityTypeIds, mockPropertyTypeIds],
+      latticeApiParams: [mockSchemaFQN, mockAction, mockEntityTypeIds, mockPropertyTypeIds],
       latticeApiReqSeq: updateSchema,
       workerSagaAction: updateSchema(mockActionValue),
       workerSagaToTest: updateSchemaWorker
