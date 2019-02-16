@@ -24,7 +24,6 @@
   "license": "GPL-3.0",
   "main": "build/lattice-sagas.js",
   "dependencies": {
-    "@babel/runtime": "~7.3.0",
     "@redux-saga/core": "~1.0.0",
     "lattice": "0.53.1",
     "redux-reqseq": "0.2.1"
@@ -39,6 +38,7 @@
     "@babel/preset-env": "~7.2.0",
     "@babel/preset-flow": "~7.0.0",
     "@babel/register": "~7.0.0",
+    "@babel/runtime": "~7.3.0",
     "babel-eslint": "~10.0.0",
     "babel-jest": "~24.1.0",
     "babel-loader": "~8.0.0",
