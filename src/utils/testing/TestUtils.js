@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from '@redux-saga/core/effects';
 
 import { GENERATOR_FUNCTION_TAG, GENERATOR_TAG } from '../Constants';
 import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../Errors';
