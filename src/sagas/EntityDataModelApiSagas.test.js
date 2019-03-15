@@ -28,10 +28,11 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
-  REORDER_ENTITY_TYPE_PROPERTY_TYPES,
+  GET_PROPERTY_TYPE_ID,
   REMOVE_DST_ET_FROM_AT,
   REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
   REMOVE_SRC_ET_FROM_AT,
+  REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_DATA_MODEL,
   UPDATE_ENTITY_SET_METADATA,
@@ -60,6 +61,7 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  getPropertyTypeId,
   removeDstEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
   removeSrcEntityTypeFromAssociationType,
@@ -101,20 +103,22 @@ import {
   getAllPropertyTypesWorker,
   getAllSchemasWatcher,
   getAllSchemasWorker,
-  getEntityDataModelWatcher,
-  getEntityDataModelWorker,
   getEntityDataModelDiffWatcher,
   getEntityDataModelDiffWorker,
   getEntityDataModelProjectionWatcher,
   getEntityDataModelProjectionWorker,
   getEntityDataModelVersionWatcher,
   getEntityDataModelVersionWorker,
-  getEntitySetWatcher,
-  getEntitySetWorker,
+  getEntityDataModelWatcher,
+  getEntityDataModelWorker,
   getEntitySetIdWatcher,
   getEntitySetIdWorker,
+  getEntitySetWatcher,
+  getEntitySetWorker,
   getEntityTypeWatcher,
   getEntityTypeWorker,
+  getPropertyTypeIdWatcher,
+  getPropertyTypeIdWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
   removeDstEntityTypeFromAssociationTypeWatcher,
@@ -979,6 +983,46 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getPropertyType,
       workerSagaAction: getPropertyType(mockActionValue),
       workerSagaToTest: getPropertyTypeWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApiActions.getPropertyTypeId
+   *
+   */
+
+  describe('getPropertyTypeIdWatcher', () => {
+
+    testShouldBeGeneratorFunction(getPropertyTypeIdWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getPropertyTypeIdWatcher,
+      getPropertyTypeIdWorker,
+      GET_PROPERTY_TYPE_ID,
+    );
+  });
+
+  describe('getPropertyTypeIdWorker', () => {
+
+    testShouldBeGeneratorFunction(getPropertyTypeIdWorker);
+    testShouldFailOnInvalidAction(getPropertyTypeIdWorker, GET_PROPERTY_TYPE_ID);
+
+    const mockActionValue = randomUUID();
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.getPropertyTypeId,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getPropertyTypeId,
+      workerSagaAction: getPropertyTypeId(mockActionValue),
+      workerSagaToTest: getPropertyTypeIdWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.getPropertyTypeId,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getPropertyTypeId,
+      workerSagaAction: getPropertyTypeId(mockActionValue),
+      workerSagaToTest: getPropertyTypeIdWorker,
     });
   });
 

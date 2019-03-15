@@ -33,6 +33,7 @@ import {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  GET_PROPERTY_TYPE_ID,
   REMOVE_DST_ET_FROM_AT,
   REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
   REMOVE_SRC_ET_FROM_AT,
@@ -65,6 +66,7 @@ import {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  getPropertyTypeId,
   removeDstEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
   removeSrcEntityTypeFromAssociationType,
@@ -940,6 +942,49 @@ function* getPropertyTypeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 }
 
 /*
+ * EntityDataModelApi.getPropertyTypeId
+ */
+
+function* getPropertyTypeIdWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_PROPERTY_TYPE_ID, getPropertyTypeIdWorker);
+}
+
+function* getPropertyTypeIdWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_PROPERTY_TYPE_ID)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    // value is expected to be the PropertyType FQN
+    yield put(getPropertyTypeId.request(id, value));
+    response.data = yield call(EntityDataModelApi.getPropertyTypeId, value);
+    yield put(getPropertyTypeId.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getPropertyTypeId.failure(id, response.error));
+  }
+  finally {
+    yield put(getPropertyTypeId.finally(id));
+  }
+
+  return response;
+}
+
+/*
  * EntityDataModelApi.updatePropertyTypeMetaData
  */
 
@@ -1517,20 +1562,22 @@ export {
   getAllPropertyTypesWorker,
   getAllSchemasWatcher,
   getAllSchemasWorker,
-  getEntityDataModelWatcher,
-  getEntityDataModelWorker,
   getEntityDataModelDiffWatcher,
   getEntityDataModelDiffWorker,
   getEntityDataModelProjectionWatcher,
   getEntityDataModelProjectionWorker,
   getEntityDataModelVersionWatcher,
   getEntityDataModelVersionWorker,
-  getEntitySetWatcher,
-  getEntitySetWorker,
+  getEntityDataModelWatcher,
+  getEntityDataModelWorker,
   getEntitySetIdWatcher,
   getEntitySetIdWorker,
+  getEntitySetWatcher,
+  getEntitySetWorker,
   getEntityTypeWatcher,
   getEntityTypeWorker,
+  getPropertyTypeIdWatcher,
+  getPropertyTypeIdWorker,
   getPropertyTypeWatcher,
   getPropertyTypeWorker,
   removeDstEntityTypeFromAssociationTypeWatcher,
