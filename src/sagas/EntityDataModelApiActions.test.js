@@ -26,6 +26,7 @@ const ACTION_TYPES = Immutable.List([
   'GET_ENTITY_SET_ID',
   'GET_ENTITY_TYPE',
   'GET_PROPERTY_TYPE',
+  'GET_PROPERTY_TYPE_ID',
   'REMOVE_DST_ET_FROM_AT',
   'REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE',
   'REMOVE_SRC_ET_FROM_AT',
@@ -35,7 +36,7 @@ const ACTION_TYPES = Immutable.List([
   'UPDATE_ENTITY_SET_METADATA',
   'UPDATE_ENTITY_TYPE_METADATA',
   'UPDATE_PROPERTY_TYPE_METADATA',
-  'UPDATE_SCHEMA'
+  'UPDATE_SCHEMA',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
@@ -61,6 +62,7 @@ const REQSEQ_NAMES = Immutable.List([
   'getEntitySetId',
   'getEntityType',
   'getPropertyType',
+  'getPropertyTypeId',
   'removeDstEntityTypeFromAssociationType',
   'removePropertyTypeFromEntityType',
   'removeSrcEntityTypeFromAssociationType',
@@ -70,7 +72,7 @@ const REQSEQ_NAMES = Immutable.List([
   'updateEntitySetMetaData',
   'updateEntityTypeMetaData',
   'updatePropertyTypeMetaData',
-  'updateSchema'
+  'updateSchema',
 ]).sort();
 
 describe('EntityDataModelApiActions', () => {

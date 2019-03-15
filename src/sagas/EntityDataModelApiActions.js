@@ -89,6 +89,9 @@ const getAllPropertyTypes :RequestSequence = newRequestSequence(GET_ALL_PROPERTY
 const GET_PROPERTY_TYPE :'GET_PROPERTY_TYPE' = 'GET_PROPERTY_TYPE';
 const getPropertyType :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE);
 
+const GET_PROPERTY_TYPE_ID :'GET_PROPERTY_TYPE_ID' = 'GET_PROPERTY_TYPE_ID';
+const getPropertyTypeId :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE_ID);
+
 const UPDATE_PROPERTY_TYPE_METADATA :'UPDATE_PROPERTY_TYPE_METADATA' = 'UPDATE_PROPERTY_TYPE_METADATA';
 const updatePropertyTypeMetaData :RequestSequence = newRequestSequence(UPDATE_PROPERTY_TYPE_METADATA);
 
@@ -166,6 +169,7 @@ export {
   GET_ENTITY_SET_ID,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
+  GET_PROPERTY_TYPE_ID,
   REMOVE_DST_ET_FROM_AT,
   REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE,
   REMOVE_SRC_ET_FROM_AT,
@@ -198,6 +202,7 @@ export {
   getEntitySetId,
   getEntityType,
   getPropertyType,
+  getPropertyTypeId,
   removeDstEntityTypeFromAssociationType,
   removePropertyTypeFromEntityType,
   removeSrcEntityTypeFromAssociationType,
@@ -207,5 +212,5 @@ export {
   updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
-  updateSchema
+  updateSchema,
 };

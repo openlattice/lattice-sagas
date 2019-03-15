@@ -37,7 +37,7 @@ export {
   SearchApiActions,
   SearchApiActions as SearchApiActionFactory,
   SearchApiSagas,
-  version
+  version,
 };
 
 export default {
@@ -53,5 +53,5 @@ export default {
   OrganizationsApiSagas,
   SearchApiActions,
   SearchApiSagas,
-  version
+  version,
 };
