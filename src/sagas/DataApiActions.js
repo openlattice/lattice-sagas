@@ -10,6 +10,9 @@ const createEntityAndAssociationData :RequestSequence = newRequestSequence(CREAT
 const CREATE_OR_MERGE_ENTITY_DATA :'CREATE_OR_MERGE_ENTITY_DATA' = 'CREATE_OR_MERGE_ENTITY_DATA';
 const createOrMergeEntityData :RequestSequence = newRequestSequence(CREATE_OR_MERGE_ENTITY_DATA);
 
+const DELETE_ENTITIES_AND_NEIGHBORS :'DELETE_ENTITIES_AND_NEIGHBORS' = 'DELETE_ENTITIES_AND_NEIGHBORS';
+const deleteEntitiesAndNeighbors :RequestSequence = newRequestSequence(DELETE_ENTITIES_AND_NEIGHBORS);
+
 const DELETE_ENTITY :'DELETE_ENTITY' = 'DELETE_ENTITY';
 const deleteEntity :RequestSequence = newRequestSequence(DELETE_ENTITY);
 
@@ -28,6 +31,7 @@ const updateEntityData :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA)
 export {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
+  DELETE_ENTITIES_AND_NEIGHBORS,
   DELETE_ENTITY,
   DELETE_ENTITY_SET,
   GET_ENTITY_DATA,
@@ -35,6 +39,7 @@ export {
   UPDATE_ENTITY_DATA,
   createEntityAndAssociationData,
   createOrMergeEntityData,
+  deleteEntitiesAndNeighbors,
   deleteEntity,
   deleteEntitySet,
   getEntityData,

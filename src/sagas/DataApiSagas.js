@@ -13,6 +13,7 @@ import { isValidAction } from '../utils/Utils';
 import {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
+  DELETE_ENTITIES_AND_NEIGHBORS,
   DELETE_ENTITY,
   DELETE_ENTITY_SET,
   GET_ENTITY_DATA,
@@ -20,6 +21,7 @@ import {
   UPDATE_ENTITY_DATA,
   createEntityAndAssociationData,
   createOrMergeEntityData,
+  deleteEntitiesAndNeighbors,
   deleteEntity,
   deleteEntitySet,
   getEntityData,
@@ -113,6 +115,52 @@ function* createOrMergeEntityDataWorker(seqAction :SequenceAction) :Generator<*,
   }
   finally {
     yield put(createOrMergeEntityData.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
+ * DataApi.deleteEntitiesAndNeighbors
+ * DataApiActions.deleteEntitiesAndNeighbors
+ *
+ */
+
+function* deleteEntitiesAndNeighborsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ENTITIES_AND_NEIGHBORS, deleteEntitiesAndNeighborsWorker);
+}
+
+function* deleteEntitiesAndNeighborsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, DELETE_ENTITIES_AND_NEIGHBORS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, filter, deleteType } = value;
+
+  try {
+    yield put(deleteEntitiesAndNeighbors.request(id, value));
+    response.data = yield call(DataApi.deleteEntitiesAndNeighbors, entitySetId, filter, deleteType);
+    yield put(deleteEntitiesAndNeighbors.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteEntitiesAndNeighbors.failure(id, response.error));
+  }
+  finally {
+    yield put(deleteEntitiesAndNeighbors.finally(id));
   }
 
   return response;
@@ -353,6 +401,8 @@ export {
   createEntityAndAssociationDataWorker,
   createOrMergeEntityDataWatcher,
   createOrMergeEntityDataWorker,
+  deleteEntitiesAndNeighborsWatcher,
+  deleteEntitiesAndNeighborsWorker,
   deleteEntityWatcher,
   deleteEntityWorker,
   deleteEntitySetWatcher,
