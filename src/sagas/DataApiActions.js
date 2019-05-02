@@ -4,6 +4,9 @@
 
 import { newRequestSequence } from 'redux-reqseq';
 
+const CREATE_ASSOCIATIONS :'CREATE_ASSOCIATIONS' = 'CREATE_ASSOCIATIONS';
+const createAssociations :RequestSequence = newRequestSequence(CREATE_ASSOCIATIONS);
+
 const CREATE_ENTITY_AND_ASSOCIATION_DATA :'CREATE_ENTITY_AND_ASSOCIATION_DATA' = 'CREATE_ENTITY_AND_ASSOCIATION_DATA';
 const createEntityAndAssociationData :RequestSequence = newRequestSequence(CREATE_ENTITY_AND_ASSOCIATION_DATA);
 
@@ -29,6 +32,7 @@ const UPDATE_ENTITY_DATA :'UPDATE_ENTITY_DATA' = 'UPDATE_ENTITY_DATA';
 const updateEntityData :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA);
 
 export {
+  CREATE_ASSOCIATIONS,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
   DELETE_ENTITIES_AND_NEIGHBORS,
@@ -37,6 +41,7 @@ export {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
+  createAssociations,
   createEntityAndAssociationData,
   createOrMergeEntityData,
   deleteEntitiesAndNeighbors,

@@ -4,6 +4,7 @@ import * as DataApiActions from './DataApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Set([
+  'CREATE_ASSOCIATIONS',
   'CREATE_ENTITY_AND_ASSOCIATION_DATA',
   'CREATE_OR_MERGE_ENTITY_DATA',
   'DELETE_ENTITIES_AND_NEIGHBORS',
@@ -15,6 +16,7 @@ const ACTION_TYPES = Set([
 ]).sort();
 
 const REQSEQ_NAMES = Set([
+  'createAssociations',
   'createEntityAndAssociationData',
   'createOrMergeEntityData',
   'deleteEntitiesAndNeighbors',
