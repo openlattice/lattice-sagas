@@ -6,6 +6,7 @@ import randomUUID from 'uuid/v4';
 import { DataApi } from 'lattice';
 
 import {
+  CREATE_ASSOCIATIONS,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
   DELETE_ENTITIES_AND_NEIGHBORS,
@@ -14,6 +15,7 @@ import {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
+  createAssociations,
   createEntityAndAssociationData,
   createOrMergeEntityData,
   deleteEntitiesAndNeighbors,
@@ -25,6 +27,8 @@ import {
 } from './DataApiActions';
 
 import {
+  createAssociationsWatcher,
+  createAssociationsWorker,
   createEntityAndAssociationDataWatcher,
   createEntityAndAssociationDataWorker,
   createOrMergeEntityDataWatcher,
@@ -52,6 +56,61 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('DataApiSagas', () => {
+
+  /*
+   *
+   * DataApi.createAssociations
+   * DataApiActions.createAssociations
+   *
+   */
+
+  describe('createAssociationsWatcher', () => {
+    testShouldBeGeneratorFunction(createAssociationsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createAssociationsWatcher,
+      createAssociationsWorker,
+      CREATE_ASSOCIATIONS
+    );
+  });
+
+  describe('createAssociationsWorker', () => {
+
+    const mockActionValue = {
+      [randomUUID()]: [{
+        data: {
+          [randomUUID()]: ['openlattice']
+        },
+        dst: {
+          entitySetId: randomUUID(),
+          entityKeyId: randomUUID()
+        },
+        src: {
+          entitySetId: randomUUID(),
+          entityKeyId: randomUUID()
+        }
+      }]
+    };
+
+    testShouldBeGeneratorFunction(createAssociationsWorker);
+    testShouldFailOnInvalidAction(createAssociationsWorker, CREATE_ASSOCIATIONS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.createAssociations,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createAssociations,
+      workerSagaAction: createAssociations(mockActionValue),
+      workerSagaToTest: createAssociationsWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.createAssociations,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createAssociations,
+      workerSagaAction: createAssociations(mockActionValue),
+      workerSagaToTest: createAssociationsWorker
+    });
+
+  });
 
   /*
    *

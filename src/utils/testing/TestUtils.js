@@ -42,19 +42,21 @@ export function testWatcherSagaShouldTakeEvery(watcherSagaToTest, expectedWorker
 
 export function testShouldFailOnInvalidAction(workerSagaToTest, baseActionType, isValueRequired = true) {
 
-  INVALID_PARAMS.forEach((invalidParam) => {
-    const iterator = workerSagaToTest(invalidParam);
-    const step = iterator.next();
-    expect(step.value).toEqual({ error: ERR_INVALID_ACTION });
-  });
-
-  if (isValueRequired) {
-    INVALID_PARAMS_NOT_DEFINED.forEach((invalidParam) => {
-      const iterator = workerSagaToTest({ id: 'fakeId', type: baseActionType, value: invalidParam });
+  test('should fail when given an invalid action', () => {
+    INVALID_PARAMS.forEach((invalidParam) => {
+      const iterator = workerSagaToTest(invalidParam);
       const step = iterator.next();
-      expect(step.value).toEqual({ error: ERR_ACTION_VALUE_NOT_DEFINED });
+      expect(step.value).toEqual({ error: ERR_INVALID_ACTION });
     });
-  }
+
+    if (isValueRequired) {
+      INVALID_PARAMS_NOT_DEFINED.forEach((invalidParam) => {
+        const iterator = workerSagaToTest({ id: 'fakeId', type: baseActionType, value: invalidParam });
+        const step = iterator.next();
+        expect(step.value).toEqual({ error: ERR_ACTION_VALUE_NOT_DEFINED });
+      });
+    }
+  });
 }
 
 // TODO: this abstraction might not be a great idea
