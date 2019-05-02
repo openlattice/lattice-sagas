@@ -11,6 +11,7 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
+  CREATE_ASSOCIATIONS,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
   DELETE_ENTITIES_AND_NEIGHBORS,
@@ -19,6 +20,7 @@ import {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   UPDATE_ENTITY_DATA,
+  createAssociations,
   createEntityAndAssociationData,
   createOrMergeEntityData,
   deleteEntitiesAndNeighbors,
@@ -28,6 +30,51 @@ import {
   getEntitySetData,
   updateEntityData,
 } from './DataApiActions';
+
+/*
+ *
+ * DataApi.createAssociations
+ * DataApiActions.createAssociations
+ *
+ */
+
+function* createAssociationsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_ASSOCIATIONS, createAssociationsWorker);
+}
+
+function* createAssociationsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, CREATE_ASSOCIATIONS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(createAssociations.request(id, value));
+    response.data = yield call(DataApi.createAssociations, value);
+    yield put(createAssociations.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(createAssociations.failure(id, response.error));
+  }
+  finally {
+    yield put(createAssociations.finally(id));
+  }
+
+  return response;
+}
 
 /*
  *
@@ -397,6 +444,8 @@ function* updateEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 }
 
 export {
+  createAssociationsWatcher,
+  createAssociationsWorker,
   createEntityAndAssociationDataWatcher,
   createEntityAndAssociationDataWorker,
   createOrMergeEntityDataWatcher,
