@@ -26,7 +26,7 @@
   "dependencies": {
     "@redux-saga/core": "~1.0.0",
     "lattice": "0.58.1",
-    "redux-reqseq": "0.2.1"
+    "redux-reqseq": "0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "~7.2.0",
