@@ -6,6 +6,7 @@
 
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { SearchApi } from 'lattice';
+import type { SequenceAction } from 'redux-reqseq';
 
 import { ARRAY_TAG } from '../utils/Constants';
 import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';

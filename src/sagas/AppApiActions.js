@@ -3,6 +3,7 @@
  */
 
 import { newRequestSequence } from 'redux-reqseq';
+import type { RequestSequence } from 'redux-reqseq';
 
 const GET_APP :'GET_APP' = 'GET_APP';
 const getApp :RequestSequence = newRequestSequence(GET_APP);
@@ -19,5 +20,5 @@ export {
   GET_APP_TYPES,
   getApp,
   getAppConfigs,
-  getAppTypes
+  getAppTypes,
 };

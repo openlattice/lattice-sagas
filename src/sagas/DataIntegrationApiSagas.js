@@ -6,6 +6,7 @@
 
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { DataIntegrationApi } from 'lattice';
+import type { SequenceAction } from 'redux-reqseq';
 
 import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
 import { isValidAction } from '../utils/Utils';
