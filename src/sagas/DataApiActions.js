@@ -3,6 +3,7 @@
  */
 
 import { newRequestSequence } from 'redux-reqseq';
+import type { RequestSequence } from 'redux-reqseq';
 
 const CREATE_ASSOCIATIONS :'CREATE_ASSOCIATIONS' = 'CREATE_ASSOCIATIONS';
 const createAssociations :RequestSequence = newRequestSequence(CREATE_ASSOCIATIONS);
