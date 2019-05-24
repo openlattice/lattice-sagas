@@ -26,6 +26,7 @@ import {
   GET_ENTITY_DATA_MODEL_VERSION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
+  GET_ENTITY_SET_IDS,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   GET_PROPERTY_TYPE_ID,
@@ -59,6 +60,7 @@ import {
   getEntityDataModelVersion,
   getEntitySet,
   getEntitySetId,
+  getEntitySetIds,
   getEntityType,
   getPropertyType,
   getPropertyTypeId,
@@ -113,6 +115,8 @@ import {
   getEntityDataModelWorker,
   getEntitySetIdWatcher,
   getEntitySetIdWorker,
+  getEntitySetIdsWatcher,
+  getEntitySetIdsWorker,
   getEntitySetWatcher,
   getEntitySetWorker,
   getEntityTypeWatcher,
@@ -440,6 +444,47 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: getEntitySetId,
       workerSagaAction: getEntitySetId(mockActionValue),
       workerSagaToTest: getEntitySetIdWorker
+    });
+  });
+
+  /*
+   *
+   * EntityDataModelApi.getEntitySetIds
+   * EntityDataModelApiActions.getEntitySetIds
+   *
+   */
+
+  describe('getEntitySetIdsWatcher', () => {
+
+    testShouldBeGeneratorFunction(getEntitySetIdsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntitySetIdsWatcher,
+      getEntitySetIdsWorker,
+      GET_ENTITY_SET_IDS
+    );
+  });
+
+  describe('getEntitySetIdsWorker', () => {
+
+    testShouldBeGeneratorFunction(getEntitySetIdsWorker);
+    testShouldFailOnInvalidAction(getEntitySetIdsWorker, GET_ENTITY_SET_IDS);
+
+    const mockActionValue = randomUUID();
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntityDataModelApi.getEntitySetIds,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntitySetIds,
+      workerSagaAction: getEntitySetIds(mockActionValue),
+      workerSagaToTest: getEntitySetIdsWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntityDataModelApi.getEntitySetIds,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntitySetIds,
+      workerSagaAction: getEntitySetIds(mockActionValue),
+      workerSagaToTest: getEntitySetIdsWorker
     });
   });
 

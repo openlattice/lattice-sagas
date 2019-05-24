@@ -32,6 +32,7 @@ import {
   GET_ENTITY_DATA_MODEL_VERSION,
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
+  GET_ENTITY_SET_IDS,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   GET_PROPERTY_TYPE_ID,
@@ -65,6 +66,7 @@ import {
   getEntityDataModelVersion,
   getEntitySet,
   getEntitySetId,
+  getEntitySetIds,
   getEntityType,
   getPropertyType,
   getPropertyTypeId,
@@ -375,6 +377,51 @@ function* getEntitySetIdWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   }
   finally {
     yield put(getEntitySetId.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
+ * EntityDataModelApi.getEntitySetIds
+ * EntityDataModelApiActions.getEntitySetIds
+ *
+ */
+
+function* getEntitySetIdsWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_ENTITY_SET_IDS, getEntitySetIdsWorker);
+}
+
+function* getEntitySetIdsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ENTITY_SET_IDS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(getEntitySetIds.request(id, value));
+    response.data = yield call(EntityDataModelApi.getEntitySetIds, value);
+    yield put(getEntitySetIds.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntitySetIds.failure(id, response.error));
+  }
+  finally {
+    yield put(getEntitySetIds.finally(id));
   }
 
   return response;
@@ -1573,6 +1620,8 @@ export {
   getEntityDataModelWorker,
   getEntitySetIdWatcher,
   getEntitySetIdWorker,
+  getEntitySetIdsWatcher,
+  getEntitySetIdsWorker,
   getEntitySetWatcher,
   getEntitySetWorker,
   getEntityTypeWatcher,
