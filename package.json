@@ -22,11 +22,11 @@
     "url": "https://github.com/openlattice/lattice-sagas/issues"
   },
   "license": "Apache-2.0",
-  "main": "build/lattice-sagas.js",
+  "main": "build/index.js",
   "dependencies": {
     "@redux-saga/core": "~1.0.0",
     "lattice": "0.60.0",
-    "redux-reqseq": "0.4.0"
+    "redux-reqseq": "0.5.0"
   },
   "devDependencies": {
     "@babel/cli": "~7.2.0",
@@ -50,7 +50,7 @@
     "eslint-plugin-import": "~2.17.0",
     "eslint-plugin-jest": "~22.6.0",
     "flow-bin": "~0.99.0",
-    "immutable": "4.0.0-rc.9",
+    "immutable": "4.0.0-rc.12",
     "jest": "~24.1.0",
     "npm-run-all": "~4.1.0",
     "rimraf": "~2.6.0",
@@ -67,7 +67,7 @@
   "scripts": {
     "build:dev": "webpack --config config/webpack/webpack.config.js --env.development",
     "build:prod": "webpack --config config/webpack/webpack.config.js --env.production",
-    "clean": "rimraf build/*",
+    "clean": "rimraf build/*.js",
     "flow": "flow check",
     "lib": "webpack-dev-server --config config/webpack/webpack.config.js --env.development --port 9000 --content-base build/",
     "lint": "eslint --config .eslintrc src",
