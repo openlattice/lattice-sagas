@@ -53,7 +53,7 @@ function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *
   const response :Object = {};
   const { entitySetId } = value;
   let { entityKeyId } = value;
-  if (value.entityId) {
+  if (!entityKeyId && value.entityId) {
     // for backwards compatibility
     entityKeyId = value.entityId;
   }
