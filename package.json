@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/openlattice/lattice-sagas/issues"
   },
-  "license": "GPL-3.0",
+  "license": "Apache-2.0",
   "main": "build/lattice-sagas.js",
   "dependencies": {
     "@redux-saga/core": "~1.0.0",
