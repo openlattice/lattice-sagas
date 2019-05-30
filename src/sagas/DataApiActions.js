@@ -29,6 +29,9 @@ const getEntityData :RequestSequence = newRequestSequence(GET_ENTITY_DATA);
 const GET_ENTITY_SET_DATA :'GET_ENTITY_SET_DATA' = 'GET_ENTITY_SET_DATA';
 const getEntitySetData :RequestSequence = newRequestSequence(GET_ENTITY_SET_DATA);
 
+const GET_ENTITY_SET_SIZE :'GET_ENTITY_SET_SIZE' = 'GET_ENTITY_SET_SIZE';
+const getEntitySetSize :RequestSequence = newRequestSequence(GET_ENTITY_SET_SIZE);
+
 const UPDATE_ENTITY_DATA :'UPDATE_ENTITY_DATA' = 'UPDATE_ENTITY_DATA';
 const updateEntityData :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA);
 
@@ -41,6 +44,7 @@ export {
   DELETE_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
+  GET_ENTITY_SET_SIZE,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -50,5 +54,6 @@ export {
   deleteEntitySet,
   getEntityData,
   getEntitySetData,
+  getEntitySetSize,
   updateEntityData,
 };
