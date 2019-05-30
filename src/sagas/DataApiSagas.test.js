@@ -14,6 +14,7 @@ import {
   DELETE_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
+  GET_ENTITY_SET_SIZE,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -23,6 +24,7 @@ import {
   deleteEntitySet,
   getEntityData,
   getEntitySetData,
+  getEntitySetSize,
   updateEntityData,
 } from './DataApiActions';
 
@@ -43,6 +45,8 @@ import {
   getEntityDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker,
+  getEntitySetSizeWatcher,
+  getEntitySetSizeWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 } from './DataApiSagas';
@@ -418,6 +422,49 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: getEntitySetData,
       workerSagaAction: getEntitySetData(mockActionValue),
       workerSagaToTest: getEntitySetDataWorker
+    });
+
+  });
+
+  /*
+   *
+   * DataApi.getEntitySetData
+   * DataApiActions.getEntitySetData
+   *
+   */
+
+  describe('getEntitySetSizeWatcher', () => {
+    testShouldBeGeneratorFunction(getEntitySetSizeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntitySetSizeWatcher,
+      getEntitySetSizeWorker,
+      GET_ENTITY_SET_SIZE
+    );
+  });
+
+  describe('getEntitySetSizeWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID()
+    };
+
+    testShouldBeGeneratorFunction(getEntitySetSizeWorker);
+    testShouldFailOnInvalidAction(getEntitySetSizeWorker, GET_ENTITY_SET_SIZE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.getEntitySetSize,
+      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiReqSeq: getEntitySetSize,
+      workerSagaAction: getEntitySetSize(mockActionValue),
+      workerSagaToTest: getEntitySetSizeWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.getEntitySetSize,
+      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiReqSeq: getEntitySetSize,
+      workerSagaAction: getEntitySetSize(mockActionValue),
+      workerSagaToTest: getEntitySetSizeWorker
     });
 
   });
