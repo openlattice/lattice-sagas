@@ -20,6 +20,7 @@ import {
   DELETE_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
+  GET_ENTITY_SET_SIZE,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -29,6 +30,7 @@ import {
   deleteEntitySet,
   getEntityData,
   getEntitySetData,
+  getEntitySetSize,
   updateEntityData,
 } from './DataApiActions';
 
@@ -400,6 +402,52 @@ function* getEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 
 /*
  *
+ * DataApi.getEntitySetSize
+ * DataApiActions.getEntitySetSize
+ *
+ */
+
+function* getEntitySetSizeWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ENTITY_SET_SIZE, getEntitySetSizeWorker);
+}
+
+function* getEntitySetSizeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ENTITY_SET_SIZE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId } = value;
+
+  try {
+    yield put(getEntitySetSize.request(id, value));
+    response.data = yield call(DataApi.getEntitySetSize, entitySetId);
+    yield put(getEntitySetSize.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getEntitySetSize.failure(id, response.error));
+  }
+  finally {
+    yield put(getEntitySetSize.finally(id));
+  }
+
+  return response;
+}
+
+/*
+ *
  * DataApi.updateEntityData
  * DataApiActions.updateEntityData
  *
@@ -461,6 +509,8 @@ export {
   getEntityDataWorker,
   getEntitySetDataWatcher,
   getEntitySetDataWorker,
+  getEntitySetSizeWatcher,
+  getEntitySetSizeWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 };

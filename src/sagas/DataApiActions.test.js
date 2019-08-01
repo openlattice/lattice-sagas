@@ -12,6 +12,7 @@ const ACTION_TYPES = Set([
   'DELETE_ENTITY_SET',
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
+  'GET_ENTITY_SET_SIZE',
   'UPDATE_ENTITY_DATA',
 ]).sort();
 
@@ -24,6 +25,7 @@ const REQSEQ_NAMES = Set([
   'deleteEntitySet',
   'getEntityData',
   'getEntitySetData',
+  'getEntitySetSize',
   'updateEntityData',
 ]).sort();
 
