@@ -7,10 +7,14 @@ import { OrganizationsApi } from 'lattice';
 
 import {
   ADD_AUTO_APPROVED_DOMAIN,
+  CREATE_ROLE,
+  DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   REMOVE_AUTO_APPROVED_DOMAIN,
   addAutoApprovedDomain,
+  createRole,
+  deleteRole,
   getAllOrganizations,
   getOrganization,
   removeAutoApprovedDomain,
@@ -19,6 +23,10 @@ import {
 import {
   addAutoApprovedDomainWatcher,
   addAutoApprovedDomainWorker,
+  createRoleWatcher,
+  createRoleWorker,
+  deleteRoleWatcher,
+  deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
   getOrganizationWatcher,
@@ -77,6 +85,93 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: addAutoApprovedDomain,
       workerSagaAction: addAutoApprovedDomain(mockActionValue),
       workerSagaToTest: addAutoApprovedDomainWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.createRole
+   * OrganizationsApiActions.createRole
+   *
+   */
+
+  describe('createRoleWatcher', () => {
+    testShouldBeGeneratorFunction(createRoleWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createRoleWatcher,
+      createRoleWorker,
+      CREATE_ROLE,
+    );
+  });
+
+  describe('createRoleWorker', () => {
+
+    const mockActionValue = {
+      id: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(createRoleWorker);
+    testShouldFailOnInvalidAction(createRoleWorker, CREATE_ROLE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.createRole,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createRole,
+      workerSagaAction: createRole(mockActionValue),
+      workerSagaToTest: createRoleWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.createRole,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createRole,
+      workerSagaAction: createRole(mockActionValue),
+      workerSagaToTest: createRoleWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.deleteRole
+   * OrganizationsApiActions.deleteRole
+   *
+   */
+
+  describe('deleteRoleWatcher', () => {
+    testShouldBeGeneratorFunction(deleteRoleWatcher);
+    testWatcherSagaShouldTakeEvery(
+      deleteRoleWatcher,
+      deleteRoleWorker,
+      DELETE_ROLE,
+    );
+  });
+
+  describe('deleteRoleWorker', () => {
+
+    const mockActionValue = {
+      organizationId: randomUUID(),
+      roleId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(deleteRoleWorker);
+    testShouldFailOnInvalidAction(deleteRoleWorker, DELETE_ROLE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.deleteRole,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId],
+      latticeApiReqSeq: deleteRole,
+      workerSagaAction: deleteRole(mockActionValue),
+      workerSagaToTest: deleteRoleWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.deleteRole,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId],
+      latticeApiReqSeq: deleteRole,
+      workerSagaAction: deleteRole(mockActionValue),
+      workerSagaToTest: deleteRoleWorker,
     });
 
   });

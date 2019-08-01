@@ -11,10 +11,14 @@ import { isValidAction } from '../utils/Utils';
 
 import {
   ADD_AUTO_APPROVED_DOMAIN,
+  CREATE_ROLE,
+  DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   REMOVE_AUTO_APPROVED_DOMAIN,
   addAutoApprovedDomain,
+  createRole,
+  deleteRole,
   getAllOrganizations,
   getOrganization,
   removeAutoApprovedDomain,
@@ -65,6 +69,99 @@ function* addAutoApprovedDomainWorker(seqAction :SequenceAction) :Generator<*, *
 function* addAutoApprovedDomainWatcher() :Generator<*, *, *> {
 
   yield takeEvery(ADD_AUTO_APPROVED_DOMAIN, addAutoApprovedDomainWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.createRole
+ * OrganizationsApiActions.createRole
+ *
+ */
+
+function* createRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, CREATE_ROLE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(createRole.request(id, value));
+    response.data = yield call(OrganizationsApi.createRole, value);
+    yield put(createRole.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(createRole.failure(id, response.error));
+  }
+  finally {
+    yield put(createRole.finally(id));
+  }
+
+  return response;
+}
+
+function* createRoleWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_ROLE, createRoleWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.deleteRole
+ * OrganizationsApiActions.deleteRole
+ *
+ */
+
+function* deleteRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, DELETE_ROLE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { organizationId, roleId } = value;
+
+  try {
+    yield put(deleteRole.request(id, value));
+    response.data = yield call(OrganizationsApi.deleteRole, organizationId, roleId);
+    yield put(deleteRole.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteRole.failure(id, response.error));
+  }
+  finally {
+    yield put(deleteRole.finally(id));
+  }
+
+  return response;
+}
+
+function* deleteRoleWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ROLE, deleteRoleWorker);
 }
 
 /*
@@ -200,6 +297,10 @@ function* removeAutoApprovedDomainWatcher() :Generator<*, *, *> {
 export {
   addAutoApprovedDomainWatcher,
   addAutoApprovedDomainWorker,
+  createRoleWatcher,
+  createRoleWorker,
+  deleteRoleWatcher,
+  deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
   getOrganizationWatcher,
