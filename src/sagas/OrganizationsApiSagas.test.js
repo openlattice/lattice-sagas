@@ -168,7 +168,7 @@ describe('OrganizationsApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: OrganizationsApi.deleteRole,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId],
       latticeApiReqSeq: deleteRole,
       workerSagaAction: deleteRole(mockActionValue),
       workerSagaToTest: deleteRoleWorker,
