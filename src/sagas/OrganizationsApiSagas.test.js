@@ -6,17 +6,25 @@ import randomUUID from 'uuid/v4';
 import { OrganizationsApi } from 'lattice';
 
 import {
+  ADD_AUTO_APPROVED_DOMAIN,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  REMOVE_AUTO_APPROVED_DOMAIN,
+  addAutoApprovedDomain,
   getAllOrganizations,
   getOrganization,
+  removeAutoApprovedDomain,
 } from './OrganizationsApiActions';
 
 import {
+  addAutoApprovedDomainWatcher,
+  addAutoApprovedDomainWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  removeAutoApprovedDomainWatcher,
+  removeAutoApprovedDomainWorker,
 } from './OrganizationsApiSagas';
 
 import {
@@ -31,6 +39,50 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
+   * OrganizationsApi.addAutoApprovedEmailDomain
+   * OrganizationsApiActions.addAutoApprovedDomain
+   *
+   */
+
+  describe('addAutoApprovedDomainWatcher', () => {
+    testShouldBeGeneratorFunction(addAutoApprovedDomainWatcher);
+    testWatcherSagaShouldTakeEvery(
+      addAutoApprovedDomainWatcher,
+      addAutoApprovedDomainWorker,
+      ADD_AUTO_APPROVED_DOMAIN,
+    );
+  });
+
+  describe.only('addAutoApprovedDomainWorker', () => {
+
+    const mockActionValue = {
+      domain: randomUUID(),
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(addAutoApprovedDomainWorker);
+    testShouldFailOnInvalidAction(addAutoApprovedDomainWorker, ADD_AUTO_APPROVED_DOMAIN, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.addAutoApprovedEmailDomain,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
+      latticeApiReqSeq: addAutoApprovedDomain,
+      workerSagaAction: addAutoApprovedDomain(mockActionValue),
+      workerSagaToTest: addAutoApprovedDomainWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.addAutoApprovedEmailDomain,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
+      latticeApiReqSeq: addAutoApprovedDomain,
+      workerSagaAction: addAutoApprovedDomain(mockActionValue),
+      workerSagaToTest: addAutoApprovedDomainWorker,
+    });
+
+  });
+
+  /*
+   *
    * OrganizationsApi.getAllOrganizations
    * OrganizationsApiActions.getAllOrganizations
    *
@@ -41,7 +93,7 @@ describe('OrganizationsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getAllOrganizationsWatcher,
       getAllOrganizationsWorker,
-      GET_ALL_ORGANIZATIONS
+      GET_ALL_ORGANIZATIONS,
     );
   });
 
@@ -55,7 +107,7 @@ describe('OrganizationsApiSagas', () => {
       latticeApiParams: [],
       latticeApiReqSeq: getAllOrganizations,
       workerSagaAction: getAllOrganizations(),
-      workerSagaToTest: getAllOrganizationsWorker
+      workerSagaToTest: getAllOrganizationsWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -63,7 +115,7 @@ describe('OrganizationsApiSagas', () => {
       latticeApiParams: [],
       latticeApiReqSeq: getAllOrganizations,
       workerSagaAction: getAllOrganizations(),
-      workerSagaToTest: getAllOrganizationsWorker
+      workerSagaToTest: getAllOrganizationsWorker,
     });
 
   });
@@ -80,7 +132,7 @@ describe('OrganizationsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getOrganizationWatcher,
       getOrganizationWorker,
-      GET_ORGANIZATION
+      GET_ORGANIZATION,
     );
   });
 
@@ -96,7 +148,7 @@ describe('OrganizationsApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getOrganization,
       workerSagaAction: getOrganization(mockActionValue),
-      workerSagaToTest: getOrganizationWorker
+      workerSagaToTest: getOrganizationWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -104,7 +156,51 @@ describe('OrganizationsApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getOrganization,
       workerSagaAction: getOrganization(mockActionValue),
-      workerSagaToTest: getOrganizationWorker
+      workerSagaToTest: getOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.removeAutoApprovedEmailDomain
+   * OrganizationsApiActions.removeAutoApprovedDomain
+   *
+   */
+
+  describe('removeAutoApprovedDomainWatcher', () => {
+    testShouldBeGeneratorFunction(removeAutoApprovedDomainWatcher);
+    testWatcherSagaShouldTakeEvery(
+      removeAutoApprovedDomainWatcher,
+      removeAutoApprovedDomainWorker,
+      REMOVE_AUTO_APPROVED_DOMAIN,
+    );
+  });
+
+  describe('removeAutoApprovedDomainWorker', () => {
+
+    const mockActionValue = {
+      domain: randomUUID(),
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(removeAutoApprovedDomainWorker);
+    testShouldFailOnInvalidAction(removeAutoApprovedDomainWorker, REMOVE_AUTO_APPROVED_DOMAIN, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.removeAutoApprovedEmailDomain,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
+      latticeApiReqSeq: removeAutoApprovedDomain,
+      workerSagaAction: removeAutoApprovedDomain(mockActionValue),
+      workerSagaToTest: removeAutoApprovedDomainWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.removeAutoApprovedEmailDomain,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
+      latticeApiReqSeq: removeAutoApprovedDomain,
+      workerSagaAction: removeAutoApprovedDomain(mockActionValue),
+      workerSagaToTest: removeAutoApprovedDomainWorker,
     });
 
   });
