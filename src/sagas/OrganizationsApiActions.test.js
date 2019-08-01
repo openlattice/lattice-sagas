@@ -6,6 +6,7 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 const ACTION_TYPES = Immutable.List([
   'ADD_AUTO_APPROVED_DOMAIN',
   'CREATE_ROLE',
+  'DELETE_ROLE',
   'GET_ALL_ORGANIZATIONS',
   'GET_ORGANIZATION',
   'REMOVE_AUTO_APPROVED_DOMAIN',
@@ -14,6 +15,7 @@ const ACTION_TYPES = Immutable.List([
 const REQSEQ_NAMES = Immutable.List([
   'addAutoApprovedDomain',
   'createRole',
+  'deleteRole',
   'getAllOrganizations',
   'getOrganization',
   'removeAutoApprovedDomain',

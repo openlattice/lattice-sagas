@@ -119,6 +119,53 @@ function* createRoleWatcher() :Generator<*, *, *> {
 
 /*
  *
+ * OrganizationsApi.deleteRole
+ * OrganizationsApiActions.deleteRole
+ *
+ */
+
+function* deleteRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, DELETE_ROLE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { organizationId, roleId } = value;
+
+  try {
+    yield put(deleteRole.request(id, value));
+    response.data = yield call(OrganizationsApi.deleteRole, organizationId, roleId);
+    yield put(deleteRole.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteRole.failure(id, response.error));
+  }
+  finally {
+    yield put(deleteRole.finally(id));
+  }
+
+  return response;
+}
+
+function* deleteRoleWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ROLE, deleteRoleWorker);
+}
+
+/*
+ *
  * OrganizationsApi.getAllOrganizations
  * OrganizationsApiActions.getAllOrganizations
  *
@@ -252,6 +299,8 @@ export {
   addAutoApprovedDomainWorker,
   createRoleWatcher,
   createRoleWorker,
+  deleteRoleWatcher,
+  deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
   getOrganizationWatcher,
