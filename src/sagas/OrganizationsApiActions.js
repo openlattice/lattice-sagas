@@ -8,6 +8,12 @@ import type { RequestSequence } from 'redux-reqseq';
 const ADD_AUTO_APPROVED_DOMAIN :'ADD_AUTO_APPROVED_DOMAIN' = 'ADD_AUTO_APPROVED_DOMAIN';
 const addAutoApprovedDomain :RequestSequence = newRequestSequence(ADD_AUTO_APPROVED_DOMAIN);
 
+const CREATE_ROLE :'CREATE_ROLE' = 'CREATE_ROLE';
+const createRole :RequestSequence = newRequestSequence(CREATE_ROLE);
+
+const DELETE_ROLE :'DELETE_ROLE' = 'DELETE_ROLE';
+const deleteRole :RequestSequence = newRequestSequence(DELETE_ROLE);
+
 const GET_ALL_ORGANIZATIONS :'GET_ALL_ORGANIZATIONS' = 'GET_ALL_ORGANIZATIONS';
 const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZATIONS);
 
@@ -19,10 +25,14 @@ const removeAutoApprovedDomain :RequestSequence = newRequestSequence(REMOVE_AUTO
 
 export {
   ADD_AUTO_APPROVED_DOMAIN,
+  CREATE_ROLE,
+  DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   REMOVE_AUTO_APPROVED_DOMAIN,
   addAutoApprovedDomain,
+  createRole,
+  deleteRole,
   getAllOrganizations,
   getOrganization,
   removeAutoApprovedDomain,
