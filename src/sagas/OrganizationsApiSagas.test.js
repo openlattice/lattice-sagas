@@ -53,7 +53,7 @@ describe('OrganizationsApiSagas', () => {
     );
   });
 
-  describe.only('addAutoApprovedDomainWorker', () => {
+  describe('addAutoApprovedDomainWorker', () => {
 
     const mockActionValue = {
       domain: randomUUID(),
