@@ -61,7 +61,7 @@ describe('OrganizationsApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(addAutoApprovedDomainWorker);
-    testShouldFailOnInvalidAction(addAutoApprovedDomainWorker, ADD_AUTO_APPROVED_DOMAIN, false);
+    testShouldFailOnInvalidAction(addAutoApprovedDomainWorker, ADD_AUTO_APPROVED_DOMAIN);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.addAutoApprovedEmailDomain,
@@ -185,7 +185,7 @@ describe('OrganizationsApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(removeAutoApprovedDomainWorker);
-    testShouldFailOnInvalidAction(removeAutoApprovedDomainWorker, REMOVE_AUTO_APPROVED_DOMAIN, false);
+    testShouldFailOnInvalidAction(removeAutoApprovedDomainWorker, REMOVE_AUTO_APPROVED_DOMAIN);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.removeAutoApprovedEmailDomain,
