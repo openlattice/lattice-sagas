@@ -16,6 +16,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_MEMBERS,
   REMOVE_AUTO_APPROVED_DOMAIN,
   REMOVE_MEMBER_FROM_ORGANIZATION,
   addAutoApprovedDomain,
@@ -24,6 +25,7 @@ import {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationMembers,
   removeAutoApprovedDomain,
   removeMemberFromOrganization,
 } from './OrganizationsApiActions';
@@ -301,6 +303,51 @@ function* getOrganizationWatcher() :Generator<*, *, *> {
 
 /*
  *
+ * OrganizationsApi.getAllMembers
+ * OrganizationsApiActions.getOrganizationMembers
+ *
+ */
+
+function* getOrganizationMembersWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ORGANIZATION_MEMBERS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(getOrganizationMembers.request(id, value));
+    response.data = yield call(OrganizationsApi.getAllMembers, value);
+    yield put(getOrganizationMembers.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getOrganizationMembers.failure(id, response.error));
+  }
+  finally {
+    yield put(getOrganizationMembers.finally(id));
+  }
+
+  return response;
+}
+
+function* getOrganizationMembersWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ORGANIZATION_MEMBERS, getOrganizationMembersWorker);
+}
+
+/*
+ *
  * OrganizationsApi.removeAutoApprovedEmailDomain
  * OrganizationsApiActions.removeAutoApprovedDomain
  *
@@ -405,6 +452,8 @@ export {
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getOrganizationMembersWatcher,
+  getOrganizationMembersWorker,
   removeAutoApprovedDomainWatcher,
   removeAutoApprovedDomainWorker,
   removeMemberFromOrganizationWatcher,
