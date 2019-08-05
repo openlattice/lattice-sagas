@@ -23,6 +23,9 @@ const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZA
 const GET_ORGANIZATION :'GET_ORGANIZATION' = 'GET_ORGANIZATION';
 const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 
+const GET_ORGANIZATION_MEMBERS :'GET_ORGANIZATION_MEMBERS' = 'GET_ORGANIZATION_MEMBERS';
+const getOrganizationMembers :RequestSequence = newRequestSequence(GET_ORGANIZATION_MEMBERS);
+
 const REMOVE_AUTO_APPROVED_DOMAIN :'REMOVE_AUTO_APPROVED_DOMAIN' = 'REMOVE_AUTO_APPROVED_DOMAIN';
 const removeAutoApprovedDomain :RequestSequence = newRequestSequence(REMOVE_AUTO_APPROVED_DOMAIN);
 
@@ -36,6 +39,7 @@ export {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_MEMBERS,
   REMOVE_AUTO_APPROVED_DOMAIN,
   REMOVE_MEMBER_FROM_ORGANIZATION,
   addAutoApprovedDomain,
@@ -44,6 +48,7 @@ export {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationMembers,
   removeAutoApprovedDomain,
   removeMemberFromOrganization,
 };

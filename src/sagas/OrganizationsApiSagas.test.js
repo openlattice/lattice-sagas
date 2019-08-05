@@ -12,6 +12,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_MEMBERS,
   REMOVE_AUTO_APPROVED_DOMAIN,
   REMOVE_MEMBER_FROM_ORGANIZATION,
   addAutoApprovedDomain,
@@ -20,6 +21,7 @@ import {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationMembers,
   removeAutoApprovedDomain,
   removeMemberFromOrganization,
 } from './OrganizationsApiActions';
@@ -37,6 +39,8 @@ import {
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getOrganizationMembersWatcher,
+  getOrganizationMembersWorker,
   removeAutoApprovedDomainWatcher,
   removeAutoApprovedDomainWorker,
   removeMemberFromOrganizationWatcher,
@@ -304,6 +308,47 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: getOrganization,
       workerSagaAction: getOrganization(mockActionValue),
       workerSagaToTest: getOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.getAllMembers
+   * OrganizationsApiActions.getOrganizationMembers
+   *
+   */
+
+  describe('getOrganizationMembersWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationMembersWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationMembersWatcher,
+      getOrganizationMembersWorker,
+      GET_ORGANIZATION_MEMBERS,
+    );
+  });
+
+  describe('getOrganizationMembersWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(getOrganizationMembersWorker);
+    testShouldFailOnInvalidAction(getOrganizationMembersWorker, GET_ORGANIZATION_MEMBERS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.getAllMembers,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationMembers,
+      workerSagaAction: getOrganizationMembers(mockActionValue),
+      workerSagaToTest: getOrganizationMembersWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.getAllMembers,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationMembers,
+      workerSagaAction: getOrganizationMembers(mockActionValue),
+      workerSagaToTest: getOrganizationMembersWorker,
     });
 
   });

@@ -10,6 +10,7 @@ const ACTION_TYPES = Immutable.List([
   'DELETE_ROLE',
   'GET_ALL_ORGANIZATIONS',
   'GET_ORGANIZATION',
+  'GET_ORGANIZATION_MEMBERS',
   'REMOVE_AUTO_APPROVED_DOMAIN',
   'REMOVE_MEMBER_FROM_ORGANIZATION',
 ]).sort();
@@ -21,6 +22,7 @@ const REQSEQ_NAMES = Immutable.List([
   'deleteRole',
   'getAllOrganizations',
   'getOrganization',
+  'getOrganizationMembers',
   'removeAutoApprovedDomain',
   'removeMemberFromOrganization',
 ]).sort();
