@@ -11,17 +11,21 @@ import { isValidAction } from '../utils/Utils';
 
 import {
   ADD_AUTO_APPROVED_DOMAIN,
+  ADD_MEMBER_TO_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   REMOVE_AUTO_APPROVED_DOMAIN,
+  REMOVE_MEMBER_FROM_ORGANIZATION,
   addAutoApprovedDomain,
+  addMemberToOrganization,
   createRole,
   deleteRole,
   getAllOrganizations,
   getOrganization,
   removeAutoApprovedDomain,
+  removeMemberFromOrganization,
 } from './OrganizationsApiActions';
 
 /*
@@ -69,6 +73,53 @@ function* addAutoApprovedDomainWorker(seqAction :SequenceAction) :Generator<*, *
 function* addAutoApprovedDomainWatcher() :Generator<*, *, *> {
 
   yield takeEvery(ADD_AUTO_APPROVED_DOMAIN, addAutoApprovedDomainWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.addMemberToOrganization
+ * OrganizationsApiActions.addMemberToOrganization
+ *
+ */
+
+function* addMemberToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, ADD_MEMBER_TO_ORGANIZATION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { memberId, organizationId } = value;
+
+  try {
+    yield put(addMemberToOrganization.request(id, value));
+    response.data = yield call(OrganizationsApi.addMemberToOrganization, organizationId, memberId);
+    yield put(addMemberToOrganization.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(addMemberToOrganization.failure(id, response.error));
+  }
+  finally {
+    yield put(addMemberToOrganization.finally(id));
+  }
+
+  return response;
+}
+
+function* addMemberToOrganizationWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(ADD_MEMBER_TO_ORGANIZATION, addMemberToOrganizationWorker);
 }
 
 /*
@@ -294,9 +345,58 @@ function* removeAutoApprovedDomainWatcher() :Generator<*, *, *> {
   yield takeEvery(REMOVE_AUTO_APPROVED_DOMAIN, removeAutoApprovedDomainWorker);
 }
 
+/*
+ *
+ * OrganizationsApi.removeMemberFromOrganization
+ * OrganizationsApiActions.removeMemberFromOrganization
+ *
+ */
+
+function* removeMemberFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, REMOVE_MEMBER_FROM_ORGANIZATION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { memberId, organizationId } = value;
+
+  try {
+    yield put(removeMemberFromOrganization.request(id, value));
+    response.data = yield call(OrganizationsApi.removeMemberFromOrganization, organizationId, memberId);
+    yield put(removeMemberFromOrganization.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(removeMemberFromOrganization.failure(id, response.error));
+  }
+  finally {
+    yield put(removeMemberFromOrganization.finally(id));
+  }
+
+  return response;
+}
+
+function* removeMemberFromOrganizationWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(REMOVE_MEMBER_FROM_ORGANIZATION, removeMemberFromOrganizationWorker);
+}
+
 export {
   addAutoApprovedDomainWatcher,
   addAutoApprovedDomainWorker,
+  addMemberToOrganizationWatcher,
+  addMemberToOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
   deleteRoleWatcher,
@@ -307,4 +407,6 @@ export {
   getOrganizationWorker,
   removeAutoApprovedDomainWatcher,
   removeAutoApprovedDomainWorker,
+  removeMemberFromOrganizationWatcher,
+  removeMemberFromOrganizationWorker,
 };

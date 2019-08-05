@@ -8,6 +8,9 @@ import type { RequestSequence } from 'redux-reqseq';
 const ADD_AUTO_APPROVED_DOMAIN :'ADD_AUTO_APPROVED_DOMAIN' = 'ADD_AUTO_APPROVED_DOMAIN';
 const addAutoApprovedDomain :RequestSequence = newRequestSequence(ADD_AUTO_APPROVED_DOMAIN);
 
+const ADD_MEMBER_TO_ORGANIZATION :'ADD_MEMBER_TO_ORGANIZATION' = 'ADD_MEMBER_TO_ORGANIZATION';
+const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_TO_ORGANIZATION);
+
 const CREATE_ROLE :'CREATE_ROLE' = 'CREATE_ROLE';
 const createRole :RequestSequence = newRequestSequence(CREATE_ROLE);
 
@@ -23,17 +26,24 @@ const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 const REMOVE_AUTO_APPROVED_DOMAIN :'REMOVE_AUTO_APPROVED_DOMAIN' = 'REMOVE_AUTO_APPROVED_DOMAIN';
 const removeAutoApprovedDomain :RequestSequence = newRequestSequence(REMOVE_AUTO_APPROVED_DOMAIN);
 
+const REMOVE_MEMBER_FROM_ORGANIZATION :'REMOVE_MEMBER_FROM_ORGANIZATION' = 'REMOVE_MEMBER_FROM_ORGANIZATION';
+const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_MEMBER_FROM_ORGANIZATION);
+
 export {
   ADD_AUTO_APPROVED_DOMAIN,
+  ADD_MEMBER_TO_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   REMOVE_AUTO_APPROVED_DOMAIN,
+  REMOVE_MEMBER_FROM_ORGANIZATION,
   addAutoApprovedDomain,
+  addMemberToOrganization,
   createRole,
   deleteRole,
   getAllOrganizations,
   getOrganization,
   removeAutoApprovedDomain,
+  removeMemberFromOrganization,
 };
