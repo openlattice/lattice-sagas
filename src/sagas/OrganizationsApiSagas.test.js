@@ -7,22 +7,28 @@ import { OrganizationsApi } from 'lattice';
 
 import {
   ADD_AUTO_APPROVED_DOMAIN,
+  ADD_MEMBER_TO_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   REMOVE_AUTO_APPROVED_DOMAIN,
+  REMOVE_MEMBER_FROM_ORGANIZATION,
   addAutoApprovedDomain,
+  addMemberToOrganization,
   createRole,
   deleteRole,
   getAllOrganizations,
   getOrganization,
   removeAutoApprovedDomain,
+  removeMemberFromOrganization,
 } from './OrganizationsApiActions';
 
 import {
   addAutoApprovedDomainWatcher,
   addAutoApprovedDomainWorker,
+  addMemberToOrganizationWatcher,
+  addMemberToOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
   deleteRoleWatcher,
@@ -33,6 +39,8 @@ import {
   getOrganizationWorker,
   removeAutoApprovedDomainWatcher,
   removeAutoApprovedDomainWorker,
+  removeMemberFromOrganizationWatcher,
+  removeMemberFromOrganizationWorker,
 } from './OrganizationsApiSagas';
 
 import {
@@ -85,6 +93,50 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: addAutoApprovedDomain,
       workerSagaAction: addAutoApprovedDomain(mockActionValue),
       workerSagaToTest: addAutoApprovedDomainWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.addMemberToOrganization
+   * OrganizationsApiActions.addMemberToOrganization
+   *
+   */
+
+  describe('addMemberToOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(addMemberToOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      addMemberToOrganizationWatcher,
+      addMemberToOrganizationWorker,
+      ADD_MEMBER_TO_ORGANIZATION,
+    );
+  });
+
+  describe('addMemberToOrganizationWorker', () => {
+
+    const mockActionValue = {
+      memberId: randomUUID(),
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(addMemberToOrganizationWorker);
+    testShouldFailOnInvalidAction(addMemberToOrganizationWorker, ADD_MEMBER_TO_ORGANIZATION);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.addMemberToOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.memberId],
+      latticeApiReqSeq: addMemberToOrganization,
+      workerSagaAction: addMemberToOrganization(mockActionValue),
+      workerSagaToTest: addMemberToOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.addMemberToOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.memberId],
+      latticeApiReqSeq: addMemberToOrganization,
+      workerSagaAction: addMemberToOrganization(mockActionValue),
+      workerSagaToTest: addMemberToOrganizationWorker,
     });
 
   });
@@ -296,6 +348,50 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: removeAutoApprovedDomain,
       workerSagaAction: removeAutoApprovedDomain(mockActionValue),
       workerSagaToTest: removeAutoApprovedDomainWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.removeMemberFromOrganization
+   * OrganizationsApiActions.removeMemberFromOrganization
+   *
+   */
+
+  describe('removeMemberFromOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(removeMemberFromOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      removeMemberFromOrganizationWatcher,
+      removeMemberFromOrganizationWorker,
+      REMOVE_MEMBER_FROM_ORGANIZATION,
+    );
+  });
+
+  describe('removeMemberFromOrganizationWorker', () => {
+
+    const mockActionValue = {
+      memberId: randomUUID(),
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(removeMemberFromOrganizationWorker);
+    testShouldFailOnInvalidAction(removeMemberFromOrganizationWorker, REMOVE_MEMBER_FROM_ORGANIZATION);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.removeMemberFromOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.memberId],
+      latticeApiReqSeq: removeMemberFromOrganization,
+      workerSagaAction: removeMemberFromOrganization(mockActionValue),
+      workerSagaToTest: removeMemberFromOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.removeMemberFromOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.memberId],
+      latticeApiReqSeq: removeMemberFromOrganization,
+      workerSagaAction: removeMemberFromOrganization(mockActionValue),
+      workerSagaToTest: removeMemberFromOrganizationWorker,
     });
 
   });

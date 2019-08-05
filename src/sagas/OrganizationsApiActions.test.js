@@ -5,20 +5,24 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = Immutable.List([
   'ADD_AUTO_APPROVED_DOMAIN',
+  'ADD_MEMBER_TO_ORGANIZATION',
   'CREATE_ROLE',
   'DELETE_ROLE',
   'GET_ALL_ORGANIZATIONS',
   'GET_ORGANIZATION',
   'REMOVE_AUTO_APPROVED_DOMAIN',
+  'REMOVE_MEMBER_FROM_ORGANIZATION',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
   'addAutoApprovedDomain',
+  'addMemberToOrganization',
   'createRole',
   'deleteRole',
   'getAllOrganizations',
   'getOrganization',
   'removeAutoApprovedDomain',
+  'removeMemberFromOrganization',
 ]).sort();
 
 describe('SearchApiActions', () => {
