@@ -9,6 +9,7 @@ import {
   ADD_AUTO_APPROVED_DOMAIN,
   ADD_MEMBER_TO_ORGANIZATION,
   CREATE_ROLE,
+  DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
@@ -18,6 +19,7 @@ import {
   addAutoApprovedDomain,
   addMemberToOrganization,
   createRole,
+  deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getOrganization,
@@ -33,6 +35,8 @@ import {
   addMemberToOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
+  deleteOrganizationWatcher,
+  deleteOrganizationWorker,
   deleteRoleWatcher,
   deleteRoleWorker,
   getAllOrganizationsWatcher,
@@ -184,6 +188,47 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: createRole,
       workerSagaAction: createRole(mockActionValue),
       workerSagaToTest: createRoleWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.deleteOrganization
+   * OrganizationsApiActions.deleteOrganization
+   *
+   */
+
+  describe('deleteOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(deleteOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      deleteOrganizationWatcher,
+      deleteOrganizationWorker,
+      DELETE_ORGANIZATION,
+    );
+  });
+
+  describe('deleteOrganizationWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(deleteOrganizationWorker);
+    testShouldFailOnInvalidAction(deleteOrganizationWorker, DELETE_ORGANIZATION);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.deleteOrganization,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: deleteOrganization,
+      workerSagaAction: deleteOrganization(mockActionValue),
+      workerSagaToTest: deleteOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.deleteOrganization,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: deleteOrganization,
+      workerSagaAction: deleteOrganization(mockActionValue),
+      workerSagaToTest: deleteOrganizationWorker,
     });
 
   });
