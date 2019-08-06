@@ -14,6 +14,9 @@ const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_T
 const CREATE_ROLE :'CREATE_ROLE' = 'CREATE_ROLE';
 const createRole :RequestSequence = newRequestSequence(CREATE_ROLE);
 
+const DELETE_ORGANIZATION :'DELETE_ORGANIZATION' = 'DELETE_ORGANIZATION';
+const deleteOrganization :RequestSequence = newRequestSequence(DELETE_ORGANIZATION);
+
 const DELETE_ROLE :'DELETE_ROLE' = 'DELETE_ROLE';
 const deleteRole :RequestSequence = newRequestSequence(DELETE_ROLE);
 
@@ -36,6 +39,7 @@ export {
   ADD_AUTO_APPROVED_DOMAIN,
   ADD_MEMBER_TO_ORGANIZATION,
   CREATE_ROLE,
+  DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
@@ -45,6 +49,7 @@ export {
   addAutoApprovedDomain,
   addMemberToOrganization,
   createRole,
+  deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getOrganization,

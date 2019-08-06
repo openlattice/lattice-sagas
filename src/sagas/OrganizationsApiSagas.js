@@ -13,6 +13,7 @@ import {
   ADD_AUTO_APPROVED_DOMAIN,
   ADD_MEMBER_TO_ORGANIZATION,
   CREATE_ROLE,
+  DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
@@ -22,6 +23,7 @@ import {
   addAutoApprovedDomain,
   addMemberToOrganization,
   createRole,
+  deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getOrganization,
@@ -168,6 +170,52 @@ function* createRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 function* createRoleWatcher() :Generator<*, *, *> {
 
   yield takeEvery(CREATE_ROLE, createRoleWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.deleteOrganization
+ * OrganizationsApiActions.deleteOrganization
+ *
+ */
+
+function* deleteOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, DELETE_ORGANIZATION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(deleteOrganization.request(id, value));
+    response.data = yield call(OrganizationsApi.deleteOrganization, value);
+    yield put(deleteOrganization.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(deleteOrganization.failure(id, response.error));
+  }
+  finally {
+    yield put(deleteOrganization.finally(id));
+  }
+
+  return response;
+}
+
+function* deleteOrganizationWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ORGANIZATION, deleteOrganizationWorker);
 }
 
 /*
@@ -446,6 +494,8 @@ export {
   addMemberToOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
+  deleteOrganizationWatcher,
+  deleteOrganizationWorker,
   deleteRoleWatcher,
   deleteRoleWorker,
   getAllOrganizationsWatcher,
