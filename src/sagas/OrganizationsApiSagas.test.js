@@ -6,31 +6,33 @@ import randomUUID from 'uuid/v4';
 import { OrganizationsApi } from 'lattice';
 
 import {
-  ADD_AUTO_APPROVED_DOMAIN,
-  ADD_MEMBER_TO_ORGANIZATION,
+  ADD_DOMAIN_TO_ORG,
+  ADD_MEMBER_TO_ORG,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
-  GET_ORGANIZATION_MEMBERS,
-  REMOVE_AUTO_APPROVED_DOMAIN,
-  REMOVE_MEMBER_FROM_ORGANIZATION,
-  addAutoApprovedDomain,
+  GET_ORG_INTEGRATION_ACCOUNT,
+  GET_ORG_MEMBERS,
+  REMOVE_DOMAIN_FROM_ORG,
+  REMOVE_MEMBER_FROM_ORG,
+  addDomainToOrganization,
   addMemberToOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationIntegrationAccount,
   getOrganizationMembers,
-  removeAutoApprovedDomain,
+  removeDomainFromOrganization,
   removeMemberFromOrganization,
 } from './OrganizationsApiActions';
 
 import {
-  addAutoApprovedDomainWatcher,
-  addAutoApprovedDomainWorker,
+  addDomainToOrganizationWatcher,
+  addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
   createRoleWatcher,
@@ -43,10 +45,12 @@ import {
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getOrganizationIntegrationAccountWatcher,
+  getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
-  removeAutoApprovedDomainWatcher,
-  removeAutoApprovedDomainWorker,
+  removeDomainFromOrganizationWatcher,
+  removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
   removeMemberFromOrganizationWorker,
 } from './OrganizationsApiSagas';
@@ -64,43 +68,43 @@ describe('OrganizationsApiSagas', () => {
   /*
    *
    * OrganizationsApi.addAutoApprovedEmailDomain
-   * OrganizationsApiActions.addAutoApprovedDomain
+   * OrganizationsApiActions.addDomainToOrganization
    *
    */
 
-  describe('addAutoApprovedDomainWatcher', () => {
-    testShouldBeGeneratorFunction(addAutoApprovedDomainWatcher);
+  describe('addDomainToOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(addDomainToOrganizationWatcher);
     testWatcherSagaShouldTakeEvery(
-      addAutoApprovedDomainWatcher,
-      addAutoApprovedDomainWorker,
-      ADD_AUTO_APPROVED_DOMAIN,
+      addDomainToOrganizationWatcher,
+      addDomainToOrganizationWorker,
+      ADD_DOMAIN_TO_ORG,
     );
   });
 
-  describe('addAutoApprovedDomainWorker', () => {
+  describe('addDomainToOrganizationWorker', () => {
 
     const mockActionValue = {
       domain: randomUUID(),
       organizationId: randomUUID(),
     };
 
-    testShouldBeGeneratorFunction(addAutoApprovedDomainWorker);
-    testShouldFailOnInvalidAction(addAutoApprovedDomainWorker, ADD_AUTO_APPROVED_DOMAIN);
+    testShouldBeGeneratorFunction(addDomainToOrganizationWorker);
+    testShouldFailOnInvalidAction(addDomainToOrganizationWorker, ADD_DOMAIN_TO_ORG);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.addAutoApprovedEmailDomain,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
-      latticeApiReqSeq: addAutoApprovedDomain,
-      workerSagaAction: addAutoApprovedDomain(mockActionValue),
-      workerSagaToTest: addAutoApprovedDomainWorker,
+      latticeApiReqSeq: addDomainToOrganization,
+      workerSagaAction: addDomainToOrganization(mockActionValue),
+      workerSagaToTest: addDomainToOrganizationWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: OrganizationsApi.addAutoApprovedEmailDomain,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
-      latticeApiReqSeq: addAutoApprovedDomain,
-      workerSagaAction: addAutoApprovedDomain(mockActionValue),
-      workerSagaToTest: addAutoApprovedDomainWorker,
+      latticeApiReqSeq: addDomainToOrganization,
+      workerSagaAction: addDomainToOrganization(mockActionValue),
+      workerSagaToTest: addDomainToOrganizationWorker,
     });
 
   });
@@ -117,7 +121,7 @@ describe('OrganizationsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       addMemberToOrganizationWatcher,
       addMemberToOrganizationWorker,
-      ADD_MEMBER_TO_ORGANIZATION,
+      ADD_MEMBER_TO_ORG,
     );
   });
 
@@ -129,7 +133,7 @@ describe('OrganizationsApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(addMemberToOrganizationWorker);
-    testShouldFailOnInvalidAction(addMemberToOrganizationWorker, ADD_MEMBER_TO_ORGANIZATION);
+    testShouldFailOnInvalidAction(addMemberToOrganizationWorker, ADD_MEMBER_TO_ORG);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.addMemberToOrganization,
@@ -359,6 +363,47 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
+   * OrganizationsApi.getOrganizationIntegrationAccount
+   * OrganizationsApiActions.getOrganizationIntegrationAccount
+   *
+   */
+
+  describe('getOrganizationIntegrationAccountWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationIntegrationAccountWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationIntegrationAccountWatcher,
+      getOrganizationIntegrationAccountWorker,
+      GET_ORG_INTEGRATION_ACCOUNT,
+    );
+  });
+
+  describe('getOrganizationIntegrationAccountWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(getOrganizationIntegrationAccountWorker);
+    testShouldFailOnInvalidAction(getOrganizationIntegrationAccountWorker, GET_ORG_INTEGRATION_ACCOUNT);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.getOrganizationIntegrationAccount,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationIntegrationAccount,
+      workerSagaAction: getOrganizationIntegrationAccount(mockActionValue),
+      workerSagaToTest: getOrganizationIntegrationAccountWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.getOrganizationIntegrationAccount,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationIntegrationAccount,
+      workerSagaAction: getOrganizationIntegrationAccount(mockActionValue),
+      workerSagaToTest: getOrganizationIntegrationAccountWorker,
+    });
+
+  });
+
+  /*
+   *
    * OrganizationsApi.getAllMembers
    * OrganizationsApiActions.getOrganizationMembers
    *
@@ -369,7 +414,7 @@ describe('OrganizationsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getOrganizationMembersWatcher,
       getOrganizationMembersWorker,
-      GET_ORGANIZATION_MEMBERS,
+      GET_ORG_MEMBERS,
     );
   });
 
@@ -378,7 +423,7 @@ describe('OrganizationsApiSagas', () => {
     const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(getOrganizationMembersWorker);
-    testShouldFailOnInvalidAction(getOrganizationMembersWorker, GET_ORGANIZATION_MEMBERS);
+    testShouldFailOnInvalidAction(getOrganizationMembersWorker, GET_ORG_MEMBERS);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.getAllMembers,
@@ -401,43 +446,43 @@ describe('OrganizationsApiSagas', () => {
   /*
    *
    * OrganizationsApi.removeAutoApprovedEmailDomain
-   * OrganizationsApiActions.removeAutoApprovedDomain
+   * OrganizationsApiActions.removeDomainFromOrganization
    *
    */
 
-  describe('removeAutoApprovedDomainWatcher', () => {
-    testShouldBeGeneratorFunction(removeAutoApprovedDomainWatcher);
+  describe('removeDomainFromOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(removeDomainFromOrganizationWatcher);
     testWatcherSagaShouldTakeEvery(
-      removeAutoApprovedDomainWatcher,
-      removeAutoApprovedDomainWorker,
-      REMOVE_AUTO_APPROVED_DOMAIN,
+      removeDomainFromOrganizationWatcher,
+      removeDomainFromOrganizationWorker,
+      REMOVE_DOMAIN_FROM_ORG,
     );
   });
 
-  describe('removeAutoApprovedDomainWorker', () => {
+  describe('removeDomainFromOrganizationWorker', () => {
 
     const mockActionValue = {
       domain: randomUUID(),
       organizationId: randomUUID(),
     };
 
-    testShouldBeGeneratorFunction(removeAutoApprovedDomainWorker);
-    testShouldFailOnInvalidAction(removeAutoApprovedDomainWorker, REMOVE_AUTO_APPROVED_DOMAIN);
+    testShouldBeGeneratorFunction(removeDomainFromOrganizationWorker);
+    testShouldFailOnInvalidAction(removeDomainFromOrganizationWorker, REMOVE_DOMAIN_FROM_ORG);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.removeAutoApprovedEmailDomain,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
-      latticeApiReqSeq: removeAutoApprovedDomain,
-      workerSagaAction: removeAutoApprovedDomain(mockActionValue),
-      workerSagaToTest: removeAutoApprovedDomainWorker,
+      latticeApiReqSeq: removeDomainFromOrganization,
+      workerSagaAction: removeDomainFromOrganization(mockActionValue),
+      workerSagaToTest: removeDomainFromOrganizationWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: OrganizationsApi.removeAutoApprovedEmailDomain,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.domain],
-      latticeApiReqSeq: removeAutoApprovedDomain,
-      workerSagaAction: removeAutoApprovedDomain(mockActionValue),
-      workerSagaToTest: removeAutoApprovedDomainWorker,
+      latticeApiReqSeq: removeDomainFromOrganization,
+      workerSagaAction: removeDomainFromOrganization(mockActionValue),
+      workerSagaToTest: removeDomainFromOrganizationWorker,
     });
 
   });
@@ -454,7 +499,7 @@ describe('OrganizationsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       removeMemberFromOrganizationWatcher,
       removeMemberFromOrganizationWorker,
-      REMOVE_MEMBER_FROM_ORGANIZATION,
+      REMOVE_MEMBER_FROM_ORG,
     );
   });
 
@@ -466,7 +511,7 @@ describe('OrganizationsApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(removeMemberFromOrganizationWorker);
-    testShouldFailOnInvalidAction(removeMemberFromOrganizationWorker, REMOVE_MEMBER_FROM_ORGANIZATION);
+    testShouldFailOnInvalidAction(removeMemberFromOrganizationWorker, REMOVE_MEMBER_FROM_ORG);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.removeMemberFromOrganization,
