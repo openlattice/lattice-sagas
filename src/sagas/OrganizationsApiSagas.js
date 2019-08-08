@@ -10,39 +10,41 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
-  ADD_AUTO_APPROVED_DOMAIN,
-  ADD_MEMBER_TO_ORGANIZATION,
+  ADD_DOMAIN_TO_ORG,
+  ADD_MEMBER_TO_ORG,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
-  GET_ORGANIZATION_MEMBERS,
-  REMOVE_AUTO_APPROVED_DOMAIN,
-  REMOVE_MEMBER_FROM_ORGANIZATION,
-  addAutoApprovedDomain,
+  GET_ORG_INTEGRATION_ACCOUNT,
+  GET_ORG_MEMBERS,
+  REMOVE_DOMAIN_FROM_ORG,
+  REMOVE_MEMBER_FROM_ORG,
+  addDomainToOrganization,
   addMemberToOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationIntegrationAccount,
   getOrganizationMembers,
-  removeAutoApprovedDomain,
+  removeDomainFromOrganization,
   removeMemberFromOrganization,
 } from './OrganizationsApiActions';
 
 /*
  *
  * OrganizationsApi.addAutoApprovedEmailDomain
- * OrganizationsApiActions.addAutoApprovedDomain
+ * OrganizationsApiActions.addDomainToOrganization
  *
  */
 
-function* addAutoApprovedDomainWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* addDomainToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
 
-  if (!isValidAction(seqAction, ADD_AUTO_APPROVED_DOMAIN)) {
+  if (!isValidAction(seqAction, ADD_DOMAIN_TO_ORG)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -59,24 +61,24 @@ function* addAutoApprovedDomainWorker(seqAction :SequenceAction) :Generator<*, *
   const { domain, organizationId } = value;
 
   try {
-    yield put(addAutoApprovedDomain.request(id, value));
+    yield put(addDomainToOrganization.request(id, value));
     response.data = yield call(OrganizationsApi.addAutoApprovedEmailDomain, organizationId, domain);
-    yield put(addAutoApprovedDomain.success(id, response.data));
+    yield put(addDomainToOrganization.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(addAutoApprovedDomain.failure(id, response.error));
+    yield put(addDomainToOrganization.failure(id, response.error));
   }
   finally {
-    yield put(addAutoApprovedDomain.finally(id));
+    yield put(addDomainToOrganization.finally(id));
   }
 
   return response;
 }
 
-function* addAutoApprovedDomainWatcher() :Generator<*, *, *> {
+function* addDomainToOrganizationWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(ADD_AUTO_APPROVED_DOMAIN, addAutoApprovedDomainWorker);
+  yield takeEvery(ADD_DOMAIN_TO_ORG, addDomainToOrganizationWorker);
 }
 
 /*
@@ -89,7 +91,7 @@ function* addAutoApprovedDomainWatcher() :Generator<*, *, *> {
 function* addMemberToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
 
-  if (!isValidAction(seqAction, ADD_MEMBER_TO_ORGANIZATION)) {
+  if (!isValidAction(seqAction, ADD_MEMBER_TO_ORG)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -123,7 +125,7 @@ function* addMemberToOrganizationWorker(seqAction :SequenceAction) :Generator<*,
 
 function* addMemberToOrganizationWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(ADD_MEMBER_TO_ORGANIZATION, addMemberToOrganizationWorker);
+  yield takeEvery(ADD_MEMBER_TO_ORG, addMemberToOrganizationWorker);
 }
 
 /*
@@ -351,6 +353,51 @@ function* getOrganizationWatcher() :Generator<*, *, *> {
 
 /*
  *
+ * OrganizationsApi.getOrganizationIntegrationAccount
+ * OrganizationsApiActions.getOrganizationIntegrationAccount
+ *
+ */
+
+function* getOrganizationIntegrationAccountWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ORG_INTEGRATION_ACCOUNT)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(getOrganizationIntegrationAccount.request(id, value));
+    response.data = yield call(OrganizationsApi.getOrganizationIntegrationAccount, value);
+    yield put(getOrganizationIntegrationAccount.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getOrganizationIntegrationAccount.failure(id, response.error));
+  }
+  finally {
+    yield put(getOrganizationIntegrationAccount.finally(id));
+  }
+
+  return response;
+}
+
+function* getOrganizationIntegrationAccountWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ORG_INTEGRATION_ACCOUNT, getOrganizationIntegrationAccountWorker);
+}
+
+/*
+ *
  * OrganizationsApi.getAllMembers
  * OrganizationsApiActions.getOrganizationMembers
  *
@@ -358,7 +405,7 @@ function* getOrganizationWatcher() :Generator<*, *, *> {
 
 function* getOrganizationMembersWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, GET_ORGANIZATION_MEMBERS)) {
+  if (!isValidAction(seqAction, GET_ORG_MEMBERS)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -391,19 +438,19 @@ function* getOrganizationMembersWorker(seqAction :SequenceAction) :Generator<*, 
 
 function* getOrganizationMembersWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(GET_ORGANIZATION_MEMBERS, getOrganizationMembersWorker);
+  yield takeEvery(GET_ORG_MEMBERS, getOrganizationMembersWorker);
 }
 
 /*
  *
  * OrganizationsApi.removeAutoApprovedEmailDomain
- * OrganizationsApiActions.removeAutoApprovedDomain
+ * OrganizationsApiActions.removeDomainFromOrganization
  *
  */
 
-function* removeAutoApprovedDomainWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* removeDomainFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, REMOVE_AUTO_APPROVED_DOMAIN)) {
+  if (!isValidAction(seqAction, REMOVE_DOMAIN_FROM_ORG)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -420,24 +467,24 @@ function* removeAutoApprovedDomainWorker(seqAction :SequenceAction) :Generator<*
   const { domain, organizationId } = value;
 
   try {
-    yield put(removeAutoApprovedDomain.request(id, value));
+    yield put(removeDomainFromOrganization.request(id, value));
     response.data = yield call(OrganizationsApi.removeAutoApprovedEmailDomain, organizationId, domain);
-    yield put(removeAutoApprovedDomain.success(id, response.data));
+    yield put(removeDomainFromOrganization.success(id, response.data));
   }
   catch (error) {
     response.error = error;
-    yield put(removeAutoApprovedDomain.failure(id, response.error));
+    yield put(removeDomainFromOrganization.failure(id, response.error));
   }
   finally {
-    yield put(removeAutoApprovedDomain.finally(id));
+    yield put(removeDomainFromOrganization.finally(id));
   }
 
   return response;
 }
 
-function* removeAutoApprovedDomainWatcher() :Generator<*, *, *> {
+function* removeDomainFromOrganizationWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(REMOVE_AUTO_APPROVED_DOMAIN, removeAutoApprovedDomainWorker);
+  yield takeEvery(REMOVE_DOMAIN_FROM_ORG, removeDomainFromOrganizationWorker);
 }
 
 /*
@@ -450,7 +497,7 @@ function* removeAutoApprovedDomainWatcher() :Generator<*, *, *> {
 function* removeMemberFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
 
-  if (!isValidAction(seqAction, REMOVE_MEMBER_FROM_ORGANIZATION)) {
+  if (!isValidAction(seqAction, REMOVE_MEMBER_FROM_ORG)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -484,12 +531,12 @@ function* removeMemberFromOrganizationWorker(seqAction :SequenceAction) :Generat
 
 function* removeMemberFromOrganizationWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(REMOVE_MEMBER_FROM_ORGANIZATION, removeMemberFromOrganizationWorker);
+  yield takeEvery(REMOVE_MEMBER_FROM_ORG, removeMemberFromOrganizationWorker);
 }
 
 export {
-  addAutoApprovedDomainWatcher,
-  addAutoApprovedDomainWorker,
+  addDomainToOrganizationWatcher,
+  addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
   createRoleWatcher,
@@ -502,10 +549,12 @@ export {
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getOrganizationIntegrationAccountWatcher,
+  getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
-  removeAutoApprovedDomainWatcher,
-  removeAutoApprovedDomainWorker,
+  removeDomainFromOrganizationWatcher,
+  removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
   removeMemberFromOrganizationWorker,
 };
