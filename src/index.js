@@ -4,6 +4,8 @@
 
 import * as AppApiActions from './sagas/AppApiActions';
 import * as AppApiSagas from './sagas/AppApiSagas';
+import * as AuthorizationsApiActions from './sagas/AuthorizationsApiActions';
+import * as AuthorizationsApiSagas from './sagas/AuthorizationsApiSagas';
 import * as DataApiActions from './sagas/DataApiActions';
 import * as DataApiSagas from './sagas/DataApiSagas';
 import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
@@ -25,6 +27,8 @@ export {
   AppApiActions,
   AppApiActions as AppApiActionFactory,
   AppApiSagas,
+  AuthorizationsApiActions,
+  AuthorizationsApiSagas,
   DataApiActions,
   DataApiActions as DataApiActionFactory,
   DataApiSagas,
@@ -47,6 +51,8 @@ export {
 export default {
   AppApiActions,
   AppApiSagas,
+  AuthorizationsApiActions,
+  AuthorizationsApiSagas,
   DataApiActions,
   DataApiSagas,
   DataIntegrationApiActions,
