@@ -1,3 +1,7 @@
+/*
+ * @flow
+ */
+
 import { Set } from 'immutable';
 
 import * as DataApiActions from './DataApiActions';

@@ -14,6 +14,8 @@ import * as EntityDataModelApiActions from './sagas/EntityDataModelApiActions';
 import * as EntityDataModelApiSagas from './sagas/EntityDataModelApiSagas';
 import * as OrganizationsApiActions from './sagas/OrganizationsApiActions';
 import * as OrganizationsApiSagas from './sagas/OrganizationsApiSagas';
+import * as PermissionsApiActions from './sagas/PermissionsApiActions';
+import * as PermissionsApiSagas from './sagas/PermissionsApiSagas';
 import * as PrincipalsApiActions from './sagas/PrincipalsApiActions';
 import * as PrincipalsApiSagas from './sagas/PrincipalsApiSagas';
 import * as SearchApiActions from './sagas/SearchApiActions';
@@ -40,6 +42,8 @@ export {
   EntityDataModelApiSagas,
   OrganizationsApiActions,
   OrganizationsApiSagas,
+  PermissionsApiActions,
+  PermissionsApiSagas,
   PrincipalsApiActions,
   PrincipalsApiSagas,
   SearchApiActions,
@@ -61,6 +65,8 @@ export default {
   EntityDataModelApiSagas,
   OrganizationsApiActions,
   OrganizationsApiSagas,
+  PermissionsApiActions,
+  PermissionsApiSagas,
   PrincipalsApiActions,
   PrincipalsApiSagas,
   SearchApiActions,
