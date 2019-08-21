@@ -1,3 +1,7 @@
+/*
+ * @flow
+ */
+
 import Immutable from 'immutable';
 
 import * as EntityDataModelApiActions from './EntityDataModelApiActions';
