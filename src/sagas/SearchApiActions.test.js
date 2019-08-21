@@ -1,3 +1,7 @@
+/*
+ * @flow
+ */
+
 import Immutable from 'immutable';
 
 import * as SearchApiActions from './SearchApiActions';

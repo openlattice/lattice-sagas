@@ -1,6 +1,10 @@
+/*
+ * @flow
+ */
+
 import Immutable from 'immutable';
 
-import * as SearchApiActions from './PrincipalsApiActions';
+import * as PrincipalsApiActions from './PrincipalsApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
@@ -11,8 +15,8 @@ const REQSEQ_NAMES = Immutable.List([
   'searchAllUsers',
 ]).sort();
 
-describe('SearchApiActions', () => {
+describe('PrincipalsApiActions', () => {
 
-  testShouldExportActionTypes(SearchApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(SearchApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(PrincipalsApiActions, ACTION_TYPES.toJS());
+  testShouldExportRequestSequences(PrincipalsApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
 });
