@@ -6,11 +6,15 @@ import randomUUID from 'uuid/v4';
 import { PrincipalsApi } from 'lattice';
 
 import {
+  GET_SECURABLE_PRINCIPAL,
   SEARCH_ALL_USERS,
+  getSecurablePrincipal,
   searchAllUsers,
 } from './PrincipalsApiActions';
 
 import {
+  getSecurablePrincipalWatcher,
+  getSecurablePrincipalWorker,
   searchAllUsersWatcher,
   searchAllUsersWorker,
 } from './PrincipalsApiSagas';
@@ -24,6 +28,48 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('PrincipalsApiSagas', () => {
+
+  /*
+   *
+   * PrincipalsApi.getSecurablePrincipal()
+   * PrincipalsApiActions.getSecurablePrincipal()
+   *
+   */
+
+  describe('getSecurablePrincipalWatcher', () => {
+    testShouldBeGeneratorFunction(getSecurablePrincipalWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getSecurablePrincipalWatcher,
+      getSecurablePrincipalWorker,
+      GET_SECURABLE_PRINCIPAL,
+    );
+  });
+
+  describe('getSecurablePrincipalWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(getSecurablePrincipalWorker);
+    testShouldFailOnInvalidAction(getSecurablePrincipalWorker, GET_SECURABLE_PRINCIPAL);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getSecurablePrincipal,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getSecurablePrincipal,
+      workerSagaAction: getSecurablePrincipal(mockActionValue),
+      workerSagaToTest: getSecurablePrincipalWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getSecurablePrincipal,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getSecurablePrincipal,
+      workerSagaAction: getSecurablePrincipal(mockActionValue),
+      workerSagaToTest: getSecurablePrincipalWorker
+    });
+
+  });
+
   /*
    *
    * PrincipalsApi.searchAllUsers
