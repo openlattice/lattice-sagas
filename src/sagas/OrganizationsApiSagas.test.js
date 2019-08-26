@@ -15,8 +15,10 @@ import {
   GET_ORGANIZATION,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
+  GRANT_TRUST_TO_ORG,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
+  REVOKE_TRUST_FROM_ORG,
   addDomainToOrganization,
   addMemberToOrganization,
   createRole,
@@ -26,8 +28,10 @@ import {
   getOrganization,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
+  grantTrustToOrganization,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
+  revokeTrustFromOrganization,
 } from './OrganizationsApiActions';
 
 import {
@@ -49,10 +53,14 @@ import {
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
+  grantTrustToOrganizationWatcher,
+  grantTrustToOrganizationWorker,
   removeDomainFromOrganizationWatcher,
   removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
   removeMemberFromOrganizationWorker,
+  revokeTrustFromOrganizationWatcher,
+  revokeTrustFromOrganizationWorker,
 } from './OrganizationsApiSagas';
 
 import {
@@ -445,6 +453,50 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
+   * OrganizationsApi.grantTrustToOrganization
+   * OrganizationsApiActions.grantTrustToOrganization
+   *
+   */
+
+  describe('grantTrustToOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(grantTrustToOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      grantTrustToOrganizationWatcher,
+      grantTrustToOrganizationWorker,
+      GRANT_TRUST_TO_ORG,
+    );
+  });
+
+  describe('grantTrustToOrganizationWorker', () => {
+
+    const mockActionValue = {
+      organizationId: randomUUID(),
+      principalId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(grantTrustToOrganizationWorker);
+    testShouldFailOnInvalidAction(grantTrustToOrganizationWorker, GRANT_TRUST_TO_ORG);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.grantTrustToOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.principalId],
+      latticeApiReqSeq: grantTrustToOrganization,
+      workerSagaAction: grantTrustToOrganization(mockActionValue),
+      workerSagaToTest: grantTrustToOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.grantTrustToOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.principalId],
+      latticeApiReqSeq: grantTrustToOrganization,
+      workerSagaAction: grantTrustToOrganization(mockActionValue),
+      workerSagaToTest: grantTrustToOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
    * OrganizationsApi.removeAutoApprovedEmailDomain
    * OrganizationsApiActions.removeDomainFromOrganization
    *
@@ -527,6 +579,50 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: removeMemberFromOrganization,
       workerSagaAction: removeMemberFromOrganization(mockActionValue),
       workerSagaToTest: removeMemberFromOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.revokeTrustFromOrganization
+   * OrganizationsApiActions.revokeTrustFromOrganization
+   *
+   */
+
+  describe('revokeTrustFromOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(revokeTrustFromOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      revokeTrustFromOrganizationWatcher,
+      revokeTrustFromOrganizationWorker,
+      REVOKE_TRUST_FROM_ORG,
+    );
+  });
+
+  describe('revokeTrustFromOrganizationWorker', () => {
+
+    const mockActionValue = {
+      organizationId: randomUUID(),
+      principalId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(revokeTrustFromOrganizationWorker);
+    testShouldFailOnInvalidAction(revokeTrustFromOrganizationWorker, REVOKE_TRUST_FROM_ORG);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.revokeTrustFromOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.principalId],
+      latticeApiReqSeq: revokeTrustFromOrganization,
+      workerSagaAction: revokeTrustFromOrganization(mockActionValue),
+      workerSagaToTest: revokeTrustFromOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.revokeTrustFromOrganization,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.principalId],
+      latticeApiReqSeq: revokeTrustFromOrganization,
+      workerSagaAction: revokeTrustFromOrganization(mockActionValue),
+      workerSagaToTest: revokeTrustFromOrganizationWorker,
     });
 
   });

@@ -32,11 +32,17 @@ const getOrganizationIntegrationAccount :RequestSequence = newRequestSequence(GE
 const GET_ORG_MEMBERS :'GET_ORG_MEMBERS' = 'GET_ORG_MEMBERS';
 const getOrganizationMembers :RequestSequence = newRequestSequence(GET_ORG_MEMBERS);
 
+const GRANT_TRUST_TO_ORG :'GRANT_TRUST_TO_ORG' = 'GRANT_TRUST_TO_ORG';
+const grantTrustToOrganization :RequestSequence = newRequestSequence(GRANT_TRUST_TO_ORG);
+
 const REMOVE_DOMAIN_FROM_ORG :'REMOVE_DOMAIN_FROM_ORG' = 'REMOVE_DOMAIN_FROM_ORG';
 const removeDomainFromOrganization :RequestSequence = newRequestSequence(REMOVE_DOMAIN_FROM_ORG);
 
 const REMOVE_MEMBER_FROM_ORG :'REMOVE_MEMBER_FROM_ORG' = 'REMOVE_MEMBER_FROM_ORG';
 const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_MEMBER_FROM_ORG);
+
+const REVOKE_TRUST_FROM_ORG :'REVOKE_TRUST_FROM_ORG' = 'REVOKE_TRUST_FROM_ORG';
+const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORG);
 
 export {
   ADD_DOMAIN_TO_ORG,
@@ -48,8 +54,10 @@ export {
   GET_ORGANIZATION,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
+  GRANT_TRUST_TO_ORG,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
+  REVOKE_TRUST_FROM_ORG,
   addDomainToOrganization,
   addMemberToOrganization,
   createRole,
@@ -59,6 +67,8 @@ export {
   getOrganization,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
+  grantTrustToOrganization,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
+  revokeTrustFromOrganization,
 };
