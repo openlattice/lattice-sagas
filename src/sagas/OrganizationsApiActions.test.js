@@ -17,8 +17,10 @@ const ACTION_TYPES = Immutable.List([
   'GET_ORGANIZATION',
   'GET_ORG_INTEGRATION_ACCOUNT',
   'GET_ORG_MEMBERS',
+  'GRANT_TRUST_TO_ORG',
   'REMOVE_DOMAIN_FROM_ORG',
   'REMOVE_MEMBER_FROM_ORG',
+  'REVOKE_TRUST_FROM_ORG',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
@@ -31,8 +33,10 @@ const REQSEQ_NAMES = Immutable.List([
   'getOrganization',
   'getOrganizationIntegrationAccount',
   'getOrganizationMembers',
+  'grantTrustToOrganization',
   'removeDomainFromOrganization',
   'removeMemberFromOrganization',
+  'revokeTrustFromOrganization',
 ]).sort();
 
 describe('OrganizationsApiActions', () => {
