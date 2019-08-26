@@ -19,8 +19,10 @@ import {
   GET_ORGANIZATION,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
+  GRANT_TRUST_TO_ORG,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
+  REVOKE_TRUST_FROM_ORG,
   addDomainToOrganization,
   addMemberToOrganization,
   createRole,
@@ -30,8 +32,10 @@ import {
   getOrganization,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
+  grantTrustToOrganization,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
+  revokeTrustFromOrganization,
 } from './OrganizationsApiActions';
 
 /*
@@ -443,6 +447,52 @@ function* getOrganizationMembersWatcher() :Generator<*, *, *> {
 
 /*
  *
+ * OrganizationsApi.grantTrustToOrganization
+ * OrganizationsApiActions.grantTrustToOrganization
+ *
+ */
+
+function* grantTrustToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GRANT_TRUST_TO_ORG)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { organizationId, principalId } = value;
+
+  try {
+    yield put(grantTrustToOrganization.request(id, value));
+    response.data = yield call(OrganizationsApi.grantTrustToOrganization, organizationId, principalId);
+    yield put(grantTrustToOrganization.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(grantTrustToOrganization.failure(id, response.error));
+  }
+  finally {
+    yield put(grantTrustToOrganization.finally(id));
+  }
+
+  return response;
+}
+
+function* grantTrustToOrganizationWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GRANT_TRUST_TO_ORG, grantTrustToOrganizationWorker);
+}
+
+/*
+ *
  * OrganizationsApi.removeAutoApprovedEmailDomain
  * OrganizationsApiActions.removeDomainFromOrganization
  *
@@ -534,6 +584,52 @@ function* removeMemberFromOrganizationWatcher() :Generator<*, *, *> {
   yield takeEvery(REMOVE_MEMBER_FROM_ORG, removeMemberFromOrganizationWorker);
 }
 
+/*
+ *
+ * OrganizationsApi.revokeTrustFromOrganization
+ * OrganizationsApiActions.revokeTrustFromOrganization
+ *
+ */
+
+function* revokeTrustFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, REVOKE_TRUST_FROM_ORG)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { organizationId, principalId } = value;
+
+  try {
+    yield put(revokeTrustFromOrganization.request(id, value));
+    response.data = yield call(OrganizationsApi.revokeTrustFromOrganization, organizationId, principalId);
+    yield put(revokeTrustFromOrganization.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(revokeTrustFromOrganization.failure(id, response.error));
+  }
+  finally {
+    yield put(revokeTrustFromOrganization.finally(id));
+  }
+
+  return response;
+}
+
+function* revokeTrustFromOrganizationWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(REVOKE_TRUST_FROM_ORG, revokeTrustFromOrganizationWorker);
+}
+
 export {
   addDomainToOrganizationWatcher,
   addDomainToOrganizationWorker,
@@ -553,8 +649,12 @@ export {
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
+  grantTrustToOrganizationWatcher,
+  grantTrustToOrganizationWorker,
   removeDomainFromOrganizationWatcher,
   removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
   removeMemberFromOrganizationWorker,
+  revokeTrustFromOrganizationWatcher,
+  revokeTrustFromOrganizationWorker,
 };
