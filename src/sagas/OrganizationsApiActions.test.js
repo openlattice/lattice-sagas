@@ -21,6 +21,8 @@ const ACTION_TYPES = Immutable.List([
   'REMOVE_DOMAIN_FROM_ORG',
   'REMOVE_MEMBER_FROM_ORG',
   'REVOKE_TRUST_FROM_ORG',
+  'UPDATE_ORG_DESCRIPTION',
+  'UPDATE_ORG_TITLE',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
@@ -37,6 +39,8 @@ const REQSEQ_NAMES = Immutable.List([
   'removeDomainFromOrganization',
   'removeMemberFromOrganization',
   'revokeTrustFromOrganization',
+  'updateOrganizationDescription',
+  'updateOrganizationTitle',
 ]).sort();
 
 describe('OrganizationsApiActions', () => {
