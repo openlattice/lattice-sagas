@@ -23,6 +23,8 @@ import {
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
   REVOKE_TRUST_FROM_ORG,
+  UPDATE_ORG_DESCRIPTION,
+  UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
   createRole,
@@ -36,6 +38,8 @@ import {
   removeDomainFromOrganization,
   removeMemberFromOrganization,
   revokeTrustFromOrganization,
+  updateOrganizationDescription,
+  updateOrganizationTitle,
 } from './OrganizationsApiActions';
 
 /*
@@ -630,6 +634,98 @@ function* revokeTrustFromOrganizationWatcher() :Generator<*, *, *> {
   yield takeEvery(REVOKE_TRUST_FROM_ORG, revokeTrustFromOrganizationWorker);
 }
 
+/*
+ *
+ * OrganizationsApi.updateDescription
+ * OrganizationsApiActions.updateOrganizationDescription
+ *
+ */
+
+function* updateOrganizationDescriptionWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, UPDATE_ORG_DESCRIPTION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { description, organizationId } = value;
+
+  try {
+    yield put(updateOrganizationDescription.request(id, value));
+    response.data = yield call(OrganizationsApi.updateDescription, organizationId, description);
+    yield put(updateOrganizationDescription.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateOrganizationDescription.failure(id, response.error));
+  }
+  finally {
+    yield put(updateOrganizationDescription.finally(id));
+  }
+
+  return response;
+}
+
+function* updateOrganizationDescriptionWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(UPDATE_ORG_DESCRIPTION, updateOrganizationDescriptionWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.updateTitle
+ * OrganizationsApiActions.updateOrganizationTitle
+ *
+ */
+
+function* updateOrganizationTitleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, UPDATE_ORG_TITLE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { organizationId, title } = value;
+
+  try {
+    yield put(updateOrganizationTitle.request(id, value));
+    response.data = yield call(OrganizationsApi.updateTitle, organizationId, title);
+    yield put(updateOrganizationTitle.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateOrganizationTitle.failure(id, response.error));
+  }
+  finally {
+    yield put(updateOrganizationTitle.finally(id));
+  }
+
+  return response;
+}
+
+function* updateOrganizationTitleWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(UPDATE_ORG_TITLE, updateOrganizationTitleWorker);
+}
+
 export {
   addDomainToOrganizationWatcher,
   addDomainToOrganizationWorker,
@@ -657,4 +753,8 @@ export {
   removeMemberFromOrganizationWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
+  updateOrganizationDescriptionWatcher,
+  updateOrganizationDescriptionWorker,
+  updateOrganizationTitleWatcher,
+  updateOrganizationTitleWorker,
 };

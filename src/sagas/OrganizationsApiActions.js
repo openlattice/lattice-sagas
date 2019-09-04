@@ -44,6 +44,12 @@ const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_
 const REVOKE_TRUST_FROM_ORG :'REVOKE_TRUST_FROM_ORG' = 'REVOKE_TRUST_FROM_ORG';
 const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORG);
 
+const UPDATE_ORG_DESCRIPTION :'UPDATE_ORG_DESCRIPTION' = 'UPDATE_ORG_DESCRIPTION';
+const updateOrganizationDescription :RequestSequence = newRequestSequence(UPDATE_ORG_DESCRIPTION);
+
+const UPDATE_ORG_TITLE :'UPDATE_ORG_TITLE' = 'UPDATE_ORG_TITLE';
+const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORG_TITLE);
+
 export {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
@@ -58,6 +64,8 @@ export {
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
   REVOKE_TRUST_FROM_ORG,
+  UPDATE_ORG_DESCRIPTION,
+  UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
   createRole,
@@ -71,4 +79,6 @@ export {
   removeDomainFromOrganization,
   removeMemberFromOrganization,
   revokeTrustFromOrganization,
+  updateOrganizationDescription,
+  updateOrganizationTitle,
 };
