@@ -17,13 +17,18 @@ const searchEntityNeighborsWithFilter :RequestSequence = newRequestSequence(SEAR
 const SEARCH_ENTITY_SET_DATA :'SEARCH_ENTITY_SET_DATA' = 'SEARCH_ENTITY_SET_DATA';
 const searchEntitySetData :RequestSequence = newRequestSequence(SEARCH_ENTITY_SET_DATA);
 
+const SEARCH_ENTITY_SET_META_DATA :'SEARCH_ENTITY_SET_META_DATA' = 'SEARCH_ENTITY_SET_META_DATA';
+const searchEntitySetMetaData :RequestSequence = newRequestSequence(SEARCH_ENTITY_SET_META_DATA);
+
 export {
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  SEARCH_ENTITY_SET_META_DATA,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
+  searchEntitySetMetaData,
 };
