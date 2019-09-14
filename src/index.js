@@ -27,18 +27,14 @@ const version :string = __VERSION__;
 
 export {
   AppApiActions,
-  AppApiActions as AppApiActionFactory,
   AppApiSagas,
   AuthorizationsApiActions,
   AuthorizationsApiSagas,
   DataApiActions,
-  DataApiActions as DataApiActionFactory,
   DataApiSagas,
   DataIntegrationApiActions,
-  DataIntegrationApiActions as DataIntegrationApiActionFactory,
   DataIntegrationApiSagas,
   EntityDataModelApiActions,
-  EntityDataModelApiActions as EntityDataModelApiActionFactory,
   EntityDataModelApiSagas,
   OrganizationsApiActions,
   OrganizationsApiSagas,
@@ -47,7 +43,6 @@ export {
   PrincipalsApiActions,
   PrincipalsApiSagas,
   SearchApiActions,
-  SearchApiActions as SearchApiActionFactory,
   SearchApiSagas,
   version,
 };
