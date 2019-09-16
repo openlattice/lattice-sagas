@@ -10,7 +10,7 @@ import {
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
-  SEARCH_ENTITY_SET_META_DATA,
+  SEARCH_ENTITY_SET_METADATA,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
@@ -297,7 +297,7 @@ describe('SearchApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       searchEntitySetMetaDataWatcher,
       searchEntitySetMetaDataWorker,
-      SEARCH_ENTITY_SET_META_DATA,
+      SEARCH_ENTITY_SET_METADATA,
     );
   });
 
@@ -306,7 +306,7 @@ describe('SearchApiSagas', () => {
     const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(searchEntitySetMetaDataWorker);
-    testShouldFailOnInvalidAction(searchEntitySetMetaDataWorker, SEARCH_ENTITY_SET_META_DATA);
+    testShouldFailOnInvalidAction(searchEntitySetMetaDataWorker, SEARCH_ENTITY_SET_METADATA);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: SearchApi.searchEntitySetMetaData,

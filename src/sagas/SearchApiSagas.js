@@ -15,7 +15,7 @@ import {
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
-  SEARCH_ENTITY_SET_META_DATA,
+  SEARCH_ENTITY_SET_METADATA,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
@@ -228,7 +228,7 @@ function* searchEntitySetDataWatcher() :Generator<*, void, *> {
 
 function* searchEntitySetMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, SEARCH_ENTITY_SET_META_DATA)) {
+  if (!isValidAction(seqAction, SEARCH_ENTITY_SET_METADATA)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -261,7 +261,7 @@ function* searchEntitySetMetaDataWorker(seqAction :SequenceAction) :Generator<*,
 
 function* searchEntitySetMetaDataWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(SEARCH_ENTITY_SET_META_DATA, searchEntitySetMetaDataWorker);
+  yield takeEvery(SEARCH_ENTITY_SET_METADATA, searchEntitySetMetaDataWorker);
 }
 
 export {
