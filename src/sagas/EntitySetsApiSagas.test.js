@@ -327,7 +327,7 @@ describe('EntitySetsApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getPropertyTypeMetaDataForEntitySet,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeId],
       latticeApiReqSeq: getPropertyTypeMetaDataForEntitySet,
       workerSagaAction: getPropertyTypeMetaDataForEntitySet(mockActionValue),
       workerSagaToTest: getPropertyTypeMetaDataForEntitySetWorker,
@@ -335,7 +335,7 @@ describe('EntitySetsApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: EntitySetsApi.getPropertyTypeMetaDataForEntitySet,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeId],
       latticeApiReqSeq: getPropertyTypeMetaDataForEntitySet,
       workerSagaAction: getPropertyTypeMetaDataForEntitySet(mockActionValue),
       workerSagaToTest: getPropertyTypeMetaDataForEntitySetWorker,

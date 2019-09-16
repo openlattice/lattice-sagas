@@ -347,7 +347,7 @@ function* getPropertyTypeMetaDataForEntitySetWatcher() :Generator<*, void, *> {
 
 function* getPropertyTypeMetaDataForEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, GET_ENTITY_SET_IDS)) {
+  if (!isValidAction(seqAction, GET_PT_METADATA_FOR_ENTITY_SETS)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -380,7 +380,7 @@ function* getPropertyTypeMetaDataForEntitySetsWorker(seqAction :SequenceAction) 
 
 function* getPropertyTypeMetaDataForEntitySetsWatcher() :Generator<*, void, *> {
 
-  yield takeEvery(GET_ENTITY_SET_IDS, getPropertyTypeMetaDataForEntitySetsWorker);
+  yield takeEvery(GET_PT_METADATA_FOR_ENTITY_SETS, getPropertyTypeMetaDataForEntitySetsWorker);
 }
 
 export {

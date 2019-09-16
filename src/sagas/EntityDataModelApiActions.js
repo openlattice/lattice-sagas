@@ -28,16 +28,6 @@ const updateEntityDataModel :RequestSequence = newRequestSequence(UPDATE_ENTITY_
 
 /*
  *
- * EntitySet APIs
- *
- */
-
-
-const UPDATE_ENTITY_SET_METADATA :'UPDATE_ENTITY_SET_METADATA' = 'UPDATE_ENTITY_SET_METADATA';
-const updateEntitySetMetaData :RequestSequence = newRequestSequence(UPDATE_ENTITY_SET_METADATA);
-
-/*
- *
  * EntityType APIs
  *
  */
@@ -170,7 +160,6 @@ export {
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_DATA_MODEL,
-  UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
   UPDATE_SCHEMA,
@@ -201,7 +190,6 @@ export {
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntityDataModel,
-  updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
   updateSchema,

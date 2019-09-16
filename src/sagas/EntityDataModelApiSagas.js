@@ -39,7 +39,6 @@ import {
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_DATA_MODEL,
-  UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
   UPDATE_SCHEMA,
@@ -70,7 +69,6 @@ import {
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntityDataModel,
-  updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
   updateSchema,
@@ -279,57 +277,6 @@ function* updateEntityDataModelWorker(seqAction :SequenceAction) :Generator<*, *
   }
   finally {
     yield put(updateEntityDataModel.finally(id));
-  }
-
-  return response;
-}
-
-/*
- *
- * EntitySet APIs
- *
- */
-
-
-/*
- * EntityDataModelApi.updateEntitySetMetaData
- */
-
-function* updateEntitySetMetaDataWatcher() :Generator<*, void, *> {
-
-  yield takeEvery(UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
-}
-
-function* updateEntitySetMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
-
-  if (!isValidAction(seqAction, UPDATE_ENTITY_SET_METADATA)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
-  }
-
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { entitySetId, metadata } = value;
-
-  try {
-    // value is expected to be an object containing the EntitySet id and metadata
-    yield put(updateEntitySetMetaData.request(id, value));
-    response.data = yield call(EntityDataModelApi.updateEntitySetMetaData, entitySetId, metadata);
-    yield put(updateEntitySetMetaData.success(id, response.data));
-  }
-  catch (error) {
-    response.error = error;
-    yield put(updateEntitySetMetaData.failure(id, response.error));
-  }
-  finally {
-    yield put(updateEntitySetMetaData.finally(id));
   }
 
   return response;
@@ -1500,8 +1447,6 @@ export {
   updateAssociationTypeMetaDataWorker,
   updateEntityDataModelWatcher,
   updateEntityDataModelWorker,
-  updateEntitySetMetaDataWatcher,
-  updateEntitySetMetaDataWorker,
   updateEntityTypeMetaDataWatcher,
   updateEntityTypeMetaDataWorker,
   updatePropertyTypeMetaDataWatcher,
