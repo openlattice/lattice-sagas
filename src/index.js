@@ -12,6 +12,8 @@ import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
 import * as DataIntegrationApiSagas from './sagas/DataIntegrationApiSagas';
 import * as EntityDataModelApiActions from './sagas/EntityDataModelApiActions';
 import * as EntityDataModelApiSagas from './sagas/EntityDataModelApiSagas';
+import * as EntitySetsApiActions from './sagas/EntitySetsApiActions';
+import * as EntitySetsApiSagas from './sagas/EntitySetsApiSagas';
 import * as OrganizationsApiActions from './sagas/OrganizationsApiActions';
 import * as OrganizationsApiSagas from './sagas/OrganizationsApiSagas';
 import * as PermissionsApiActions from './sagas/PermissionsApiActions';
@@ -27,19 +29,17 @@ const version :string = __VERSION__;
 
 export {
   AppApiActions,
-  AppApiActions as AppApiActionFactory,
   AppApiSagas,
   AuthorizationsApiActions,
   AuthorizationsApiSagas,
   DataApiActions,
-  DataApiActions as DataApiActionFactory,
   DataApiSagas,
   DataIntegrationApiActions,
-  DataIntegrationApiActions as DataIntegrationApiActionFactory,
   DataIntegrationApiSagas,
   EntityDataModelApiActions,
-  EntityDataModelApiActions as EntityDataModelApiActionFactory,
   EntityDataModelApiSagas,
+  EntitySetsApiActions,
+  EntitySetsApiSagas,
   OrganizationsApiActions,
   OrganizationsApiSagas,
   PermissionsApiActions,
@@ -47,7 +47,6 @@ export {
   PrincipalsApiActions,
   PrincipalsApiSagas,
   SearchApiActions,
-  SearchApiActions as SearchApiActionFactory,
   SearchApiSagas,
   version,
 };
@@ -63,6 +62,8 @@ export default {
   DataIntegrationApiSagas,
   EntityDataModelApiActions,
   EntityDataModelApiSagas,
+  EntitySetsApiActions,
+  EntitySetsApiSagas,
   OrganizationsApiActions,
   OrganizationsApiSagas,
   PermissionsApiActions,
