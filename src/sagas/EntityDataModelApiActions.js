@@ -32,14 +32,6 @@ const updateEntityDataModel :RequestSequence = newRequestSequence(UPDATE_ENTITY_
  *
  */
 
-const GET_ENTITY_SET :'GET_ENTITY_SET' = 'GET_ENTITY_SET';
-const getEntitySet :RequestSequence = newRequestSequence(GET_ENTITY_SET);
-
-const GET_ENTITY_SET_ID :'GET_ENTITY_SET_ID' = 'GET_ENTITY_SET_ID';
-const getEntitySetId :RequestSequence = newRequestSequence(GET_ENTITY_SET_ID);
-
-const GET_ENTITY_SET_IDS :'GET_ENTITY_SET_IDS' = 'GET_ENTITY_SET_IDS';
-const getEntitySetIds :RequestSequence = newRequestSequence(GET_ENTITY_SET_IDS);
 
 const UPDATE_ENTITY_SET_METADATA :'UPDATE_ENTITY_SET_METADATA' = 'UPDATE_ENTITY_SET_METADATA';
 const updateEntitySetMetaData :RequestSequence = newRequestSequence(UPDATE_ENTITY_SET_METADATA);
@@ -169,9 +161,6 @@ export {
   GET_ENTITY_DATA_MODEL_DIFF,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_DATA_MODEL_VERSION,
-  GET_ENTITY_SET,
-  GET_ENTITY_SET_ID,
-  GET_ENTITY_SET_IDS,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   GET_PROPERTY_TYPE_ID,
@@ -203,9 +192,6 @@ export {
   getEntityDataModelDiff,
   getEntityDataModelProjection,
   getEntityDataModelVersion,
-  getEntitySet,
-  getEntitySetId,
-  getEntitySetIds,
   getEntityType,
   getPropertyType,
   getPropertyTypeId,
