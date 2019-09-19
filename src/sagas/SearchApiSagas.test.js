@@ -57,15 +57,13 @@ describe('SearchApiSagas', () => {
   describe('executeSearchWorker', () => {
 
     const mockActionValue = {
-      searchOptions: {
-        entitySetIds: [randomUUID()],
-        start: 0,
-        maxHits: 100,
-        constraints: [{
-          searchTerm: `entity.${randomUUID()}:"${randomUUID()}"`,
-          fuzzy: false
-        }]
-      }
+      entitySetIds: [randomUUID()],
+      start: 0,
+      maxHits: 100,
+      constraints: [{
+        searchTerm: `entity.${randomUUID()}:"${randomUUID()}"`,
+        fuzzy: false
+      }]
     };
 
     testShouldBeGeneratorFunction(executeSearchWorker);
@@ -73,17 +71,17 @@ describe('SearchApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: SearchApi.executeSearch,
-      latticeApiParams: [mockActionValue.searchOptions],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: executeSearch,
-      workerSagaAction: executeSearch(mockActionValue.searchOptions),
+      workerSagaAction: executeSearch({ searchOptions: mockActionValue }),
       workerSagaToTest: executeSearchWorker
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: SearchApi.executeSearch,
-      latticeApiParams: [mockActionValue.searchOptions],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: executeSearch,
-      workerSagaAction: executeSearch(mockActionValue.searchOptions),
+      workerSagaAction: executeSearch({ searchOptions: mockActionValue }),
       workerSagaToTest: executeSearchWorker
     });
 
