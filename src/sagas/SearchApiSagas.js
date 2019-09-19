@@ -48,11 +48,11 @@ function* executeSearchWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   }
 
   const response :Object = {};
-  const { searchConstraints } = value;
+  const { searchOptions } = value;
 
   try {
     yield put(executeSearch.request(id, value));
-    response.data = yield call(SearchApi.executeSearch, searchConstraints);
+    response.data = yield call(SearchApi.executeSearch, searchOptions);
     yield put(executeSearch.success(id, response.data));
   }
   catch (error) {
