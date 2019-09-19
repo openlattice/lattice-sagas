@@ -13,15 +13,63 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
+  EXECUTE_SEARCH,
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  executeSearch,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
 } from './SearchApiActions';
+
+/*
+ *
+ * SearchApi.executeSearch()
+ * SearchApiActions.executeSearch()
+ *
+ */
+
+function* executeSearchWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(EXECUTE_SEARCH, executeSearchWorker);
+}
+
+function* executeSearchWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, EXECUTE_SEARCH)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { searchConstraints } = value;
+
+  try {
+    yield put(executeSearch.request(id, value));
+    response.data = yield call(SearchApi.executeSearch, searchConstraints);
+    yield put(executeSearch.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(executeSearch.failure(id, response.error));
+  }
+  finally {
+    yield put(executeSearch.finally(id));
+  }
+
+  return response;
+}
 
 /*
  *
@@ -220,6 +268,8 @@ function* searchEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, 
 }
 
 export {
+  executeSearchWatcher,
+  executeSearchWorker,
   searchEntityNeighborsWatcher,
   searchEntityNeighborsWorker,
   searchEntityNeighborsBulkWatcher,

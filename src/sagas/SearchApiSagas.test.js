@@ -6,10 +6,12 @@ import randomUUID from 'uuid/v4';
 import { SearchApi } from 'lattice';
 
 import {
+  EXECUTE_SEARCH,
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  executeSearch,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
@@ -17,6 +19,8 @@ import {
 } from './SearchApiActions';
 
 import {
+  executeSearchWatcher,
+  executeSearchWorker,
   searchEntityNeighborsWatcher,
   searchEntityNeighborsWorker,
   searchEntityNeighborsBulkWatcher,
@@ -36,6 +40,56 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('SearchApiSagas', () => {
+
+  describe('executeSearchWatcher', () => {
+    testShouldBeGeneratorFunction(executeSearchWatcher);
+    testWatcherSagaShouldTakeEvery(
+      executeSearchWatcher,
+      executeSearchWorker,
+      EXECUTE_SEARCH
+    );
+  });
+
+  describe('executeSearchWorker', () => {
+
+    const mockActionValue = {
+      entitySetIds: [randomUUID()],
+      start: 0,
+      maxHits: 100,
+      constraints: [{
+        searchTerm: `entity.${randomUUID()}:"${randomUUID()}"`,
+        fuzzy: false
+      }]
+    };
+
+    testShouldBeGeneratorFunction(executeSearchWorker);
+    testShouldFailOnInvalidAction(executeSearchWorker, EXECUTE_SEARCH);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: SearchApi.executeSearch,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: executeSearch,
+      workerSagaAction: executeSearch({ searchConstraints: mockActionValue }),
+      workerSagaToTest: executeSearchWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.executeSearch,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: executeSearch,
+      workerSagaAction: executeSearch({ searchConstraints: mockActionValue }),
+      workerSagaToTest: executeSearchWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.executeSearch,
+      latticeApiParams: [undefined],
+      latticeApiReqSeq: executeSearch,
+      workerSagaAction: executeSearch({ searchConstraints: undefined }),
+      workerSagaToTest: executeSearchWorker
+    });
+
+  });
 
   /*
    *
