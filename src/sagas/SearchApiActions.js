@@ -5,6 +5,9 @@
 import { newRequestSequence } from 'redux-reqseq';
 import type { RequestSequence } from 'redux-reqseq';
 
+const EXECUTE_SEARCH :'EXECUTE_SEARCH' = 'EXECUTE_SEARCH';
+const executeSearch :RequestSequence = newRequestSequence(EXECUTE_SEARCH);
+
 const SEARCH_ENTITY_NEIGHBORS :'SEARCH_ENTITY_NEIGHBORS' = 'SEARCH_ENTITY_NEIGHBORS';
 const searchEntityNeighbors :RequestSequence = newRequestSequence(SEARCH_ENTITY_NEIGHBORS);
 
@@ -18,10 +21,12 @@ const SEARCH_ENTITY_SET_DATA :'SEARCH_ENTITY_SET_DATA' = 'SEARCH_ENTITY_SET_DATA
 const searchEntitySetData :RequestSequence = newRequestSequence(SEARCH_ENTITY_SET_DATA);
 
 export {
+  EXECUTE_SEARCH,
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  executeSearch,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
