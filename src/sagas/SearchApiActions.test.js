@@ -1,3 +1,7 @@
+/*
+ * @flow
+ */
+
 import Immutable from 'immutable';
 
 import * as SearchApiActions from './SearchApiActions';
@@ -9,6 +13,7 @@ const ACTION_TYPES = Immutable.List([
   'SEARCH_ENTITY_NEIGHBORS_BULK',
   'SEARCH_ENTITY_NEIGHBORS_FILTER',
   'SEARCH_ENTITY_SET_DATA',
+  'SEARCH_ENTITY_SET_METADATA',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
@@ -16,7 +21,8 @@ const REQSEQ_NAMES = Immutable.List([
   'searchEntityNeighbors',
   'searchEntityNeighborsBulk',
   'searchEntityNeighborsWithFilter',
-  'searchEntitySetData'
+  'searchEntitySetData',
+  'searchEntitySetMetaData',
 ]).sort();
 
 describe('SearchApiActions', () => {

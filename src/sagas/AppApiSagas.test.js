@@ -1,3 +1,7 @@
+/*
+ * @flow
+ */
+
 import randomUUID from 'uuid/v4';
 import { AppApi } from 'lattice';
 

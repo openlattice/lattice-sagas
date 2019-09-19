@@ -2,8 +2,6 @@
  * @flow
  */
 
-/* eslint-disable no-use-before-define */
-
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { SearchApi } from 'lattice';
 import type { SequenceAction } from 'redux-reqseq';
@@ -18,24 +16,21 @@ import {
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  SEARCH_ENTITY_SET_METADATA,
   executeSearch,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
+  searchEntitySetMetaData,
 } from './SearchApiActions';
 
 /*
  *
- * SearchApi.executeSearch()
- * SearchApiActions.executeSearch()
+ * SearchApi.executeSearch
+ * SearchApiActions.executeSearch
  *
  */
-
-function* executeSearchWatcher() :Generator<*, void, *> {
-
-  yield takeEvery(EXECUTE_SEARCH, executeSearchWorker);
-}
 
 function* executeSearchWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -71,17 +66,17 @@ function* executeSearchWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   return response;
 }
 
+function* executeSearchWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(EXECUTE_SEARCH, executeSearchWorker);
+}
+
 /*
  *
- * SearchApi.searchEntityNeighbors()
- * SearchApiActions.searchEntityNeighbors()
+ * SearchApi.searchEntityNeighbors
+ * SearchApiActions.searchEntityNeighbors
  *
  */
-
-function* searchEntityNeighborsWatcher() :Generator<*, void, *> {
-
-  yield takeEvery(SEARCH_ENTITY_NEIGHBORS, searchEntityNeighborsWorker);
-}
 
 function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -122,17 +117,17 @@ function* searchEntityNeighborsWorker(seqAction :SequenceAction) :Generator<*, *
   return response;
 }
 
+function* searchEntityNeighborsWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_NEIGHBORS, searchEntityNeighborsWorker);
+}
+
 /*
  *
- * SearchApi.searchEntityNeighborsBulk()
- * SearchApiActions.searchEntityNeighborsBulk()
+ * SearchApi.searchEntityNeighborsBulk
+ * SearchApiActions.searchEntityNeighborsBulk
  *
  */
-
-function* searchEntityNeighborsBulkWatcher() :Generator<*, void, *> {
-
-  yield takeEvery(SEARCH_ENTITY_NEIGHBORS_BULK, searchEntityNeighborsBulkWorker);
-}
 
 function* searchEntityNeighborsBulkWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -168,17 +163,17 @@ function* searchEntityNeighborsBulkWorker(seqAction :SequenceAction) :Generator<
   return response;
 }
 
+function* searchEntityNeighborsBulkWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_NEIGHBORS_BULK, searchEntityNeighborsBulkWorker);
+}
+
 /*
  *
- * SearchApi.searchEntityNeighborsWithFilter()
- * SearchApiActions.searchEntityNeighborsWithFilter()
+ * SearchApi.searchEntityNeighborsWithFilter
+ * SearchApiActions.searchEntityNeighborsWithFilter
  *
  */
-
-function* searchEntityNeighborsWithFilterWatcher() :Generator<*, void, *> {
-
-  yield takeEvery(SEARCH_ENTITY_NEIGHBORS_FILTER, searchEntityNeighborsWithFilterWorker);
-}
 
 function* searchEntityNeighborsWithFilterWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -214,18 +209,18 @@ function* searchEntityNeighborsWithFilterWorker(seqAction :SequenceAction) :Gene
   return response;
 }
 
+function* searchEntityNeighborsWithFilterWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_NEIGHBORS_FILTER, searchEntityNeighborsWithFilterWorker);
+}
+
 /*
  *
- * SearchApi.advancedSearchEntitySetData()
- * SearchApi.searchEntitySetData()
- * SearchApiActions.searchEntitySetData()
+ * SearchApi.advancedSearchEntitySetData
+ * SearchApi.searchEntitySetData
+ * SearchApiActions.searchEntitySetData
  *
  */
-
-function* searchEntitySetDataWatcher() :Generator<*, void, *> {
-
-  yield takeEvery(SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
-}
 
 function* searchEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -267,15 +262,67 @@ function* searchEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, 
   return response;
 }
 
+function* searchEntitySetDataWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
+}
+
+/*
+ *
+ * SearchApi.searchEntitySetMetaData
+ * SearchApiActions.searchEntitySetMetaData
+ *
+ */
+
+function* searchEntitySetMetaDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, SEARCH_ENTITY_SET_METADATA)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(searchEntitySetMetaData.request(id, value));
+    response.data = yield call(SearchApi.searchEntitySetMetaData, value);
+    yield put(searchEntitySetMetaData.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(searchEntitySetMetaData.failure(id, response.error));
+  }
+  finally {
+    yield put(searchEntitySetMetaData.finally(id));
+  }
+
+  return response;
+}
+
+function* searchEntitySetMetaDataWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(SEARCH_ENTITY_SET_METADATA, searchEntitySetMetaDataWorker);
+}
+
 export {
   executeSearchWatcher,
   executeSearchWorker,
-  searchEntityNeighborsWatcher,
-  searchEntityNeighborsWorker,
   searchEntityNeighborsBulkWatcher,
   searchEntityNeighborsBulkWorker,
+  searchEntityNeighborsWatcher,
   searchEntityNeighborsWithFilterWatcher,
   searchEntityNeighborsWithFilterWorker,
+  searchEntityNeighborsWorker,
   searchEntitySetDataWatcher,
   searchEntitySetDataWorker,
+  searchEntitySetMetaDataWatcher,
+  searchEntitySetMetaDataWorker,
 };

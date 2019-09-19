@@ -20,15 +20,20 @@ const searchEntityNeighborsWithFilter :RequestSequence = newRequestSequence(SEAR
 const SEARCH_ENTITY_SET_DATA :'SEARCH_ENTITY_SET_DATA' = 'SEARCH_ENTITY_SET_DATA';
 const searchEntitySetData :RequestSequence = newRequestSequence(SEARCH_ENTITY_SET_DATA);
 
+const SEARCH_ENTITY_SET_METADATA :'SEARCH_ENTITY_SET_METADATA' = 'SEARCH_ENTITY_SET_METADATA';
+const searchEntitySetMetaData :RequestSequence = newRequestSequence(SEARCH_ENTITY_SET_METADATA);
+
 export {
   EXECUTE_SEARCH,
   SEARCH_ENTITY_NEIGHBORS,
   SEARCH_ENTITY_NEIGHBORS_BULK,
   SEARCH_ENTITY_NEIGHBORS_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  SEARCH_ENTITY_SET_METADATA,
   executeSearch,
   searchEntityNeighbors,
   searchEntityNeighborsBulk,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
+  searchEntitySetMetaData,
 };

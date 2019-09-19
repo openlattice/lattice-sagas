@@ -24,9 +24,6 @@ import {
   GET_ENTITY_DATA_MODEL_DIFF,
   GET_ENTITY_DATA_MODEL_PROJECTION,
   GET_ENTITY_DATA_MODEL_VERSION,
-  GET_ENTITY_SET,
-  GET_ENTITY_SET_ID,
-  GET_ENTITY_SET_IDS,
   GET_ENTITY_TYPE,
   GET_PROPERTY_TYPE,
   GET_PROPERTY_TYPE_ID,
@@ -36,7 +33,6 @@ import {
   REORDER_ENTITY_TYPE_PROPERTY_TYPES,
   UPDATE_ASSOCIATION_TYPE_METADATA,
   UPDATE_ENTITY_DATA_MODEL,
-  UPDATE_ENTITY_SET_METADATA,
   UPDATE_ENTITY_TYPE_METADATA,
   UPDATE_PROPERTY_TYPE_METADATA,
   UPDATE_SCHEMA,
@@ -58,9 +54,6 @@ import {
   getEntityDataModelDiff,
   getEntityDataModelProjection,
   getEntityDataModelVersion,
-  getEntitySet,
-  getEntitySetId,
-  getEntitySetIds,
   getEntityType,
   getPropertyType,
   getPropertyTypeId,
@@ -70,7 +63,6 @@ import {
   reorderEntityTypePropertyTypes,
   updateAssociationTypeMetaData,
   updateEntityDataModel,
-  updateEntitySetMetaData,
   updateEntityTypeMetaData,
   updatePropertyTypeMetaData,
   updateSchema,
@@ -113,12 +105,6 @@ import {
   getEntityDataModelVersionWorker,
   getEntityDataModelWatcher,
   getEntityDataModelWorker,
-  getEntitySetIdWatcher,
-  getEntitySetIdWorker,
-  getEntitySetIdsWatcher,
-  getEntitySetIdsWorker,
-  getEntitySetWatcher,
-  getEntitySetWorker,
   getEntityTypeWatcher,
   getEntityTypeWorker,
   getPropertyTypeIdWatcher,
@@ -137,8 +123,6 @@ import {
   updateAssociationTypeMetaDataWorker,
   updateEntityDataModelWatcher,
   updateEntityDataModelWorker,
-  updateEntitySetMetaDataWatcher,
-  updateEntitySetMetaDataWorker,
   updateEntityTypeMetaDataWatcher,
   updateEntityTypeMetaDataWorker,
   updatePropertyTypeMetaDataWatcher,
@@ -358,176 +342,6 @@ describe('EntityDataModelApiSagas', () => {
       latticeApiReqSeq: updateEntityDataModel,
       workerSagaAction: updateEntityDataModel(mockActionValue),
       workerSagaToTest: updateEntityDataModelWorker
-    });
-  });
-
-  /*
-   *
-   * EntitySet APIs
-   *
-   */
-
-  /*
-   *
-   * EntityDataModelApiActions.getEntitySet
-   *
-   */
-
-  describe('getEntitySetWatcher', () => {
-
-    testShouldBeGeneratorFunction(getEntitySetWatcher);
-    testWatcherSagaShouldTakeEvery(
-      getEntitySetWatcher,
-      getEntitySetWorker,
-      GET_ENTITY_SET
-    );
-  });
-
-  describe('getEntitySetWorker', () => {
-
-    testShouldBeGeneratorFunction(getEntitySetWorker);
-    testShouldFailOnInvalidAction(getEntitySetWorker, GET_ENTITY_SET);
-
-    const mockActionValue = randomUUID();
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: EntityDataModelApi.getEntitySet,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getEntitySet,
-      workerSagaAction: getEntitySet(mockActionValue),
-      workerSagaToTest: getEntitySetWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: EntityDataModelApi.getEntitySet,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getEntitySet,
-      workerSagaAction: getEntitySet(mockActionValue),
-      workerSagaToTest: getEntitySetWorker
-    });
-  });
-
-  /*
-   *
-   * EntityDataModelApiActions.getEntitySetId
-   *
-   */
-
-  describe('getEntitySetIdWatcher', () => {
-
-    testShouldBeGeneratorFunction(getEntitySetIdWatcher);
-    testWatcherSagaShouldTakeEvery(
-      getEntitySetIdWatcher,
-      getEntitySetIdWorker,
-      GET_ENTITY_SET_ID
-    );
-  });
-
-  describe('getEntitySetIdWorker', () => {
-
-    testShouldBeGeneratorFunction(getEntitySetIdWorker);
-    testShouldFailOnInvalidAction(getEntitySetIdWorker, GET_ENTITY_SET_ID);
-
-    const mockActionValue = randomUUID();
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: EntityDataModelApi.getEntitySetId,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getEntitySetId,
-      workerSagaAction: getEntitySetId(mockActionValue),
-      workerSagaToTest: getEntitySetIdWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: EntityDataModelApi.getEntitySetId,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getEntitySetId,
-      workerSagaAction: getEntitySetId(mockActionValue),
-      workerSagaToTest: getEntitySetIdWorker
-    });
-  });
-
-  /*
-   *
-   * EntityDataModelApi.getEntitySetIds
-   * EntityDataModelApiActions.getEntitySetIds
-   *
-   */
-
-  describe('getEntitySetIdsWatcher', () => {
-
-    testShouldBeGeneratorFunction(getEntitySetIdsWatcher);
-    testWatcherSagaShouldTakeEvery(
-      getEntitySetIdsWatcher,
-      getEntitySetIdsWorker,
-      GET_ENTITY_SET_IDS
-    );
-  });
-
-  describe('getEntitySetIdsWorker', () => {
-
-    testShouldBeGeneratorFunction(getEntitySetIdsWorker);
-    testShouldFailOnInvalidAction(getEntitySetIdsWorker, GET_ENTITY_SET_IDS);
-
-    const mockActionValue = randomUUID();
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: EntityDataModelApi.getEntitySetIds,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getEntitySetIds,
-      workerSagaAction: getEntitySetIds(mockActionValue),
-      workerSagaToTest: getEntitySetIdsWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: EntityDataModelApi.getEntitySetIds,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getEntitySetIds,
-      workerSagaAction: getEntitySetIds(mockActionValue),
-      workerSagaToTest: getEntitySetIdsWorker
-    });
-  });
-
-  /*
-   *
-   * EntityDataModelApiActions.updateEntitySetMetaData
-   *
-   */
-
-  describe('updateEntitySetMetaDataWatcher', () => {
-
-    testShouldBeGeneratorFunction(updateEntitySetMetaDataWatcher);
-    testWatcherSagaShouldTakeEvery(
-      updateEntitySetMetaDataWatcher,
-      updateEntitySetMetaDataWorker,
-      UPDATE_ENTITY_SET_METADATA
-    );
-  });
-
-  describe('updateEntitySetMetaDataWorker', () => {
-
-    testShouldBeGeneratorFunction(updateEntitySetMetaDataWorker);
-    testShouldFailOnInvalidAction(updateEntitySetMetaDataWorker, UPDATE_ENTITY_SET_METADATA);
-
-    const mockActionValue = {
-      entitySetId: randomUUID(),
-      metadata: randomUUID()
-    };
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: EntityDataModelApi.updateEntitySetMetaData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.metadata],
-      latticeApiReqSeq: updateEntitySetMetaData,
-      workerSagaAction: updateEntitySetMetaData(mockActionValue),
-      workerSagaToTest: updateEntitySetMetaDataWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: EntityDataModelApi.updateEntitySetMetaData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.metadata],
-      latticeApiReqSeq: updateEntitySetMetaData,
-      workerSagaAction: updateEntitySetMetaData(mockActionValue),
-      workerSagaToTest: updateEntitySetMetaDataWorker
     });
   });
 
