@@ -8,6 +8,7 @@ import * as SearchApiActions from './SearchApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
+  'EXECUTE_SEARCH',
   'SEARCH_ENTITY_NEIGHBORS',
   'SEARCH_ENTITY_NEIGHBORS_BULK',
   'SEARCH_ENTITY_NEIGHBORS_FILTER',
@@ -16,6 +17,7 @@ const ACTION_TYPES = Immutable.List([
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
+  'executeSearch',
   'searchEntityNeighbors',
   'searchEntityNeighborsBulk',
   'searchEntityNeighborsWithFilter',
