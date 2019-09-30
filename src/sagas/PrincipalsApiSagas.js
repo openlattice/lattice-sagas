@@ -10,8 +10,10 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
+  GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   SEARCH_ALL_USERS,
+  getCurrentRoles,
   getSecurablePrincipal,
   searchAllUsers,
 } from './PrincipalsApiActions';
@@ -63,6 +65,46 @@ function* getSecurablePrincipalWatcher() :Generator<*, void, *> {
 
 /*
  *
+ * PrincipalsApi.getCurrentRoles()
+ * PrincipalsApiActions.getCurrentRoles()
+ *
+ */
+
+function* getCurrentRolesWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_CURRENT_ROLES)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id } = seqAction;
+  const response = {};
+
+  try {
+    yield put(getCurrentRoles.request(id));
+    response.data = yield call(PrincipalsApi.getCurrentRoles);
+    yield put(getCurrentRoles.success(id));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getCurrentRoles.failure(id, response.error));
+  }
+  finally {
+    yield put(getCurrentRoles.finally(id));
+  }
+
+  return response;
+}
+
+function* getCurrentRolesWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(GET_CURRENT_ROLES, getCurrentRolesWorker);
+}
+
+
+/*
+ *
  * PrincipalsApi.searchAllUsers()
  * PrincipalsApiActions.searchAllUsers()
  *
@@ -107,6 +149,8 @@ function* searchAllUsersWatcher() :Generator<*, void, *> {
 }
 
 export {
+  getCurrentRolesWatcher,
+  getCurrentRolesWorker,
   getSecurablePrincipalWatcher,
   getSecurablePrincipalWorker,
   searchAllUsersWatcher,

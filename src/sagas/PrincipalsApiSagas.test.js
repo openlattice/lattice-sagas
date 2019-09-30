@@ -6,13 +6,17 @@ import randomUUID from 'uuid/v4';
 import { PrincipalsApi } from 'lattice';
 
 import {
+  GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   SEARCH_ALL_USERS,
+  getCurrentRoles,
   getSecurablePrincipal,
   searchAllUsers,
 } from './PrincipalsApiActions';
 
 import {
+  getCurrentRolesWatcher,
+  getCurrentRolesWorker,
   getSecurablePrincipalWatcher,
   getSecurablePrincipalWorker,
   searchAllUsersWatcher,
@@ -28,6 +32,45 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('PrincipalsApiSagas', () => {
+
+  /*
+   *
+   * PrincipalsApi.getSecurablePrincipal()
+   * PrincipalsApiActions.getSecurablePrincipal()
+   *
+   */
+
+  describe('getCurrentRolesWatcher', () => {
+    testShouldBeGeneratorFunction(getCurrentRolesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getCurrentRolesWatcher,
+      getCurrentRolesWorker,
+      GET_CURRENT_ROLES,
+    );
+  });
+
+  describe('getCurrentRolesWorker', () => {
+
+    testShouldBeGeneratorFunction(getCurrentRolesWorker);
+    testShouldFailOnInvalidAction(getCurrentRolesWorker, GET_CURRENT_ROLES, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getCurrentRoles,
+      latticeApiParams: [],
+      latticeApiReqSeq: getCurrentRoles,
+      workerSagaAction: getCurrentRoles(),
+      workerSagaToTest: getCurrentRolesWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getCurrentRoles,
+      latticeApiParams: [],
+      latticeApiReqSeq: getCurrentRoles,
+      workerSagaAction: getCurrentRoles(),
+      workerSagaToTest: getCurrentRolesWorker
+    });
+
+  });
 
   /*
    *
