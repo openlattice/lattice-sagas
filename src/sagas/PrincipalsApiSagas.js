@@ -84,7 +84,7 @@ function* getCurrentRolesWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   try {
     yield put(getCurrentRoles.request(id));
     response.data = yield call(PrincipalsApi.getCurrentRoles);
-    yield put(getCurrentRoles.success(id));
+    yield put(getCurrentRoles.success(id, response.data));
   }
   catch (error) {
     response.error = error;
