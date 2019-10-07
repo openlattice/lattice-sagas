@@ -26,6 +26,9 @@ const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZA
 const GET_ORGANIZATION :'GET_ORGANIZATION' = 'GET_ORGANIZATION';
 const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 
+const GET_ORGANIZATION_ENTITY_SETS :'GET_ORGANIZATION_ENTITY_SETS' = 'GET_ORGANIZATION_ENTITY_SETS';
+const getOrganizationEntitySets :RequestSequence = newRequestSequence(GET_ORGANIZATION_ENTITY_SETS);
+
 const GET_ORG_INTEGRATION_ACCOUNT :'GET_ORG_INTEGRATION_ACCOUNT' = 'GET_ORG_INTEGRATION_ACCOUNT';
 const getOrganizationIntegrationAccount :RequestSequence = newRequestSequence(GET_ORG_INTEGRATION_ACCOUNT);
 
@@ -58,6 +61,7 @@ export {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -73,6 +77,7 @@ export {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,
