@@ -17,6 +17,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -32,6 +33,7 @@ import {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,
@@ -357,6 +359,51 @@ function* getOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 function* getOrganizationWatcher() :Generator<*, *, *> {
 
   yield takeEvery(GET_ORGANIZATION, getOrganizationWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getOrganizationEntitySets
+ * OrganizationsApiActions.getOrganizationEntitySets
+ *
+ */
+
+function* getOrganizationEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ORGANIZATION_ENTITY_SETS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(getOrganizationEntitySets.request(id, value));
+    response.data = yield call(OrganizationsApi.getOrganizationEntitySets, value);
+    yield put(getOrganizationEntitySets.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getOrganizationEntitySets.failure(id, response.error));
+  }
+  finally {
+    yield put(getOrganizationEntitySets.finally(id));
+  }
+
+  return response;
+}
+
+function* getOrganizationEntitySetsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ORGANIZATION_ENTITY_SETS, getOrganizationEntitySetsWorker);
 }
 
 /*
@@ -741,6 +788,8 @@ export {
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getOrganizationEntitySetsWatcher,
+  getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
