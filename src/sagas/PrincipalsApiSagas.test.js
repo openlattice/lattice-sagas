@@ -6,15 +6,19 @@ import randomUUID from 'uuid/v4';
 import { PrincipalsApi } from 'lattice';
 
 import {
+  GET_ALL_USERS,
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   SEARCH_ALL_USERS,
+  getAllUsers,
   getCurrentRoles,
   getSecurablePrincipal,
   searchAllUsers,
 } from './PrincipalsApiActions';
 
 import {
+  getAllUsersWatcher,
+  getAllUsersWorker,
   getCurrentRolesWatcher,
   getCurrentRolesWorker,
   getSecurablePrincipalWatcher,
@@ -35,8 +39,47 @@ describe('PrincipalsApiSagas', () => {
 
   /*
    *
-   * PrincipalsApi.getSecurablePrincipal()
-   * PrincipalsApiActions.getSecurablePrincipal()
+   * PrincipalsApi.getAllUsers()
+   * PrincipalsApiActions.getAllUsers()
+   *
+   */
+
+  describe('getAllUsersWatcher', () => {
+    testShouldBeGeneratorFunction(getAllUsersWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllUsersWatcher,
+      getAllUsersWorker,
+      GET_ALL_USERS,
+    );
+  });
+
+  describe('getAllUsersWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllUsersWorker);
+    testShouldFailOnInvalidAction(getAllUsersWorker, GET_ALL_USERS, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getAllUsers,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllUsers,
+      workerSagaAction: getAllUsers(),
+      workerSagaToTest: getAllUsersWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getAllUsers,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllUsers,
+      workerSagaAction: getAllUsers(),
+      workerSagaToTest: getAllUsersWorker,
+    });
+
+  });
+
+  /*
+   *
+   * PrincipalsApi.getCurrentRoles()
+   * PrincipalsApiActions.getCurrentRoles()
    *
    */
 
@@ -59,7 +102,7 @@ describe('PrincipalsApiSagas', () => {
       latticeApiParams: [],
       latticeApiReqSeq: getCurrentRoles,
       workerSagaAction: getCurrentRoles(),
-      workerSagaToTest: getCurrentRolesWorker
+      workerSagaToTest: getCurrentRolesWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -67,7 +110,7 @@ describe('PrincipalsApiSagas', () => {
       latticeApiParams: [],
       latticeApiReqSeq: getCurrentRoles,
       workerSagaAction: getCurrentRoles(),
-      workerSagaToTest: getCurrentRolesWorker
+      workerSagaToTest: getCurrentRolesWorker,
     });
 
   });
@@ -100,7 +143,7 @@ describe('PrincipalsApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getSecurablePrincipal,
       workerSagaAction: getSecurablePrincipal(mockActionValue),
-      workerSagaToTest: getSecurablePrincipalWorker
+      workerSagaToTest: getSecurablePrincipalWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -108,7 +151,7 @@ describe('PrincipalsApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getSecurablePrincipal,
       workerSagaAction: getSecurablePrincipal(mockActionValue),
-      workerSagaToTest: getSecurablePrincipalWorker
+      workerSagaToTest: getSecurablePrincipalWorker,
     });
 
   });
@@ -141,7 +184,7 @@ describe('PrincipalsApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: searchAllUsers,
       workerSagaAction: searchAllUsers(mockActionValue),
-      workerSagaToTest: searchAllUsersWorker
+      workerSagaToTest: searchAllUsersWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -149,7 +192,7 @@ describe('PrincipalsApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: searchAllUsers,
       workerSagaAction: searchAllUsers(mockActionValue),
-      workerSagaToTest: searchAllUsersWorker
+      workerSagaToTest: searchAllUsersWorker,
     });
 
   });
