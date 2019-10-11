@@ -17,7 +17,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
-  GET_ORGANIZATION_ENTITY_SETS,
+  GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -370,7 +370,7 @@ function* getOrganizationWatcher() :Generator<*, *, *> {
 
 function* getOrganizationEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, GET_ORGANIZATION_ENTITY_SETS)) {
+  if (!isValidAction(seqAction, GET_ORG_ENTITY_SETS)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -403,7 +403,7 @@ function* getOrganizationEntitySetsWorker(seqAction :SequenceAction) :Generator<
 
 function* getOrganizationEntitySetsWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(GET_ORGANIZATION_ENTITY_SETS, getOrganizationEntitySetsWorker);
+  yield takeEvery(GET_ORG_ENTITY_SETS, getOrganizationEntitySetsWorker);
 }
 
 /*
