@@ -13,7 +13,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
-  GET_ORGANIZATION_ENTITY_SETS,
+  GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -393,7 +393,7 @@ describe('OrganizationsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getOrganizationEntitySetsWatcher,
       getOrganizationEntitySetsWorker,
-      GET_ORGANIZATION_ENTITY_SETS,
+      GET_ORG_ENTITY_SETS,
     );
   });
 
@@ -402,7 +402,7 @@ describe('OrganizationsApiSagas', () => {
     const mockActionValue = randomUUID();
 
     testShouldBeGeneratorFunction(getOrganizationEntitySetsWorker);
-    testShouldFailOnInvalidAction(getOrganizationEntitySetsWorker, GET_ORGANIZATION_ENTITY_SETS);
+    testShouldFailOnInvalidAction(getOrganizationEntitySetsWorker, GET_ORG_ENTITY_SETS);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.getOrganizationEntitySets,
