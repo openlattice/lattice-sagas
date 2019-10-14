@@ -8,6 +8,7 @@ import { OrganizationsApi } from 'lattice';
 import {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
@@ -24,6 +25,7 @@ import {
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  createOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
@@ -45,6 +47,8 @@ import {
   addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
+  createOrganizationWatcher,
+  createOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
   deleteOrganizationWatcher,
@@ -169,6 +173,49 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: addMemberToOrganization,
       workerSagaAction: addMemberToOrganization(mockActionValue),
       workerSagaToTest: addMemberToOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.createOrganization
+   * OrganizationsApiActions.createOrganization
+   *
+   */
+
+  describe('createOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(createOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createOrganizationWatcher,
+      createOrganizationWorker,
+      CREATE_ORGANIZATION,
+    );
+  });
+
+  describe('createOrganizationWorker', () => {
+
+    const mockActionValue = {
+      id: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(createOrganizationWorker);
+    testShouldFailOnInvalidAction(createOrganizationWorker, CREATE_ORGANIZATION);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.createOrganization,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createOrganization,
+      workerSagaAction: createOrganization(mockActionValue),
+      workerSagaToTest: createOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.createOrganization,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createOrganization,
+      workerSagaAction: createOrganization(mockActionValue),
+      workerSagaToTest: createOrganizationWorker,
     });
 
   });
