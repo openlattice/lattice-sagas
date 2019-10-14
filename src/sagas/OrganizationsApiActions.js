@@ -11,6 +11,9 @@ const addDomainToOrganization :RequestSequence = newRequestSequence(ADD_DOMAIN_T
 const ADD_MEMBER_TO_ORG :'ADD_MEMBER_TO_ORG' = 'ADD_MEMBER_TO_ORG';
 const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_TO_ORG);
 
+const CREATE_ORGANIZATION :'CREATE_ORGANIZATION' = 'CREATE_ORGANIZATION';
+const createOrganization :RequestSequence = newRequestSequence(CREATE_ORGANIZATION);
+
 const CREATE_ROLE :'CREATE_ROLE' = 'CREATE_ROLE';
 const createRole :RequestSequence = newRequestSequence(CREATE_ROLE);
 
@@ -56,6 +59,7 @@ const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORG_T
 export {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
@@ -72,6 +76,7 @@ export {
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  createOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
