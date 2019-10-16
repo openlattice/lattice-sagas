@@ -398,10 +398,10 @@ describe('OrganizationsApiSagas', () => {
    *
    */
 
-  describe('getAllUsersOfRole', () => {
+  describe('getAllUsersOfRoleWatcher', () => {
     testShouldBeGeneratorFunction(getAllUsersOfRole);
     testWatcherSagaShouldTakeEvery(
-      getAllUsersOfRole,
+      getAllUsersOfRoleWatcher,
       getAllUsersOfRoleWorker,
       GET_ALL_USERS_OF_ROLE,
     );
