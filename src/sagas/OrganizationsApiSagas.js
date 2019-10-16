@@ -375,14 +375,20 @@ function* getAllOrganizationsWatcher() :Generator<*, *, *> {
 
 function* getAllUsersOfRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, GET_ALL_ORGANIZATIONS)) {
+  if (!isValidAction(seqAction, GET_ALL_USERS_OF_ROLE)) {
     return {
       error: ERR_INVALID_ACTION
     };
   }
 
-  const { id, organizationId, roleId } = seqAction;
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
   const response :Object = {};
+  const { organizationId, roleId } = value;
 
   try {
     yield put(getAllUsersOfRole.request(id));
