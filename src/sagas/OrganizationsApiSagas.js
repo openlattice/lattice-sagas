@@ -391,7 +391,7 @@ function* getAllUsersOfRoleWorker(seqAction :SequenceAction) :Generator<*, *, *>
   const { organizationId, roleId } = value;
 
   try {
-    yield put(getAllUsersOfRole.request(id));
+    yield put(getAllUsersOfRole.request(id, value));
     response.data = yield call(OrganizationsApi.getAllUsersOfRole, organizationId, roleId);
     yield put(getAllUsersOfRole.success(id, response.data));
   }

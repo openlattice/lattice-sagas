@@ -399,7 +399,7 @@ describe('OrganizationsApiSagas', () => {
    */
 
   describe('getAllUsersOfRoleWatcher', () => {
-    testShouldBeGeneratorFunction(getAllUsersOfRole);
+    testShouldBeGeneratorFunction(getAllUsersOfRoleWatcher);
     testWatcherSagaShouldTakeEvery(
       getAllUsersOfRoleWatcher,
       getAllUsersOfRoleWorker,
@@ -415,7 +415,7 @@ describe('OrganizationsApiSagas', () => {
     };
 
     testShouldBeGeneratorFunction(getAllUsersOfRoleWorker);
-    testShouldFailOnInvalidAction(getAllUsersOfRoleWorker, GET_ALL_USERS_OF_ROLE, false);
+    testShouldFailOnInvalidAction(getAllUsersOfRoleWorker, GET_ALL_USERS_OF_ROLE);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: OrganizationsApi.getAllUsersOfRole,
