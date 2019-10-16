@@ -317,7 +317,7 @@ describe('DataApiSagas', () => {
 
     const mockActionValue = {
       deleteType: randomUUID(),
-      entityKeyId: randomUUID(),
+      entityKeyIds: randomUUID(),
       entitySetId: randomUUID(),
     };
 
@@ -326,7 +326,7 @@ describe('DataApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataApi.deleteEntityData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId, mockActionValue.deleteType],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyIds, mockActionValue.deleteType],
       latticeApiReqSeq: deleteEntityData,
       workerSagaAction: deleteEntityData(mockActionValue),
       workerSagaToTest: deleteEntityDataWorker
@@ -334,7 +334,7 @@ describe('DataApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataApi.deleteEntityData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId, mockActionValue.deleteType],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyIds, mockActionValue.deleteType],
       latticeApiReqSeq: deleteEntityData,
       workerSagaAction: deleteEntityData(mockActionValue),
       workerSagaToTest: deleteEntityDataWorker
