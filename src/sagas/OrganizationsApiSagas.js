@@ -17,6 +17,7 @@ import {
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
+  GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
   GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
@@ -34,6 +35,7 @@ import {
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
+  getAllUsersOfRole,
   getOrganization,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
@@ -362,6 +364,51 @@ function* getAllOrganizationsWorker(seqAction :SequenceAction) :Generator<*, *, 
 function* getAllOrganizationsWatcher() :Generator<*, *, *> {
 
   yield takeEvery(GET_ALL_ORGANIZATIONS, getAllOrganizationsWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getAllUsersOfRole
+ * OrganizationsApiActions.getAllUsersOfRole
+ *
+ */
+
+function* getAllUsersOfRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ALL_USERS_OF_ROLE)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+  const response :Object = {};
+  const { organizationId, roleId } = value;
+
+  try {
+    yield put(getAllUsersOfRole.request(id, value));
+    response.data = yield call(OrganizationsApi.getAllUsersOfRole, organizationId, roleId);
+    yield put(getAllUsersOfRole.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllUsersOfRole.failure(id, response.error));
+  }
+  finally {
+    yield put(getAllUsersOfRole.finally(id));
+  }
+
+  return response;
+}
+
+function* getAllUsersOfRoleWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ALL_USERS_OF_ROLE, getAllUsersOfRoleWorker);
 }
 
 /*
@@ -836,14 +883,16 @@ export {
   deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
-  getOrganizationWatcher,
-  getOrganizationWorker,
+  getAllUsersOfRoleWatcher,
+  getAllUsersOfRoleWorker,
   getOrganizationEntitySetsWatcher,
   getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
+  getOrganizationWatcher,
+  getOrganizationWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
   removeDomainFromOrganizationWatcher,
