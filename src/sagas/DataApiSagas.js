@@ -266,15 +266,15 @@ function* deleteEntityWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
 /*
  *
- * DataApi.deleteEntity
- * DataApiActions.deleteEntity
+ * DataApi.deleteEntityData
+ * DataApiActions.deleteEntityData
  *
  */
 
 
 function* deleteEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
-  if (!isValidAction(seqAction, DELETE_ENTITY)) {
+  if (!isValidAction(seqAction, DELETE_ENTITY_DATA)) {
     return {
       error: ERR_INVALID_ACTION
     };
@@ -308,7 +308,7 @@ function* deleteEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
 
 function* deleteEntityDataWatcher() :Generator<*, *, *> {
 
-  yield takeEvery(DELETE_ENTITY, deleteEntityDataWorker);
+  yield takeEvery(DELETE_ENTITY_DATA, deleteEntityDataWorker);
 }
 /*
  *
