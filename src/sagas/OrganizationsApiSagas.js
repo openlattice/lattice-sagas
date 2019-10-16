@@ -16,6 +16,7 @@ import {
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
+  GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
@@ -31,6 +32,7 @@ import {
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
+  getAllUsersOfRole,
   getOrganization,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
@@ -312,6 +314,45 @@ function* getAllOrganizationsWorker(seqAction :SequenceAction) :Generator<*, *, 
 function* getAllOrganizationsWatcher() :Generator<*, *, *> {
 
   yield takeEvery(GET_ALL_ORGANIZATIONS, getAllOrganizationsWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getAllUsersOfRole
+ * OrganizationsApiActions.getAllUsersOfRole
+ *
+ */
+
+function* getAllUsersOfRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ALL_ORGANIZATIONS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, organizationId, roleId } = seqAction;
+  const response :Object = {};
+
+  try {
+    yield put(getAllUsersOfRole.request(id));
+    response.data = yield call(OrganizationsApi.getAllUsersOfRole, organizationId, roleId);
+    yield put(getAllUsersOfRole.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getAllUsersOfRole.failure(id, response.error));
+  }
+  finally {
+    yield put(getAllUsersOfRole.finally(id));
+  }
+
+  return response;
+}
+
+function* getAllUsersOfRoleWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ALL_USERS_OF_ROLE, getAllUsersOfRoleWorker);
 }
 
 /*
@@ -739,12 +780,14 @@ export {
   deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
-  getOrganizationWatcher,
-  getOrganizationWorker,
+  getAllUsersOfRoleWatcher,
+  getAllUsersOfRoleWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
+  getOrganizationWatcher,
+  getOrganizationWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
   removeDomainFromOrganizationWatcher,
