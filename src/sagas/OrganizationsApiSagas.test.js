@@ -8,11 +8,13 @@ import { OrganizationsApi } from 'lattice';
 import {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -23,11 +25,13 @@ import {
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  createOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,
@@ -43,6 +47,8 @@ import {
   addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
+  createOrganizationWatcher,
+  createOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
   deleteOrganizationWatcher,
@@ -53,6 +59,8 @@ import {
   getAllOrganizationsWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getOrganizationEntitySetsWatcher,
+  getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
@@ -165,6 +173,49 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: addMemberToOrganization,
       workerSagaAction: addMemberToOrganization(mockActionValue),
       workerSagaToTest: addMemberToOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.createOrganization
+   * OrganizationsApiActions.createOrganization
+   *
+   */
+
+  describe('createOrganizationWatcher', () => {
+    testShouldBeGeneratorFunction(createOrganizationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      createOrganizationWatcher,
+      createOrganizationWorker,
+      CREATE_ORGANIZATION,
+    );
+  });
+
+  describe('createOrganizationWorker', () => {
+
+    const mockActionValue = {
+      id: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(createOrganizationWorker);
+    testShouldFailOnInvalidAction(createOrganizationWorker, CREATE_ORGANIZATION);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.createOrganization,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createOrganization,
+      workerSagaAction: createOrganization(mockActionValue),
+      workerSagaToTest: createOrganizationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.createOrganization,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: createOrganization,
+      workerSagaAction: createOrganization(mockActionValue),
+      workerSagaToTest: createOrganizationWorker,
     });
 
   });
@@ -373,6 +424,47 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: getOrganization,
       workerSagaAction: getOrganization(mockActionValue),
       workerSagaToTest: getOrganizationWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.getOrganizationEntitySets
+   * OrganizationsApiActions.getOrganizationEntitySets
+   *
+   */
+
+  describe('getOrganizationEntitySetsWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationEntitySetsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationEntitySetsWatcher,
+      getOrganizationEntitySetsWorker,
+      GET_ORG_ENTITY_SETS,
+    );
+  });
+
+  describe('getOrganizationEntitySetsWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(getOrganizationEntitySetsWorker);
+    testShouldFailOnInvalidAction(getOrganizationEntitySetsWorker, GET_ORG_ENTITY_SETS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.getOrganizationEntitySets,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationEntitySets,
+      workerSagaAction: getOrganizationEntitySets(mockActionValue),
+      workerSagaToTest: getOrganizationEntitySetsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.getOrganizationEntitySets,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationEntitySets,
+      workerSagaAction: getOrganizationEntitySets(mockActionValue),
+      workerSagaToTest: getOrganizationEntitySetsWorker,
     });
 
   });

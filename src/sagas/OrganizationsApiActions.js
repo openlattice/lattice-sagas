@@ -11,6 +11,9 @@ const addDomainToOrganization :RequestSequence = newRequestSequence(ADD_DOMAIN_T
 const ADD_MEMBER_TO_ORG :'ADD_MEMBER_TO_ORG' = 'ADD_MEMBER_TO_ORG';
 const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_TO_ORG);
 
+const CREATE_ORGANIZATION :'CREATE_ORGANIZATION' = 'CREATE_ORGANIZATION';
+const createOrganization :RequestSequence = newRequestSequence(CREATE_ORGANIZATION);
+
 const CREATE_ROLE :'CREATE_ROLE' = 'CREATE_ROLE';
 const createRole :RequestSequence = newRequestSequence(CREATE_ROLE);
 
@@ -28,6 +31,9 @@ const getAllUsersOfRole :RequestSequence = newRequestSequence(GET_ALL_USERS_OF_R
 
 const GET_ORGANIZATION :'GET_ORGANIZATION' = 'GET_ORGANIZATION';
 const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
+
+const GET_ORG_ENTITY_SETS :'GET_ORG_ENTITY_SETS' = 'GET_ORG_ENTITY_SETS';
+const getOrganizationEntitySets :RequestSequence = newRequestSequence(GET_ORG_ENTITY_SETS);
 
 const GET_ORG_INTEGRATION_ACCOUNT :'GET_ORG_INTEGRATION_ACCOUNT' = 'GET_ORG_INTEGRATION_ACCOUNT';
 const getOrganizationIntegrationAccount :RequestSequence = newRequestSequence(GET_ORG_INTEGRATION_ACCOUNT);
@@ -56,12 +62,14 @@ const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORG_T
 export {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
+  GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -72,12 +80,14 @@ export {
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  createOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getAllUsersOfRole,
   getOrganization,
+  getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,

@@ -12,12 +12,14 @@ import { isValidAction } from '../utils/Utils';
 import {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
+  GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
@@ -28,12 +30,14 @@ import {
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  createOrganization,
   createRole,
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
   getAllUsersOfRole,
   getOrganization,
+  getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,
@@ -136,6 +140,52 @@ function* addMemberToOrganizationWorker(seqAction :SequenceAction) :Generator<*,
 function* addMemberToOrganizationWatcher() :Generator<*, *, *> {
 
   yield takeEvery(ADD_MEMBER_TO_ORG, addMemberToOrganizationWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.createOrganization
+ * OrganizationsApiActions.createOrganization
+ *
+ */
+
+function* createOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, CREATE_ORGANIZATION)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(createOrganization.request(id, value));
+    response.data = yield call(OrganizationsApi.createOrganization, value);
+    yield put(createOrganization.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(createOrganization.failure(id, response.error));
+  }
+  finally {
+    yield put(createOrganization.finally(id));
+  }
+
+  return response;
+}
+
+function* createOrganizationWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_ORGANIZATION, createOrganizationWorker);
 }
 
 /*
@@ -398,6 +448,51 @@ function* getOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 function* getOrganizationWatcher() :Generator<*, *, *> {
 
   yield takeEvery(GET_ORGANIZATION, getOrganizationWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getOrganizationEntitySets
+ * OrganizationsApiActions.getOrganizationEntitySets
+ *
+ */
+
+function* getOrganizationEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_ORG_ENTITY_SETS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(getOrganizationEntitySets.request(id, value));
+    response.data = yield call(OrganizationsApi.getOrganizationEntitySets, value);
+    yield put(getOrganizationEntitySets.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getOrganizationEntitySets.failure(id, response.error));
+  }
+  finally {
+    yield put(getOrganizationEntitySets.finally(id));
+  }
+
+  return response;
+}
+
+function* getOrganizationEntitySetsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ORG_ENTITY_SETS, getOrganizationEntitySetsWorker);
 }
 
 /*
@@ -772,6 +867,8 @@ export {
   addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
+  createOrganizationWatcher,
+  createOrganizationWorker,
   createRoleWatcher,
   createRoleWorker,
   deleteOrganizationWatcher,
@@ -782,6 +879,8 @@ export {
   getAllOrganizationsWorker,
   getAllUsersOfRoleWatcher,
   getAllUsersOfRoleWorker,
+  getOrganizationEntitySetsWatcher,
+  getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
