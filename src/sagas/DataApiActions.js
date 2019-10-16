@@ -20,6 +20,9 @@ const deleteEntitiesAndNeighbors :RequestSequence = newRequestSequence(DELETE_EN
 const DELETE_ENTITY :'DELETE_ENTITY' = 'DELETE_ENTITY';
 const deleteEntity :RequestSequence = newRequestSequence(DELETE_ENTITY);
 
+const DELETE_ENTITY_DATA :'DELETE_ENTITY_DATA' = 'DELETE_ENTITY_DATA';
+const deleteEntityData :RequestSequence = newRequestSequence(DELETE_ENTITY_DATA);
+
 const DELETE_ENTITY_SET :'DELETE_ENTITY_SET' = 'DELETE_ENTITY_SET';
 const deleteEntitySet :RequestSequence = newRequestSequence(DELETE_ENTITY_SET);
 
@@ -41,6 +44,7 @@ export {
   CREATE_OR_MERGE_ENTITY_DATA,
   DELETE_ENTITIES_AND_NEIGHBORS,
   DELETE_ENTITY,
+  DELETE_ENTITY_DATA,
   DELETE_ENTITY_SET,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
@@ -51,6 +55,7 @@ export {
   createOrMergeEntityData,
   deleteEntitiesAndNeighbors,
   deleteEntity,
+  deleteEntityData,
   deleteEntitySet,
   getEntityData,
   getEntitySetData,

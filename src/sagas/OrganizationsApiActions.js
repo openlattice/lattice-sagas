@@ -26,6 +26,9 @@ const deleteRole :RequestSequence = newRequestSequence(DELETE_ROLE);
 const GET_ALL_ORGANIZATIONS :'GET_ALL_ORGANIZATIONS' = 'GET_ALL_ORGANIZATIONS';
 const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZATIONS);
 
+const GET_ALL_USERS_OF_ROLE :'GET_ALL_USERS_OF_ROLE' = 'GET_ALL_USERS_OF_ROLE';
+const getAllUsersOfRole :RequestSequence = newRequestSequence(GET_ALL_USERS_OF_ROLE);
+
 const GET_ORGANIZATION :'GET_ORGANIZATION' = 'GET_ORGANIZATION';
 const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 
@@ -64,6 +67,7 @@ export {
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
+  GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
   GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
@@ -81,6 +85,7 @@ export {
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
+  getAllUsersOfRole,
   getOrganization,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,

@@ -25,7 +25,7 @@
   "main": "build/index.js",
   "dependencies": {
     "@redux-saga/core": "~1.1.0",
-    "lattice": "0.66.3",
+    "lattice": "0.67.0",
     "redux-reqseq": "0.5.0"
   },
   "devDependencies": {
@@ -60,8 +60,8 @@
     "webpack-dev-server": "~3.8.0"
   },
   "peerDependencies": {
-    "@babel/polyfill": "~7.4.0",
-    "@babel/runtime": "~7.5.0",
+    "@babel/polyfill": "~7.6.0",
+    "@babel/runtime": "~7.6.0",
     "@redux-saga/core": "~1.1.0"
   },
   "scripts": {

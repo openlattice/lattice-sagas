@@ -13,6 +13,7 @@ import {
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
+  GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
   GET_ORG_ENTITY_SETS,
   GET_ORG_INTEGRATION_ACCOUNT,
@@ -30,6 +31,7 @@ import {
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
+  getAllUsersOfRole,
   getOrganization,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
@@ -57,6 +59,8 @@ import {
   deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
+  getAllUsersOfRoleWatcher,
+  getAllUsersOfRoleWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
   getOrganizationEntitySetsWatcher,
@@ -383,6 +387,50 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: getAllOrganizations,
       workerSagaAction: getAllOrganizations(),
       workerSagaToTest: getAllOrganizationsWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.getAllUsersOfRole
+   * OrganizationsApiActions.getAllUsersOfRole
+   *
+   */
+
+  describe('getAllUsersOfRoleWatcher', () => {
+    testShouldBeGeneratorFunction(getAllUsersOfRoleWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllUsersOfRoleWatcher,
+      getAllUsersOfRoleWorker,
+      GET_ALL_USERS_OF_ROLE,
+    );
+  });
+
+  describe('getAllUsersOfRoleWorker', () => {
+
+    const mockActionValue = {
+      organizationId: randomUUID(),
+      roleId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(getAllUsersOfRoleWorker);
+    testShouldFailOnInvalidAction(getAllUsersOfRoleWorker, GET_ALL_USERS_OF_ROLE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.getAllUsersOfRole,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId],
+      latticeApiReqSeq: getAllUsersOfRole,
+      workerSagaAction: getAllUsersOfRole(mockActionValue),
+      workerSagaToTest: getAllUsersOfRoleWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.getAllUsersOfRole,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId],
+      latticeApiReqSeq: getAllUsersOfRole,
+      workerSagaAction: getAllUsersOfRole(mockActionValue),
+      workerSagaToTest: getAllUsersOfRoleWorker,
     });
 
   });
