@@ -11,6 +11,9 @@ const addDomainToOrganization :RequestSequence = newRequestSequence(ADD_DOMAIN_T
 const ADD_MEMBER_TO_ORG :'ADD_MEMBER_TO_ORG' = 'ADD_MEMBER_TO_ORG';
 const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_TO_ORG);
 
+const ADD_ROLE_TO_MEMBER :'ADD_ROLE_TO_MEMBER' = 'ADD_ROLE_TO_MEMBER';
+const addRoleToMember :RequestSequence = newRequestSequence(ADD_ROLE_TO_MEMBER);
+
 const CREATE_ORGANIZATION :'CREATE_ORGANIZATION' = 'CREATE_ORGANIZATION';
 const createOrganization :RequestSequence = newRequestSequence(CREATE_ORGANIZATION);
 
@@ -50,6 +53,9 @@ const removeDomainFromOrganization :RequestSequence = newRequestSequence(REMOVE_
 const REMOVE_MEMBER_FROM_ORG :'REMOVE_MEMBER_FROM_ORG' = 'REMOVE_MEMBER_FROM_ORG';
 const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_MEMBER_FROM_ORG);
 
+const REMOVE_ROLE_FROM_MEMBER :'REMOVE_ROLE_FROM_MEMBER' = 'REMOVE_ROLE_FROM_MEMBER';
+const removeRoleFromMember :RequestSequence = newRequestSequence(REMOVE_ROLE_FROM_MEMBER);
+
 const REVOKE_TRUST_FROM_ORG :'REVOKE_TRUST_FROM_ORG' = 'REVOKE_TRUST_FROM_ORG';
 const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORG);
 
@@ -62,6 +68,7 @@ const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORG_T
 export {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  ADD_ROLE_TO_MEMBER,
   CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
@@ -75,11 +82,13 @@ export {
   GRANT_TRUST_TO_ORG,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
+  REMOVE_ROLE_FROM_MEMBER,
   REVOKE_TRUST_FROM_ORG,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  addRoleToMember,
   createOrganization,
   createRole,
   deleteOrganization,
@@ -93,6 +102,7 @@ export {
   grantTrustToOrganization,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
+  removeRoleFromMember,
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
