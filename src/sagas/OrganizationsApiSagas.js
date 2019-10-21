@@ -12,6 +12,7 @@ import { isValidAction } from '../utils/Utils';
 import {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
+  ADD_ROLE_TO_MEMBER,
   CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
@@ -24,11 +25,13 @@ import {
   GRANT_TRUST_TO_ORG,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
+  REMOVE_ROLE_FROM_MEMBER,
   REVOKE_TRUST_FROM_ORG,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
   addDomainToOrganization,
   addMemberToOrganization,
+  addRoleToMember,
   createOrganization,
   createRole,
   deleteOrganization,
@@ -41,6 +44,7 @@ import {
   grantTrustToOrganization,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
+  removeRoleFromMember,
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
@@ -138,6 +142,53 @@ function* addMemberToOrganizationWorker(seqAction :SequenceAction) :Generator<*,
 function* addMemberToOrganizationWatcher() :Generator<*, *, *> {
 
   yield takeEvery(ADD_MEMBER_TO_ORG, addMemberToOrganizationWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.addRoleToMember
+ * OrganizationsApiActions.addRoleToMember
+ *
+ */
+
+function* addRoleToMemberWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, ADD_ROLE_TO_MEMBER)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { memberId, organizationId, roleId } = value;
+
+  try {
+    yield put(addRoleToMember.request(id, value));
+    response.data = yield call(OrganizationsApi.addRoleToMember, organizationId, roleId, memberId);
+    yield put(addRoleToMember.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(addRoleToMember.failure(id, response.error));
+  }
+  finally {
+    yield put(addRoleToMember.finally(id));
+  }
+
+  return response;
+}
+
+function* addRoleToMemberWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(ADD_ROLE_TO_MEMBER, addRoleToMemberWorker);
 }
 
 /*
@@ -685,6 +736,53 @@ function* removeMemberFromOrganizationWatcher() :Generator<*, *, *> {
 
 /*
  *
+ * OrganizationsApi.removeRoleFromMember
+ * OrganizationsApiActions.removeRoleFromMember
+ *
+ */
+
+function* removeRoleFromMemberWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, REMOVE_ROLE_FROM_MEMBER)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { memberId, organizationId, roleId } = value;
+
+  try {
+    yield put(removeRoleFromMember.request(id, value));
+    response.data = yield call(OrganizationsApi.removeRoleFromMember, organizationId, roleId, memberId);
+    yield put(removeRoleFromMember.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(removeRoleFromMember.failure(id, response.error));
+  }
+  finally {
+    yield put(removeRoleFromMember.finally(id));
+  }
+
+  return response;
+}
+
+function* removeRoleFromMemberWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(REMOVE_ROLE_FROM_MEMBER, removeRoleFromMemberWorker);
+}
+
+/*
+ *
  * OrganizationsApi.revokeTrustFromOrganization
  * OrganizationsApiActions.revokeTrustFromOrganization
  *
@@ -826,6 +924,8 @@ export {
   addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
+  addRoleToMemberWatcher,
+  addRoleToMemberWorker,
   createOrganizationWatcher,
   createOrganizationWorker,
   createRoleWatcher,
@@ -850,6 +950,8 @@ export {
   removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
   removeMemberFromOrganizationWorker,
+  removeRoleFromMemberWatcher,
+  removeRoleFromMemberWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
   updateOrganizationDescriptionWatcher,
