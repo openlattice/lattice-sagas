@@ -7,12 +7,16 @@ import { DataIntegrationApi } from 'lattice';
 
 import {
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
+  GET_ENTITY_KEY_IDS,
   createEntityAndAssociationData,
+  getEntityKeyIds,
 } from './DataIntegrationApiActions';
 
 import {
   createEntityAndAssociationDataWatcher,
   createEntityAndAssociationDataWorker,
+  getEntityKeyIdsWatcher,
+  getEntityKeyIdsWorker,
 } from './DataIntegrationApiSagas';
 
 import {
@@ -62,6 +66,50 @@ describe('DataIntegrationApiSagas', () => {
       latticeApiReqSeq: createEntityAndAssociationData,
       workerSagaAction: createEntityAndAssociationData(mockActionValue),
       workerSagaToTest: createEntityAndAssociationDataWorker
+    });
+
+  });
+
+  /*
+   *
+   * DataIntegrationApi.createEntityAndAssociationData
+   * DataIntegrationApiActions.createEntityAndAssociationData
+   *
+   */
+
+  describe('getEntityKeyIdsWatcher', () => {
+    testShouldBeGeneratorFunction(getEntityKeyIdsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntityKeyIdsWatcher,
+      getEntityKeyIdsWorker,
+      GET_ENTITY_KEY_IDS
+    );
+  });
+
+  describe('getEntityKeyIdsWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      entityId: randomUUID()
+    };
+
+    testShouldBeGeneratorFunction(getEntityKeyIdsWorker);
+    testShouldFailOnInvalidAction(getEntityKeyIdsWorker, GET_ENTITY_KEY_IDS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataIntegrationApi.getEntityKeyIds,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntityKeyIds,
+      workerSagaAction: getEntityKeyIds(mockActionValue),
+      workerSagaToTest: getEntityKeyIdsWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataIntegrationApi.getEntityKeyIds,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntityKeyIds,
+      workerSagaAction: getEntityKeyIds(mockActionValue),
+      workerSagaToTest: getEntityKeyIdsWorker
     });
 
   });
