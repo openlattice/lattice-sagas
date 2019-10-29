@@ -9,10 +9,12 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = Immutable.List([
   'CREATE_ENTITY_AND_ASSOCIATION_DATA',
+  'GET_ENTITY_KEY_IDS'
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
   'createEntityAndAssociationData',
+  'getEntityKeyIds'
 ]).sort();
 
 describe('DataIntegrationApiActions', () => {
