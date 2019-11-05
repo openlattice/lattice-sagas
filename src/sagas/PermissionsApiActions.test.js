@@ -10,11 +10,13 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 const ACTION_TYPES = Immutable.List([
   'GET_ACL',
   'UPDATE_ACL',
+  'UPDATE_ACLS',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
   'getAcl',
   'updateAcl',
+  'updateAcls',
 ]).sort();
 
 describe('PermissionsApiActions', () => {
