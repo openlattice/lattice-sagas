@@ -8,8 +8,10 @@ import { PermissionsApi } from 'lattice';
 import {
   GET_ACL,
   UPDATE_ACL,
+  UPDATE_ACLS,
   getAcl,
   updateAcl,
+  updateAcls,
 } from './PermissionsApiActions';
 
 import {
@@ -17,6 +19,8 @@ import {
   getAclWorker,
   updateAclWatcher,
   updateAclWorker,
+  updateAclsWatcher,
+  updateAclsWorker,
 } from './PermissionsApiSagas';
 
 import {
@@ -107,6 +111,47 @@ describe('PermissionsApiSagas', () => {
       latticeApiReqSeq: updateAcl,
       workerSagaAction: updateAcl(mockActionValue),
       workerSagaToTest: updateAclWorker
+    });
+
+  });
+
+  /*
+   *
+   * PermissionsApi.updateAcls()
+   * PermissionsApiActions.updateAcls()
+   *
+   */
+
+  describe('updateAclsWatcher', () => {
+    testShouldBeGeneratorFunction(updateAclsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateAclsWatcher,
+      updateAclsWorker,
+      UPDATE_ACLS,
+    );
+  });
+
+  describe('updateAclsWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(updateAclsWorker);
+    testShouldFailOnInvalidAction(updateAclsWorker, UPDATE_ACLS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PermissionsApi.updateAcls,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: updateAcls,
+      workerSagaAction: updateAcls(mockActionValue),
+      workerSagaToTest: updateAclsWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PermissionsApi.updateAcls,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: updateAcls,
+      workerSagaAction: updateAcls(mockActionValue),
+      workerSagaToTest: updateAclsWorker
     });
 
   });

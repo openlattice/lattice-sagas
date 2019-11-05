@@ -11,9 +11,14 @@ const getAcl :RequestSequence = newRequestSequence(GET_ACL);
 const UPDATE_ACL :'UPDATE_ACL' = 'UPDATE_ACL';
 const updateAcl :RequestSequence = newRequestSequence(UPDATE_ACL);
 
+const UPDATE_ACLS :'UPDATE_ACLS' = 'UPDATE_ACLS';
+const updateAcls :RequestSequence = newRequestSequence(UPDATE_ACLS);
+
 export {
   GET_ACL,
   UPDATE_ACL,
+  UPDATE_ACLS,
   getAcl,
   updateAcl,
+  updateAcls,
 };
