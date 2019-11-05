@@ -11,7 +11,9 @@ import { isValidAction } from '../utils/Utils';
 
 import {
   GET_ACL,
+  UPDATE_ACL,
   getAcl,
+  updateAcl,
 } from './PermissionsApiActions';
 
 /*
@@ -59,7 +61,54 @@ function* getAclWatcher() :Generator<*, void, *> {
   yield takeEvery(GET_ACL, getAclWorker);
 }
 
+/*
+ *
+ * PermissionsApi.updateAcl()
+ * PermissionsApiActions.updateAcl()
+ *
+ */
+
+function* updateAclWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, UPDATE_ACL)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+
+  try {
+    yield put(updateAcl.request(id, value));
+    response.data = yield call(PermissionsApi.updateAcl, value);
+    yield put(updateAcl.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateAcl.failure(id, response.error));
+  }
+  finally {
+    yield put(updateAcl.finally(id));
+  }
+
+  return response;
+}
+
+function* updateAclWatcher() :Generator<*, void, *> {
+
+  yield takeEvery(UPDATE_ACL, updateAclWorker);
+}
+
 export {
   getAclWatcher,
   getAclWorker,
+  updateAclWatcher,
+  updateAclWorker,
 };
