@@ -30,6 +30,7 @@ import {
   REVOKE_TRUST_FROM_ORG,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
+  UPDATE_ROLE_GRANT,
   addDomainToOrganization,
   addMemberToOrganization,
   addRoleToMember,
@@ -50,6 +51,7 @@ import {
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
+  updateRoleGrant,
 } from './OrganizationsApiActions';
 
 /*
@@ -966,6 +968,52 @@ function* updateOrganizationTitleWatcher() :Generator<*, *, *> {
   yield takeEvery(UPDATE_ORG_TITLE, updateOrganizationTitleWorker);
 }
 
+/*
+ *
+ * OrganizationsApi.updateRoleGrant
+ * OrganizationsApiActions.updateRoleGrant
+ *
+ */
+
+function* updateRoleGrantWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, UPDATE_ROLE_GRANT)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { organizationId, roleId, grant } = value;
+
+  try {
+    yield put(updateRoleGrant.request(id, value));
+    response.data = yield call(OrganizationsApi.updateRoleGrant, organizationId, roleId, grant);
+    yield put(updateRoleGrant.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(updateRoleGrant.failure(id, response.error));
+  }
+  finally {
+    yield put(updateRoleGrant.finally(id));
+  }
+
+  return response;
+}
+
+function* updateRoleGrantWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(UPDATE_ROLE_GRANT, updateRoleGrantWorker);
+}
+
 export {
   addDomainToOrganizationWatcher,
   addDomainToOrganizationWorker,
@@ -1007,4 +1055,6 @@ export {
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
   updateOrganizationTitleWorker,
+  updateRoleGrantWatcher,
+  updateRoleGrantWorker,
 };
