@@ -994,7 +994,7 @@ describe('OrganizationsApiSagas', () => {
     testShouldFailOnInvalidAction(updateRoleGrantWorker, UPDATE_ROLE_GRANT);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: OrganizationsApi.updateTitle,
+      latticeApi: OrganizationsApi.updateRoleGrant,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId, mockActionValue.grant],
       latticeApiReqSeq: updateRoleGrant,
       workerSagaAction: updateRoleGrant(mockActionValue),
@@ -1002,7 +1002,7 @@ describe('OrganizationsApiSagas', () => {
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: OrganizationsApi.updateTitle,
+      latticeApi: OrganizationsApi.updateRoleGrant,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId, mockActionValue.grant],
       latticeApiReqSeq: updateRoleGrant,
       workerSagaAction: updateRoleGrant(mockActionValue),
