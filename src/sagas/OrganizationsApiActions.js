@@ -65,6 +65,9 @@ const updateOrganizationDescription :RequestSequence = newRequestSequence(UPDATE
 const UPDATE_ORG_TITLE :'UPDATE_ORG_TITLE' = 'UPDATE_ORG_TITLE';
 const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORG_TITLE);
 
+const UPDATE_ROLE_GRANT :'UPDATE_ROLE_GRANT' = 'UPDATE_ROLE_GRANT';
+const updateRoleGrant :RequestSequence = newRequestSequence(UPDATE_ROLE_GRANT);
+
 export {
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
@@ -86,6 +89,7 @@ export {
   REVOKE_TRUST_FROM_ORG,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
+  UPDATE_ROLE_GRANT,
   addDomainToOrganization,
   addMemberToOrganization,
   addRoleToMember,
@@ -106,4 +110,5 @@ export {
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
+  updateRoleGrant,
 };
