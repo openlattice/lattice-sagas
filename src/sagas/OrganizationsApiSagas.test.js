@@ -26,6 +26,7 @@ import {
   REVOKE_TRUST_FROM_ORG,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
+  UPDATE_ROLE_GRANT,
   addDomainToOrganization,
   addMemberToOrganization,
   addRoleToMember,
@@ -46,6 +47,7 @@ import {
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
+  updateRoleGrant,
 } from './OrganizationsApiActions';
 
 import {
@@ -89,6 +91,8 @@ import {
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
   updateOrganizationTitleWorker,
+  updateRoleGrantWatcher,
+  updateRoleGrantWorker,
 } from './OrganizationsApiSagas';
 
 import {
@@ -958,6 +962,51 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: updateOrganizationTitle,
       workerSagaAction: updateOrganizationTitle(mockActionValue),
       workerSagaToTest: updateOrganizationTitleWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.updateRoleGrant
+   * OrganizationsApiActions.updateRoleGrant
+   *
+   */
+
+  describe('updateRoleGrantWatcher', () => {
+    testShouldBeGeneratorFunction(updateRoleGrantWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateRoleGrantWatcher,
+      updateRoleGrantWorker,
+      UPDATE_ROLE_GRANT,
+    );
+  });
+
+  describe('updateRoleGrantWorker', () => {
+
+    const mockActionValue = {
+      organizationId: randomUUID(),
+      roleId: randomUUID(),
+      grant: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(updateRoleGrantWorker);
+    testShouldFailOnInvalidAction(updateRoleGrantWorker, UPDATE_ROLE_GRANT);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.updateTitle,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId, mockActionValue.grant],
+      latticeApiReqSeq: updateRoleGrant,
+      workerSagaAction: updateRoleGrant(mockActionValue),
+      workerSagaToTest: updateRoleGrantWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.updateTitle,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.roleId, mockActionValue.grant],
+      latticeApiReqSeq: updateRoleGrant,
+      workerSagaAction: updateRoleGrant(mockActionValue),
+      workerSagaToTest: updateRoleGrantWorker,
     });
 
   });
