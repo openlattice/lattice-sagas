@@ -10,6 +10,7 @@ import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Error
 import { isValidAction } from '../utils/Utils';
 
 import {
+  ADD_CONNECTIONS,
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
   ADD_ROLE_TO_MEMBER,
@@ -24,13 +25,16 @@ import {
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
+  REMOVE_CONNECTIONS,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
   REMOVE_ROLE_FROM_MEMBER,
   REVOKE_TRUST_FROM_ORG,
+  SET_CONNECTIONS,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
   UPDATE_ROLE_GRANT,
+  addConnections,
   addDomainToOrganization,
   addMemberToOrganization,
   addRoleToMember,
@@ -45,14 +49,63 @@ import {
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,
+  removeConnections,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
   revokeTrustFromOrganization,
+  setConnections,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleGrant,
 } from './OrganizationsApiActions';
+
+/*
+ *
+ * OrganizationsApi.addConnections
+ * OrganizationsApiActions.addConnections
+ *
+ */
+
+function* addConnectionsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, ADD_CONNECTIONS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { connections, organizationId } = value;
+
+  try {
+    yield put(addConnections.request(id, value));
+    response.data = yield call(OrganizationsApi.addConnections, organizationId, connections);
+    yield put(addConnections.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(addConnections.failure(id, response.error));
+  }
+  finally {
+    yield put(addConnections.finally(id));
+  }
+
+  return response;
+}
+
+function* addConnectionsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(ADD_CONNECTIONS, addConnectionsWorker);
+}
 
 /*
  *
@@ -692,6 +745,53 @@ function* grantTrustToOrganizationWatcher() :Generator<*, *, *> {
 
 /*
  *
+ * OrganizationsApi.removeConnections
+ * OrganizationsApiActions.removeConnections
+ *
+ */
+
+function* removeConnectionsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, REMOVE_CONNECTIONS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { connections, organizationId } = value;
+
+  try {
+    yield put(removeConnections.request(id, value));
+    response.data = yield call(OrganizationsApi.removeConnections, organizationId, connections);
+    yield put(removeConnections.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(removeConnections.failure(id, response.error));
+  }
+  finally {
+    yield put(removeConnections.finally(id));
+  }
+
+  return response;
+}
+
+function* removeConnectionsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(REMOVE_CONNECTIONS, removeConnectionsWorker);
+}
+
+/*
+ *
  * OrganizationsApi.removeAutoApprovedEmailDomain
  * OrganizationsApiActions.removeDomainFromOrganization
  *
@@ -878,7 +978,54 @@ function* revokeTrustFromOrganizationWatcher() :Generator<*, *, *> {
 
 /*
  *
- * OrganizationsApi.updateDescription
+ * OrganizationsApi.setConnections
+ * OrganizationsApiActions.setConnections
+ *
+ */
+
+function* setConnectionsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+
+  if (!isValidAction(seqAction, SET_CONNECTIONS)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { connections, organizationId } = value;
+
+  try {
+    yield put(setConnections.request(id, value));
+    response.data = yield call(OrganizationsApi.setConnections, organizationId, connections);
+    yield put(setConnections.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(setConnections.failure(id, response.error));
+  }
+  finally {
+    yield put(setConnections.finally(id));
+  }
+
+  return response;
+}
+
+function* setConnectionsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(SET_CONNECTIONS, setConnectionsWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.updateOrganizationDescription
  * OrganizationsApiActions.updateOrganizationDescription
  *
  */
@@ -903,7 +1050,7 @@ function* updateOrganizationDescriptionWorker(seqAction :SequenceAction) :Genera
 
   try {
     yield put(updateOrganizationDescription.request(id, value));
-    response.data = yield call(OrganizationsApi.updateDescription, organizationId, description);
+    response.data = yield call(OrganizationsApi.updateOrganizationDescription, organizationId, description);
     yield put(updateOrganizationDescription.success(id, response.data));
   }
   catch (error) {
@@ -924,7 +1071,7 @@ function* updateOrganizationDescriptionWatcher() :Generator<*, *, *> {
 
 /*
  *
- * OrganizationsApi.updateTitle
+ * OrganizationsApi.updateOrganizationTitle
  * OrganizationsApiActions.updateOrganizationTitle
  *
  */
@@ -949,7 +1096,7 @@ function* updateOrganizationTitleWorker(seqAction :SequenceAction) :Generator<*,
 
   try {
     yield put(updateOrganizationTitle.request(id, value));
-    response.data = yield call(OrganizationsApi.updateTitle, organizationId, title);
+    response.data = yield call(OrganizationsApi.updateOrganizationTitle, organizationId, title);
     yield put(updateOrganizationTitle.success(id, response.data));
   }
   catch (error) {
@@ -1015,6 +1162,8 @@ function* updateRoleGrantWatcher() :Generator<*, *, *> {
 }
 
 export {
+  addConnectionsWatcher,
+  addConnectionsWorker,
   addDomainToOrganizationWatcher,
   addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
@@ -1043,6 +1192,8 @@ export {
   getOrganizationWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
+  removeConnectionsWatcher,
+  removeConnectionsWorker,
   removeDomainFromOrganizationWatcher,
   removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
@@ -1051,6 +1202,8 @@ export {
   removeRoleFromMemberWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
+  setConnectionsWatcher,
+  setConnectionsWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,

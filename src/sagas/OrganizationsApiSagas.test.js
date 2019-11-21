@@ -6,6 +6,7 @@ import randomUUID from 'uuid/v4';
 import { OrganizationsApi } from 'lattice';
 
 import {
+  ADD_CONNECTIONS,
   ADD_DOMAIN_TO_ORG,
   ADD_MEMBER_TO_ORG,
   ADD_ROLE_TO_MEMBER,
@@ -20,13 +21,16 @@ import {
   GET_ORG_INTEGRATION_ACCOUNT,
   GET_ORG_MEMBERS,
   GRANT_TRUST_TO_ORG,
+  REMOVE_CONNECTIONS,
   REMOVE_DOMAIN_FROM_ORG,
   REMOVE_MEMBER_FROM_ORG,
   REMOVE_ROLE_FROM_MEMBER,
   REVOKE_TRUST_FROM_ORG,
+  SET_CONNECTIONS,
   UPDATE_ORG_DESCRIPTION,
   UPDATE_ORG_TITLE,
   UPDATE_ROLE_GRANT,
+  addConnections,
   addDomainToOrganization,
   addMemberToOrganization,
   addRoleToMember,
@@ -41,16 +45,20 @@ import {
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
   grantTrustToOrganization,
+  removeConnections,
   removeDomainFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
   revokeTrustFromOrganization,
+  setConnections,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleGrant,
 } from './OrganizationsApiActions';
 
 import {
+  addConnectionsWatcher,
+  addConnectionsWorker,
   addDomainToOrganizationWatcher,
   addDomainToOrganizationWorker,
   addMemberToOrganizationWatcher,
@@ -69,16 +77,18 @@ import {
   getAllOrganizationsWorker,
   getAllUsersOfRoleWatcher,
   getAllUsersOfRoleWorker,
-  getOrganizationWatcher,
-  getOrganizationWorker,
   getOrganizationEntitySetsWatcher,
   getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
+  getOrganizationWatcher,
+  getOrganizationWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
+  removeConnectionsWatcher,
+  removeConnectionsWorker,
   removeDomainFromOrganizationWatcher,
   removeDomainFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
@@ -87,6 +97,8 @@ import {
   removeRoleFromMemberWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
+  setConnectionsWatcher,
+  setConnectionsWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
@@ -104,6 +116,50 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('OrganizationsApiSagas', () => {
+
+  /*
+   *
+   * OrganizationsApi.addConnections
+   * OrganizationsApiActions.addConnections
+   *
+   */
+
+  describe('addConnectionsWatcher', () => {
+    testShouldBeGeneratorFunction(addConnectionsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      addConnectionsWatcher,
+      addConnectionsWorker,
+      ADD_CONNECTIONS,
+    );
+  });
+
+  describe('addConnectionsWorker', () => {
+
+    const mockActionValue = {
+      connections: [randomUUID()],
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(addConnectionsWorker);
+    testShouldFailOnInvalidAction(addConnectionsWorker, ADD_CONNECTIONS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.addConnections,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.connections],
+      latticeApiReqSeq: addConnections,
+      workerSagaAction: addConnections(mockActionValue),
+      workerSagaToTest: addConnectionsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.addConnections,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.connections],
+      latticeApiReqSeq: addConnections,
+      workerSagaAction: addConnections(mockActionValue),
+      workerSagaToTest: addConnectionsWorker,
+    });
+
+  });
 
   /*
    *
@@ -702,6 +758,50 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
+   * OrganizationsApi.removeConnections
+   * OrganizationsApiActions.removeConnections
+   *
+   */
+
+  describe('removeConnectionsWatcher', () => {
+    testShouldBeGeneratorFunction(removeConnectionsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      removeConnectionsWatcher,
+      removeConnectionsWorker,
+      REMOVE_CONNECTIONS,
+    );
+  });
+
+  describe('removeConnectionsWorker', () => {
+
+    const mockActionValue = {
+      connections: [randomUUID()],
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(removeConnectionsWorker);
+    testShouldFailOnInvalidAction(removeConnectionsWorker, REMOVE_CONNECTIONS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.removeConnections,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.connections],
+      latticeApiReqSeq: removeConnections,
+      workerSagaAction: removeConnections(mockActionValue),
+      workerSagaToTest: removeConnectionsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.removeConnections,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.connections],
+      latticeApiReqSeq: removeConnections,
+      workerSagaAction: removeConnections(mockActionValue),
+      workerSagaToTest: removeConnectionsWorker,
+    });
+
+  });
+
+  /*
+   *
    * OrganizationsApi.removeAutoApprovedEmailDomain
    * OrganizationsApiActions.removeDomainFromOrganization
    *
@@ -880,7 +980,51 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
-   * OrganizationsApi.updateDescription
+   * OrganizationsApi.setConnections
+   * OrganizationsApiActions.setConnections
+   *
+   */
+
+  describe('setConnectionsWatcher', () => {
+    testShouldBeGeneratorFunction(setConnectionsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      setConnectionsWatcher,
+      setConnectionsWorker,
+      SET_CONNECTIONS,
+    );
+  });
+
+  describe('setConnectionsWorker', () => {
+
+    const mockActionValue = {
+      connections: [randomUUID()],
+      organizationId: randomUUID(),
+    };
+
+    testShouldBeGeneratorFunction(setConnectionsWorker);
+    testShouldFailOnInvalidAction(setConnectionsWorker, SET_CONNECTIONS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.setConnections,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.connections],
+      latticeApiReqSeq: setConnections,
+      workerSagaAction: setConnections(mockActionValue),
+      workerSagaToTest: setConnectionsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.setConnections,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.connections],
+      latticeApiReqSeq: setConnections,
+      workerSagaAction: setConnections(mockActionValue),
+      workerSagaToTest: setConnectionsWorker,
+    });
+
+  });
+
+  /*
+   *
+   * OrganizationsApi.updateOrganizationDescription
    * OrganizationsApiActions.updateOrganizationDescription
    *
    */
@@ -905,7 +1049,7 @@ describe('OrganizationsApiSagas', () => {
     testShouldFailOnInvalidAction(updateOrganizationDescriptionWorker, UPDATE_ORG_DESCRIPTION);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: OrganizationsApi.updateDescription,
+      latticeApi: OrganizationsApi.updateOrganizationDescription,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.description],
       latticeApiReqSeq: updateOrganizationDescription,
       workerSagaAction: updateOrganizationDescription(mockActionValue),
@@ -913,7 +1057,7 @@ describe('OrganizationsApiSagas', () => {
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: OrganizationsApi.updateDescription,
+      latticeApi: OrganizationsApi.updateOrganizationDescription,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.description],
       latticeApiReqSeq: updateOrganizationDescription,
       workerSagaAction: updateOrganizationDescription(mockActionValue),
@@ -924,7 +1068,7 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
-   * OrganizationsApi.updateTitle
+   * OrganizationsApi.updateOrganizationTitle
    * OrganizationsApiActions.updateOrganizationTitle
    *
    */
@@ -949,7 +1093,7 @@ describe('OrganizationsApiSagas', () => {
     testShouldFailOnInvalidAction(updateOrganizationTitleWorker, UPDATE_ORG_TITLE);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: OrganizationsApi.updateTitle,
+      latticeApi: OrganizationsApi.updateOrganizationTitle,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.title],
       latticeApiReqSeq: updateOrganizationTitle,
       workerSagaAction: updateOrganizationTitle(mockActionValue),
@@ -957,7 +1101,7 @@ describe('OrganizationsApiSagas', () => {
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: OrganizationsApi.updateTitle,
+      latticeApi: OrganizationsApi.updateOrganizationTitle,
       latticeApiParams: [mockActionValue.organizationId, mockActionValue.title],
       latticeApiReqSeq: updateOrganizationTitle,
       workerSagaAction: updateOrganizationTitle(mockActionValue),

@@ -8,6 +8,7 @@ import * as OrganizationsApiActions from './OrganizationsApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = Immutable.List([
+  'ADD_CONNECTIONS',
   'ADD_DOMAIN_TO_ORG',
   'ADD_MEMBER_TO_ORG',
   'ADD_ROLE_TO_MEMBER',
@@ -22,16 +23,19 @@ const ACTION_TYPES = Immutable.List([
   'GET_ORG_INTEGRATION_ACCOUNT',
   'GET_ORG_MEMBERS',
   'GRANT_TRUST_TO_ORG',
+  'REMOVE_CONNECTIONS',
   'REMOVE_DOMAIN_FROM_ORG',
   'REMOVE_MEMBER_FROM_ORG',
   'REMOVE_ROLE_FROM_MEMBER',
   'REVOKE_TRUST_FROM_ORG',
+  'SET_CONNECTIONS',
   'UPDATE_ORG_DESCRIPTION',
   'UPDATE_ORG_TITLE',
   'UPDATE_ROLE_GRANT',
 ]).sort();
 
 const REQSEQ_NAMES = Immutable.List([
+  'addConnections',
   'addDomainToOrganization',
   'addMemberToOrganization',
   'addRoleToMember',
@@ -46,10 +50,12 @@ const REQSEQ_NAMES = Immutable.List([
   'getOrganizationIntegrationAccount',
   'getOrganizationMembers',
   'grantTrustToOrganization',
+  'removeConnections',
   'removeDomainFromOrganization',
   'removeMemberFromOrganization',
   'removeRoleFromMember',
   'revokeTrustFromOrganization',
+  'setConnections',
   'updateOrganizationDescription',
   'updateOrganizationTitle',
   'updateRoleGrant',
