@@ -191,11 +191,11 @@ function* searchEntityNeighborsWithFilterWorker(seqAction :SequenceAction) :Gene
   }
 
   const response :Object = {};
-  const { entitySetId, filter } = value;
+  const { entitySetId, filter, idsOnly } = value;
 
   try {
     yield put(searchEntityNeighborsWithFilter.request(id, value));
-    response.data = yield call(SearchApi.searchEntityNeighborsWithFilter, entitySetId, filter);
+    response.data = yield call(SearchApi.searchEntityNeighborsWithFilter, entitySetId, filter, idsOnly);
     yield put(searchEntityNeighborsWithFilter.success(id, response.data));
   }
   catch (error) {
