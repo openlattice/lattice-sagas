@@ -233,6 +233,7 @@ describe('SearchApiSagas', () => {
       filter: {
         entityKeyIds: [randomUUID()],
       },
+      idsOnly: false
     };
 
     testShouldBeGeneratorFunction(searchEntityNeighborsWithFilterWorker);
@@ -240,7 +241,7 @@ describe('SearchApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: SearchApi.searchEntityNeighborsWithFilter,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter, mockActionValue.idsOnly],
       latticeApiReqSeq: searchEntityNeighborsWithFilter,
       workerSagaAction: searchEntityNeighborsWithFilter(mockActionValue),
       workerSagaToTest: searchEntityNeighborsWithFilterWorker
@@ -248,7 +249,7 @@ describe('SearchApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: SearchApi.searchEntityNeighborsWithFilter,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter, mockActionValue.idsOnly],
       latticeApiReqSeq: searchEntityNeighborsWithFilter,
       workerSagaAction: searchEntityNeighborsWithFilter(mockActionValue),
       workerSagaToTest: searchEntityNeighborsWithFilterWorker
