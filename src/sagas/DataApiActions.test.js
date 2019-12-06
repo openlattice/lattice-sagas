@@ -18,6 +18,7 @@ const ACTION_TYPES = Set([
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
   'GET_ENTITY_SET_SIZE',
+  'GET_LINKED_ENTITY_SET_BREAKDOWN',
   'UPDATE_ENTITY_DATA',
 ]).sort();
 
@@ -32,6 +33,7 @@ const REQSEQ_NAMES = Set([
   'getEntityData',
   'getEntitySetData',
   'getEntitySetSize',
+  'getLinkedEntitySetBreakdown',
   'updateEntityData',
 ]).sort();
 
