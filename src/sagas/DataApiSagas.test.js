@@ -551,7 +551,7 @@ describe('DataApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataApi.getLinkedEntitySetBreakdown,
-      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeIds, mockActionValue.entityKeyIds],
       latticeApiReqSeq: getLinkedEntitySetBreakdown,
       workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
       workerSagaToTest: getLinkedEntitySetBreakdownWorker
@@ -559,7 +559,7 @@ describe('DataApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataApi.getLinkedEntitySetBreakdown,
-      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeIds, mockActionValue.entityKeyIds],
       latticeApiReqSeq: getLinkedEntitySetBreakdown,
       workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
       workerSagaToTest: getLinkedEntitySetBreakdownWorker
