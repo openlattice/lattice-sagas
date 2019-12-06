@@ -35,6 +35,9 @@ const getEntitySetData :RequestSequence = newRequestSequence(GET_ENTITY_SET_DATA
 const GET_ENTITY_SET_SIZE :'GET_ENTITY_SET_SIZE' = 'GET_ENTITY_SET_SIZE';
 const getEntitySetSize :RequestSequence = newRequestSequence(GET_ENTITY_SET_SIZE);
 
+const GET_LINKED_ENTITY_SET_BREAKDOWN :'GET_LINKED_ENTITY_SET_BREAKDOWN' = 'GET_LINKED_ENTITY_SET_BREAKDOWN';
+const getLinkedEntitySetBreakdown :RequestSequence = newRequestSequence(GET_LINKED_ENTITY_SET_BREAKDOWN);
+
 const UPDATE_ENTITY_DATA :'UPDATE_ENTITY_DATA' = 'UPDATE_ENTITY_DATA';
 const updateEntityData :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA);
 
@@ -49,6 +52,7 @@ export {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
+  GET_LINKED_ENTITY_SET_BREAKDOWN,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -60,5 +64,6 @@ export {
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
+  getLinkedEntitySetBreakdown,
   updateEntityData,
 };

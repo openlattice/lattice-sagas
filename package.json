@@ -25,7 +25,7 @@
   "main": "build/index.js",
   "dependencies": {
     "@redux-saga/core": "~1.1.0",
-    "lattice": "0.71.1",
+    "lattice": "0.72.0",
     "redux-reqseq": "0.5.0"
   },
   "devDependencies": {
@@ -46,11 +46,12 @@
     "eslint-config-airbnb-base": "~14.0.0",
     "eslint-import-resolver-webpack": "~0.11.0",
     "eslint-loader": "~3.0.0",
-    "eslint-plugin-flowtype": "~4.4.0",
+    "eslint-plugin-flowtype": "~4.5.0",
     "eslint-plugin-import": "~2.18.0",
-    "eslint-plugin-jest": "~23.0.0",
-    "flow-bin": "~0.112.0",
+    "eslint-plugin-jest": "~23.1.0",
+    "flow-bin": "~0.113.0",
     "immutable": "4.0.0-rc.12",
+    "import-sort-style-openlattice": "~0.1.0",
     "jest": "~24.8.0",
     "npm-run-all": "~4.1.0",
     "rimraf": "~3.0.0",

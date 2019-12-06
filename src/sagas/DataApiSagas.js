@@ -2,8 +2,6 @@
  * @flow
  */
 
-/* eslint-disable no-use-before-define */
-
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { DataApi } from 'lattice';
 import type { SequenceAction } from 'redux-reqseq';
@@ -22,6 +20,7 @@ import {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
+  GET_LINKED_ENTITY_SET_BREAKDOWN,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -33,6 +32,7 @@ import {
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
+  getLinkedEntitySetBreakdown,
   updateEntityData,
 } from './DataApiActions';
 
@@ -42,11 +42,6 @@ import {
  * DataApiActions.createAssociations
  *
  */
-
-function* createAssociationsWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(CREATE_ASSOCIATIONS, createAssociationsWorker);
-}
 
 function* createAssociationsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -81,17 +76,17 @@ function* createAssociationsWorker(seqAction :SequenceAction) :Generator<*, *, *
   return response;
 }
 
+function* createAssociationsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_ASSOCIATIONS, createAssociationsWorker);
+}
+
 /*
  *
  * DataApi.createEntityAndAssociationData
  * DataApiActions.createEntityAndAssociationData
  *
  */
-
-function* createEntityAndAssociationDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
-}
 
 function* createEntityAndAssociationDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -126,17 +121,17 @@ function* createEntityAndAssociationDataWorker(seqAction :SequenceAction) :Gener
   return response;
 }
 
+function* createEntityAndAssociationDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
+}
+
 /*
  *
  * DataApi.createOrMergeEntityData
  * DataApiActions.createOrMergeEntityData
  *
  */
-
-function* createOrMergeEntityDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(CREATE_OR_MERGE_ENTITY_DATA, createOrMergeEntityDataWorker);
-}
 
 function* createOrMergeEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -172,17 +167,17 @@ function* createOrMergeEntityDataWorker(seqAction :SequenceAction) :Generator<*,
   return response;
 }
 
+function* createOrMergeEntityDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(CREATE_OR_MERGE_ENTITY_DATA, createOrMergeEntityDataWorker);
+}
+
 /*
  *
  * DataApi.deleteEntitiesAndNeighbors
  * DataApiActions.deleteEntitiesAndNeighbors
  *
  */
-
-function* deleteEntitiesAndNeighborsWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(DELETE_ENTITIES_AND_NEIGHBORS, deleteEntitiesAndNeighborsWorker);
-}
 
 function* deleteEntitiesAndNeighborsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -218,17 +213,17 @@ function* deleteEntitiesAndNeighborsWorker(seqAction :SequenceAction) :Generator
   return response;
 }
 
+function* deleteEntitiesAndNeighborsWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ENTITIES_AND_NEIGHBORS, deleteEntitiesAndNeighborsWorker);
+}
+
 /*
  *
  * DataApi.deleteEntity
  * DataApiActions.deleteEntity
  *
  */
-
-function* deleteEntityWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(DELETE_ENTITY, deleteEntityWorker);
-}
 
 function* deleteEntityWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -264,13 +259,17 @@ function* deleteEntityWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   return response;
 }
 
+function* deleteEntityWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ENTITY, deleteEntityWorker);
+}
+
 /*
  *
  * DataApi.deleteEntityData
  * DataApiActions.deleteEntityData
  *
  */
-
 
 function* deleteEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -317,11 +316,6 @@ function* deleteEntityDataWatcher() :Generator<*, *, *> {
  *
  */
 
-function* deleteEntitySetWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(DELETE_ENTITY_SET, deleteEntitySetWorker);
-}
-
 function* deleteEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
   if (!isValidAction(seqAction, DELETE_ENTITY_SET)) {
@@ -356,17 +350,17 @@ function* deleteEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   return response;
 }
 
+function* deleteEntitySetWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(DELETE_ENTITY_SET, deleteEntitySetWorker);
+}
+
 /*
  *
  * DataApi.getEntityData
  * DataApiActions.getEntityData
  *
  */
-
-function* getEntityDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(GET_ENTITY_DATA, getEntityDataWorker);
-}
 
 function* getEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -402,17 +396,17 @@ function* getEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
   return response;
 }
 
+function* getEntityDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ENTITY_DATA, getEntityDataWorker);
+}
+
 /*
  *
  * DataApi.getEntitySetData
  * DataApiActions.getEntitySetData
  *
  */
-
-function* getEntitySetDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(GET_ENTITY_SET_DATA, getEntitySetDataWorker);
-}
 
 function* getEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -448,17 +442,17 @@ function* getEntitySetDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
   return response;
 }
 
+function* getEntitySetDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ENTITY_SET_DATA, getEntitySetDataWorker);
+}
+
 /*
  *
  * DataApi.getEntitySetSize
  * DataApiActions.getEntitySetSize
  *
  */
-
-function* getEntitySetSizeWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(GET_ENTITY_SET_SIZE, getEntitySetSizeWorker);
-}
 
 function* getEntitySetSizeWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -494,17 +488,63 @@ function* getEntitySetSizeWorker(seqAction :SequenceAction) :Generator<*, *, *> 
   return response;
 }
 
+function* getEntitySetSizeWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_ENTITY_SET_SIZE, getEntitySetSizeWorker);
+}
+
+/*
+ *
+ * DataApi.getLinkedEntitySetBreakdown
+ * DataApiActions.getLinkedEntitySetBreakdown
+ *
+ */
+
+function* getLinkedEntitySetBreakdownWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+
+  if (!isValidAction(seqAction, GET_LINKED_ENTITY_SET_BREAKDOWN)) {
+    return {
+      error: ERR_INVALID_ACTION
+    };
+  }
+
+  const { id, value } = seqAction;
+  if (value === null || value === undefined) {
+    return {
+      error: ERR_ACTION_VALUE_NOT_DEFINED
+    };
+  }
+
+  const response :Object = {};
+  const { entitySetId, propertyTypeIds, entityKeyIds } = value;
+
+  try {
+    yield put(getLinkedEntitySetBreakdown.request(id, value));
+    response.data = yield call(DataApi.getLinkedEntitySetBreakdown, entitySetId, propertyTypeIds, entityKeyIds);
+    yield put(getLinkedEntitySetBreakdown.success(id, response.data));
+  }
+  catch (error) {
+    response.error = error;
+    yield put(getLinkedEntitySetBreakdown.failure(id, response.error));
+  }
+  finally {
+    yield put(getLinkedEntitySetBreakdown.finally(id));
+  }
+
+  return response;
+}
+
+function* getLinkedEntitySetBreakdownWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(GET_LINKED_ENTITY_SET_BREAKDOWN, getLinkedEntitySetBreakdownWorker);
+}
+
 /*
  *
  * DataApi.updateEntityData
  * DataApiActions.updateEntityData
  *
  */
-
-function* updateEntityDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(UPDATE_ENTITY_DATA, updateEntityDataWorker);
-}
 
 function* updateEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
 
@@ -540,6 +580,11 @@ function* updateEntityDataWorker(seqAction :SequenceAction) :Generator<*, *, *> 
   return response;
 }
 
+function* updateEntityDataWatcher() :Generator<*, *, *> {
+
+  yield takeEvery(UPDATE_ENTITY_DATA, updateEntityDataWorker);
+}
+
 export {
   createAssociationsWatcher,
   createAssociationsWorker,
@@ -561,6 +606,8 @@ export {
   getEntitySetDataWorker,
   getEntitySetSizeWatcher,
   getEntitySetSizeWorker,
+  getLinkedEntitySetBreakdownWatcher,
+  getLinkedEntitySetBreakdownWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 };
