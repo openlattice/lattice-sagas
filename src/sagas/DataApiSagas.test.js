@@ -16,6 +16,7 @@ import {
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
+  GET_LINKED_ENTITY_SET_BREAKDOWN,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -27,6 +28,7 @@ import {
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
+  getLinkedEntitySetBreakdown,
   updateEntityData,
 } from './DataApiActions';
 
@@ -51,6 +53,8 @@ import {
   getEntitySetDataWorker,
   getEntitySetSizeWatcher,
   getEntitySetSizeWorker,
+  getLinkedEntitySetBreakdownWatcher,
+  getLinkedEntitySetBreakdownWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 } from './DataApiSagas';
@@ -514,6 +518,51 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: getEntitySetSize,
       workerSagaAction: getEntitySetSize(mockActionValue),
       workerSagaToTest: getEntitySetSizeWorker
+    });
+
+  });
+
+  /*
+   *
+   * DataApi.getLinkedEntitySetBreakdown
+   * DataApiActions.getLinkedEntitySetBreakdown
+   *
+   */
+
+  describe('getLinkedEntitySetBreakdownWatcher', () => {
+    testShouldBeGeneratorFunction(getLinkedEntitySetBreakdownWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getLinkedEntitySetBreakdownWatcher,
+      getLinkedEntitySetBreakdownWorker,
+      GET_LINKED_ENTITY_SET_BREAKDOWN
+    );
+  });
+
+  describe('getLinkedEntitySetBreakdownWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: randomUUID(),
+      propertyTypeIds: [randomUUID()],
+      entityKeyIds: [randomUUID()],
+    };
+
+    testShouldBeGeneratorFunction(getLinkedEntitySetBreakdownWorker);
+    testShouldFailOnInvalidAction(getLinkedEntitySetBreakdownWorker, GET_LINKED_ENTITY_SET_BREAKDOWN);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.getLinkedEntitySetBreakdown,
+      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiReqSeq: getLinkedEntitySetBreakdown,
+      workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
+      workerSagaToTest: getLinkedEntitySetBreakdownWorker
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.getLinkedEntitySetBreakdown,
+      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiReqSeq: getLinkedEntitySetBreakdown,
+      workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
+      workerSagaToTest: getLinkedEntitySetBreakdownWorker
     });
 
   });
