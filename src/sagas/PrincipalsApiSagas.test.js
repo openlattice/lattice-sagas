@@ -6,25 +6,36 @@ import randomUUID from 'uuid/v4';
 import { PrincipalsApi } from 'lattice';
 
 import {
+  GET_ALL_ROLES,
   GET_ALL_USERS,
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
+  GET_USER,
   SEARCH_ALL_USERS,
+  SYNC_USER,
+  getAllRoles,
   getAllUsers,
   getCurrentRoles,
   getSecurablePrincipal,
+  getUser,
   searchAllUsers,
+  syncUser,
 } from './PrincipalsApiActions';
-
 import {
+  getAllRolesWatcher,
+  getAllRolesWorker,
   getAllUsersWatcher,
   getAllUsersWorker,
   getCurrentRolesWatcher,
   getCurrentRolesWorker,
   getSecurablePrincipalWatcher,
   getSecurablePrincipalWorker,
+  getUserWatcher,
+  getUserWorker,
   searchAllUsersWatcher,
   searchAllUsersWorker,
+  syncUserWatcher,
+  syncUserWorker,
 } from './PrincipalsApiSagas';
 
 import {
@@ -36,6 +47,45 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('PrincipalsApiSagas', () => {
+
+  /*
+   *
+   * PrincipalsApi.getAllRoles()
+   * PrincipalsApiActions.getAllRoles()
+   *
+   */
+
+  describe('getAllRolesWatcher', () => {
+    testShouldBeGeneratorFunction(getAllRolesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllRolesWatcher,
+      getAllRolesWorker,
+      GET_ALL_ROLES,
+    );
+  });
+
+  describe('getAllRolesWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllRolesWorker);
+    testShouldFailOnInvalidAction(getAllRolesWorker, GET_ALL_ROLES, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getAllRoles,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllRoles,
+      workerSagaAction: getAllRoles(),
+      workerSagaToTest: getAllRolesWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getAllRoles,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllRoles,
+      workerSagaAction: getAllRoles(),
+      workerSagaToTest: getAllRolesWorker,
+    });
+
+  });
 
   /*
    *
@@ -193,6 +243,86 @@ describe('PrincipalsApiSagas', () => {
       latticeApiReqSeq: searchAllUsers,
       workerSagaAction: searchAllUsers(mockActionValue),
       workerSagaToTest: searchAllUsersWorker,
+    });
+
+  });
+
+  /*
+   *
+   * PrincipalsApi.getUser()
+   * PrincipalsApiActions.getUser()
+   *
+   */
+
+  describe('getUserWatcher', () => {
+    testShouldBeGeneratorFunction(getUserWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getUserWatcher,
+      getUserWorker,
+      GET_USER,
+    );
+  });
+
+  describe('getUserWorker', () => {
+
+    const mockActionValue = randomUUID();
+
+    testShouldBeGeneratorFunction(getUserWorker);
+    testShouldFailOnInvalidAction(getUserWorker, GET_USER);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getUser,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getUser,
+      workerSagaAction: getUser(mockActionValue),
+      workerSagaToTest: getUserWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getUser,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getUser,
+      workerSagaAction: getUser(mockActionValue),
+      workerSagaToTest: getUserWorker,
+    });
+
+  });
+
+  /*
+   *
+   * PrincipalsApi.syncUser()
+   * PrincipalsApiActions.syncUser()
+   *
+   */
+
+  describe('syncUserWatcher', () => {
+    testShouldBeGeneratorFunction(syncUserWatcher);
+    testWatcherSagaShouldTakeEvery(
+      syncUserWatcher,
+      syncUserWorker,
+      SYNC_USER,
+    );
+  });
+
+  describe('syncUserWorker', () => {
+
+    testShouldBeGeneratorFunction(syncUserWorker);
+    testShouldFailOnInvalidAction(syncUserWorker, SYNC_USER, false);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.syncUser,
+      latticeApiParams: [],
+      latticeApiReqSeq: syncUser,
+      workerSagaAction: syncUser(),
+      workerSagaToTest: syncUserWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.syncUser,
+      latticeApiParams: [],
+      latticeApiReqSeq: syncUser,
+      workerSagaAction: syncUser(),
+      workerSagaToTest: syncUserWorker,
     });
 
   });
