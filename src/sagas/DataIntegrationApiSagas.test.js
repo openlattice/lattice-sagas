@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { DataIntegrationApi } from 'lattice';
 
 import {
@@ -47,7 +47,7 @@ describe('DataIntegrationApiSagas', () => {
 
   describe('createEntityAndAssociationDataWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(createEntityAndAssociationDataWorker);
     testShouldFailOnInvalidAction(createEntityAndAssociationDataWorker, CREATE_ENTITY_AND_ASSOCIATION_DATA);
@@ -89,8 +89,8 @@ describe('DataIntegrationApiSagas', () => {
   describe('getEntityKeyIdsWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      entityId: randomUUID()
+      entitySetId: uuid(),
+      entityId: uuid()
     };
 
     testShouldBeGeneratorFunction(getEntityKeyIdsWorker);

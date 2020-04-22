@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { PermissionsApi } from 'lattice';
 
 import {
@@ -51,7 +51,7 @@ describe('PermissionsApiSagas', () => {
 
   describe('getAclWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getAclWorker);
     testShouldFailOnInvalidAction(getAclWorker, GET_ACL);
@@ -92,7 +92,7 @@ describe('PermissionsApiSagas', () => {
 
   describe('updateAclWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(updateAclWorker);
     testShouldFailOnInvalidAction(updateAclWorker, UPDATE_ACL);
@@ -133,7 +133,7 @@ describe('PermissionsApiSagas', () => {
 
   describe('updateAclsWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(updateAclsWorker);
     testShouldFailOnInvalidAction(updateAclsWorker, UPDATE_ACLS);

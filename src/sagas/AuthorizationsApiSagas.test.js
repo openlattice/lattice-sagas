@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { AuthorizationApi } from 'lattice';
 
 import {
@@ -43,7 +43,7 @@ describe('AuthorizationsApiSagas', () => {
 
   describe('getAuthorizationsWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getAuthorizationsWorker);
     testShouldFailOnInvalidAction(getAuthorizationsWorker, GET_AUTHORIZATIONS);

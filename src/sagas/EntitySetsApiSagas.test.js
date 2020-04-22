@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { EntitySetsApi } from 'lattice';
 
 import {
@@ -76,7 +76,7 @@ describe('EntitySetsApiSagas', () => {
     testShouldBeGeneratorFunction(createEntitySetsWorker);
     testShouldFailOnInvalidAction(createEntitySetsWorker, CREATE_ENTITY_SETS);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.createEntitySets,
@@ -117,7 +117,7 @@ describe('EntitySetsApiSagas', () => {
     testShouldBeGeneratorFunction(deleteEntitySetWorker);
     testShouldFailOnInvalidAction(deleteEntitySetWorker, DELETE_ENTITY_SET);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.deleteEntitySet,
@@ -197,7 +197,7 @@ describe('EntitySetsApiSagas', () => {
     testShouldBeGeneratorFunction(getEntitySetWorker);
     testShouldFailOnInvalidAction(getEntitySetWorker, GET_ENTITY_SET);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getEntitySet,
@@ -238,7 +238,7 @@ describe('EntitySetsApiSagas', () => {
     testShouldBeGeneratorFunction(getEntitySetIdWorker);
     testShouldFailOnInvalidAction(getEntitySetIdWorker, GET_ENTITY_SET_ID);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getEntitySetId,
@@ -279,7 +279,7 @@ describe('EntitySetsApiSagas', () => {
     testShouldBeGeneratorFunction(getEntitySetIdsWorker);
     testShouldFailOnInvalidAction(getEntitySetIdsWorker, GET_ENTITY_SET_IDS);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getEntitySetIds,
@@ -321,8 +321,8 @@ describe('EntitySetsApiSagas', () => {
     testShouldFailOnInvalidAction(getPropertyTypeMetaDataForEntitySetWorker, GET_PT_METADATA_FOR_ENTITY_SET);
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      propertyTypeId: randomUUID(),
+      entitySetId: uuid(),
+      propertyTypeId: uuid(),
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -364,7 +364,7 @@ describe('EntitySetsApiSagas', () => {
     testShouldBeGeneratorFunction(getPropertyTypeMetaDataForEntitySetsWorker);
     testShouldFailOnInvalidAction(getPropertyTypeMetaDataForEntitySetsWorker, GET_PT_METADATA_FOR_ENTITY_SETS);
 
-    const mockActionValue = [randomUUID()];
+    const mockActionValue = [uuid()];
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getPropertyTypeMetaDataForEntitySets,
