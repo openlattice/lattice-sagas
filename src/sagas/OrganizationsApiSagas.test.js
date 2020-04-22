@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { OrganizationsApi } from 'lattice';
 
 import {
@@ -136,8 +136,8 @@ describe('OrganizationsApiSagas', () => {
   describe('addConnectionsWorker', () => {
 
     const mockActionValue = {
-      connections: [randomUUID()],
-      organizationId: randomUUID(),
+      connections: [uuid()],
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(addConnectionsWorker);
@@ -180,8 +180,8 @@ describe('OrganizationsApiSagas', () => {
   describe('addDomainToOrganizationWorker', () => {
 
     const mockActionValue = {
-      domain: randomUUID(),
-      organizationId: randomUUID(),
+      domain: uuid(),
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(addDomainToOrganizationWorker);
@@ -224,8 +224,8 @@ describe('OrganizationsApiSagas', () => {
   describe('addMemberToOrganizationWorker', () => {
 
     const mockActionValue = {
-      memberId: randomUUID(),
-      organizationId: randomUUID(),
+      memberId: uuid(),
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(addMemberToOrganizationWorker);
@@ -268,9 +268,9 @@ describe('OrganizationsApiSagas', () => {
   describe('addRoleToMemberWorker', () => {
 
     const mockActionValue = {
-      memberId: randomUUID(),
-      organizationId: randomUUID(),
-      roleId: randomUUID(),
+      memberId: uuid(),
+      organizationId: uuid(),
+      roleId: uuid(),
     };
 
     testShouldBeGeneratorFunction(addRoleToMemberWorker);
@@ -313,7 +313,7 @@ describe('OrganizationsApiSagas', () => {
   describe('createOrganizationWorker', () => {
 
     const mockActionValue = {
-      id: randomUUID(),
+      id: uuid(),
     };
 
     testShouldBeGeneratorFunction(createOrganizationWorker);
@@ -356,7 +356,7 @@ describe('OrganizationsApiSagas', () => {
   describe('createRoleWorker', () => {
 
     const mockActionValue = {
-      id: randomUUID(),
+      id: uuid(),
     };
 
     testShouldBeGeneratorFunction(createRoleWorker);
@@ -398,7 +398,7 @@ describe('OrganizationsApiSagas', () => {
 
   describe('deleteOrganizationWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(deleteOrganizationWorker);
     testShouldFailOnInvalidAction(deleteOrganizationWorker, DELETE_ORGANIZATION);
@@ -440,8 +440,8 @@ describe('OrganizationsApiSagas', () => {
   describe('deleteRoleWorker', () => {
 
     const mockActionValue = {
-      organizationId: randomUUID(),
-      roleId: randomUUID(),
+      organizationId: uuid(),
+      roleId: uuid(),
     };
 
     testShouldBeGeneratorFunction(deleteRoleWorker);
@@ -523,8 +523,8 @@ describe('OrganizationsApiSagas', () => {
   describe('getAllUsersOfRoleWorker', () => {
 
     const mockActionValue = {
-      organizationId: randomUUID(),
-      roleId: randomUUID(),
+      organizationId: uuid(),
+      roleId: uuid(),
     };
 
     testShouldBeGeneratorFunction(getAllUsersOfRoleWorker);
@@ -566,7 +566,7 @@ describe('OrganizationsApiSagas', () => {
 
   describe('getOrganizationWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getOrganizationWorker);
     testShouldFailOnInvalidAction(getOrganizationWorker, GET_ORGANIZATION);
@@ -607,7 +607,7 @@ describe('OrganizationsApiSagas', () => {
 
   describe('getOrganizationEntitySetsWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getOrganizationEntitySetsWorker);
     testShouldFailOnInvalidAction(getOrganizationEntitySetsWorker, GET_ORG_ENTITY_SETS);
@@ -648,7 +648,7 @@ describe('OrganizationsApiSagas', () => {
 
   describe('getOrganizationIntegrationAccountWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getOrganizationIntegrationAccountWorker);
     testShouldFailOnInvalidAction(getOrganizationIntegrationAccountWorker, GET_ORG_INTEGRATION_ACCOUNT);
@@ -689,7 +689,7 @@ describe('OrganizationsApiSagas', () => {
 
   describe('getOrganizationMembersWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getOrganizationMembersWorker);
     testShouldFailOnInvalidAction(getOrganizationMembersWorker, GET_ORG_MEMBERS);
@@ -731,8 +731,8 @@ describe('OrganizationsApiSagas', () => {
   describe('grantTrustToOrganizationWorker', () => {
 
     const mockActionValue = {
-      organizationId: randomUUID(),
-      principalId: randomUUID(),
+      organizationId: uuid(),
+      principalId: uuid(),
     };
 
     testShouldBeGeneratorFunction(grantTrustToOrganizationWorker);
@@ -775,8 +775,8 @@ describe('OrganizationsApiSagas', () => {
   describe('removeConnectionsWorker', () => {
 
     const mockActionValue = {
-      connections: [randomUUID()],
-      organizationId: randomUUID(),
+      connections: [uuid()],
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(removeConnectionsWorker);
@@ -819,8 +819,8 @@ describe('OrganizationsApiSagas', () => {
   describe('removeDomainFromOrganizationWorker', () => {
 
     const mockActionValue = {
-      domain: randomUUID(),
-      organizationId: randomUUID(),
+      domain: uuid(),
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(removeDomainFromOrganizationWorker);
@@ -863,8 +863,8 @@ describe('OrganizationsApiSagas', () => {
   describe('removeMemberFromOrganizationWorker', () => {
 
     const mockActionValue = {
-      memberId: randomUUID(),
-      organizationId: randomUUID(),
+      memberId: uuid(),
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(removeMemberFromOrganizationWorker);
@@ -908,9 +908,9 @@ describe('OrganizationsApiSagas', () => {
   describe('removeRoleFromMemberWorker', () => {
 
     const mockActionValue = {
-      memberId: randomUUID(),
-      organizationId: randomUUID(),
-      roleId: randomUUID(),
+      memberId: uuid(),
+      organizationId: uuid(),
+      roleId: uuid(),
     };
 
     testShouldBeGeneratorFunction(removeRoleFromMemberWorker);
@@ -953,8 +953,8 @@ describe('OrganizationsApiSagas', () => {
   describe('revokeTrustFromOrganizationWorker', () => {
 
     const mockActionValue = {
-      organizationId: randomUUID(),
-      principalId: randomUUID(),
+      organizationId: uuid(),
+      principalId: uuid(),
     };
 
     testShouldBeGeneratorFunction(revokeTrustFromOrganizationWorker);
@@ -997,8 +997,8 @@ describe('OrganizationsApiSagas', () => {
   describe('setConnectionsWorker', () => {
 
     const mockActionValue = {
-      connections: [randomUUID()],
-      organizationId: randomUUID(),
+      connections: [uuid()],
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(setConnectionsWorker);
@@ -1041,8 +1041,8 @@ describe('OrganizationsApiSagas', () => {
   describe('updateOrganizationDescriptionWorker', () => {
 
     const mockActionValue = {
-      description: randomUUID(),
-      organizationId: randomUUID(),
+      description: uuid(),
+      organizationId: uuid(),
     };
 
     testShouldBeGeneratorFunction(updateOrganizationDescriptionWorker);
@@ -1085,8 +1085,8 @@ describe('OrganizationsApiSagas', () => {
   describe('updateOrganizationTitleWorker', () => {
 
     const mockActionValue = {
-      organizationId: randomUUID(),
-      title: randomUUID(),
+      organizationId: uuid(),
+      title: uuid(),
     };
 
     testShouldBeGeneratorFunction(updateOrganizationTitleWorker);
@@ -1129,9 +1129,9 @@ describe('OrganizationsApiSagas', () => {
   describe('updateRoleGrantWorker', () => {
 
     const mockActionValue = {
-      organizationId: randomUUID(),
-      roleId: randomUUID(),
-      grant: randomUUID(),
+      organizationId: uuid(),
+      roleId: uuid(),
+      grant: uuid(),
     };
 
     testShouldBeGeneratorFunction(updateRoleGrantWorker);

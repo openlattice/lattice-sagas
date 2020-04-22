@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { DataApi } from 'lattice';
 
 import {
@@ -88,17 +88,17 @@ describe('DataApiSagas', () => {
   describe('createAssociationsWorker', () => {
 
     const mockActionValue = {
-      [randomUUID()]: [{
+      [uuid()]: [{
         data: {
-          [randomUUID()]: ['openlattice']
+          [uuid()]: ['openlattice']
         },
         dst: {
-          entitySetId: randomUUID(),
-          entityKeyId: randomUUID()
+          entitySetId: uuid(),
+          entityKeyId: uuid()
         },
         src: {
-          entitySetId: randomUUID(),
-          entityKeyId: randomUUID()
+          entitySetId: uuid(),
+          entityKeyId: uuid()
         }
       }]
     };
@@ -142,7 +142,7 @@ describe('DataApiSagas', () => {
 
   describe('createEntityAndAssociationDataWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(createEntityAndAssociationDataWorker);
     testShouldFailOnInvalidAction(createEntityAndAssociationDataWorker, CREATE_ENTITY_AND_ASSOCIATION_DATA);
@@ -184,8 +184,8 @@ describe('DataApiSagas', () => {
   describe('createOrMergeEntityDataWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      entityData: randomUUID(),
+      entitySetId: uuid(),
+      entityData: uuid(),
     };
 
     testShouldBeGeneratorFunction(createOrMergeEntityDataWorker);
@@ -229,9 +229,9 @@ describe('DataApiSagas', () => {
 
     const mockActionValue = {
       deleteType: 'Hard',
-      entitySetId: randomUUID(),
+      entitySetId: uuid(),
       filter: {
-        entityKeyIds: [randomUUID()],
+        entityKeyIds: [uuid()],
       },
     };
 
@@ -275,9 +275,9 @@ describe('DataApiSagas', () => {
   describe('deleteEntityWorker', () => {
 
     const mockActionValue = {
-      deleteType: randomUUID(),
-      entityKeyId: randomUUID(),
-      entitySetId: randomUUID(),
+      deleteType: uuid(),
+      entityKeyId: uuid(),
+      entitySetId: uuid(),
     };
 
     testShouldBeGeneratorFunction(deleteEntityWorker);
@@ -320,9 +320,9 @@ describe('DataApiSagas', () => {
   describe('deleteEntityDataWorker', () => {
 
     const mockActionValue = {
-      deleteType: randomUUID(),
-      entityKeyIds: randomUUID(),
-      entitySetId: randomUUID(),
+      deleteType: uuid(),
+      entityKeyIds: uuid(),
+      entitySetId: uuid(),
     };
 
     testShouldBeGeneratorFunction(deleteEntityDataWorker);
@@ -365,8 +365,8 @@ describe('DataApiSagas', () => {
   describe('deleteEntitySetWorker', () => {
 
     const mockActionValue = {
-      deleteType: randomUUID(),
-      entitySetId: randomUUID(),
+      deleteType: uuid(),
+      entitySetId: uuid(),
     };
 
     testShouldBeGeneratorFunction(deleteEntitySetWorker);
@@ -409,8 +409,8 @@ describe('DataApiSagas', () => {
   describe('getEntityDataWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      entityKeyId: randomUUID(),
+      entitySetId: uuid(),
+      entityKeyId: uuid(),
     };
 
     testShouldBeGeneratorFunction(getEntityDataWorker);
@@ -453,9 +453,9 @@ describe('DataApiSagas', () => {
   describe('getEntitySetDataWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      propertyTypeIds: [randomUUID()],
-      entityKeyIds: [randomUUID()],
+      entitySetId: uuid(),
+      propertyTypeIds: [uuid()],
+      entityKeyIds: [uuid()],
     };
 
     testShouldBeGeneratorFunction(getEntitySetDataWorker);
@@ -498,7 +498,7 @@ describe('DataApiSagas', () => {
   describe('getEntitySetSizeWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID()
+      entitySetId: uuid()
     };
 
     testShouldBeGeneratorFunction(getEntitySetSizeWorker);
@@ -541,9 +541,9 @@ describe('DataApiSagas', () => {
   describe('getLinkedEntitySetBreakdownWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      propertyTypeIds: [randomUUID()],
-      entityKeyIds: [randomUUID()],
+      entitySetId: uuid(),
+      propertyTypeIds: [uuid()],
+      entityKeyIds: [uuid()],
     };
 
     testShouldBeGeneratorFunction(getLinkedEntitySetBreakdownWorker);
@@ -586,9 +586,9 @@ describe('DataApiSagas', () => {
   describe('updateEntityDataWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      entities: randomUUID(),
-      updateType: randomUUID(),
+      entitySetId: uuid(),
+      entities: uuid(),
+      updateType: uuid(),
     };
 
     testShouldBeGeneratorFunction(updateEntityDataWorker);

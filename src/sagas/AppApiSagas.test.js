@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { AppApi } from 'lattice';
 
 import {
@@ -50,7 +50,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getAppWorker);
     testShouldFailOnInvalidAction(getAppWorker, GET_APP);
@@ -89,7 +89,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppConfigsWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getAppConfigsWorker);
     testShouldFailOnInvalidAction(getAppConfigsWorker, GET_APP_CONFIGS);
@@ -128,7 +128,7 @@ describe('AppApiSagas', () => {
 
   describe('getAppTypesWorker', () => {
 
-    const mockActionValue = [randomUUID(), randomUUID(), randomUUID()];
+    const mockActionValue = [uuid(), uuid(), uuid()];
 
     testShouldBeGeneratorFunction(getAppTypesWorker);
     testShouldFailOnInvalidAction(getAppTypesWorker, GET_APP_TYPES);

@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { PrincipalsApi } from 'lattice';
 
 import {
@@ -183,7 +183,7 @@ describe('PrincipalsApiSagas', () => {
 
   describe('getSecurablePrincipalWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getSecurablePrincipalWorker);
     testShouldFailOnInvalidAction(getSecurablePrincipalWorker, GET_SECURABLE_PRINCIPAL);
@@ -224,7 +224,7 @@ describe('PrincipalsApiSagas', () => {
 
   describe('searchAllUsersWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(searchAllUsersWorker);
     testShouldFailOnInvalidAction(searchAllUsersWorker, SEARCH_ALL_USERS);
@@ -265,7 +265,7 @@ describe('PrincipalsApiSagas', () => {
 
   describe('getUserWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getUserWorker);
     testShouldFailOnInvalidAction(getUserWorker, GET_USER);
