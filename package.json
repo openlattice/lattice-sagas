@@ -25,7 +25,7 @@
   "main": "build/index.js",
   "dependencies": {
     "@redux-saga/core": "~1.1.0",
-    "lattice": "0.73.0",
+    "lattice": "0.74.0",
     "redux-reqseq": "0.5.0"
   },
   "devDependencies": {
@@ -39,14 +39,14 @@
     "@babel/preset-flow": "~7.9.0",
     "@babel/register": "~7.9.0",
     "@babel/runtime": "~7.9.0",
-    "babel-eslint": "~10.0.0",
+    "babel-eslint": "~10.1.0",
     "babel-jest": "~24.8.0",
-    "babel-loader": "~8.0.0",
+    "babel-loader": "~8.1.0",
     "eslint": "~6.8.0",
-    "eslint-config-airbnb-base": "~14.0.0",
+    "eslint-config-airbnb-base": "~14.1.0",
     "eslint-import-resolver-webpack": "~0.12.0",
-    "eslint-loader": "~3.0.0",
-    "eslint-plugin-flowtype": "~4.5.0",
+    "eslint-loader": "~4.0.0",
+    "eslint-plugin-flowtype": "~4.7.0",
     "eslint-plugin-import": "~2.20.0",
     "eslint-plugin-jest": "~23.7.0",
     "flow-bin": "~0.118.0",
@@ -56,7 +56,7 @@
     "npm-run-all": "~4.1.0",
     "rimraf": "~3.0.0",
     "uuid": "~3.3.0",
-    "webpack": "~4.41.0",
+    "webpack": "~4.43.0",
     "webpack-cli": "~3.3.0",
     "webpack-dev-server": "~3.10.0"
   },
