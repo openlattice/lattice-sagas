@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { EntityDataModelApi, Models } from 'lattice';
 
 import {
@@ -208,7 +208,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(getEntityDataModelDiffWorker);
     testShouldFailOnInvalidAction(getEntityDataModelDiffWorker, GET_ENTITY_DATA_MODEL_DIFF);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.getEntityDataModelDiff,
@@ -248,7 +248,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(getEntityDataModelProjectionWorker);
     testShouldFailOnInvalidAction(getEntityDataModelProjectionWorker, GET_ENTITY_DATA_MODEL_PROJECTION);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.getEntityDataModelProjection,
@@ -326,7 +326,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(updateEntityDataModelWorker);
     testShouldFailOnInvalidAction(updateEntityDataModelWorker, UPDATE_ENTITY_DATA_MODEL);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.updateEntityDataModel,
@@ -372,7 +372,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(createEntityTypeWorker);
     testShouldFailOnInvalidAction(createEntityTypeWorker, CREATE_ENTITY_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.createEntityType,
@@ -412,7 +412,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(deleteEntityTypeWorker);
     testShouldFailOnInvalidAction(deleteEntityTypeWorker, DELETE_ENTITY_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.deleteEntityType,
@@ -490,7 +490,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(getEntityTypeWorker);
     testShouldFailOnInvalidAction(getEntityTypeWorker, GET_ENTITY_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.getEntityType,
@@ -531,8 +531,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(updateEntityTypeMetaDataWorker, UPDATE_ENTITY_TYPE_METADATA);
 
     const mockActionValue = {
-      entityTypeId: randomUUID(),
-      metadata: randomUUID()
+      entityTypeId: uuid(),
+      metadata: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -574,8 +574,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(addPropertyTypeToEntityTypeWorker, ADD_PROPERTY_TYPE_TO_ENTITY_TYPE);
 
     const mockActionValue = {
-      entityTypeId: randomUUID(),
-      propertyTypeId: randomUUID()
+      entityTypeId: uuid(),
+      propertyTypeId: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -617,8 +617,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(removePropertyTypeFromEntityTypeWorker, REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE);
 
     const mockActionValue = {
-      entityTypeId: randomUUID(),
-      propertyTypeId: randomUUID()
+      entityTypeId: uuid(),
+      propertyTypeId: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -660,8 +660,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(reorderEntityTypePropertyTypesWorker, REORDER_ENTITY_TYPE_PROPERTY_TYPES);
 
     const mockActionValue = {
-      entityTypeId: randomUUID(),
-      propertyTypeIds: [randomUUID(), randomUUID()]
+      entityTypeId: uuid(),
+      propertyTypeIds: [uuid(), uuid()]
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -708,7 +708,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(createPropertyTypeWorker);
     testShouldFailOnInvalidAction(createPropertyTypeWorker, CREATE_PROPERTY_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.createPropertyType,
@@ -748,7 +748,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(deletePropertyTypeWorker);
     testShouldFailOnInvalidAction(deletePropertyTypeWorker, DELETE_PROPERTY_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.deletePropertyType,
@@ -826,7 +826,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(getPropertyTypeWorker);
     testShouldFailOnInvalidAction(getPropertyTypeWorker, GET_PROPERTY_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.getPropertyType,
@@ -866,7 +866,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(getPropertyTypeIdWorker);
     testShouldFailOnInvalidAction(getPropertyTypeIdWorker, GET_PROPERTY_TYPE_ID);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.getPropertyTypeId,
@@ -907,8 +907,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(updatePropertyTypeMetaDataWorker, UPDATE_PROPERTY_TYPE_METADATA);
 
     const mockActionValue = {
-      propertyTypeId: randomUUID(),
-      metadata: randomUUID()
+      propertyTypeId: uuid(),
+      metadata: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -955,7 +955,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(createAssociationTypeWorker);
     testShouldFailOnInvalidAction(createAssociationTypeWorker, CREATE_ASSOCIATION_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.createAssociationType,
@@ -995,7 +995,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(deleteAssociationTypeWorker);
     testShouldFailOnInvalidAction(deleteAssociationTypeWorker, DELETE_ASSOCIATION_TYPE);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.deleteAssociationType,
@@ -1074,8 +1074,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(updateAssociationTypeMetaDataWorker, UPDATE_ASSOCIATION_TYPE_METADATA);
 
     const mockActionValue = {
-      associationTypeId: randomUUID(),
-      metadata: randomUUID()
+      associationTypeId: uuid(),
+      metadata: uuid()
     };
 
     // AssociationType is backed by an EntityType, so we're still calling updateEntityTypeMetaData()
@@ -1118,8 +1118,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(addDstEntityTypeToAssociationTypeWorker, ADD_DST_ET_TO_AT);
 
     const mockActionValue = {
-      associationTypeId: randomUUID(),
-      entityTypeId: randomUUID()
+      associationTypeId: uuid(),
+      entityTypeId: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -1161,8 +1161,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(addSrcEntityTypeToAssociationTypeWorker, ADD_SRC_ET_TO_AT);
 
     const mockActionValue = {
-      associationTypeId: randomUUID(),
-      entityTypeId: randomUUID()
+      associationTypeId: uuid(),
+      entityTypeId: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -1204,8 +1204,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(removeDstEntityTypeFromAssociationTypeWorker, REMOVE_DST_ET_FROM_AT);
 
     const mockActionValue = {
-      associationTypeId: randomUUID(),
-      entityTypeId: randomUUID()
+      associationTypeId: uuid(),
+      entityTypeId: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -1247,8 +1247,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(removeSrcEntityTypeFromAssociationTypeWorker, REMOVE_SRC_ET_FROM_AT);
 
     const mockActionValue = {
-      associationTypeId: randomUUID(),
-      entityTypeId: randomUUID()
+      associationTypeId: uuid(),
+      entityTypeId: uuid()
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -1295,7 +1295,7 @@ describe('EntityDataModelApiSagas', () => {
     testShouldBeGeneratorFunction(createSchemaWorker);
     testShouldFailOnInvalidAction(createSchemaWorker, CREATE_SCHEMA);
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntityDataModelApi.createSchema,
@@ -1374,8 +1374,8 @@ describe('EntityDataModelApiSagas', () => {
     testShouldFailOnInvalidAction(updateSchemaWorker, UPDATE_SCHEMA);
 
     const mockSchemaFQN = new FullyQualifiedName({ namespace: 'NAMESPACE', name: 'NAME' });
-    const mockEntityTypeIds = [randomUUID()];
-    const mockPropertyTypeIds = [randomUUID()];
+    const mockEntityTypeIds = [uuid()];
+    const mockPropertyTypeIds = [uuid()];
     const mockAction = 'AN_ACTION';
 
     const mockActionValue = {

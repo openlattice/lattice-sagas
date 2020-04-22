@@ -2,7 +2,7 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { SearchApi } from 'lattice';
 
 import {
@@ -57,11 +57,11 @@ describe('SearchApiSagas', () => {
   describe('executeSearchWorker', () => {
 
     const mockActionValue = {
-      entitySetIds: [randomUUID()],
+      entitySetIds: [uuid()],
       start: 0,
       maxHits: 100,
       constraints: [{
-        searchTerm: `entity.${randomUUID()}:"${randomUUID()}"`,
+        searchTerm: `entity.${uuid()}:"${uuid()}"`,
         fuzzy: false
       }]
     };
@@ -105,8 +105,8 @@ describe('SearchApiSagas', () => {
   describe('searchEntityNeighborsWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      entityId: randomUUID()
+      entitySetId: uuid(),
+      entityId: uuid()
     };
 
     testShouldBeGeneratorFunction(searchEntityNeighborsWorker);
@@ -133,9 +133,9 @@ describe('SearchApiSagas', () => {
      */
 
     const mockActionValue2 = {
-      entityId: randomUUID(),
-      entityKeyId: randomUUID(),
-      entitySetId: randomUUID(),
+      entityId: uuid(),
+      entityKeyId: uuid(),
+      entitySetId: uuid(),
     };
 
     testWorkerSagaShouldHandleSuccessCase({
@@ -155,7 +155,7 @@ describe('SearchApiSagas', () => {
     });
 
     const mockActionValue3 = {
-      entitySetId: randomUUID(),
+      entitySetId: uuid(),
     };
 
     testWorkerSagaShouldHandleFailureCase({
@@ -186,8 +186,8 @@ describe('SearchApiSagas', () => {
   describe('searchEntityNeighborsBulkWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
-      entityIds: [randomUUID()]
+      entitySetId: uuid(),
+      entityIds: [uuid()]
     };
 
     testShouldBeGeneratorFunction(searchEntityNeighborsBulkWorker);
@@ -229,9 +229,9 @@ describe('SearchApiSagas', () => {
   describe('searchEntityNeighborsWithFilterWorker', () => {
 
     const mockActionValue = {
-      entitySetId: randomUUID(),
+      entitySetId: uuid(),
       filter: {
-        entityKeyIds: [randomUUID()],
+        entityKeyIds: [uuid()],
       },
       idsOnly: false
     };
@@ -277,8 +277,8 @@ describe('SearchApiSagas', () => {
     describe('SearchApi.searchEntitySetData()', () => {
 
       const mockActionValue = {
-        entitySetId: randomUUID(),
-        searchOptions: { searchTerm: randomUUID() },
+        entitySetId: uuid(),
+        searchOptions: { searchTerm: uuid() },
       };
 
       testShouldBeGeneratorFunction(searchEntitySetDataWorker);
@@ -305,8 +305,8 @@ describe('SearchApiSagas', () => {
     describe('SearchApi.advancedSearchEntitySetData()', () => {
 
       const mockActionValue = {
-        entitySetId: randomUUID(),
-        searchOptions: { searchFields: [{ searchTerm: randomUUID() }] },
+        entitySetId: uuid(),
+        searchOptions: { searchFields: [{ searchTerm: uuid() }] },
       };
 
       testShouldBeGeneratorFunction(searchEntitySetDataWorker);
@@ -350,7 +350,7 @@ describe('SearchApiSagas', () => {
 
   describe('searchEntitySetMetaDataWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(searchEntitySetMetaDataWorker);
     testShouldFailOnInvalidAction(searchEntitySetMetaDataWorker, SEARCH_ENTITY_SET_METADATA);
