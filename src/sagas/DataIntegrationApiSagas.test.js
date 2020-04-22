@@ -47,7 +47,7 @@ describe('DataIntegrationApiSagas', () => {
 
   describe('createEntityAndAssociationDataWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(createEntityAndAssociationDataWorker);
     testShouldFailOnInvalidAction(createEntityAndAssociationDataWorker, CREATE_ENTITY_AND_ASSOCIATION_DATA);
