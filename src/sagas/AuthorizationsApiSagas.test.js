@@ -2,14 +2,13 @@
  * @flow
  */
 
+import { AuthorizationsApi } from 'lattice';
 import { v4 as uuid } from 'uuid';
-import { AuthorizationApi } from 'lattice';
 
 import {
   GET_AUTHORIZATIONS,
   getAuthorizations,
 } from './AuthorizationsApiActions';
-
 import {
   getAuthorizationsWatcher,
   getAuthorizationsWorker,
@@ -27,7 +26,7 @@ describe('AuthorizationsApiSagas', () => {
 
   /*
    *
-   * AuthorizationApi.checkAuthorizations
+   * AuthorizationsApi.getAuthorizations
    * AuthorizationsApiActions.getAuthorizations
    *
    */
@@ -49,7 +48,7 @@ describe('AuthorizationsApiSagas', () => {
     testShouldFailOnInvalidAction(getAuthorizationsWorker, GET_AUTHORIZATIONS);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: AuthorizationApi.checkAuthorizations,
+      latticeApi: AuthorizationsApi.getAuthorizations,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAuthorizations,
       workerSagaAction: getAuthorizations(mockActionValue),
@@ -57,13 +56,12 @@ describe('AuthorizationsApiSagas', () => {
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: AuthorizationApi.checkAuthorizations,
+      latticeApi: AuthorizationsApi.getAuthorizations,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAuthorizations,
       workerSagaAction: getAuthorizations(mockActionValue),
       workerSagaToTest: getAuthorizationsWorker,
     });
-
   });
 
 });
