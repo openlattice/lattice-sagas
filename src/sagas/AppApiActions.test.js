@@ -2,25 +2,31 @@
  * @flow
  */
 
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as AppApiActions from './AppApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
+const ACTION_TYPES = OrderedSet([
+  'GET_ALL_APPS',
   'GET_APP',
   'GET_APP_CONFIGS',
-  'GET_APP_TYPES'
-]).sort();
+  'GET_APP_TYPE',
+  'GET_APP_TYPES',
+  'INSTALL_APP',
+]).sort().toJS();
 
-const REQSEQ_NAMES = Immutable.List([
+const REQSEQ_NAMES = OrderedSet([
+  'getAllApps',
   'getApp',
   'getAppConfigs',
-  'getAppTypes'
-]).sort();
+  'getAppType',
+  'getAppTypes',
+  'installApp',
+]).sort().toJS();
 
 describe('AppApiActions', () => {
 
-  testShouldExportActionTypes(AppApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(AppApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(AppApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(AppApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });

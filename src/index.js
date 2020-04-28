@@ -23,6 +23,8 @@ import * as PrincipalsApiSagas from './sagas/PrincipalsApiSagas';
 import * as SearchApiActions from './sagas/SearchApiActions';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
 
+export type { Response } from './types';
+
 // injected by Webpack.DefinePlugin
 declare var __VERSION__ :string;
 const version :string = __VERSION__;
