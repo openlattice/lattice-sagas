@@ -2,8 +2,8 @@
  * @flow
  */
 
-import { v4 as uuid } from 'uuid';
 import { AppApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   GET_ALL_APPS,
@@ -19,18 +19,17 @@ import {
   getAppTypes,
   installApp,
 } from './AppApiActions';
-
 import {
   getAllAppsWatcher,
   getAllAppsWorker,
-  getAppWatcher,
-  getAppWorker,
   getAppConfigsWatcher,
   getAppConfigsWorker,
   getAppTypeWatcher,
   getAppTypeWorker,
   getAppTypesWatcher,
   getAppTypesWorker,
+  getAppWatcher,
+  getAppWorker,
   installAppWatcher,
   installAppWorker,
 } from './AppApiSagas';

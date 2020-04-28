@@ -5,6 +5,7 @@
 import { OrderedSet } from 'immutable';
 
 import * as AppApiActions from './AppApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = OrderedSet([
