@@ -2,43 +2,42 @@
  * @flow
  */
 
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as DataApiActions from './DataApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Set([
+const ACTION_TYPES = OrderedSet([
   'CREATE_ASSOCIATIONS',
   'CREATE_ENTITY_AND_ASSOCIATION_DATA',
   'CREATE_OR_MERGE_ENTITY_DATA',
-  'DELETE_ENTITIES_AND_NEIGHBORS',
-  'DELETE_ENTITY',
+  'DELETE_ENTITY_AND_NEIGHBOR_DATA',
   'DELETE_ENTITY_DATA',
-  'DELETE_ENTITY_SET',
+  'DELETE_ENTITY_SET_DATA',
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
   'GET_ENTITY_SET_SIZE',
   'GET_LINKED_ENTITY_SET_BREAKDOWN',
   'UPDATE_ENTITY_DATA',
-]).sort();
+]).sort().toJS();
 
-const REQSEQ_NAMES = Set([
+const REQSEQ_NAMES = OrderedSet([
   'createAssociations',
   'createEntityAndAssociationData',
   'createOrMergeEntityData',
-  'deleteEntitiesAndNeighbors',
-  'deleteEntity',
+  'deleteEntityAndNeighborData',
   'deleteEntityData',
-  'deleteEntitySet',
+  'deleteEntitySetData',
   'getEntityData',
   'getEntitySetData',
   'getEntitySetSize',
   'getLinkedEntitySetBreakdown',
   'updateEntityData',
-]).sort();
+]).sort().toJS();
 
 describe('DataApiActions', () => {
 
-  testShouldExportActionTypes(DataApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(DataApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(DataApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(DataApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });
