@@ -46,6 +46,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.getAllApps
    * AppApiActions.getAllApps
    *
    */
@@ -83,6 +84,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.getApp
    * AppApiActions.getApp
    *
    */
@@ -122,6 +124,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.getAppConfigs
    * AppApiActions.getAppConfigs
    *
    */
@@ -161,6 +164,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.getAppType
    * AppApiActions.getAppType
    *
    */
@@ -200,6 +204,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.getAppTypes
    * AppApiActions.getAppTypes
    *
    */
@@ -239,6 +244,7 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.installApp
    * AppApiActions.installApp
    *
    */
