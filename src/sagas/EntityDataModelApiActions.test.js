@@ -2,15 +2,15 @@
  * @flow
  */
 
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as EntityDataModelApiActions from './EntityDataModelApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
-  'ADD_DST_ET_TO_AT',
+const ACTION_TYPES = OrderedSet([
+  'ADD_DESTINATION_ENTITY_TYPE_TO_ASSOCIATION_TYPE',
   'ADD_PROPERTY_TYPE_TO_ENTITY_TYPE',
-  'ADD_SRC_ET_TO_AT',
+  'ADD_SOURCE_ENTITY_TYPE_TO_ASSOCIATION_TYPE',
   'CREATE_ASSOCIATION_TYPE',
   'CREATE_ENTITY_TYPE',
   'CREATE_PROPERTY_TYPE',
@@ -18,32 +18,30 @@ const ACTION_TYPES = Immutable.List([
   'DELETE_ASSOCIATION_TYPE',
   'DELETE_ENTITY_TYPE',
   'DELETE_PROPERTY_TYPE',
+  'GET_ALL_ASSOCIATION_ENTITY_TYPES',
   'GET_ALL_ASSOCIATION_TYPES',
   'GET_ALL_ENTITY_TYPES',
   'GET_ALL_PROPERTY_TYPES',
   'GET_ALL_SCHEMAS',
+  'GET_ASSOCIATION_TYPE',
   'GET_ENTITY_DATA_MODEL',
-  'GET_ENTITY_DATA_MODEL_DIFF',
   'GET_ENTITY_DATA_MODEL_PROJECTION',
-  'GET_ENTITY_DATA_MODEL_VERSION',
   'GET_ENTITY_TYPE',
   'GET_PROPERTY_TYPE',
-  'GET_PROPERTY_TYPE_ID',
-  'REMOVE_DST_ET_FROM_AT',
+  'GET_SCHEMA',
+  'REMOVE_DESTINATION_ENTITY_TYPE_FROM_ASSOCIATION_TYPE',
   'REMOVE_PROPERTY_TYPE_FROM_ENTITY_TYPE',
-  'REMOVE_SRC_ET_FROM_AT',
-  'REORDER_ENTITY_TYPE_PROPERTY_TYPES',
+  'REMOVE_SOURCE_ENTITY_TYPE_FROM_ASSOCIATION_TYPE',
   'UPDATE_ASSOCIATION_TYPE_METADATA',
-  'UPDATE_ENTITY_DATA_MODEL',
   'UPDATE_ENTITY_TYPE_METADATA',
   'UPDATE_PROPERTY_TYPE_METADATA',
   'UPDATE_SCHEMA',
-]).sort();
+]).sort().toJS();
 
-const REQSEQ_NAMES = Immutable.List([
-  'addDstEntityTypeToAssociationType',
+const REQSEQ_NAMES = OrderedSet([
+  'addDestinationEntityTypeToAssociationType',
   'addPropertyTypeToEntityType',
-  'addSrcEntityTypeToAssociationType',
+  'addSourceEntityTypeToAssociationType',
   'createAssociationType',
   'createEntityType',
   'createPropertyType',
@@ -51,30 +49,28 @@ const REQSEQ_NAMES = Immutable.List([
   'deleteAssociationType',
   'deleteEntityType',
   'deletePropertyType',
+  'getAllAssociationEntityTypes',
   'getAllAssociationTypes',
   'getAllEntityTypes',
   'getAllPropertyTypes',
   'getAllSchemas',
+  'getAssociationType',
   'getEntityDataModel',
-  'getEntityDataModelDiff',
   'getEntityDataModelProjection',
-  'getEntityDataModelVersion',
   'getEntityType',
   'getPropertyType',
-  'getPropertyTypeId',
-  'removeDstEntityTypeFromAssociationType',
+  'getSchema',
+  'removeDestinationEntityTypeFromAssociationType',
   'removePropertyTypeFromEntityType',
-  'removeSrcEntityTypeFromAssociationType',
-  'reorderEntityTypePropertyTypes',
+  'removeSourceEntityTypeFromAssociationType',
   'updateAssociationTypeMetaData',
-  'updateEntityDataModel',
   'updateEntityTypeMetaData',
   'updatePropertyTypeMetaData',
   'updateSchema',
-]).sort();
+]).sort().toJS();
 
 describe('EntityDataModelApiActions', () => {
 
-  testShouldExportActionTypes(EntityDataModelApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(EntityDataModelApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(EntityDataModelApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(EntityDataModelApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });
