@@ -2,8 +2,8 @@
  * @flow
  */
 
-import { v4 as uuid } from 'uuid';
 import { EntitySetsApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   CREATE_ENTITY_SETS,
@@ -12,8 +12,8 @@ import {
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_SET_IDS,
-  GET_PT_METADATA_FOR_ENTITY_SET,
-  GET_PT_METADATA_FOR_ENTITY_SETS,
+  GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
+  GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
   createEntitySets,
   deleteEntitySet,
   getAllEntitySets,
@@ -23,7 +23,6 @@ import {
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
 } from './EntitySetsApiActions';
-
 import {
   createEntitySetsWatcher,
   createEntitySetsWorker,
@@ -51,7 +50,6 @@ import {
   testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
 
-
 describe('EntitySetsApiSagas', () => {
 
   /*
@@ -73,10 +71,10 @@ describe('EntitySetsApiSagas', () => {
 
   describe('createEntitySetsWorker', () => {
 
+    const mockActionValue = uuid();
+
     testShouldBeGeneratorFunction(createEntitySetsWorker);
     testShouldFailOnInvalidAction(createEntitySetsWorker, CREATE_ENTITY_SETS);
-
-    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.createEntitySets,
@@ -114,10 +112,10 @@ describe('EntitySetsApiSagas', () => {
 
   describe('deleteEntitySetWorker', () => {
 
+    const mockActionValue = uuid();
+
     testShouldBeGeneratorFunction(deleteEntitySetWorker);
     testShouldFailOnInvalidAction(deleteEntitySetWorker, DELETE_ENTITY_SET);
-
-    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.deleteEntitySet,
@@ -194,10 +192,10 @@ describe('EntitySetsApiSagas', () => {
 
   describe('getEntitySetWorker', () => {
 
+    const mockActionValue = uuid();
+
     testShouldBeGeneratorFunction(getEntitySetWorker);
     testShouldFailOnInvalidAction(getEntitySetWorker, GET_ENTITY_SET);
-
-    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getEntitySet,
@@ -235,10 +233,10 @@ describe('EntitySetsApiSagas', () => {
 
   describe('getEntitySetIdWorker', () => {
 
+    const mockActionValue = uuid();
+
     testShouldBeGeneratorFunction(getEntitySetIdWorker);
     testShouldFailOnInvalidAction(getEntitySetIdWorker, GET_ENTITY_SET_ID);
-
-    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getEntitySetId,
@@ -276,10 +274,10 @@ describe('EntitySetsApiSagas', () => {
 
   describe('getEntitySetIdsWorker', () => {
 
+    const mockActionValue = uuid();
+
     testShouldBeGeneratorFunction(getEntitySetIdsWorker);
     testShouldFailOnInvalidAction(getEntitySetIdsWorker, GET_ENTITY_SET_IDS);
-
-    const mockActionValue = uuid();
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getEntitySetIds,
@@ -311,19 +309,22 @@ describe('EntitySetsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getPropertyTypeMetaDataForEntitySetWatcher,
       getPropertyTypeMetaDataForEntitySetWorker,
-      GET_PT_METADATA_FOR_ENTITY_SET,
+      GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
     );
   });
 
   describe('getPropertyTypeMetaDataForEntitySetWorker', () => {
 
-    testShouldBeGeneratorFunction(getPropertyTypeMetaDataForEntitySetWorker);
-    testShouldFailOnInvalidAction(getPropertyTypeMetaDataForEntitySetWorker, GET_PT_METADATA_FOR_ENTITY_SET);
-
     const mockActionValue = {
       entitySetId: uuid(),
       propertyTypeId: uuid(),
     };
+
+    testShouldBeGeneratorFunction(getPropertyTypeMetaDataForEntitySetWorker);
+    testShouldFailOnInvalidAction(
+      getPropertyTypeMetaDataForEntitySetWorker,
+      GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
+    );
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getPropertyTypeMetaDataForEntitySet,
@@ -355,16 +356,19 @@ describe('EntitySetsApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getPropertyTypeMetaDataForEntitySetsWatcher,
       getPropertyTypeMetaDataForEntitySetsWorker,
-      GET_PT_METADATA_FOR_ENTITY_SETS,
+      GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
     );
   });
 
   describe('getPropertyTypeMetaDataForEntitySetsWorker', () => {
 
-    testShouldBeGeneratorFunction(getPropertyTypeMetaDataForEntitySetsWorker);
-    testShouldFailOnInvalidAction(getPropertyTypeMetaDataForEntitySetsWorker, GET_PT_METADATA_FOR_ENTITY_SETS);
-
     const mockActionValue = [uuid()];
+
+    testShouldBeGeneratorFunction(getPropertyTypeMetaDataForEntitySetsWorker);
+    testShouldFailOnInvalidAction(
+      getPropertyTypeMetaDataForEntitySetsWorker,
+      GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
+    );
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.getPropertyTypeMetaDataForEntitySets,
