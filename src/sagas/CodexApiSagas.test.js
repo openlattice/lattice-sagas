@@ -2,14 +2,13 @@
  * @flow
  */
 
-import { v4 as uuid } from 'uuid';
 import { CodexApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   SEND_OUTGOING_TEXT,
   sendOutgoingText,
 } from './CodexApiActions';
-
 import {
   sendOutgoingTextWatcher,
   sendOutgoingTextWorker,

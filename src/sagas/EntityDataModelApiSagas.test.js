@@ -2,8 +2,8 @@
  * @flow
  */
 
-import { v4 as uuid } from 'uuid';
 import { EntityDataModelApi, Models } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   ADD_DESTINATION_ENTITY_TYPE_TO_ASSOCIATION_TYPE,
@@ -63,7 +63,6 @@ import {
   updatePropertyTypeMetaData,
   updateSchema,
 } from './EntityDataModelApiActions';
-
 import {
   addDestinationEntityTypeToAssociationTypeWatcher,
   addDestinationEntityTypeToAssociationTypeWorker,

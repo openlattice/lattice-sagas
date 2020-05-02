@@ -7,10 +7,6 @@ import { EntityDataModelApi } from 'lattice';
 import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
 
-import { ERR_INVALID_ACTION } from '../utils/Errors';
-import { isValidAction } from '../utils/Utils';
-import type { WorkerResponse } from '../types';
-
 import {
   ADD_DESTINATION_ENTITY_TYPE_TO_ASSOCIATION_TYPE,
   ADD_PROPERTY_TYPE_TO_ENTITY_TYPE,
@@ -69,6 +65,10 @@ import {
   updatePropertyTypeMetaData,
   updateSchema,
 } from './EntityDataModelApiActions';
+
+import { ERR_INVALID_ACTION } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+import type { WorkerResponse } from '../types';
 
 /*
  *

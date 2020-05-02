@@ -5,6 +5,7 @@
 import { OrderedSet } from 'immutable';
 
 import * as EntityDataModelApiActions from './EntityDataModelApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = OrderedSet([

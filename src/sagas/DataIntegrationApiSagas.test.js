@@ -2,14 +2,13 @@
  * @flow
  */
 
-import { v4 as uuid } from 'uuid';
 import { DataIntegrationApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   GET_ENTITY_KEY_IDS,
   getEntityKeyIds,
 } from './DataIntegrationApiActions';
-
 import {
   getEntityKeyIdsWatcher,
   getEntityKeyIdsWorker,
