@@ -2,31 +2,26 @@
  * @flow
  */
 
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as SearchApiActions from './SearchApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
-  'EXECUTE_SEARCH',
-  'SEARCH_ENTITY_NEIGHBORS',
-  'SEARCH_ENTITY_NEIGHBORS_BULK',
-  'SEARCH_ENTITY_NEIGHBORS_FILTER',
+const ACTION_TYPES = OrderedSet([
+  'SEARCH_ENTITY_NEIGHBORS_WITH_FILTER',
   'SEARCH_ENTITY_SET_DATA',
   'SEARCH_ENTITY_SET_METADATA',
-]).sort();
+]).sort().toJS();
 
-const REQSEQ_NAMES = Immutable.List([
-  'executeSearch',
-  'searchEntityNeighbors',
-  'searchEntityNeighborsBulk',
+const REQSEQ_NAMES = OrderedSet([
   'searchEntityNeighborsWithFilter',
   'searchEntitySetData',
   'searchEntitySetMetaData',
-]).sort();
+]).sort().toJS();
 
 describe('SearchApiActions', () => {
 
-  testShouldExportActionTypes(SearchApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(SearchApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(SearchApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(SearchApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });

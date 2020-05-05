@@ -2,111 +2,59 @@
  * @flow
  */
 
-/* eslint-disable no-use-before-define */
-
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { DataIntegrationApi } from 'lattice';
+import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
 
-import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
-import { isValidAction } from '../utils/Utils';
-
 import {
-  CREATE_ENTITY_AND_ASSOCIATION_DATA,
   GET_ENTITY_KEY_IDS,
-  createEntityAndAssociationData,
   getEntityKeyIds,
 } from './DataIntegrationApiActions';
 
-/*
- *
- * DataIntegrationApi.createEntityAndAssociationData
- *
- */
-
-function* createEntityAndAssociationDataWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(CREATE_ENTITY_AND_ASSOCIATION_DATA, createEntityAndAssociationDataWorker);
-}
-
-function* createEntityAndAssociationDataWorker(seqAction :SequenceAction) :Generator<*, *, *> {
-
-  if (!isValidAction(seqAction, CREATE_ENTITY_AND_ASSOCIATION_DATA)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
-  }
-
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-
-  try {
-    yield put(createEntityAndAssociationData.request(id, value));
-    response.data = yield call(DataIntegrationApi.createEntityAndAssociationData, value);
-    yield put(createEntityAndAssociationData.success(id, response.data));
-  }
-  catch (error) {
-    response.error = error;
-    yield put(createEntityAndAssociationData.failure(id, response.error));
-  }
-  finally {
-    yield put(createEntityAndAssociationData.finally(id));
-  }
-
-  return response;
-}
+import { ERR_INVALID_ACTION } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+import type { WorkerResponse } from '../types';
 
 /*
  *
  * DataIntegrationApi.getEntityKeyIds
+ * DataIntegrationApiActions.getEntityKeyIds
  *
  */
 
-function* getEntityKeyIdsWorker(seqAction :SequenceAction) :Generator<any, any, any> {
-  if (!isValidAction(seqAction, GET_ENTITY_KEY_IDS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+function* getEntityKeyIdsWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ENTITY_KEY_IDS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getEntityKeyIds.request(id, value));
-    response.data = yield call(DataIntegrationApi.getEntityKeyIds, value);
-    yield put(getEntityKeyIds.success(id, response.data));
+    const response = yield call(DataIntegrationApi.getEntityKeyIds, value);
+    workerResponse = { data: response };
+    yield put(getEntityKeyIds.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getEntityKeyIds.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getEntityKeyIds.failure(id, error));
   }
   finally {
     yield put(getEntityKeyIds.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getEntityKeyIdsWatcher() :Generator<any, any, any> {
+function* getEntityKeyIdsWatcher() :Saga<*> {
+
   yield takeEvery(GET_ENTITY_KEY_IDS, getEntityKeyIdsWorker);
 }
 
 export {
-  createEntityAndAssociationDataWatcher,
-  createEntityAndAssociationDataWorker,
   getEntityKeyIdsWatcher,
   getEntityKeyIdsWorker,
 };

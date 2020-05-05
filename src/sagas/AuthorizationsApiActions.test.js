@@ -2,21 +2,22 @@
  * @flow
  */
 
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as AuthorizationsApiActions from './AuthorizationsApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
+const ACTION_TYPES = OrderedSet([
   'GET_AUTHORIZATIONS',
-]).sort();
+]).sort().toJS();
 
-const REQSEQ_NAMES = Immutable.List([
+const REQSEQ_NAMES = OrderedSet([
   'getAuthorizations',
-]).sort();
+]).sort().toJS();
 
 describe('AuthorizationsApiActions', () => {
 
-  testShouldExportActionTypes(AuthorizationsApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(AuthorizationsApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(AuthorizationsApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(AuthorizationsApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });

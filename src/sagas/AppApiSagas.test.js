@@ -2,25 +2,36 @@
  * @flow
  */
 
-import { v4 as uuid } from 'uuid';
 import { AppApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
+  GET_ALL_APPS,
   GET_APP,
   GET_APP_CONFIGS,
+  GET_APP_TYPE,
   GET_APP_TYPES,
+  INSTALL_APP,
+  getAllApps,
   getApp,
   getAppConfigs,
-  getAppTypes
+  getAppType,
+  getAppTypes,
+  installApp,
 } from './AppApiActions';
-
 import {
-  getAppWatcher,
-  getAppWorker,
+  getAllAppsWatcher,
+  getAllAppsWorker,
   getAppConfigsWatcher,
   getAppConfigsWorker,
+  getAppTypeWatcher,
+  getAppTypeWorker,
   getAppTypesWatcher,
-  getAppTypesWorker
+  getAppTypesWorker,
+  getAppWatcher,
+  getAppWorker,
+  installAppWatcher,
+  installAppWorker,
 } from './AppApiSagas';
 
 import {
@@ -35,6 +46,45 @@ describe('AppApiSagas', () => {
 
   /*
    *
+   * AppApi.getAllApps
+   * AppApiActions.getAllApps
+   *
+   */
+
+  describe('getAllAppsWatcher', () => {
+    testShouldBeGeneratorFunction(getAllAppsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllAppsWatcher,
+      getAllAppsWorker,
+      GET_ALL_APPS,
+    );
+  });
+
+  describe('getAllAppsWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllAppsWorker);
+    testShouldFailOnInvalidAction(getAllAppsWorker, GET_ALL_APPS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: AppApi.getAllApps,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllApps,
+      workerSagaAction: getAllApps(),
+      workerSagaToTest: getAllAppsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: AppApi.getAllApps,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllApps,
+      workerSagaAction: getAllApps(),
+      workerSagaToTest: getAllAppsWorker,
+    });
+  });
+
+  /*
+   *
+   * AppApi.getApp
    * AppApiActions.getApp
    *
    */
@@ -44,7 +94,7 @@ describe('AppApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getAppWatcher,
       getAppWorker,
-      GET_APP
+      GET_APP,
     );
   });
 
@@ -56,24 +106,25 @@ describe('AppApiSagas', () => {
     testShouldFailOnInvalidAction(getAppWorker, GET_APP);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: AppApi.getAppByName,
+      latticeApi: AppApi.getApp,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getApp,
       workerSagaAction: getApp(mockActionValue),
-      workerSagaToTest: getAppWorker
+      workerSagaToTest: getAppWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: AppApi.getAppByName,
+      latticeApi: AppApi.getApp,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getApp,
       workerSagaAction: getApp(mockActionValue),
-      workerSagaToTest: getAppWorker
+      workerSagaToTest: getAppWorker,
     });
   });
 
   /*
    *
+   * AppApi.getAppConfigs
    * AppApiActions.getAppConfigs
    *
    */
@@ -83,7 +134,7 @@ describe('AppApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getAppConfigsWatcher,
       getAppConfigsWorker,
-      GET_APP_CONFIGS
+      GET_APP_CONFIGS,
     );
   });
 
@@ -95,24 +146,65 @@ describe('AppApiSagas', () => {
     testShouldFailOnInvalidAction(getAppConfigsWorker, GET_APP_CONFIGS);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: AppApi.getConfigurations,
+      latticeApi: AppApi.getAppConfigs,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAppConfigs,
       workerSagaAction: getAppConfigs(mockActionValue),
-      workerSagaToTest: getAppConfigsWorker
+      workerSagaToTest: getAppConfigsWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: AppApi.getConfigurations,
+      latticeApi: AppApi.getAppConfigs,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAppConfigs,
       workerSagaAction: getAppConfigs(mockActionValue),
-      workerSagaToTest: getAppConfigsWorker
+      workerSagaToTest: getAppConfigsWorker,
     });
   });
 
   /*
    *
+   * AppApi.getAppType
+   * AppApiActions.getAppType
+   *
+   */
+
+  describe('getAppTypeWatcher', () => {
+    testShouldBeGeneratorFunction(getAppTypeWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAppTypeWatcher,
+      getAppTypeWorker,
+      GET_APP_TYPE,
+    );
+  });
+
+  describe('getAppTypeWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getAppTypeWorker);
+    testShouldFailOnInvalidAction(getAppTypeWorker, GET_APP_TYPE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: AppApi.getAppType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getAppType,
+      workerSagaAction: getAppType(mockActionValue),
+      workerSagaToTest: getAppTypeWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: AppApi.getAppType,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getAppType,
+      workerSagaAction: getAppType(mockActionValue),
+      workerSagaToTest: getAppTypeWorker,
+    });
+  });
+
+  /*
+   *
+   * AppApi.getAppTypes
    * AppApiActions.getAppTypes
    *
    */
@@ -122,7 +214,7 @@ describe('AppApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getAppTypesWatcher,
       getAppTypesWorker,
-      GET_APP_TYPES
+      GET_APP_TYPES,
     );
   });
 
@@ -134,19 +226,63 @@ describe('AppApiSagas', () => {
     testShouldFailOnInvalidAction(getAppTypesWorker, GET_APP_TYPES);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: AppApi.getAppTypesForAppTypeIds,
+      latticeApi: AppApi.getAppTypes,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAppTypes,
       workerSagaAction: getAppTypes(mockActionValue),
-      workerSagaToTest: getAppTypesWorker
+      workerSagaToTest: getAppTypesWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: AppApi.getAppTypesForAppTypeIds,
+      latticeApi: AppApi.getAppTypes,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAppTypes,
       workerSagaAction: getAppTypes(mockActionValue),
-      workerSagaToTest: getAppTypesWorker
+      workerSagaToTest: getAppTypesWorker,
+    });
+  });
+
+  /*
+   *
+   * AppApi.installApp
+   * AppApiActions.installApp
+   *
+   */
+
+  describe('installAppWatcher', () => {
+    testShouldBeGeneratorFunction(installAppWatcher);
+    testWatcherSagaShouldTakeEvery(
+      installAppWatcher,
+      installAppWorker,
+      INSTALL_APP,
+    );
+  });
+
+  describe('installAppWorker', () => {
+
+    const mockActionValue = {
+      appId: uuid(),
+      organizationId: uuid(),
+      prefix: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(installAppWorker);
+    testShouldFailOnInvalidAction(installAppWorker, INSTALL_APP);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: AppApi.installApp,
+      latticeApiParams: [mockActionValue.appId, mockActionValue.organizationId, mockActionValue.prefix],
+      latticeApiReqSeq: installApp,
+      workerSagaAction: installApp(mockActionValue),
+      workerSagaToTest: installAppWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: AppApi.installApp,
+      latticeApiParams: [mockActionValue.appId, mockActionValue.organizationId, mockActionValue.prefix],
+      latticeApiReqSeq: installApp,
+      workerSagaAction: installApp(mockActionValue),
+      workerSagaToTest: installAppWorker,
     });
   });
 

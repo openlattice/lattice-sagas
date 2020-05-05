@@ -2,17 +2,16 @@
  * @flow
  */
 
+import { DataApi, Types } from 'lattice';
 import { v4 as uuid } from 'uuid';
-import { DataApi } from 'lattice';
 
 import {
   CREATE_ASSOCIATIONS,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
-  DELETE_ENTITIES_AND_NEIGHBORS,
-  DELETE_ENTITY,
+  DELETE_ENTITY_AND_NEIGHBOR_DATA,
   DELETE_ENTITY_DATA,
-  DELETE_ENTITY_SET,
+  DELETE_ENTITY_SET_DATA,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
@@ -21,17 +20,15 @@ import {
   createAssociations,
   createEntityAndAssociationData,
   createOrMergeEntityData,
-  deleteEntitiesAndNeighbors,
-  deleteEntity,
+  deleteEntityAndNeighborData,
   deleteEntityData,
-  deleteEntitySet,
+  deleteEntitySetData,
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
   getLinkedEntitySetBreakdown,
   updateEntityData,
 } from './DataApiActions';
-
 import {
   createAssociationsWatcher,
   createAssociationsWorker,
@@ -39,14 +36,12 @@ import {
   createEntityAndAssociationDataWorker,
   createOrMergeEntityDataWatcher,
   createOrMergeEntityDataWorker,
-  deleteEntitiesAndNeighborsWatcher,
-  deleteEntitiesAndNeighborsWorker,
+  deleteEntityAndNeighborDataWatcher,
+  deleteEntityAndNeighborDataWorker,
   deleteEntityDataWatcher,
   deleteEntityDataWorker,
-  deleteEntitySetWatcher,
-  deleteEntitySetWorker,
-  deleteEntityWatcher,
-  deleteEntityWorker,
+  deleteEntitySetDataWatcher,
+  deleteEntitySetDataWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
@@ -67,6 +62,8 @@ import {
   testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
 
+const { DeleteTypes, UpdateTypes } = Types;
+
 describe('DataApiSagas', () => {
 
   /*
@@ -81,27 +78,13 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       createAssociationsWatcher,
       createAssociationsWorker,
-      CREATE_ASSOCIATIONS
+      CREATE_ASSOCIATIONS,
     );
   });
 
   describe('createAssociationsWorker', () => {
 
-    const mockActionValue = {
-      [uuid()]: [{
-        data: {
-          [uuid()]: ['openlattice']
-        },
-        dst: {
-          entitySetId: uuid(),
-          entityKeyId: uuid()
-        },
-        src: {
-          entitySetId: uuid(),
-          entityKeyId: uuid()
-        }
-      }]
-    };
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(createAssociationsWorker);
     testShouldFailOnInvalidAction(createAssociationsWorker, CREATE_ASSOCIATIONS);
@@ -111,7 +94,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: createAssociations,
       workerSagaAction: createAssociations(mockActionValue),
-      workerSagaToTest: createAssociationsWorker
+      workerSagaToTest: createAssociationsWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -119,9 +102,8 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: createAssociations,
       workerSagaAction: createAssociations(mockActionValue),
-      workerSagaToTest: createAssociationsWorker
+      workerSagaToTest: createAssociationsWorker,
     });
-
   });
 
   /*
@@ -136,7 +118,7 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       createEntityAndAssociationDataWatcher,
       createEntityAndAssociationDataWorker,
-      CREATE_ENTITY_AND_ASSOCIATION_DATA
+      CREATE_ENTITY_AND_ASSOCIATION_DATA,
     );
   });
 
@@ -152,7 +134,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: createEntityAndAssociationData,
       workerSagaAction: createEntityAndAssociationData(mockActionValue),
-      workerSagaToTest: createEntityAndAssociationDataWorker
+      workerSagaToTest: createEntityAndAssociationDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -160,9 +142,8 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: createEntityAndAssociationData,
       workerSagaAction: createEntityAndAssociationData(mockActionValue),
-      workerSagaToTest: createEntityAndAssociationDataWorker
+      workerSagaToTest: createEntityAndAssociationDataWorker,
     });
-
   });
 
   /*
@@ -177,7 +158,7 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       createOrMergeEntityDataWatcher,
       createOrMergeEntityDataWorker,
-      CREATE_OR_MERGE_ENTITY_DATA
+      CREATE_OR_MERGE_ENTITY_DATA,
     );
   });
 
@@ -196,7 +177,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityData],
       latticeApiReqSeq: createOrMergeEntityData,
       workerSagaAction: createOrMergeEntityData(mockActionValue),
-      workerSagaToTest: createOrMergeEntityDataWorker
+      workerSagaToTest: createOrMergeEntityDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -204,101 +185,52 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityData],
       latticeApiReqSeq: createOrMergeEntityData,
       workerSagaAction: createOrMergeEntityData(mockActionValue),
-      workerSagaToTest: createOrMergeEntityDataWorker
+      workerSagaToTest: createOrMergeEntityDataWorker,
     });
-
   });
 
   /*
    *
-   * DataApi.deleteEntitiesAndNeighbors
-   * DataApiActions.deleteEntitiesAndNeighbors
+   * DataApi.deleteEntityAndNeighborData
+   * DataApiActions.deleteEntityAndNeighborData
    *
    */
 
-  describe('deleteEntitiesAndNeighborsWatcher', () => {
-    testShouldBeGeneratorFunction(deleteEntitiesAndNeighborsWatcher);
+  describe('deleteEntityAndNeighborDataWatcher', () => {
+    testShouldBeGeneratorFunction(deleteEntityAndNeighborDataWatcher);
     testWatcherSagaShouldTakeEvery(
-      deleteEntitiesAndNeighborsWatcher,
-      deleteEntitiesAndNeighborsWorker,
-      DELETE_ENTITIES_AND_NEIGHBORS,
+      deleteEntityAndNeighborDataWatcher,
+      deleteEntityAndNeighborDataWorker,
+      DELETE_ENTITY_AND_NEIGHBOR_DATA,
     );
   });
 
-  describe('deleteEntitiesAndNeighborsWorker', () => {
+  describe('deleteEntityAndNeighborDataWorker', () => {
 
     const mockActionValue = {
-      deleteType: 'Hard',
+      deleteType: DeleteTypes.HARD,
       entitySetId: uuid(),
-      filter: {
-        entityKeyIds: [uuid()],
-      },
+      filter: { entityKeyIds: [uuid(), uuid(), uuid()] },
     };
 
-    testShouldBeGeneratorFunction(deleteEntitiesAndNeighborsWorker);
-    testShouldFailOnInvalidAction(deleteEntitiesAndNeighborsWorker, DELETE_ENTITIES_AND_NEIGHBORS);
+    testShouldBeGeneratorFunction(deleteEntityAndNeighborDataWorker);
+    testShouldFailOnInvalidAction(deleteEntityAndNeighborDataWorker, DELETE_ENTITY_AND_NEIGHBOR_DATA);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataApi.deleteEntitiesAndNeighbors,
+      latticeApi: DataApi.deleteEntityAndNeighborData,
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter, mockActionValue.deleteType],
-      latticeApiReqSeq: deleteEntitiesAndNeighbors,
-      workerSagaAction: deleteEntitiesAndNeighbors(mockActionValue),
-      workerSagaToTest: deleteEntitiesAndNeighborsWorker
+      latticeApiReqSeq: deleteEntityAndNeighborData,
+      workerSagaAction: deleteEntityAndNeighborData(mockActionValue),
+      workerSagaToTest: deleteEntityAndNeighborDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataApi.deleteEntitiesAndNeighbors,
+      latticeApi: DataApi.deleteEntityAndNeighborData,
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.filter, mockActionValue.deleteType],
-      latticeApiReqSeq: deleteEntitiesAndNeighbors,
-      workerSagaAction: deleteEntitiesAndNeighbors(mockActionValue),
-      workerSagaToTest: deleteEntitiesAndNeighborsWorker
+      latticeApiReqSeq: deleteEntityAndNeighborData,
+      workerSagaAction: deleteEntityAndNeighborData(mockActionValue),
+      workerSagaToTest: deleteEntityAndNeighborDataWorker,
     });
-
-  });
-
-  /*
-   *
-   * DataApi.deleteEntity
-   * DataApiActions.deleteEntity
-   *
-   */
-
-  describe('deleteEntityWatcher', () => {
-    testShouldBeGeneratorFunction(deleteEntityWatcher);
-    testWatcherSagaShouldTakeEvery(
-      deleteEntityWatcher,
-      deleteEntityWorker,
-      DELETE_ENTITY,
-    );
-  });
-
-  describe('deleteEntityWorker', () => {
-
-    const mockActionValue = {
-      deleteType: uuid(),
-      entityKeyId: uuid(),
-      entitySetId: uuid(),
-    };
-
-    testShouldBeGeneratorFunction(deleteEntityWorker);
-    testShouldFailOnInvalidAction(deleteEntityWorker, DELETE_ENTITY);
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataApi.deleteEntity,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId, mockActionValue.deleteType],
-      latticeApiReqSeq: deleteEntity,
-      workerSagaAction: deleteEntity(mockActionValue),
-      workerSagaToTest: deleteEntityWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataApi.deleteEntity,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId, mockActionValue.deleteType],
-      latticeApiReqSeq: deleteEntity,
-      workerSagaAction: deleteEntity(mockActionValue),
-      workerSagaToTest: deleteEntityWorker
-    });
-
   });
 
   /*
@@ -320,8 +252,8 @@ describe('DataApiSagas', () => {
   describe('deleteEntityDataWorker', () => {
 
     const mockActionValue = {
-      deleteType: uuid(),
-      entityKeyIds: uuid(),
+      deleteType: DeleteTypes.HARD,
+      entityKeyIds: [uuid(), uuid(), uuid()],
       entitySetId: uuid(),
     };
 
@@ -333,7 +265,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyIds, mockActionValue.deleteType],
       latticeApiReqSeq: deleteEntityData,
       workerSagaAction: deleteEntityData(mockActionValue),
-      workerSagaToTest: deleteEntityDataWorker
+      workerSagaToTest: deleteEntityDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -341,53 +273,51 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyIds, mockActionValue.deleteType],
       latticeApiReqSeq: deleteEntityData,
       workerSagaAction: deleteEntityData(mockActionValue),
-      workerSagaToTest: deleteEntityDataWorker
+      workerSagaToTest: deleteEntityDataWorker,
     });
-
   });
 
   /*
    *
-   * DataApi.deleteEntitySet
-   * DataApiActions.deleteEntitySet
+   * DataApi.deleteEntitySetData
+   * DataApiActions.deleteEntitySetData
    *
    */
 
-  describe('deleteEntitySetWatcher', () => {
-    testShouldBeGeneratorFunction(deleteEntitySetWatcher);
+  describe('deleteEntitySetDataWatcher', () => {
+    testShouldBeGeneratorFunction(deleteEntitySetDataWatcher);
     testWatcherSagaShouldTakeEvery(
-      deleteEntitySetWatcher,
-      deleteEntitySetWorker,
-      DELETE_ENTITY_SET,
+      deleteEntitySetDataWatcher,
+      deleteEntitySetDataWorker,
+      DELETE_ENTITY_SET_DATA,
     );
   });
 
-  describe('deleteEntitySetWorker', () => {
+  describe('deleteEntitySetDataWorker', () => {
 
     const mockActionValue = {
-      deleteType: uuid(),
+      deleteType: DeleteTypes.HARD,
       entitySetId: uuid(),
     };
 
-    testShouldBeGeneratorFunction(deleteEntitySetWorker);
-    testShouldFailOnInvalidAction(deleteEntitySetWorker, DELETE_ENTITY_SET);
+    testShouldBeGeneratorFunction(deleteEntitySetDataWorker);
+    testShouldFailOnInvalidAction(deleteEntitySetDataWorker, DELETE_ENTITY_SET_DATA);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataApi.deleteEntitySet,
+      latticeApi: DataApi.deleteEntitySetData,
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.deleteType],
-      latticeApiReqSeq: deleteEntitySet,
-      workerSagaAction: deleteEntitySet(mockActionValue),
-      workerSagaToTest: deleteEntitySetWorker
+      latticeApiReqSeq: deleteEntitySetData,
+      workerSagaAction: deleteEntitySetData(mockActionValue),
+      workerSagaToTest: deleteEntitySetDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataApi.deleteEntitySet,
+      latticeApi: DataApi.deleteEntitySetData,
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.deleteType],
-      latticeApiReqSeq: deleteEntitySet,
-      workerSagaAction: deleteEntitySet(mockActionValue),
-      workerSagaToTest: deleteEntitySetWorker
+      latticeApiReqSeq: deleteEntitySetData,
+      workerSagaAction: deleteEntitySetData(mockActionValue),
+      workerSagaToTest: deleteEntitySetDataWorker,
     });
-
   });
 
   /*
@@ -402,15 +332,15 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getEntityDataWatcher,
       getEntityDataWorker,
-      GET_ENTITY_DATA
+      GET_ENTITY_DATA,
     );
   });
 
   describe('getEntityDataWorker', () => {
 
     const mockActionValue = {
-      entitySetId: uuid(),
       entityKeyId: uuid(),
+      entitySetId: uuid(),
     };
 
     testShouldBeGeneratorFunction(getEntityDataWorker);
@@ -421,7 +351,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId],
       latticeApiReqSeq: getEntityData,
       workerSagaAction: getEntityData(mockActionValue),
-      workerSagaToTest: getEntityDataWorker
+      workerSagaToTest: getEntityDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -429,9 +359,8 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyId],
       latticeApiReqSeq: getEntityData,
       workerSagaAction: getEntityData(mockActionValue),
-      workerSagaToTest: getEntityDataWorker
+      workerSagaToTest: getEntityDataWorker,
     });
-
   });
 
   /*
@@ -446,7 +375,7 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getEntitySetDataWatcher,
       getEntitySetDataWorker,
-      GET_ENTITY_SET_DATA
+      GET_ENTITY_SET_DATA,
     );
   });
 
@@ -454,8 +383,8 @@ describe('DataApiSagas', () => {
 
     const mockActionValue = {
       entitySetId: uuid(),
-      propertyTypeIds: [uuid()],
-      entityKeyIds: [uuid()],
+      propertyTypeIds: [uuid(), uuid()],
+      entityKeyIds: [uuid(), uuid(), uuid()],
     };
 
     testShouldBeGeneratorFunction(getEntitySetDataWorker);
@@ -466,7 +395,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeIds, mockActionValue.entityKeyIds],
       latticeApiReqSeq: getEntitySetData,
       workerSagaAction: getEntitySetData(mockActionValue),
-      workerSagaToTest: getEntitySetDataWorker
+      workerSagaToTest: getEntitySetDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -474,15 +403,14 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeIds, mockActionValue.entityKeyIds],
       latticeApiReqSeq: getEntitySetData,
       workerSagaAction: getEntitySetData(mockActionValue),
-      workerSagaToTest: getEntitySetDataWorker
+      workerSagaToTest: getEntitySetDataWorker,
     });
-
   });
 
   /*
    *
-   * DataApi.getEntitySetData
-   * DataApiActions.getEntitySetData
+   * DataApi.getEntitySetSize
+   * DataApiActions.getEntitySetSize
    *
    */
 
@@ -491,35 +419,32 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getEntitySetSizeWatcher,
       getEntitySetSizeWorker,
-      GET_ENTITY_SET_SIZE
+      GET_ENTITY_SET_SIZE,
     );
   });
 
   describe('getEntitySetSizeWorker', () => {
 
-    const mockActionValue = {
-      entitySetId: uuid()
-    };
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getEntitySetSizeWorker);
     testShouldFailOnInvalidAction(getEntitySetSizeWorker, GET_ENTITY_SET_SIZE);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataApi.getEntitySetSize,
-      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntitySetSize,
       workerSagaAction: getEntitySetSize(mockActionValue),
-      workerSagaToTest: getEntitySetSizeWorker
+      workerSagaToTest: getEntitySetSizeWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataApi.getEntitySetSize,
-      latticeApiParams: [mockActionValue.entitySetId],
+      latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntitySetSize,
       workerSagaAction: getEntitySetSize(mockActionValue),
-      workerSagaToTest: getEntitySetSizeWorker
+      workerSagaToTest: getEntitySetSizeWorker,
     });
-
   });
 
   /*
@@ -534,7 +459,7 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getLinkedEntitySetBreakdownWatcher,
       getLinkedEntitySetBreakdownWorker,
-      GET_LINKED_ENTITY_SET_BREAKDOWN
+      GET_LINKED_ENTITY_SET_BREAKDOWN,
     );
   });
 
@@ -543,7 +468,7 @@ describe('DataApiSagas', () => {
     const mockActionValue = {
       entitySetId: uuid(),
       propertyTypeIds: [uuid()],
-      entityKeyIds: [uuid()],
+      entityKeyIds: [uuid(), uuid()],
     };
 
     testShouldBeGeneratorFunction(getLinkedEntitySetBreakdownWorker);
@@ -554,7 +479,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeIds, mockActionValue.entityKeyIds],
       latticeApiReqSeq: getLinkedEntitySetBreakdown,
       workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
-      workerSagaToTest: getLinkedEntitySetBreakdownWorker
+      workerSagaToTest: getLinkedEntitySetBreakdownWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -562,9 +487,8 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.propertyTypeIds, mockActionValue.entityKeyIds],
       latticeApiReqSeq: getLinkedEntitySetBreakdown,
       workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
-      workerSagaToTest: getLinkedEntitySetBreakdownWorker
+      workerSagaToTest: getLinkedEntitySetBreakdownWorker,
     });
-
   });
 
   /*
@@ -579,16 +503,16 @@ describe('DataApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       updateEntityDataWatcher,
       updateEntityDataWorker,
-      UPDATE_ENTITY_DATA
+      UPDATE_ENTITY_DATA,
     );
   });
 
   describe('updateEntityDataWorker', () => {
 
     const mockActionValue = {
-      entitySetId: uuid(),
       entities: uuid(),
-      updateType: uuid(),
+      entitySetId: uuid(),
+      updateType: UpdateTypes.PARTIAL_REPLACE,
     };
 
     testShouldBeGeneratorFunction(updateEntityDataWorker);
@@ -599,7 +523,7 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entities, mockActionValue.updateType],
       latticeApiReqSeq: updateEntityData,
       workerSagaAction: updateEntityData(mockActionValue),
-      workerSagaToTest: updateEntityDataWorker
+      workerSagaToTest: updateEntityDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -607,9 +531,8 @@ describe('DataApiSagas', () => {
       latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entities, mockActionValue.updateType],
       latticeApiReqSeq: updateEntityData,
       workerSagaAction: updateEntityData(mockActionValue),
-      workerSagaToTest: updateEntityDataWorker
+      workerSagaToTest: updateEntityDataWorker,
     });
-
   });
 
 });

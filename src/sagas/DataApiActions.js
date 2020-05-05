@@ -14,17 +14,14 @@ const createEntityAndAssociationData :RequestSequence = newRequestSequence(CREAT
 const CREATE_OR_MERGE_ENTITY_DATA :'CREATE_OR_MERGE_ENTITY_DATA' = 'CREATE_OR_MERGE_ENTITY_DATA';
 const createOrMergeEntityData :RequestSequence = newRequestSequence(CREATE_OR_MERGE_ENTITY_DATA);
 
-const DELETE_ENTITIES_AND_NEIGHBORS :'DELETE_ENTITIES_AND_NEIGHBORS' = 'DELETE_ENTITIES_AND_NEIGHBORS';
-const deleteEntitiesAndNeighbors :RequestSequence = newRequestSequence(DELETE_ENTITIES_AND_NEIGHBORS);
-
-const DELETE_ENTITY :'DELETE_ENTITY' = 'DELETE_ENTITY';
-const deleteEntity :RequestSequence = newRequestSequence(DELETE_ENTITY);
+const DELETE_ENTITY_AND_NEIGHBOR_DATA :'DELETE_ENTITY_AND_NEIGHBOR_DATA' = 'DELETE_ENTITY_AND_NEIGHBOR_DATA';
+const deleteEntityAndNeighborData :RequestSequence = newRequestSequence(DELETE_ENTITY_AND_NEIGHBOR_DATA);
 
 const DELETE_ENTITY_DATA :'DELETE_ENTITY_DATA' = 'DELETE_ENTITY_DATA';
 const deleteEntityData :RequestSequence = newRequestSequence(DELETE_ENTITY_DATA);
 
-const DELETE_ENTITY_SET :'DELETE_ENTITY_SET' = 'DELETE_ENTITY_SET';
-const deleteEntitySet :RequestSequence = newRequestSequence(DELETE_ENTITY_SET);
+const DELETE_ENTITY_SET_DATA :'DELETE_ENTITY_SET_DATA' = 'DELETE_ENTITY_SET_DATA';
+const deleteEntitySetData :RequestSequence = newRequestSequence(DELETE_ENTITY_SET_DATA);
 
 const GET_ENTITY_DATA :'GET_ENTITY_DATA' = 'GET_ENTITY_DATA';
 const getEntityData :RequestSequence = newRequestSequence(GET_ENTITY_DATA);
@@ -45,10 +42,9 @@ export {
   CREATE_ASSOCIATIONS,
   CREATE_ENTITY_AND_ASSOCIATION_DATA,
   CREATE_OR_MERGE_ENTITY_DATA,
-  DELETE_ENTITIES_AND_NEIGHBORS,
-  DELETE_ENTITY,
+  DELETE_ENTITY_AND_NEIGHBOR_DATA,
   DELETE_ENTITY_DATA,
-  DELETE_ENTITY_SET,
+  DELETE_ENTITY_SET_DATA,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
@@ -57,10 +53,9 @@ export {
   createAssociations,
   createEntityAndAssociationData,
   createOrMergeEntityData,
-  deleteEntitiesAndNeighbors,
-  deleteEntity,
+  deleteEntityAndNeighborData,
   deleteEntityData,
-  deleteEntitySet,
+  deleteEntitySetData,
   getEntityData,
   getEntitySetData,
   getEntitySetSize,

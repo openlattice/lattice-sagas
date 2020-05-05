@@ -2,41 +2,45 @@
  * @flow
  */
 
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as OrganizationsApiActions from './OrganizationsApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
-  'ADD_CONNECTIONS',
-  'ADD_DOMAIN_TO_ORG',
-  'ADD_MEMBER_TO_ORG',
+const ACTION_TYPES = OrderedSet([
+  'ADD_CONNECTIONS_TO_ORGANIZATION',
+  'ADD_DOMAINS_TO_ORGANIZATION',
+  'ADD_MEMBER_TO_ORGANIZATION',
   'ADD_ROLE_TO_MEMBER',
   'CREATE_ORGANIZATION',
   'CREATE_ROLE',
   'DELETE_ORGANIZATION',
   'DELETE_ROLE',
   'GET_ALL_ORGANIZATIONS',
-  'GET_ALL_USERS_OF_ROLE',
   'GET_ORGANIZATION',
-  'GET_ORG_ENTITY_SETS',
-  'GET_ORG_INTEGRATION_ACCOUNT',
-  'GET_ORG_MEMBERS',
-  'GRANT_TRUST_TO_ORG',
-  'REMOVE_CONNECTIONS',
-  'REMOVE_DOMAIN_FROM_ORG',
-  'REMOVE_MEMBER_FROM_ORG',
+  'GET_ORGANIZATION_ENTITY_SETS',
+  'GET_ORGANIZATION_INTEGRATION_ACCOUNT',
+  'GET_ORGANIZATION_MEMBERS',
+  'GET_ORGANIZATION_ROLES',
+  'GET_ROLE',
+  'GET_USERS_WITH_ROLE',
+  'GRANT_TRUST_TO_ORGANIZATION',
+  'REMOVE_CONNECTIONS_FROM_ORGANIZATION',
+  'REMOVE_DOMAINS_FROM_ORGANIZATION',
+  'REMOVE_MEMBER_FROM_ORGANIZATION',
   'REMOVE_ROLE_FROM_MEMBER',
-  'REVOKE_TRUST_FROM_ORG',
-  'SET_CONNECTIONS',
-  'UPDATE_ORG_DESCRIPTION',
-  'UPDATE_ORG_TITLE',
+  'REVOKE_TRUST_FROM_ORGANIZATION',
+  'UPDATE_ORGANIZATION_DESCRIPTION',
+  'UPDATE_ORGANIZATION_TITLE',
+  'UPDATE_ROLE_DESCRIPTION',
   'UPDATE_ROLE_GRANT',
-]).sort();
+  'UPDATE_ROLE_TITLE',
+]).sort().toJS();
 
-const REQSEQ_NAMES = Immutable.List([
-  'addConnections',
-  'addDomainToOrganization',
+const REQSEQ_NAMES = OrderedSet([
+  'addConnectionsToOrganization',
+  'addDomainsToOrganization',
   'addMemberToOrganization',
   'addRoleToMember',
   'createOrganization',
@@ -44,25 +48,28 @@ const REQSEQ_NAMES = Immutable.List([
   'deleteOrganization',
   'deleteRole',
   'getAllOrganizations',
-  'getAllUsersOfRole',
   'getOrganization',
   'getOrganizationEntitySets',
   'getOrganizationIntegrationAccount',
   'getOrganizationMembers',
+  'getOrganizationRoles',
+  'getRole',
+  'getUsersWithRole',
   'grantTrustToOrganization',
-  'removeConnections',
-  'removeDomainFromOrganization',
+  'removeConnectionsFromOrganization',
+  'removeDomainsFromOrganization',
   'removeMemberFromOrganization',
   'removeRoleFromMember',
   'revokeTrustFromOrganization',
-  'setConnections',
   'updateOrganizationDescription',
   'updateOrganizationTitle',
+  'updateRoleDescription',
   'updateRoleGrant',
-]).sort();
+  'updateRoleTitle',
+]).sort().toJS();
 
 describe('OrganizationsApiActions', () => {
 
-  testShouldExportActionTypes(OrganizationsApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(OrganizationsApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(OrganizationsApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(OrganizationsApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });

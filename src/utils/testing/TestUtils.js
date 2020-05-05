@@ -1,9 +1,10 @@
-import Immutable from 'immutable';
 import { call, put, takeEvery } from '@redux-saga/core/effects';
+import { OrderedMap } from 'immutable';
+
+import { INVALID_PARAMS, INVALID_PARAMS_NOT_DEFINED } from './Invalid';
 
 import { GENERATOR_FUNCTION_TAG, GENERATOR_TAG } from '../Constants';
-import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../Errors';
-import { INVALID_PARAMS, INVALID_PARAMS_NOT_DEFINED } from './Invalid';
+import { ERR_INVALID_ACTION } from '../Errors';
 
 export function testShouldBeRequestSequenceFunction(functionToTest, baseType) {
 
@@ -46,14 +47,14 @@ export function testShouldFailOnInvalidAction(workerSagaToTest, baseActionType, 
     INVALID_PARAMS.forEach((invalidParam) => {
       const iterator = workerSagaToTest(invalidParam);
       const step = iterator.next();
-      expect(step.value).toEqual({ error: ERR_INVALID_ACTION });
+      expect(step.value).toEqual({ error: new Error(ERR_INVALID_ACTION) });
     });
 
     if (isValueRequired) {
       INVALID_PARAMS_NOT_DEFINED.forEach((invalidParam) => {
         const iterator = workerSagaToTest({ id: 'fakeId', type: baseActionType, value: invalidParam });
         const step = iterator.next();
-        expect(step.value).toEqual({ error: ERR_ACTION_VALUE_NOT_DEFINED });
+        expect(step.value).toEqual({ error: new Error(ERR_INVALID_ACTION) });
       });
     }
   });
@@ -210,7 +211,7 @@ export function testShouldExportActionTypes(Actions, expectedActionTypes) {
   describe('should export action types', () => {
 
     test('should export expected action types, sorted alphabetically', () => {
-      const exportedActionTypes = Immutable.OrderedMap(Actions).take(expectedActionTypes.length);
+      const exportedActionTypes = OrderedMap(Actions).filter((v, k) => expectedActionTypes.includes(k));
       expect(exportedActionTypes.keySeq().toJS()).toEqual(expectedActionTypes);
       expect(exportedActionTypes.valueSeq().toJS()).toEqual(expectedActionTypes);
     });
@@ -229,7 +230,7 @@ export function testShouldExportRequestSequences(Actions, expectedActionTypes, e
   describe('should export RequestSequences', () => {
 
     test('should export expected RequestSequences, sorted alphabetically', () => {
-      const expectedReqSeqs = Immutable.OrderedMap(Actions).takeLast(expectedReqSeqNames.length);
+      const expectedReqSeqs = OrderedMap(Actions).filter((v, k) => expectedReqSeqNames.includes(k));
       expect(expectedReqSeqs.keySeq().toJS()).toEqual(expectedReqSeqNames);
     });
 

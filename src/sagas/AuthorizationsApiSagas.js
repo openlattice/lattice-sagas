@@ -3,58 +3,53 @@
  */
 
 import { call, put, takeEvery } from '@redux-saga/core/effects';
-import { AuthorizationApi } from 'lattice';
+import { AuthorizationsApi } from 'lattice';
+import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
-
-import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
-import { isValidAction } from '../utils/Utils';
 
 import {
   GET_AUTHORIZATIONS,
   getAuthorizations,
 } from './AuthorizationsApiActions';
 
+import { ERR_INVALID_ACTION } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+import type { WorkerResponse } from '../types';
+
 /*
  *
- * AuthorizationApi.checkAuthorizations
+ * AuthorizationsApi.getAuthorizations
  * AuthorizationsApiActions.getAuthorizations
  *
  */
 
-function* getAuthorizationsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getAuthorizationsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_AUTHORIZATIONS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_AUTHORIZATIONS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getAuthorizations.request(id, value));
-    response.data = yield call(AuthorizationApi.checkAuthorizations, value);
-    yield put(getAuthorizations.success(id, response.data));
+    const response = yield call(AuthorizationsApi.getAuthorizations, value);
+    workerResponse = { data: response };
+    yield put(getAuthorizations.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getAuthorizations.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getAuthorizations.failure(id, error));
   }
   finally {
     yield put(getAuthorizations.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getAuthorizationsWatcher() :Generator<*, *, *> {
+function* getAuthorizationsWatcher() :Saga<*> {
 
   yield takeEvery(GET_AUTHORIZATIONS, getAuthorizationsWorker);
 }
