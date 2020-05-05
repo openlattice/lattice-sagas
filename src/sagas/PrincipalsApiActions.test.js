@@ -2,12 +2,13 @@
  * @flow
  */
 
-import Immutable from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import * as PrincipalsApiActions from './PrincipalsApiActions';
+
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
-const ACTION_TYPES = Immutable.List([
+const ACTION_TYPES = OrderedSet([
   'GET_ALL_ROLES',
   'GET_ALL_USERS',
   'GET_CURRENT_ROLES',
@@ -15,9 +16,9 @@ const ACTION_TYPES = Immutable.List([
   'GET_USER',
   'SEARCH_ALL_USERS',
   'SYNC_USER',
-]).sort();
+]).sort().toJS();
 
-const REQSEQ_NAMES = Immutable.List([
+const REQSEQ_NAMES = OrderedSet([
   'getAllRoles',
   'getAllUsers',
   'getCurrentRoles',
@@ -25,10 +26,10 @@ const REQSEQ_NAMES = Immutable.List([
   'getUser',
   'searchAllUsers',
   'syncUser',
-]).sort();
+]).sort().toJS();
 
 describe('PrincipalsApiActions', () => {
 
-  testShouldExportActionTypes(PrincipalsApiActions, ACTION_TYPES.toJS());
-  testShouldExportRequestSequences(PrincipalsApiActions, ACTION_TYPES.toJS(), REQSEQ_NAMES.toJS());
+  testShouldExportActionTypes(PrincipalsApiActions, ACTION_TYPES);
+  testShouldExportRequestSequences(PrincipalsApiActions, ACTION_TYPES, REQSEQ_NAMES);
 });
