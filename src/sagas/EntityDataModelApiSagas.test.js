@@ -2,7 +2,7 @@
  * @flow
  */
 
-import { EntityDataModelApi, Models } from 'lattice';
+import { EntityDataModelApi } from 'lattice';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -129,8 +129,6 @@ import {
   testWorkerSagaShouldHandleFailureCase,
   testWorkerSagaShouldHandleSuccessCase,
 } from '../utils/testing/TestUtils';
-
-const { FQN } = Models;
 
 describe('EntityDataModelApiSagas', () => {
 
