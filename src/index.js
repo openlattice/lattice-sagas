@@ -6,6 +6,8 @@ import * as AppApiActions from './sagas/AppApiActions';
 import * as AppApiSagas from './sagas/AppApiSagas';
 import * as AuthorizationsApiActions from './sagas/AuthorizationsApiActions';
 import * as AuthorizationsApiSagas from './sagas/AuthorizationsApiSagas';
+import * as CodexApiActions from './sagas/CodexApiActions';
+import * as CodexApiSagas from './sagas/CodexApiSagas';
 import * as DataApiActions from './sagas/DataApiActions';
 import * as DataApiSagas from './sagas/DataApiSagas';
 import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
@@ -18,12 +20,14 @@ import * as OrganizationsApiActions from './sagas/OrganizationsApiActions';
 import * as OrganizationsApiSagas from './sagas/OrganizationsApiSagas';
 import * as PermissionsApiActions from './sagas/PermissionsApiActions';
 import * as PermissionsApiSagas from './sagas/PermissionsApiSagas';
+import * as PersistentSearchApiActions from './sagas/PersistentSearchApiActions';
+import * as PersistentSearchApiSagas from './sagas/PersistentSearchApiSagas';
 import * as PrincipalsApiActions from './sagas/PrincipalsApiActions';
 import * as PrincipalsApiSagas from './sagas/PrincipalsApiSagas';
 import * as SearchApiActions from './sagas/SearchApiActions';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
 
-export type { Response } from './types';
+export type { WorkerResponse } from './types';
 
 // injected by Webpack.DefinePlugin
 declare var __VERSION__ :string;
@@ -34,6 +38,8 @@ export {
   AppApiSagas,
   AuthorizationsApiActions,
   AuthorizationsApiSagas,
+  CodexApiActions,
+  CodexApiSagas,
   DataApiActions,
   DataApiSagas,
   DataIntegrationApiActions,
@@ -46,6 +52,8 @@ export {
   OrganizationsApiSagas,
   PermissionsApiActions,
   PermissionsApiSagas,
+  PersistentSearchApiActions,
+  PersistentSearchApiSagas,
   PrincipalsApiActions,
   PrincipalsApiSagas,
   SearchApiActions,
@@ -58,6 +66,8 @@ export default {
   AppApiSagas,
   AuthorizationsApiActions,
   AuthorizationsApiSagas,
+  CodexApiActions,
+  CodexApiSagas,
   DataApiActions,
   DataApiSagas,
   DataIntegrationApiActions,
@@ -70,6 +80,8 @@ export default {
   OrganizationsApiSagas,
   PermissionsApiActions,
   PermissionsApiSagas,
+  PersistentSearchApiActions,
+  PersistentSearchApiSagas,
   PrincipalsApiActions,
   PrincipalsApiSagas,
   SearchApiActions,
