@@ -19,4 +19,4 @@
 !<PROJECT_ROOT>/node_modules/redux-reqseq
 
 [libs]
-./src/types.js.flow
+./config/flow/types.js.flow

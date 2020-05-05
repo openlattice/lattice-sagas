@@ -3,3 +3,4 @@
  */
 
 export * from '../src/index.js';
+export type * from '../src/index.js';

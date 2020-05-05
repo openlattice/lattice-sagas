@@ -2,17 +2,19 @@
  * @flow
  */
 
+/* eslint-disable max-len */
+
 import { newRequestSequence } from 'redux-reqseq';
 import type { RequestSequence } from 'redux-reqseq';
 
-const ADD_CONNECTIONS :'ADD_CONNECTIONS' = 'ADD_CONNECTIONS';
-const addConnections :RequestSequence = newRequestSequence(ADD_CONNECTIONS);
+const ADD_CONNECTIONS_TO_ORGANIZATION :'ADD_CONNECTIONS_TO_ORGANIZATION' = 'ADD_CONNECTIONS_TO_ORGANIZATION';
+const addConnectionsToOrganization :RequestSequence = newRequestSequence(ADD_CONNECTIONS_TO_ORGANIZATION);
 
-const ADD_DOMAIN_TO_ORG :'ADD_DOMAIN_TO_ORG' = 'ADD_DOMAIN_TO_ORG';
-const addDomainToOrganization :RequestSequence = newRequestSequence(ADD_DOMAIN_TO_ORG);
+const ADD_DOMAINS_TO_ORGANIZATION :'ADD_DOMAINS_TO_ORGANIZATION' = 'ADD_DOMAINS_TO_ORGANIZATION';
+const addDomainsToOrganization :RequestSequence = newRequestSequence(ADD_DOMAINS_TO_ORGANIZATION);
 
-const ADD_MEMBER_TO_ORG :'ADD_MEMBER_TO_ORG' = 'ADD_MEMBER_TO_ORG';
-const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_TO_ORG);
+const ADD_MEMBER_TO_ORGANIZATION :'ADD_MEMBER_TO_ORGANIZATION' = 'ADD_MEMBER_TO_ORGANIZATION';
+const addMemberToOrganization :RequestSequence = newRequestSequence(ADD_MEMBER_TO_ORGANIZATION);
 
 const ADD_ROLE_TO_MEMBER :'ADD_ROLE_TO_MEMBER' = 'ADD_ROLE_TO_MEMBER';
 const addRoleToMember :RequestSequence = newRequestSequence(ADD_ROLE_TO_MEMBER);
@@ -32,78 +34,90 @@ const deleteRole :RequestSequence = newRequestSequence(DELETE_ROLE);
 const GET_ALL_ORGANIZATIONS :'GET_ALL_ORGANIZATIONS' = 'GET_ALL_ORGANIZATIONS';
 const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZATIONS);
 
-const GET_ALL_USERS_OF_ROLE :'GET_ALL_USERS_OF_ROLE' = 'GET_ALL_USERS_OF_ROLE';
-const getAllUsersOfRole :RequestSequence = newRequestSequence(GET_ALL_USERS_OF_ROLE);
-
 const GET_ORGANIZATION :'GET_ORGANIZATION' = 'GET_ORGANIZATION';
 const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 
-const GET_ORG_ENTITY_SETS :'GET_ORG_ENTITY_SETS' = 'GET_ORG_ENTITY_SETS';
-const getOrganizationEntitySets :RequestSequence = newRequestSequence(GET_ORG_ENTITY_SETS);
+const GET_ORGANIZATION_ENTITY_SETS :'GET_ORGANIZATION_ENTITY_SETS' = 'GET_ORGANIZATION_ENTITY_SETS';
+const getOrganizationEntitySets :RequestSequence = newRequestSequence(GET_ORGANIZATION_ENTITY_SETS);
 
-const GET_ORG_INTEGRATION_ACCOUNT :'GET_ORG_INTEGRATION_ACCOUNT' = 'GET_ORG_INTEGRATION_ACCOUNT';
-const getOrganizationIntegrationAccount :RequestSequence = newRequestSequence(GET_ORG_INTEGRATION_ACCOUNT);
+const GET_ORGANIZATION_INTEGRATION_ACCOUNT :'GET_ORGANIZATION_INTEGRATION_ACCOUNT' = 'GET_ORGANIZATION_INTEGRATION_ACCOUNT';
+const getOrganizationIntegrationAccount :RequestSequence = newRequestSequence(GET_ORGANIZATION_INTEGRATION_ACCOUNT);
 
-const GET_ORG_MEMBERS :'GET_ORG_MEMBERS' = 'GET_ORG_MEMBERS';
-const getOrganizationMembers :RequestSequence = newRequestSequence(GET_ORG_MEMBERS);
+const GET_ORGANIZATION_MEMBERS :'GET_ORGANIZATION_MEMBERS' = 'GET_ORGANIZATION_MEMBERS';
+const getOrganizationMembers :RequestSequence = newRequestSequence(GET_ORGANIZATION_MEMBERS);
 
-const GRANT_TRUST_TO_ORG :'GRANT_TRUST_TO_ORG' = 'GRANT_TRUST_TO_ORG';
-const grantTrustToOrganization :RequestSequence = newRequestSequence(GRANT_TRUST_TO_ORG);
+const GET_ORGANIZATION_ROLES :'GET_ORGANIZATION_ROLES' = 'GET_ORGANIZATION_ROLES';
+const getOrganizationRoles :RequestSequence = newRequestSequence(GET_ORGANIZATION_ROLES);
 
-const REMOVE_CONNECTIONS :'REMOVE_CONNECTIONS' = 'REMOVE_CONNECTIONS';
-const removeConnections :RequestSequence = newRequestSequence(REMOVE_CONNECTIONS);
+const GET_ROLE :'GET_ROLE' = 'GET_ROLE';
+const getRole :RequestSequence = newRequestSequence(GET_ROLE);
 
-const REMOVE_DOMAIN_FROM_ORG :'REMOVE_DOMAIN_FROM_ORG' = 'REMOVE_DOMAIN_FROM_ORG';
-const removeDomainFromOrganization :RequestSequence = newRequestSequence(REMOVE_DOMAIN_FROM_ORG);
+const GET_USERS_WITH_ROLE :'GET_USERS_WITH_ROLE' = 'GET_USERS_WITH_ROLE';
+const getUsersWithRole :RequestSequence = newRequestSequence(GET_USERS_WITH_ROLE);
 
-const REMOVE_MEMBER_FROM_ORG :'REMOVE_MEMBER_FROM_ORG' = 'REMOVE_MEMBER_FROM_ORG';
-const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_MEMBER_FROM_ORG);
+const GRANT_TRUST_TO_ORGANIZATION :'GRANT_TRUST_TO_ORGANIZATION' = 'GRANT_TRUST_TO_ORGANIZATION';
+const grantTrustToOrganization :RequestSequence = newRequestSequence(GRANT_TRUST_TO_ORGANIZATION);
+
+const REMOVE_CONNECTIONS_FROM_ORGANIZATION :'REMOVE_CONNECTIONS_FROM_ORGANIZATION' = 'REMOVE_CONNECTIONS_FROM_ORGANIZATION';
+const removeConnectionsFromOrganization :RequestSequence = newRequestSequence(REMOVE_CONNECTIONS_FROM_ORGANIZATION);
+
+const REMOVE_DOMAINS_FROM_ORGANIZATION :'REMOVE_DOMAINS_FROM_ORGANIZATION' = 'REMOVE_DOMAINS_FROM_ORGANIZATION';
+const removeDomainsFromOrganization :RequestSequence = newRequestSequence(REMOVE_DOMAINS_FROM_ORGANIZATION);
+
+const REMOVE_MEMBER_FROM_ORGANIZATION :'REMOVE_MEMBER_FROM_ORGANIZATION' = 'REMOVE_MEMBER_FROM_ORGANIZATION';
+const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_MEMBER_FROM_ORGANIZATION);
 
 const REMOVE_ROLE_FROM_MEMBER :'REMOVE_ROLE_FROM_MEMBER' = 'REMOVE_ROLE_FROM_MEMBER';
 const removeRoleFromMember :RequestSequence = newRequestSequence(REMOVE_ROLE_FROM_MEMBER);
 
-const REVOKE_TRUST_FROM_ORG :'REVOKE_TRUST_FROM_ORG' = 'REVOKE_TRUST_FROM_ORG';
-const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORG);
+const REVOKE_TRUST_FROM_ORGANIZATION :'REVOKE_TRUST_FROM_ORGANIZATION' = 'REVOKE_TRUST_FROM_ORGANIZATION';
+const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORGANIZATION);
 
-const SET_CONNECTIONS :'SET_CONNECTIONS' = 'SET_CONNECTIONS';
-const setConnections :RequestSequence = newRequestSequence(SET_CONNECTIONS);
+const UPDATE_ORGANIZATION_DESCRIPTION :'UPDATE_ORGANIZATION_DESCRIPTION' = 'UPDATE_ORGANIZATION_DESCRIPTION';
+const updateOrganizationDescription :RequestSequence = newRequestSequence(UPDATE_ORGANIZATION_DESCRIPTION);
 
-const UPDATE_ORG_DESCRIPTION :'UPDATE_ORG_DESCRIPTION' = 'UPDATE_ORG_DESCRIPTION';
-const updateOrganizationDescription :RequestSequence = newRequestSequence(UPDATE_ORG_DESCRIPTION);
+const UPDATE_ORGANIZATION_TITLE :'UPDATE_ORGANIZATION_TITLE' = 'UPDATE_ORGANIZATION_TITLE';
+const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORGANIZATION_TITLE);
 
-const UPDATE_ORG_TITLE :'UPDATE_ORG_TITLE' = 'UPDATE_ORG_TITLE';
-const updateOrganizationTitle :RequestSequence = newRequestSequence(UPDATE_ORG_TITLE);
+const UPDATE_ROLE_DESCRIPTION :'UPDATE_ROLE_DESCRIPTION' = 'UPDATE_ROLE_DESCRIPTION';
+const updateRoleDescription :RequestSequence = newRequestSequence(UPDATE_ROLE_DESCRIPTION);
 
 const UPDATE_ROLE_GRANT :'UPDATE_ROLE_GRANT' = 'UPDATE_ROLE_GRANT';
 const updateRoleGrant :RequestSequence = newRequestSequence(UPDATE_ROLE_GRANT);
 
+const UPDATE_ROLE_TITLE :'UPDATE_ROLE_TITLE' = 'UPDATE_ROLE_TITLE';
+const updateRoleTitle :RequestSequence = newRequestSequence(UPDATE_ROLE_TITLE);
+
 export {
-  ADD_CONNECTIONS,
-  ADD_DOMAIN_TO_ORG,
-  ADD_MEMBER_TO_ORG,
+  ADD_CONNECTIONS_TO_ORGANIZATION,
+  ADD_DOMAINS_TO_ORGANIZATION,
+  ADD_MEMBER_TO_ORGANIZATION,
   ADD_ROLE_TO_MEMBER,
   CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
-  GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
-  GET_ORG_ENTITY_SETS,
-  GET_ORG_INTEGRATION_ACCOUNT,
-  GET_ORG_MEMBERS,
-  GRANT_TRUST_TO_ORG,
-  REMOVE_CONNECTIONS,
-  REMOVE_DOMAIN_FROM_ORG,
-  REMOVE_MEMBER_FROM_ORG,
+  GET_ORGANIZATION_ENTITY_SETS,
+  GET_ORGANIZATION_INTEGRATION_ACCOUNT,
+  GET_ORGANIZATION_MEMBERS,
+  GET_ORGANIZATION_ROLES,
+  GET_ROLE,
+  GET_USERS_WITH_ROLE,
+  GRANT_TRUST_TO_ORGANIZATION,
+  REMOVE_CONNECTIONS_FROM_ORGANIZATION,
+  REMOVE_DOMAINS_FROM_ORGANIZATION,
+  REMOVE_MEMBER_FROM_ORGANIZATION,
   REMOVE_ROLE_FROM_MEMBER,
-  REVOKE_TRUST_FROM_ORG,
-  SET_CONNECTIONS,
-  UPDATE_ORG_DESCRIPTION,
-  UPDATE_ORG_TITLE,
+  REVOKE_TRUST_FROM_ORGANIZATION,
+  UPDATE_ORGANIZATION_DESCRIPTION,
+  UPDATE_ORGANIZATION_TITLE,
+  UPDATE_ROLE_DESCRIPTION,
   UPDATE_ROLE_GRANT,
-  addConnections,
-  addDomainToOrganization,
+  UPDATE_ROLE_TITLE,
+  addConnectionsToOrganization,
+  addDomainsToOrganization,
   addMemberToOrganization,
   addRoleToMember,
   createOrganization,
@@ -111,19 +125,22 @@ export {
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
-  getAllUsersOfRole,
   getOrganization,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
+  getOrganizationRoles,
+  getRole,
+  getUsersWithRole,
   grantTrustToOrganization,
-  removeConnections,
-  removeDomainFromOrganization,
+  removeConnectionsFromOrganization,
+  removeDomainsFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
   revokeTrustFromOrganization,
-  setConnections,
   updateOrganizationDescription,
   updateOrganizationTitle,
+  updateRoleDescription,
   updateRoleGrant,
+  updateRoleTitle,
 };

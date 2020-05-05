@@ -2,8 +2,8 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
 import { PrincipalsApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   GET_ALL_ROLES,
@@ -50,8 +50,8 @@ describe('PrincipalsApiSagas', () => {
 
   /*
    *
-   * PrincipalsApi.getAllRoles()
-   * PrincipalsApiActions.getAllRoles()
+   * PrincipalsApi.getAllRoles
+   * PrincipalsApiActions.getAllRoles
    *
    */
 
@@ -67,7 +67,7 @@ describe('PrincipalsApiSagas', () => {
   describe('getAllRolesWorker', () => {
 
     testShouldBeGeneratorFunction(getAllRolesWorker);
-    testShouldFailOnInvalidAction(getAllRolesWorker, GET_ALL_ROLES, false);
+    testShouldFailOnInvalidAction(getAllRolesWorker, GET_ALL_ROLES);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: PrincipalsApi.getAllRoles,
@@ -84,13 +84,12 @@ describe('PrincipalsApiSagas', () => {
       workerSagaAction: getAllRoles(),
       workerSagaToTest: getAllRolesWorker,
     });
-
   });
 
   /*
    *
-   * PrincipalsApi.getAllUsers()
-   * PrincipalsApiActions.getAllUsers()
+   * PrincipalsApi.getAllUsers
+   * PrincipalsApiActions.getAllUsers
    *
    */
 
@@ -106,7 +105,7 @@ describe('PrincipalsApiSagas', () => {
   describe('getAllUsersWorker', () => {
 
     testShouldBeGeneratorFunction(getAllUsersWorker);
-    testShouldFailOnInvalidAction(getAllUsersWorker, GET_ALL_USERS, false);
+    testShouldFailOnInvalidAction(getAllUsersWorker, GET_ALL_USERS);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: PrincipalsApi.getAllUsers,
@@ -123,13 +122,12 @@ describe('PrincipalsApiSagas', () => {
       workerSagaAction: getAllUsers(),
       workerSagaToTest: getAllUsersWorker,
     });
-
   });
 
   /*
    *
-   * PrincipalsApi.getCurrentRoles()
-   * PrincipalsApiActions.getCurrentRoles()
+   * PrincipalsApi.getCurrentRoles
+   * PrincipalsApiActions.getCurrentRoles
    *
    */
 
@@ -145,7 +143,7 @@ describe('PrincipalsApiSagas', () => {
   describe('getCurrentRolesWorker', () => {
 
     testShouldBeGeneratorFunction(getCurrentRolesWorker);
-    testShouldFailOnInvalidAction(getCurrentRolesWorker, GET_CURRENT_ROLES, false);
+    testShouldFailOnInvalidAction(getCurrentRolesWorker, GET_CURRENT_ROLES);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: PrincipalsApi.getCurrentRoles,
@@ -162,13 +160,12 @@ describe('PrincipalsApiSagas', () => {
       workerSagaAction: getCurrentRoles(),
       workerSagaToTest: getCurrentRolesWorker,
     });
-
   });
 
   /*
    *
-   * PrincipalsApi.getSecurablePrincipal()
-   * PrincipalsApiActions.getSecurablePrincipal()
+   * PrincipalsApi.getSecurablePrincipal
+   * PrincipalsApiActions.getSecurablePrincipal
    *
    */
 
@@ -183,7 +180,7 @@ describe('PrincipalsApiSagas', () => {
 
   describe('getSecurablePrincipalWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getSecurablePrincipalWorker);
     testShouldFailOnInvalidAction(getSecurablePrincipalWorker, GET_SECURABLE_PRINCIPAL);
@@ -203,7 +200,46 @@ describe('PrincipalsApiSagas', () => {
       workerSagaAction: getSecurablePrincipal(mockActionValue),
       workerSagaToTest: getSecurablePrincipalWorker,
     });
+  });
 
+  /*
+   *
+   * PrincipalsApi.getUser
+   * PrincipalsApiActions.getUser
+   *
+   */
+
+  describe('getUserWatcher', () => {
+    testShouldBeGeneratorFunction(getUserWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getUserWatcher,
+      getUserWorker,
+      GET_USER,
+    );
+  });
+
+  describe('getUserWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getUserWorker);
+    testShouldFailOnInvalidAction(getUserWorker, GET_USER);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getUser,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getUser,
+      workerSagaAction: getUser(mockActionValue),
+      workerSagaToTest: getUserWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getUser,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getUser,
+      workerSagaAction: getUser(mockActionValue),
+      workerSagaToTest: getUserWorker,
+    });
   });
 
   /*
@@ -224,7 +260,7 @@ describe('PrincipalsApiSagas', () => {
 
   describe('searchAllUsersWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(searchAllUsersWorker);
     testShouldFailOnInvalidAction(searchAllUsersWorker, SEARCH_ALL_USERS);
@@ -244,54 +280,12 @@ describe('PrincipalsApiSagas', () => {
       workerSagaAction: searchAllUsers(mockActionValue),
       workerSagaToTest: searchAllUsersWorker,
     });
-
   });
 
   /*
    *
-   * PrincipalsApi.getUser()
-   * PrincipalsApiActions.getUser()
-   *
-   */
-
-  describe('getUserWatcher', () => {
-    testShouldBeGeneratorFunction(getUserWatcher);
-    testWatcherSagaShouldTakeEvery(
-      getUserWatcher,
-      getUserWorker,
-      GET_USER,
-    );
-  });
-
-  describe('getUserWorker', () => {
-
-    const mockActionValue = randomUUID();
-
-    testShouldBeGeneratorFunction(getUserWorker);
-    testShouldFailOnInvalidAction(getUserWorker, GET_USER);
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: PrincipalsApi.getUser,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getUser,
-      workerSagaAction: getUser(mockActionValue),
-      workerSagaToTest: getUserWorker,
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: PrincipalsApi.getUser,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getUser,
-      workerSagaAction: getUser(mockActionValue),
-      workerSagaToTest: getUserWorker,
-    });
-
-  });
-
-  /*
-   *
-   * PrincipalsApi.syncUser()
-   * PrincipalsApiActions.syncUser()
+   * PrincipalsApi.syncUser
+   * PrincipalsApiActions.syncUser
    *
    */
 
@@ -307,7 +301,7 @@ describe('PrincipalsApiSagas', () => {
   describe('syncUserWorker', () => {
 
     testShouldBeGeneratorFunction(syncUserWorker);
-    testShouldFailOnInvalidAction(syncUserWorker, SYNC_USER, false);
+    testShouldFailOnInvalidAction(syncUserWorker, SYNC_USER);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: PrincipalsApi.syncUser,
@@ -324,7 +318,6 @@ describe('PrincipalsApiSagas', () => {
       workerSagaAction: syncUser(),
       workerSagaToTest: syncUserWorker,
     });
-
   });
 
 });

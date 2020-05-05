@@ -4,10 +4,8 @@
 
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { EntitySetsApi } from 'lattice';
+import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
-
-import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
-import { isValidAction } from '../utils/Utils';
 
 import {
   CREATE_ENTITY_SETS,
@@ -16,8 +14,8 @@ import {
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_SET_IDS,
-  GET_PT_METADATA_FOR_ENTITY_SET,
-  GET_PT_METADATA_FOR_ENTITY_SETS,
+  GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
+  GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
   createEntitySets,
   deleteEntitySet,
   getAllEntitySets,
@@ -28,6 +26,10 @@ import {
   getPropertyTypeMetaDataForEntitySets,
 } from './EntitySetsApiActions';
 
+import { ERR_INVALID_ACTION } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+import type { WorkerResponse } from '../types';
+
 /*
  *
  * EntitySetsApi.createEntitySets
@@ -35,40 +37,33 @@ import {
  *
  */
 
-function* createEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* createEntitySetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, CREATE_ENTITY_SETS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, CREATE_ENTITY_SETS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(createEntitySets.request(id, value));
-    response.data = yield call(EntitySetsApi.createEntitySets, value);
-    yield put(createEntitySets.success(id, response.data));
+    const response = yield call(EntitySetsApi.createEntitySets, value);
+    workerResponse = { data: response };
+    yield put(createEntitySets.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(createEntitySets.failure(id, response.error));
+    workerResponse = { error };
+    yield put(createEntitySets.failure(id, error));
   }
   finally {
     yield put(createEntitySets.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* createEntitySetsWatcher() :Generator<*, *, *> {
+function* createEntitySetsWatcher() :Saga<*> {
 
   yield takeEvery(CREATE_ENTITY_SETS, createEntitySetsWorker);
 }
@@ -80,40 +75,33 @@ function* createEntitySetsWatcher() :Generator<*, *, *> {
  *
  */
 
-function* deleteEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* deleteEntitySetWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, DELETE_ENTITY_SET)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, DELETE_ENTITY_SET)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(deleteEntitySet.request(id, value));
-    response.data = yield call(EntitySetsApi.deleteEntitySet, value);
-    yield put(deleteEntitySet.success(id, response.data));
+    const response = yield call(EntitySetsApi.deleteEntitySet, value);
+    workerResponse = { data: response };
+    yield put(deleteEntitySet.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(deleteEntitySet.failure(id, response.error));
+    workerResponse = { error };
+    yield put(deleteEntitySet.failure(id, error));
   }
   finally {
     yield put(deleteEntitySet.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* deleteEntitySetWatcher() :Generator<*, *, *> {
+function* deleteEntitySetWatcher() :Saga<*> {
 
   yield takeEvery(DELETE_ENTITY_SET, deleteEntitySetWorker);
 }
@@ -125,34 +113,33 @@ function* deleteEntitySetWatcher() :Generator<*, *, *> {
  *
  */
 
-function* getAllEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getAllEntitySetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ALL_ENTITY_SETS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ALL_ENTITY_SETS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id } = seqAction;
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id } = action;
 
   try {
     yield put(getAllEntitySets.request(id));
-    response.data = yield call(EntitySetsApi.getAllEntitySets);
-    yield put(getAllEntitySets.success(id, response.data));
+    const response = yield call(EntitySetsApi.getAllEntitySets);
+    workerResponse = { data: response };
+    yield put(getAllEntitySets.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getAllEntitySets.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getAllEntitySets.failure(id, error));
   }
   finally {
     yield put(getAllEntitySets.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getAllEntitySetsWatcher() :Generator<*, void, *> {
+function* getAllEntitySetsWatcher() :Saga<*> {
 
   yield takeEvery(GET_ALL_ENTITY_SETS, getAllEntitySetsWorker);
 }
@@ -164,40 +151,33 @@ function* getAllEntitySetsWatcher() :Generator<*, void, *> {
  *
  */
 
-function* getEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getEntitySetWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ENTITY_SET)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ENTITY_SET)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getEntitySet.request(id, value));
-    response.data = yield call(EntitySetsApi.getEntitySet, value);
-    yield put(getEntitySet.success(id, response.data));
+    const response = yield call(EntitySetsApi.getEntitySet, value);
+    workerResponse = { data: response };
+    yield put(getEntitySet.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getEntitySet.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getEntitySet.failure(id, error));
   }
   finally {
     yield put(getEntitySet.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getEntitySetWatcher() :Generator<*, void, *> {
+function* getEntitySetWatcher() :Saga<*> {
 
   yield takeEvery(GET_ENTITY_SET, getEntitySetWorker);
 }
@@ -209,40 +189,33 @@ function* getEntitySetWatcher() :Generator<*, void, *> {
  *
  */
 
-function* getEntitySetIdWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getEntitySetIdWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ENTITY_SET_ID)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ENTITY_SET_ID)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getEntitySetId.request(id, value));
-    response.data = yield call(EntitySetsApi.getEntitySetId, value);
-    yield put(getEntitySetId.success(id, response.data));
+    const response = yield call(EntitySetsApi.getEntitySetId, value);
+    workerResponse = { data: response };
+    yield put(getEntitySetId.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getEntitySetId.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getEntitySetId.failure(id, error));
   }
   finally {
     yield put(getEntitySetId.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getEntitySetIdWatcher() :Generator<*, void, *> {
+function* getEntitySetIdWatcher() :Saga<*> {
 
   yield takeEvery(GET_ENTITY_SET_ID, getEntitySetIdWorker);
 }
@@ -254,40 +227,33 @@ function* getEntitySetIdWatcher() :Generator<*, void, *> {
  *
  */
 
-function* getEntitySetIdsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getEntitySetIdsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ENTITY_SET_IDS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ENTITY_SET_IDS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getEntitySetIds.request(id, value));
-    response.data = yield call(EntitySetsApi.getEntitySetIds, value);
-    yield put(getEntitySetIds.success(id, response.data));
+    const response = yield call(EntitySetsApi.getEntitySetIds, value);
+    workerResponse = { data: response };
+    yield put(getEntitySetIds.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getEntitySetIds.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getEntitySetIds.failure(id, error));
   }
   finally {
     yield put(getEntitySetIds.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getEntitySetIdsWatcher() :Generator<*, void, *> {
+function* getEntitySetIdsWatcher() :Saga<*> {
 
   yield takeEvery(GET_ENTITY_SET_IDS, getEntitySetIdsWorker);
 }
@@ -299,43 +265,36 @@ function* getEntitySetIdsWatcher() :Generator<*, void, *> {
  *
  */
 
-function* getPropertyTypeMetaDataForEntitySetWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getPropertyTypeMetaDataForEntitySetWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_PT_METADATA_FOR_ENTITY_SET)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { entitySetId, propertyTypeId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getPropertyTypeMetaDataForEntitySet.request(id, value));
-    response.data = yield call(EntitySetsApi.getPropertyTypeMetaDataForEntitySet, entitySetId, propertyTypeId);
-    yield put(getPropertyTypeMetaDataForEntitySet.success(id, response.data));
+    const { entitySetId, propertyTypeId } = value;
+    const response = yield call(EntitySetsApi.getPropertyTypeMetaDataForEntitySet, entitySetId, propertyTypeId);
+    workerResponse = { data: response };
+    yield put(getPropertyTypeMetaDataForEntitySet.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getPropertyTypeMetaDataForEntitySet.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getPropertyTypeMetaDataForEntitySet.failure(id, error));
   }
   finally {
     yield put(getPropertyTypeMetaDataForEntitySet.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getPropertyTypeMetaDataForEntitySetWatcher() :Generator<*, void, *> {
+function* getPropertyTypeMetaDataForEntitySetWatcher() :Saga<*> {
 
-  yield takeEvery(GET_PT_METADATA_FOR_ENTITY_SET, getPropertyTypeMetaDataForEntitySetWorker);
+  yield takeEvery(GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET, getPropertyTypeMetaDataForEntitySetWorker);
 }
 
 /*
@@ -345,42 +304,35 @@ function* getPropertyTypeMetaDataForEntitySetWatcher() :Generator<*, void, *> {
  *
  */
 
-function* getPropertyTypeMetaDataForEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getPropertyTypeMetaDataForEntitySetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_PT_METADATA_FOR_ENTITY_SETS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getPropertyTypeMetaDataForEntitySets.request(id, value));
-    response.data = yield call(EntitySetsApi.getPropertyTypeMetaDataForEntitySets, value);
-    yield put(getPropertyTypeMetaDataForEntitySets.success(id, response.data));
+    const response = yield call(EntitySetsApi.getPropertyTypeMetaDataForEntitySets, value);
+    workerResponse = { data: response };
+    yield put(getPropertyTypeMetaDataForEntitySets.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getPropertyTypeMetaDataForEntitySets.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getPropertyTypeMetaDataForEntitySets.failure(id, error));
   }
   finally {
     yield put(getPropertyTypeMetaDataForEntitySets.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getPropertyTypeMetaDataForEntitySetsWatcher() :Generator<*, void, *> {
+function* getPropertyTypeMetaDataForEntitySetsWatcher() :Saga<*> {
 
-  yield takeEvery(GET_PT_METADATA_FOR_ENTITY_SETS, getPropertyTypeMetaDataForEntitySetsWorker);
+  yield takeEvery(GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS, getPropertyTypeMetaDataForEntitySetsWorker);
 }
 
 export {

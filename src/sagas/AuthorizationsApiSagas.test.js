@@ -2,14 +2,13 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
-import { AuthorizationApi } from 'lattice';
+import { AuthorizationsApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
   GET_AUTHORIZATIONS,
   getAuthorizations,
 } from './AuthorizationsApiActions';
-
 import {
   getAuthorizationsWatcher,
   getAuthorizationsWorker,
@@ -27,7 +26,7 @@ describe('AuthorizationsApiSagas', () => {
 
   /*
    *
-   * AuthorizationApi.checkAuthorizations
+   * AuthorizationsApi.getAuthorizations
    * AuthorizationsApiActions.getAuthorizations
    *
    */
@@ -43,13 +42,13 @@ describe('AuthorizationsApiSagas', () => {
 
   describe('getAuthorizationsWorker', () => {
 
-    const mockActionValue = randomUUID();
+    const mockActionValue = uuid();
 
     testShouldBeGeneratorFunction(getAuthorizationsWorker);
     testShouldFailOnInvalidAction(getAuthorizationsWorker, GET_AUTHORIZATIONS);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: AuthorizationApi.checkAuthorizations,
+      latticeApi: AuthorizationsApi.getAuthorizations,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAuthorizations,
       workerSagaAction: getAuthorizations(mockActionValue),
@@ -57,13 +56,12 @@ describe('AuthorizationsApiSagas', () => {
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: AuthorizationApi.checkAuthorizations,
+      latticeApi: AuthorizationsApi.getAuthorizations,
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getAuthorizations,
       workerSagaAction: getAuthorizations(mockActionValue),
       workerSagaToTest: getAuthorizationsWorker,
     });
-
   });
 
 });

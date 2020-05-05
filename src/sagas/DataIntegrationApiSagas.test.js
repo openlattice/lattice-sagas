@@ -2,19 +2,14 @@
  * @flow
  */
 
-import randomUUID from 'uuid/v4';
 import { DataIntegrationApi } from 'lattice';
+import { v4 as uuid } from 'uuid';
 
 import {
-  CREATE_ENTITY_AND_ASSOCIATION_DATA,
   GET_ENTITY_KEY_IDS,
-  createEntityAndAssociationData,
   getEntityKeyIds,
 } from './DataIntegrationApiActions';
-
 import {
-  createEntityAndAssociationDataWatcher,
-  createEntityAndAssociationDataWorker,
   getEntityKeyIdsWatcher,
   getEntityKeyIdsWorker,
 } from './DataIntegrationApiSagas';
@@ -31,49 +26,8 @@ describe('DataIntegrationApiSagas', () => {
 
   /*
    *
-   * DataIntegrationApi.createEntityAndAssociationData
-   * DataIntegrationApiActions.createEntityAndAssociationData
-   *
-   */
-
-  describe('createEntityAndAssociationDataWatcher', () => {
-    testShouldBeGeneratorFunction(createEntityAndAssociationDataWatcher);
-    testWatcherSagaShouldTakeEvery(
-      createEntityAndAssociationDataWatcher,
-      createEntityAndAssociationDataWorker,
-      CREATE_ENTITY_AND_ASSOCIATION_DATA
-    );
-  });
-
-  describe('createEntityAndAssociationDataWorker', () => {
-
-    const mockActionValue = randomUUID();
-
-    testShouldBeGeneratorFunction(createEntityAndAssociationDataWorker);
-    testShouldFailOnInvalidAction(createEntityAndAssociationDataWorker, CREATE_ENTITY_AND_ASSOCIATION_DATA);
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataIntegrationApi.createEntityAndAssociationData,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: createEntityAndAssociationData,
-      workerSagaAction: createEntityAndAssociationData(mockActionValue),
-      workerSagaToTest: createEntityAndAssociationDataWorker
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataIntegrationApi.createEntityAndAssociationData,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: createEntityAndAssociationData,
-      workerSagaAction: createEntityAndAssociationData(mockActionValue),
-      workerSagaToTest: createEntityAndAssociationDataWorker
-    });
-
-  });
-
-  /*
-   *
-   * DataIntegrationApi.createEntityAndAssociationData
-   * DataIntegrationApiActions.createEntityAndAssociationData
+   * DataIntegrationApi.getEntityKeyIds
+   * DataIntegrationApiActions.getEntityKeyIds
    *
    */
 
@@ -82,16 +36,13 @@ describe('DataIntegrationApiSagas', () => {
     testWatcherSagaShouldTakeEvery(
       getEntityKeyIdsWatcher,
       getEntityKeyIdsWorker,
-      GET_ENTITY_KEY_IDS
+      GET_ENTITY_KEY_IDS,
     );
   });
 
   describe('getEntityKeyIdsWorker', () => {
 
-    const mockActionValue = {
-      entitySetId: randomUUID(),
-      entityId: randomUUID()
-    };
+    const mockActionValue = [uuid(), uuid()];
 
     testShouldBeGeneratorFunction(getEntityKeyIdsWorker);
     testShouldFailOnInvalidAction(getEntityKeyIdsWorker, GET_ENTITY_KEY_IDS);
@@ -101,7 +52,7 @@ describe('DataIntegrationApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntityKeyIds,
       workerSagaAction: getEntityKeyIds(mockActionValue),
-      workerSagaToTest: getEntityKeyIdsWorker
+      workerSagaToTest: getEntityKeyIdsWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
@@ -109,9 +60,8 @@ describe('DataIntegrationApiSagas', () => {
       latticeApiParams: [mockActionValue],
       latticeApiReqSeq: getEntityKeyIds,
       workerSagaAction: getEntityKeyIds(mockActionValue),
-      workerSagaToTest: getEntityKeyIdsWorker
+      workerSagaToTest: getEntityKeyIdsWorker,
     });
-
   });
 
 });

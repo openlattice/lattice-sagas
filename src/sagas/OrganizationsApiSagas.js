@@ -4,38 +4,39 @@
 
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 import { OrganizationsApi } from 'lattice';
+import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
 
-import { ERR_INVALID_ACTION, ERR_ACTION_VALUE_NOT_DEFINED } from '../utils/Errors';
-import { isValidAction } from '../utils/Utils';
-
 import {
-  ADD_CONNECTIONS,
-  ADD_DOMAIN_TO_ORG,
-  ADD_MEMBER_TO_ORG,
+  ADD_CONNECTIONS_TO_ORGANIZATION,
+  ADD_DOMAINS_TO_ORGANIZATION,
+  ADD_MEMBER_TO_ORGANIZATION,
   ADD_ROLE_TO_MEMBER,
   CREATE_ORGANIZATION,
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
-  GET_ALL_USERS_OF_ROLE,
   GET_ORGANIZATION,
-  GET_ORG_ENTITY_SETS,
-  GET_ORG_INTEGRATION_ACCOUNT,
-  GET_ORG_MEMBERS,
-  GRANT_TRUST_TO_ORG,
-  REMOVE_CONNECTIONS,
-  REMOVE_DOMAIN_FROM_ORG,
-  REMOVE_MEMBER_FROM_ORG,
+  GET_ORGANIZATION_ENTITY_SETS,
+  GET_ORGANIZATION_INTEGRATION_ACCOUNT,
+  GET_ORGANIZATION_MEMBERS,
+  GET_ORGANIZATION_ROLES,
+  GET_ROLE,
+  GET_USERS_WITH_ROLE,
+  GRANT_TRUST_TO_ORGANIZATION,
+  REMOVE_CONNECTIONS_FROM_ORGANIZATION,
+  REMOVE_DOMAINS_FROM_ORGANIZATION,
+  REMOVE_MEMBER_FROM_ORGANIZATION,
   REMOVE_ROLE_FROM_MEMBER,
-  REVOKE_TRUST_FROM_ORG,
-  SET_CONNECTIONS,
-  UPDATE_ORG_DESCRIPTION,
-  UPDATE_ORG_TITLE,
+  REVOKE_TRUST_FROM_ORGANIZATION,
+  UPDATE_ORGANIZATION_DESCRIPTION,
+  UPDATE_ORGANIZATION_TITLE,
+  UPDATE_ROLE_DESCRIPTION,
   UPDATE_ROLE_GRANT,
-  addConnections,
-  addDomainToOrganization,
+  UPDATE_ROLE_TITLE,
+  addConnectionsToOrganization,
+  addDomainsToOrganization,
   addMemberToOrganization,
   addRoleToMember,
   createOrganization,
@@ -43,115 +44,106 @@ import {
   deleteOrganization,
   deleteRole,
   getAllOrganizations,
-  getAllUsersOfRole,
   getOrganization,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
+  getOrganizationRoles,
+  getRole,
+  getUsersWithRole,
   grantTrustToOrganization,
-  removeConnections,
-  removeDomainFromOrganization,
+  removeConnectionsFromOrganization,
+  removeDomainsFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
   revokeTrustFromOrganization,
-  setConnections,
   updateOrganizationDescription,
   updateOrganizationTitle,
+  updateRoleDescription,
   updateRoleGrant,
+  updateRoleTitle,
 } from './OrganizationsApiActions';
 
+import { ERR_INVALID_ACTION } from '../utils/Errors';
+import { isValidAction } from '../utils/Utils';
+import type { WorkerResponse } from '../types';
+
 /*
  *
- * OrganizationsApi.addConnections
- * OrganizationsApiActions.addConnections
+ * OrganizationsApi.addConnectionsToOrganization
+ * OrganizationsApiActions.addConnectionsToOrganization
  *
  */
 
-function* addConnectionsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* addConnectionsToOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, ADD_CONNECTIONS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, ADD_CONNECTIONS_TO_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { connections, organizationId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
-    yield put(addConnections.request(id, value));
-    response.data = yield call(OrganizationsApi.addConnections, organizationId, connections);
-    yield put(addConnections.success(id, response.data));
+    yield put(addConnectionsToOrganization.request(id, value));
+    const { connections, organizationId } = value;
+    const response = yield call(OrganizationsApi.addConnectionsToOrganization, organizationId, connections);
+    workerResponse = { data: response };
+    yield put(addConnectionsToOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(addConnections.failure(id, response.error));
+    workerResponse = { error };
+    yield put(addConnectionsToOrganization.failure(id, error));
   }
   finally {
-    yield put(addConnections.finally(id));
+    yield put(addConnectionsToOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* addConnectionsWatcher() :Generator<*, *, *> {
+function* addConnectionsToOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(ADD_CONNECTIONS, addConnectionsWorker);
+  yield takeEvery(ADD_CONNECTIONS_TO_ORGANIZATION, addConnectionsToOrganizationWorker);
 }
 
 /*
  *
- * OrganizationsApi.addAutoApprovedEmailDomain
- * OrganizationsApiActions.addDomainToOrganization
+ * OrganizationsApi.addDomainsToOrganization
+ * OrganizationsApiActions.addDomainsToOrganization
  *
  */
 
-function* addDomainToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* addDomainsToOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, ADD_DOMAIN_TO_ORG)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, ADD_DOMAINS_TO_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { domain, organizationId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
-    yield put(addDomainToOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.addAutoApprovedEmailDomain, organizationId, domain);
-    yield put(addDomainToOrganization.success(id, response.data));
+    yield put(addDomainsToOrganization.request(id, value));
+    const { domains, organizationId } = value;
+    const response = yield call(OrganizationsApi.addDomainsToOrganization, organizationId, domains);
+    workerResponse = { data: response };
+    yield put(addDomainsToOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(addDomainToOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(addDomainsToOrganization.failure(id, error));
   }
   finally {
-    yield put(addDomainToOrganization.finally(id));
+    yield put(addDomainsToOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* addDomainToOrganizationWatcher() :Generator<*, *, *> {
+function* addDomainsToOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(ADD_DOMAIN_TO_ORG, addDomainToOrganizationWorker);
+  yield takeEvery(ADD_DOMAINS_TO_ORGANIZATION, addDomainsToOrganizationWorker);
 }
 
 /*
@@ -161,44 +153,36 @@ function* addDomainToOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* addMemberToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* addMemberToOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, ADD_MEMBER_TO_ORG)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, ADD_MEMBER_TO_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { memberId, organizationId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(addMemberToOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.addMemberToOrganization, organizationId, memberId);
-    yield put(addMemberToOrganization.success(id, response.data));
+    const { memberId, organizationId } = value;
+    const response = yield call(OrganizationsApi.addMemberToOrganization, organizationId, memberId);
+    workerResponse = { data: response };
+    yield put(addMemberToOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(addMemberToOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(addMemberToOrganization.failure(id, error));
   }
   finally {
     yield put(addMemberToOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* addMemberToOrganizationWatcher() :Generator<*, *, *> {
+function* addMemberToOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(ADD_MEMBER_TO_ORG, addMemberToOrganizationWorker);
+  yield takeEvery(ADD_MEMBER_TO_ORGANIZATION, addMemberToOrganizationWorker);
 }
 
 /*
@@ -208,42 +192,34 @@ function* addMemberToOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* addRoleToMemberWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* addRoleToMemberWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, ADD_ROLE_TO_MEMBER)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, ADD_ROLE_TO_MEMBER)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { memberId, organizationId, roleId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(addRoleToMember.request(id, value));
-    response.data = yield call(OrganizationsApi.addRoleToMember, organizationId, roleId, memberId);
-    yield put(addRoleToMember.success(id, response.data));
+    const { memberId, organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.addRoleToMember, organizationId, roleId, memberId);
+    workerResponse = { data: response };
+    yield put(addRoleToMember.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(addRoleToMember.failure(id, response.error));
+    workerResponse = { error };
+    yield put(addRoleToMember.failure(id, error));
   }
   finally {
     yield put(addRoleToMember.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* addRoleToMemberWatcher() :Generator<*, *, *> {
+function* addRoleToMemberWatcher() :Saga<*> {
 
   yield takeEvery(ADD_ROLE_TO_MEMBER, addRoleToMemberWorker);
 }
@@ -255,41 +231,33 @@ function* addRoleToMemberWatcher() :Generator<*, *, *> {
  *
  */
 
-function* createOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* createOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, CREATE_ORGANIZATION)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, CREATE_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(createOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.createOrganization, value);
-    yield put(createOrganization.success(id, response.data));
+    const response = yield call(OrganizationsApi.createOrganization, value);
+    workerResponse = { data: response };
+    yield put(createOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(createOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(createOrganization.failure(id, error));
   }
   finally {
     yield put(createOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* createOrganizationWatcher() :Generator<*, *, *> {
+function* createOrganizationWatcher() :Saga<*> {
 
   yield takeEvery(CREATE_ORGANIZATION, createOrganizationWorker);
 }
@@ -301,41 +269,33 @@ function* createOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* createRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* createRoleWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, CREATE_ROLE)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, CREATE_ROLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(createRole.request(id, value));
-    response.data = yield call(OrganizationsApi.createRole, value);
-    yield put(createRole.success(id, response.data));
+    const response = yield call(OrganizationsApi.createRole, value);
+    workerResponse = { data: response };
+    yield put(createRole.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(createRole.failure(id, response.error));
+    workerResponse = { error };
+    yield put(createRole.failure(id, error));
   }
   finally {
     yield put(createRole.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* createRoleWatcher() :Generator<*, *, *> {
+function* createRoleWatcher() :Saga<*> {
 
   yield takeEvery(CREATE_ROLE, createRoleWorker);
 }
@@ -347,41 +307,33 @@ function* createRoleWatcher() :Generator<*, *, *> {
  *
  */
 
-function* deleteOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* deleteOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, DELETE_ORGANIZATION)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, DELETE_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(deleteOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.deleteOrganization, value);
-    yield put(deleteOrganization.success(id, response.data));
+    const response = yield call(OrganizationsApi.deleteOrganization, value);
+    workerResponse = { data: response };
+    yield put(deleteOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(deleteOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(deleteOrganization.failure(id, error));
   }
   finally {
     yield put(deleteOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* deleteOrganizationWatcher() :Generator<*, *, *> {
+function* deleteOrganizationWatcher() :Saga<*> {
 
   yield takeEvery(DELETE_ORGANIZATION, deleteOrganizationWorker);
 }
@@ -393,42 +345,34 @@ function* deleteOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* deleteRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* deleteRoleWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, DELETE_ROLE)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, DELETE_ROLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { organizationId, roleId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(deleteRole.request(id, value));
-    response.data = yield call(OrganizationsApi.deleteRole, organizationId, roleId);
-    yield put(deleteRole.success(id, response.data));
+    const { organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.deleteRole, organizationId, roleId);
+    workerResponse = { data: response };
+    yield put(deleteRole.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(deleteRole.failure(id, response.error));
+    workerResponse = { error };
+    yield put(deleteRole.failure(id, error));
   }
   finally {
     yield put(deleteRole.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* deleteRoleWatcher() :Generator<*, *, *> {
+function* deleteRoleWatcher() :Saga<*> {
 
   yield takeEvery(DELETE_ROLE, deleteRoleWorker);
 }
@@ -440,81 +384,35 @@ function* deleteRoleWatcher() :Generator<*, *, *> {
  *
  */
 
-function* getAllOrganizationsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getAllOrganizationsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ALL_ORGANIZATIONS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ALL_ORGANIZATIONS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id } = seqAction;
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id } = action;
 
   try {
     yield put(getAllOrganizations.request(id));
-    response.data = yield call(OrganizationsApi.getAllOrganizations);
-    yield put(getAllOrganizations.success(id, response.data));
+    const response = yield call(OrganizationsApi.getAllOrganizations);
+    workerResponse = { data: response };
+    yield put(getAllOrganizations.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getAllOrganizations.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getAllOrganizations.failure(id, error));
   }
   finally {
     yield put(getAllOrganizations.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getAllOrganizationsWatcher() :Generator<*, *, *> {
+function* getAllOrganizationsWatcher() :Saga<*> {
 
   yield takeEvery(GET_ALL_ORGANIZATIONS, getAllOrganizationsWorker);
-}
-
-/*
- *
- * OrganizationsApi.getAllUsersOfRole
- * OrganizationsApiActions.getAllUsersOfRole
- *
- */
-
-function* getAllUsersOfRoleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
-
-  if (!isValidAction(seqAction, GET_ALL_USERS_OF_ROLE)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
-  }
-
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-  const response :Object = {};
-  const { organizationId, roleId } = value;
-
-  try {
-    yield put(getAllUsersOfRole.request(id, value));
-    response.data = yield call(OrganizationsApi.getAllUsersOfRole, organizationId, roleId);
-    yield put(getAllUsersOfRole.success(id, response.data));
-  }
-  catch (error) {
-    response.error = error;
-    yield put(getAllUsersOfRole.failure(id, response.error));
-  }
-  finally {
-    yield put(getAllUsersOfRole.finally(id));
-  }
-
-  return response;
-}
-
-function* getAllUsersOfRoleWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(GET_ALL_USERS_OF_ROLE, getAllUsersOfRoleWorker);
 }
 
 /*
@@ -524,40 +422,33 @@ function* getAllUsersOfRoleWatcher() :Generator<*, *, *> {
  *
  */
 
-function* getOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ORGANIZATION)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.getOrganization, value);
-    yield put(getOrganization.success(id, response.data));
+    const response = yield call(OrganizationsApi.getOrganization, value);
+    workerResponse = { data: response };
+    yield put(getOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getOrganization.failure(id, error));
   }
   finally {
     yield put(getOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getOrganizationWatcher() :Generator<*, *, *> {
+function* getOrganizationWatcher() :Saga<*> {
 
   yield takeEvery(GET_ORGANIZATION, getOrganizationWorker);
 }
@@ -569,42 +460,35 @@ function* getOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* getOrganizationEntitySetsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getOrganizationEntitySetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ORG_ENTITY_SETS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ORGANIZATION_ENTITY_SETS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getOrganizationEntitySets.request(id, value));
-    response.data = yield call(OrganizationsApi.getOrganizationEntitySets, value);
-    yield put(getOrganizationEntitySets.success(id, response.data));
+    const response = yield call(OrganizationsApi.getOrganizationEntitySets, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationEntitySets.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getOrganizationEntitySets.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getOrganizationEntitySets.failure(id, error));
   }
   finally {
     yield put(getOrganizationEntitySets.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getOrganizationEntitySetsWatcher() :Generator<*, *, *> {
+function* getOrganizationEntitySetsWatcher() :Saga<*> {
 
-  yield takeEvery(GET_ORG_ENTITY_SETS, getOrganizationEntitySetsWorker);
+  yield takeEvery(GET_ORGANIZATION_ENTITY_SETS, getOrganizationEntitySetsWorker);
 }
 
 /*
@@ -614,87 +498,189 @@ function* getOrganizationEntitySetsWatcher() :Generator<*, *, *> {
  *
  */
 
-function* getOrganizationIntegrationAccountWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getOrganizationIntegrationAccountWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ORG_INTEGRATION_ACCOUNT)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ORGANIZATION_INTEGRATION_ACCOUNT)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getOrganizationIntegrationAccount.request(id, value));
-    response.data = yield call(OrganizationsApi.getOrganizationIntegrationAccount, value);
-    yield put(getOrganizationIntegrationAccount.success(id, response.data));
+    const response = yield call(OrganizationsApi.getOrganizationIntegrationAccount, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationIntegrationAccount.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getOrganizationIntegrationAccount.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getOrganizationIntegrationAccount.failure(id, error));
   }
   finally {
     yield put(getOrganizationIntegrationAccount.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getOrganizationIntegrationAccountWatcher() :Generator<*, *, *> {
+function* getOrganizationIntegrationAccountWatcher() :Saga<*> {
 
-  yield takeEvery(GET_ORG_INTEGRATION_ACCOUNT, getOrganizationIntegrationAccountWorker);
+  yield takeEvery(GET_ORGANIZATION_INTEGRATION_ACCOUNT, getOrganizationIntegrationAccountWorker);
 }
 
 /*
  *
- * OrganizationsApi.getAllMembers
+ * OrganizationsApi.getOrganizationMembers
  * OrganizationsApiActions.getOrganizationMembers
  *
  */
 
-function* getOrganizationMembersWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* getOrganizationMembersWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GET_ORG_MEMBERS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GET_ORGANIZATION_MEMBERS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(getOrganizationMembers.request(id, value));
-    response.data = yield call(OrganizationsApi.getAllMembers, value);
-    yield put(getOrganizationMembers.success(id, response.data));
+    const response = yield call(OrganizationsApi.getOrganizationMembers, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationMembers.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(getOrganizationMembers.failure(id, response.error));
+    workerResponse = { error };
+    yield put(getOrganizationMembers.failure(id, error));
   }
   finally {
     yield put(getOrganizationMembers.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* getOrganizationMembersWatcher() :Generator<*, *, *> {
+function* getOrganizationMembersWatcher() :Saga<*> {
 
-  yield takeEvery(GET_ORG_MEMBERS, getOrganizationMembersWorker);
+  yield takeEvery(GET_ORGANIZATION_MEMBERS, getOrganizationMembersWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getOrganizationRoles
+ * OrganizationsApiActions.getOrganizationRoles
+ *
+ */
+
+function* getOrganizationRolesWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ORGANIZATION_ROLES)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getOrganizationRoles.request(id, value));
+    const response = yield call(OrganizationsApi.getOrganizationRoles, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationRoles.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getOrganizationRoles.failure(id, error));
+  }
+  finally {
+    yield put(getOrganizationRoles.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getOrganizationRolesWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ORGANIZATION_ROLES, getOrganizationRolesWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getRole
+ * OrganizationsApiActions.getRole
+ *
+ */
+
+function* getRoleWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ROLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getRole.request(id, value));
+    const { organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.getRole, organizationId, roleId);
+    workerResponse = { data: response };
+    yield put(getRole.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getRole.failure(id, error));
+  }
+  finally {
+    yield put(getRole.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getRoleWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ROLE, getRoleWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getUsersWithRole
+ * OrganizationsApiActions.getUsersWithRole
+ *
+ */
+
+function* getUsersWithRoleWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_USERS_WITH_ROLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getUsersWithRole.request(id, value));
+    const { organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.getUsersWithRole, organizationId, roleId);
+    workerResponse = { data: response };
+    yield put(getUsersWithRole.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getUsersWithRole.failure(id, error));
+  }
+  finally {
+    yield put(getUsersWithRole.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getUsersWithRoleWatcher() :Saga<*> {
+
+  yield takeEvery(GET_USERS_WITH_ROLE, getUsersWithRoleWorker);
 }
 
 /*
@@ -704,136 +690,114 @@ function* getOrganizationMembersWatcher() :Generator<*, *, *> {
  *
  */
 
-function* grantTrustToOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* grantTrustToOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, GRANT_TRUST_TO_ORG)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, GRANT_TRUST_TO_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { organizationId, principalId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(grantTrustToOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.grantTrustToOrganization, organizationId, principalId);
-    yield put(grantTrustToOrganization.success(id, response.data));
+    const { organizationId, principalId } = value;
+    const response = yield call(OrganizationsApi.grantTrustToOrganization, organizationId, principalId);
+    workerResponse = { data: response };
+    yield put(grantTrustToOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(grantTrustToOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(grantTrustToOrganization.failure(id, error));
   }
   finally {
     yield put(grantTrustToOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* grantTrustToOrganizationWatcher() :Generator<*, *, *> {
+function* grantTrustToOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(GRANT_TRUST_TO_ORG, grantTrustToOrganizationWorker);
-}
-
-/*
- *
- * OrganizationsApi.removeConnections
- * OrganizationsApiActions.removeConnections
- *
- */
-
-function* removeConnectionsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
-
-
-  if (!isValidAction(seqAction, REMOVE_CONNECTIONS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
-  }
-
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { connections, organizationId } = value;
-
-  try {
-    yield put(removeConnections.request(id, value));
-    response.data = yield call(OrganizationsApi.removeConnections, organizationId, connections);
-    yield put(removeConnections.success(id, response.data));
-  }
-  catch (error) {
-    response.error = error;
-    yield put(removeConnections.failure(id, response.error));
-  }
-  finally {
-    yield put(removeConnections.finally(id));
-  }
-
-  return response;
-}
-
-function* removeConnectionsWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(REMOVE_CONNECTIONS, removeConnectionsWorker);
+  yield takeEvery(GRANT_TRUST_TO_ORGANIZATION, grantTrustToOrganizationWorker);
 }
 
 /*
  *
- * OrganizationsApi.removeAutoApprovedEmailDomain
- * OrganizationsApiActions.removeDomainFromOrganization
+ * OrganizationsApi.removeConnectionsFromOrganization
+ * OrganizationsApiActions.removeConnectionsFromOrganization
  *
  */
 
-function* removeDomainFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* removeConnectionsFromOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, REMOVE_DOMAIN_FROM_ORG)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, REMOVE_CONNECTIONS_FROM_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { domain, organizationId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
-    yield put(removeDomainFromOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.removeAutoApprovedEmailDomain, organizationId, domain);
-    yield put(removeDomainFromOrganization.success(id, response.data));
+    yield put(removeConnectionsFromOrganization.request(id, value));
+    const { connections, organizationId } = value;
+    const response = yield call(OrganizationsApi.removeConnectionsFromOrganization, organizationId, connections);
+    workerResponse = { data: response };
+    yield put(removeConnectionsFromOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(removeDomainFromOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(removeConnectionsFromOrganization.failure(id, error));
   }
   finally {
-    yield put(removeDomainFromOrganization.finally(id));
+    yield put(removeConnectionsFromOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* removeDomainFromOrganizationWatcher() :Generator<*, *, *> {
+function* removeConnectionsFromOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(REMOVE_DOMAIN_FROM_ORG, removeDomainFromOrganizationWorker);
+  yield takeEvery(REMOVE_CONNECTIONS_FROM_ORGANIZATION, removeConnectionsFromOrganizationWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.removeDomainsFromOrganization
+ * OrganizationsApiActions.removeDomainsFromOrganization
+ *
+ */
+
+function* removeDomainsFromOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, REMOVE_DOMAINS_FROM_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(removeDomainsFromOrganization.request(id, value));
+    const { domains, organizationId } = value;
+    const response = yield call(OrganizationsApi.removeDomainsFromOrganization, organizationId, domains);
+    workerResponse = { data: response };
+    yield put(removeDomainsFromOrganization.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(removeDomainsFromOrganization.failure(id, error));
+  }
+  finally {
+    yield put(removeDomainsFromOrganization.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* removeDomainsFromOrganizationWatcher() :Saga<*> {
+
+  yield takeEvery(REMOVE_DOMAINS_FROM_ORGANIZATION, removeDomainsFromOrganizationWorker);
 }
 
 /*
@@ -843,44 +807,36 @@ function* removeDomainFromOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* removeMemberFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* removeMemberFromOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, REMOVE_MEMBER_FROM_ORG)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, REMOVE_MEMBER_FROM_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { memberId, organizationId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(removeMemberFromOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.removeMemberFromOrganization, organizationId, memberId);
-    yield put(removeMemberFromOrganization.success(id, response.data));
+    const { memberId, organizationId } = value;
+    const response = yield call(OrganizationsApi.removeMemberFromOrganization, organizationId, memberId);
+    workerResponse = { data: response };
+    yield put(removeMemberFromOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(removeMemberFromOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(removeMemberFromOrganization.failure(id, error));
   }
   finally {
     yield put(removeMemberFromOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* removeMemberFromOrganizationWatcher() :Generator<*, *, *> {
+function* removeMemberFromOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(REMOVE_MEMBER_FROM_ORG, removeMemberFromOrganizationWorker);
+  yield takeEvery(REMOVE_MEMBER_FROM_ORGANIZATION, removeMemberFromOrganizationWorker);
 }
 
 /*
@@ -890,42 +846,34 @@ function* removeMemberFromOrganizationWatcher() :Generator<*, *, *> {
  *
  */
 
-function* removeRoleFromMemberWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* removeRoleFromMemberWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-
-  if (!isValidAction(seqAction, REMOVE_ROLE_FROM_MEMBER)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, REMOVE_ROLE_FROM_MEMBER)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { memberId, organizationId, roleId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(removeRoleFromMember.request(id, value));
-    response.data = yield call(OrganizationsApi.removeRoleFromMember, organizationId, roleId, memberId);
-    yield put(removeRoleFromMember.success(id, response.data));
+    const { memberId, organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.removeRoleFromMember, organizationId, roleId, memberId);
+    workerResponse = { data: response };
+    yield put(removeRoleFromMember.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(removeRoleFromMember.failure(id, response.error));
+    workerResponse = { error };
+    yield put(removeRoleFromMember.failure(id, error));
   }
   finally {
     yield put(removeRoleFromMember.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* removeRoleFromMemberWatcher() :Generator<*, *, *> {
+function* removeRoleFromMemberWatcher() :Saga<*> {
 
   yield takeEvery(REMOVE_ROLE_FROM_MEMBER, removeRoleFromMemberWorker);
 }
@@ -937,90 +885,36 @@ function* removeRoleFromMemberWatcher() :Generator<*, *, *> {
  *
  */
 
-function* revokeTrustFromOrganizationWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* revokeTrustFromOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, REVOKE_TRUST_FROM_ORG)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, REVOKE_TRUST_FROM_ORGANIZATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { organizationId, principalId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(revokeTrustFromOrganization.request(id, value));
-    response.data = yield call(OrganizationsApi.revokeTrustFromOrganization, organizationId, principalId);
-    yield put(revokeTrustFromOrganization.success(id, response.data));
+    const { organizationId, principalId } = value;
+    const response = yield call(OrganizationsApi.revokeTrustFromOrganization, organizationId, principalId);
+    workerResponse = { data: response };
+    yield put(revokeTrustFromOrganization.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(revokeTrustFromOrganization.failure(id, response.error));
+    workerResponse = { error };
+    yield put(revokeTrustFromOrganization.failure(id, error));
   }
   finally {
     yield put(revokeTrustFromOrganization.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* revokeTrustFromOrganizationWatcher() :Generator<*, *, *> {
+function* revokeTrustFromOrganizationWatcher() :Saga<*> {
 
-  yield takeEvery(REVOKE_TRUST_FROM_ORG, revokeTrustFromOrganizationWorker);
-}
-
-/*
- *
- * OrganizationsApi.setConnections
- * OrganizationsApiActions.setConnections
- *
- */
-
-function* setConnectionsWorker(seqAction :SequenceAction) :Generator<*, *, *> {
-
-
-  if (!isValidAction(seqAction, SET_CONNECTIONS)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
-  }
-
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { connections, organizationId } = value;
-
-  try {
-    yield put(setConnections.request(id, value));
-    response.data = yield call(OrganizationsApi.setConnections, organizationId, connections);
-    yield put(setConnections.success(id, response.data));
-  }
-  catch (error) {
-    response.error = error;
-    yield put(setConnections.failure(id, response.error));
-  }
-  finally {
-    yield put(setConnections.finally(id));
-  }
-
-  return response;
-}
-
-function* setConnectionsWatcher() :Generator<*, *, *> {
-
-  yield takeEvery(SET_CONNECTIONS, setConnectionsWorker);
+  yield takeEvery(REVOKE_TRUST_FROM_ORGANIZATION, revokeTrustFromOrganizationWorker);
 }
 
 /*
@@ -1030,43 +924,36 @@ function* setConnectionsWatcher() :Generator<*, *, *> {
  *
  */
 
-function* updateOrganizationDescriptionWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* updateOrganizationDescriptionWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, UPDATE_ORG_DESCRIPTION)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, UPDATE_ORGANIZATION_DESCRIPTION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { description, organizationId } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(updateOrganizationDescription.request(id, value));
-    response.data = yield call(OrganizationsApi.updateOrganizationDescription, organizationId, description);
-    yield put(updateOrganizationDescription.success(id, response.data));
+    const { description, organizationId } = value;
+    const response = yield call(OrganizationsApi.updateOrganizationDescription, organizationId, description);
+    workerResponse = { data: response };
+    yield put(updateOrganizationDescription.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(updateOrganizationDescription.failure(id, response.error));
+    workerResponse = { error };
+    yield put(updateOrganizationDescription.failure(id, error));
   }
   finally {
     yield put(updateOrganizationDescription.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* updateOrganizationDescriptionWatcher() :Generator<*, *, *> {
+function* updateOrganizationDescriptionWatcher() :Saga<*> {
 
-  yield takeEvery(UPDATE_ORG_DESCRIPTION, updateOrganizationDescriptionWorker);
+  yield takeEvery(UPDATE_ORGANIZATION_DESCRIPTION, updateOrganizationDescriptionWorker);
 }
 
 /*
@@ -1076,43 +963,75 @@ function* updateOrganizationDescriptionWatcher() :Generator<*, *, *> {
  *
  */
 
-function* updateOrganizationTitleWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* updateOrganizationTitleWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, UPDATE_ORG_TITLE)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, UPDATE_ORGANIZATION_TITLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { organizationId, title } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(updateOrganizationTitle.request(id, value));
-    response.data = yield call(OrganizationsApi.updateOrganizationTitle, organizationId, title);
-    yield put(updateOrganizationTitle.success(id, response.data));
+    const { organizationId, title } = value;
+    const response = yield call(OrganizationsApi.updateOrganizationTitle, organizationId, title);
+    workerResponse = { data: response };
+    yield put(updateOrganizationTitle.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(updateOrganizationTitle.failure(id, response.error));
+    workerResponse = { error };
+    yield put(updateOrganizationTitle.failure(id, error));
   }
   finally {
     yield put(updateOrganizationTitle.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* updateOrganizationTitleWatcher() :Generator<*, *, *> {
+function* updateOrganizationTitleWatcher() :Saga<*> {
 
-  yield takeEvery(UPDATE_ORG_TITLE, updateOrganizationTitleWorker);
+  yield takeEvery(UPDATE_ORGANIZATION_TITLE, updateOrganizationTitleWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.updateRoleDescription
+ * OrganizationsApiActions.updateRoleDescription
+ *
+ */
+
+function* updateRoleDescriptionWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, UPDATE_ROLE_DESCRIPTION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(updateRoleDescription.request(id, value));
+    const { description, organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.updateRoleDescription, organizationId, roleId, description);
+    workerResponse = { data: response };
+    yield put(updateRoleDescription.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(updateRoleDescription.failure(id, error));
+  }
+  finally {
+    yield put(updateRoleDescription.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* updateRoleDescriptionWatcher() :Saga<*> {
+
+  yield takeEvery(UPDATE_ROLE_DESCRIPTION, updateRoleDescriptionWorker);
 }
 
 /*
@@ -1122,50 +1041,82 @@ function* updateOrganizationTitleWatcher() :Generator<*, *, *> {
  *
  */
 
-function* updateRoleGrantWorker(seqAction :SequenceAction) :Generator<*, *, *> {
+function* updateRoleGrantWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(seqAction, UPDATE_ROLE_GRANT)) {
-    return {
-      error: ERR_INVALID_ACTION
-    };
+  if (!isValidAction(action, UPDATE_ROLE_GRANT)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
   }
 
-  const { id, value } = seqAction;
-  if (value === null || value === undefined) {
-    return {
-      error: ERR_ACTION_VALUE_NOT_DEFINED
-    };
-  }
-
-  const response :Object = {};
-  const { organizationId, roleId, grant } = value;
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
 
   try {
     yield put(updateRoleGrant.request(id, value));
-    response.data = yield call(OrganizationsApi.updateRoleGrant, organizationId, roleId, grant);
-    yield put(updateRoleGrant.success(id, response.data));
+    const { grant, organizationId, roleId } = value;
+    const response = yield call(OrganizationsApi.updateRoleGrant, organizationId, roleId, grant);
+    workerResponse = { data: response };
+    yield put(updateRoleGrant.success(id, response));
   }
   catch (error) {
-    response.error = error;
-    yield put(updateRoleGrant.failure(id, response.error));
+    workerResponse = { error };
+    yield put(updateRoleGrant.failure(id, error));
   }
   finally {
     yield put(updateRoleGrant.finally(id));
   }
 
-  return response;
+  return workerResponse;
 }
 
-function* updateRoleGrantWatcher() :Generator<*, *, *> {
+function* updateRoleGrantWatcher() :Saga<*> {
 
   yield takeEvery(UPDATE_ROLE_GRANT, updateRoleGrantWorker);
 }
 
+/*
+ *
+ * OrganizationsApi.updateRoleTitle
+ * OrganizationsApiActions.updateRoleTitle
+ *
+ */
+
+function* updateRoleTitleWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, UPDATE_ROLE_TITLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(updateRoleTitle.request(id, value));
+    const { organizationId, roleId, title } = value;
+    const response = yield call(OrganizationsApi.updateRoleTitle, organizationId, roleId, title);
+    workerResponse = { data: response };
+    yield put(updateRoleTitle.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(updateRoleTitle.failure(id, error));
+  }
+  finally {
+    yield put(updateRoleTitle.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* updateRoleTitleWatcher() :Saga<*> {
+
+  yield takeEvery(UPDATE_ROLE_TITLE, updateRoleTitleWorker);
+}
+
 export {
-  addConnectionsWatcher,
-  addConnectionsWorker,
-  addDomainToOrganizationWatcher,
-  addDomainToOrganizationWorker,
+  addConnectionsToOrganizationWatcher,
+  addConnectionsToOrganizationWorker,
+  addDomainsToOrganizationWatcher,
+  addDomainsToOrganizationWorker,
   addMemberToOrganizationWatcher,
   addMemberToOrganizationWorker,
   addRoleToMemberWatcher,
@@ -1180,34 +1131,40 @@ export {
   deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
-  getAllUsersOfRoleWatcher,
-  getAllUsersOfRoleWorker,
   getOrganizationEntitySetsWatcher,
   getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
   getOrganizationIntegrationAccountWorker,
   getOrganizationMembersWatcher,
   getOrganizationMembersWorker,
+  getOrganizationRolesWatcher,
+  getOrganizationRolesWorker,
   getOrganizationWatcher,
   getOrganizationWorker,
+  getRoleWatcher,
+  getRoleWorker,
+  getUsersWithRoleWatcher,
+  getUsersWithRoleWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
-  removeConnectionsWatcher,
-  removeConnectionsWorker,
-  removeDomainFromOrganizationWatcher,
-  removeDomainFromOrganizationWorker,
+  removeConnectionsFromOrganizationWatcher,
+  removeConnectionsFromOrganizationWorker,
+  removeDomainsFromOrganizationWatcher,
+  removeDomainsFromOrganizationWorker,
   removeMemberFromOrganizationWatcher,
   removeMemberFromOrganizationWorker,
   removeRoleFromMemberWatcher,
   removeRoleFromMemberWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
-  setConnectionsWatcher,
-  setConnectionsWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
   updateOrganizationTitleWorker,
+  updateRoleDescriptionWatcher,
+  updateRoleDescriptionWorker,
   updateRoleGrantWatcher,
   updateRoleGrantWorker,
+  updateRoleTitleWatcher,
+  updateRoleTitleWorker,
 };
