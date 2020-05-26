@@ -20,7 +20,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_ENTITY_SET_SIZE',
   'GET_LINKED_ENTITY_SET_BREAKDOWN',
   'UPDATE_ENTITY_DATA',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'createAssociations',
@@ -34,7 +34,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getEntitySetSize',
   'getLinkedEntitySetBreakdown',
   'updateEntityData',
-]).sort().toJS();
+]).toJS();
 
 describe('DataApiActions', () => {
 

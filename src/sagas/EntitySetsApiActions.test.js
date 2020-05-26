@@ -15,9 +15,10 @@ const ACTION_TYPES = OrderedSet([
   'GET_ENTITY_SET',
   'GET_ENTITY_SET_ID',
   'GET_ENTITY_SET_IDS',
+  'GET_ENTITY_SETS',
   'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET',
   'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'createEntitySets',
@@ -26,9 +27,10 @@ const REQSEQ_NAMES = OrderedSet([
   'getEntitySet',
   'getEntitySetId',
   'getEntitySetIds',
+  'getEntitySets',
   'getPropertyTypeMetaDataForEntitySet',
   'getPropertyTypeMetaDataForEntitySets',
-]).sort().toJS();
+]).toJS();
 
 describe('EntitySetsApiActions', () => {
 

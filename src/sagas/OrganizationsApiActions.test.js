@@ -36,7 +36,7 @@ const ACTION_TYPES = OrderedSet([
   'UPDATE_ROLE_DESCRIPTION',
   'UPDATE_ROLE_GRANT',
   'UPDATE_ROLE_TITLE',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'addConnectionsToOrganization',
@@ -66,7 +66,7 @@ const REQSEQ_NAMES = OrderedSet([
   'updateRoleDescription',
   'updateRoleGrant',
   'updateRoleTitle',
-]).sort().toJS();
+]).toJS();
 
 describe('OrganizationsApiActions', () => {
 

@@ -15,7 +15,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_APP_TYPE',
   'GET_APP_TYPES',
   'INSTALL_APP',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'getAllApps',
@@ -24,7 +24,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getAppType',
   'getAppTypes',
   'installApp',
-]).sort().toJS();
+]).toJS();
 
 describe('AppApiActions', () => {
 

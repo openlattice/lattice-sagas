@@ -10,11 +10,11 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = OrderedSet([
   'GET_ENTITY_KEY_IDS',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'getEntityKeyIds',
-]).sort().toJS();
+]).toJS();
 
 describe('DataIntegrationApiActions', () => {
 

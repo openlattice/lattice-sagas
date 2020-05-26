@@ -12,6 +12,7 @@ import {
   DELETE_ENTITY_SET,
   GET_ALL_ENTITY_SETS,
   GET_ENTITY_SET,
+  GET_ENTITY_SETS,
   GET_ENTITY_SET_ID,
   GET_ENTITY_SET_IDS,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
@@ -22,6 +23,7 @@ import {
   getEntitySet,
   getEntitySetId,
   getEntitySetIds,
+  getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
 } from './EntitySetsApiActions';
@@ -260,6 +262,44 @@ function* getEntitySetIdsWatcher() :Saga<*> {
 
 /*
  *
+ * EntitySetsApi.getEntitySets
+ * EntitySetsApiActions.getEntitySets
+ *
+ */
+
+function* getEntitySetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ENTITY_SETS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getEntitySets.request(id, value));
+    const response = yield call(EntitySetsApi.getEntitySets, value);
+    workerResponse = { data: response };
+    yield put(getEntitySets.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getEntitySets.failure(id, error));
+  }
+  finally {
+    yield put(getEntitySets.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getEntitySetsWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ENTITY_SETS, getEntitySetsWorker);
+}
+
+/*
+ *
  * EntitySetsApi.getPropertyTypeMetaDataForEntitySet
  * EntitySetsApiActions.getPropertyTypeMetaDataForEntitySet
  *
@@ -348,6 +388,8 @@ export {
   getEntitySetIdsWorker,
   getEntitySetWatcher,
   getEntitySetWorker,
+  getEntitySetsWatcher,
+  getEntitySetsWorker,
   getPropertyTypeMetaDataForEntitySetWatcher,
   getPropertyTypeMetaDataForEntitySetWorker,
   getPropertyTypeMetaDataForEntitySetsWatcher,
