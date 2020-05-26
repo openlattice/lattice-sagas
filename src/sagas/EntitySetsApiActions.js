@@ -25,6 +25,9 @@ const getEntitySetId :RequestSequence = newRequestSequence(GET_ENTITY_SET_ID);
 const GET_ENTITY_SET_IDS :'GET_ENTITY_SET_IDS' = 'GET_ENTITY_SET_IDS';
 const getEntitySetIds :RequestSequence = newRequestSequence(GET_ENTITY_SET_IDS);
 
+const GET_ENTITY_SETS :'GET_ENTITY_SETS' = 'GET_ENTITY_SETS';
+const getEntitySets :RequestSequence = newRequestSequence(GET_ENTITY_SETS);
+
 const GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET :'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET' = 'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET';
 const getPropertyTypeMetaDataForEntitySet :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET);
 
@@ -38,6 +41,7 @@ export {
   GET_ENTITY_SET,
   GET_ENTITY_SET_ID,
   GET_ENTITY_SET_IDS,
+  GET_ENTITY_SETS,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
   createEntitySets,
@@ -46,6 +50,7 @@ export {
   getEntitySet,
   getEntitySetId,
   getEntitySetIds,
+  getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
 };

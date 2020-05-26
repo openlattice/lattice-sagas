@@ -10,11 +10,11 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = OrderedSet([
   'GET_AUTHORIZATIONS',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'getAuthorizations',
-]).sort().toJS();
+]).toJS();
 
 describe('AuthorizationsApiActions', () => {
 

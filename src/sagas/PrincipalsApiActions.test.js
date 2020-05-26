@@ -16,7 +16,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_USER',
   'SEARCH_ALL_USERS',
   'SYNC_USER',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'getAllRoles',
@@ -26,7 +26,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getUser',
   'searchAllUsers',
   'syncUser',
-]).sort().toJS();
+]).toJS();
 
 describe('PrincipalsApiActions', () => {
 

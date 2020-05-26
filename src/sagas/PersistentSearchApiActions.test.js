@@ -12,13 +12,13 @@ const ACTION_TYPES = OrderedSet([
   'CREATE_PERSISTENT_SEARCH',
   'EXPIRE_PERSISTENT_SEARCH',
   'GET_PERSISTENT_SEARCHES',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'createPersistentSearch',
   'expirePersistentSearch',
   'getPersistentSearches',
-]).sort().toJS();
+]).toJS();
 
 describe('PersistentSearchApiActions', () => {
 

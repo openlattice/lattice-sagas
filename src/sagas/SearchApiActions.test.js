@@ -12,13 +12,13 @@ const ACTION_TYPES = OrderedSet([
   'SEARCH_ENTITY_NEIGHBORS_WITH_FILTER',
   'SEARCH_ENTITY_SET_DATA',
   'SEARCH_ENTITY_SET_METADATA',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'searchEntityNeighborsWithFilter',
   'searchEntitySetData',
   'searchEntitySetMetaData',
-]).sort().toJS();
+]).toJS();
 
 describe('SearchApiActions', () => {
 
