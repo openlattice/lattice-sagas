@@ -13,14 +13,14 @@ const ACTION_TYPES = OrderedSet([
   'GET_ACL_EXPLANATION',
   'UPDATE_ACL',
   'UPDATE_ACLS',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'getAcl',
   'getAclExplanation',
   'updateAcl',
   'updateAcls',
-]).sort().toJS();
+]).toJS();
 
 describe('PermissionsApiActions', () => {
 

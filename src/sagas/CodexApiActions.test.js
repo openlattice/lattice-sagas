@@ -10,11 +10,11 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = OrderedSet([
   'SEND_OUTGOING_TEXT',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'sendOutgoingText',
-]).sort().toJS();
+]).toJS();
 
 describe('CodexApiActions', () => {
 

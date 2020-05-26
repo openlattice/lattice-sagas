@@ -10,6 +10,7 @@ import {
   DELETE_ENTITY_SET,
   GET_ALL_ENTITY_SETS,
   GET_ENTITY_SET,
+  GET_ENTITY_SETS,
   GET_ENTITY_SET_ID,
   GET_ENTITY_SET_IDS,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
@@ -20,6 +21,7 @@ import {
   getEntitySet,
   getEntitySetId,
   getEntitySetIds,
+  getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
 } from './EntitySetsApiActions';
@@ -36,6 +38,8 @@ import {
   getEntitySetIdsWorker,
   getEntitySetWatcher,
   getEntitySetWorker,
+  getEntitySetsWatcher,
+  getEntitySetsWorker,
   getPropertyTypeMetaDataForEntitySetWatcher,
   getPropertyTypeMetaDataForEntitySetWorker,
   getPropertyTypeMetaDataForEntitySetsWatcher,
@@ -293,6 +297,47 @@ describe('EntitySetsApiSagas', () => {
       latticeApiReqSeq: getEntitySetIds,
       workerSagaAction: getEntitySetIds(mockActionValue),
       workerSagaToTest: getEntitySetIdsWorker,
+    });
+  });
+
+  /*
+   *
+   * EntitySetsApi.getEntitySets
+   * EntitySetsApiActions.getEntitySets
+   *
+   */
+
+  describe('getEntitySetsWatcher', () => {
+
+    testShouldBeGeneratorFunction(getEntitySetsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getEntitySetsWatcher,
+      getEntitySetsWorker,
+      GET_ENTITY_SETS,
+    );
+  });
+
+  describe('getEntitySetsWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getEntitySetsWorker);
+    testShouldFailOnInvalidAction(getEntitySetsWorker, GET_ENTITY_SETS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntitySetsApi.getEntitySets,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntitySets,
+      workerSagaAction: getEntitySets(mockActionValue),
+      workerSagaToTest: getEntitySetsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntitySetsApi.getEntitySets,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getEntitySets,
+      workerSagaAction: getEntitySets(mockActionValue),
+      workerSagaToTest: getEntitySetsWorker,
     });
   });
 

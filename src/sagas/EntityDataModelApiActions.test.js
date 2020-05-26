@@ -37,7 +37,7 @@ const ACTION_TYPES = OrderedSet([
   'UPDATE_ENTITY_TYPE_METADATA',
   'UPDATE_PROPERTY_TYPE_METADATA',
   'UPDATE_SCHEMA',
-]).sort().toJS();
+]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
   'addDestinationEntityTypeToAssociationType',
@@ -68,7 +68,7 @@ const REQSEQ_NAMES = OrderedSet([
   'updateEntityTypeMetaData',
   'updatePropertyTypeMetaData',
   'updateSchema',
-]).sort().toJS();
+]).toJS();
 
 describe('EntityDataModelApiActions', () => {
 
