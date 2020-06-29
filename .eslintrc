@@ -18,6 +18,7 @@
       "onlyFilesWithFlowAnnotation": true
     },
     "import/resolver": {
+      "node": {},
       "webpack": {
         "config": "config/webpack/webpack.config.js"
       }
