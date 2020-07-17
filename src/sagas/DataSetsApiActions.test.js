@@ -9,13 +9,15 @@ import * as DataSetsApiActions from './DataSetsApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = OrderedSet([
+  'GET_ORGANIZATION_DATA_SET',
   'GET_ORGANIZATION_DATA_SETS',
-  'GET_ORGANIZATION_DATA_SETS_WITH_COLUMNS',
+  'GET_ORGANIZATION_DATA_SET_DATA',
 ]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
+  'getOrganizationDataSet',
   'getOrganizationDataSets',
-  'getOrganizationDataSetsWithColumns',
+  'getOrganizationDataSetData',
 ]).toJS();
 
 describe('DataSetsApiActions', () => {
