@@ -17,6 +17,3 @@
 <PROJECT_ROOT>/config/.*
 !<PROJECT_ROOT>/node_modules/lattice
 !<PROJECT_ROOT>/node_modules/redux-reqseq
-
-[libs]
-./config/flow/types.js.flow
