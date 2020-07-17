@@ -6,16 +6,20 @@ import { DataSetsApi } from 'lattice';
 import { v4 as uuid } from 'uuid';
 
 import {
+  GET_ORGANIZATION_DATA_SET,
   GET_ORGANIZATION_DATA_SETS,
-  GET_ORGANIZATION_DATA_SETS_WITH_COLUMNS,
+  GET_ORGANIZATION_DATA_SET_DATA,
+  getOrganizationDataSet,
   getOrganizationDataSets,
-  getOrganizationDataSetsWithColumns,
+  getOrganizationDataSetData,
 } from './DataSetsApiActions';
 import {
+  getOrganizationDataSetWatcher,
+  getOrganizationDataSetWorker,
   getOrganizationDataSetsWatcher,
   getOrganizationDataSetsWorker,
-  getOrganizationDataSetsWithColumnsWatcher,
-  getOrganizationDataSetsWithColumnsWorker,
+  getOrganizationDataSetDataWatcher,
+  getOrganizationDataSetDataWorker,
 } from './DataSetsApiSagas';
 
 import {
@@ -27,6 +31,50 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('DataSetsApiSagas', () => {
+
+  /*
+   *
+   * DataSetsApi.getOrganizationDataSet
+   * DataSetsApiActions.getOrganizationDataSet
+   *
+   */
+
+  describe('getOrganizationDataSetWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationDataSetWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationDataSetWatcher,
+      getOrganizationDataSetWorker,
+      GET_ORGANIZATION_DATA_SET,
+    );
+  });
+
+  describe('getOrganizationDataSetWorker', () => {
+
+    const mockActionValue = {
+      columns: true,
+      dataSetId: uuid(),
+      organizationId: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(getOrganizationDataSetWorker);
+    testShouldFailOnInvalidAction(getOrganizationDataSetWorker, GET_ORGANIZATION_DATA_SET);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataSetsApi.getOrganizationDataSet,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSetId, mockActionValue.columns],
+      latticeApiReqSeq: getOrganizationDataSet,
+      workerSagaAction: getOrganizationDataSet(mockActionValue),
+      workerSagaToTest: getOrganizationDataSetWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataSetsApi.getOrganizationDataSet,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSetId, mockActionValue.columns],
+      latticeApiReqSeq: getOrganizationDataSet,
+      workerSagaAction: getOrganizationDataSet(mockActionValue),
+      workerSagaToTest: getOrganizationDataSetWorker,
+    });
+  });
 
   /*
    *
@@ -46,14 +94,17 @@ describe('DataSetsApiSagas', () => {
 
   describe('getOrganizationDataSetsWorker', () => {
 
-    const mockActionValue = uuid();
+    const mockActionValue = {
+      columns: true,
+      organizationId: uuid(),
+    };
 
     testShouldBeGeneratorFunction(getOrganizationDataSetsWorker);
     testShouldFailOnInvalidAction(getOrganizationDataSetsWorker, GET_ORGANIZATION_DATA_SETS);
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataSetsApi.getOrganizationDataSets,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.columns],
       latticeApiReqSeq: getOrganizationDataSets,
       workerSagaAction: getOrganizationDataSets(mockActionValue),
       workerSagaToTest: getOrganizationDataSetsWorker,
@@ -61,7 +112,7 @@ describe('DataSetsApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataSetsApi.getOrganizationDataSets,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.columns],
       latticeApiReqSeq: getOrganizationDataSets,
       workerSagaAction: getOrganizationDataSets(mockActionValue),
       workerSagaToTest: getOrganizationDataSetsWorker,
@@ -70,41 +121,45 @@ describe('DataSetsApiSagas', () => {
 
   /*
    *
-   * DataSetsApi.getOrganizationDataSetsWithColumns
-   * DataSetsApiActions.getOrganizationDataSetsWithColumns
+   * DataSetsApi.getOrganizationDataSetData
+   * DataSetsApiActions.getOrganizationDataSetData
    *
    */
 
-  describe('getOrganizationDataSetsWithColumnsWatcher', () => {
-    testShouldBeGeneratorFunction(getOrganizationDataSetsWithColumnsWatcher);
+  describe('getOrganizationDataSetDataWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationDataSetDataWatcher);
     testWatcherSagaShouldTakeEvery(
-      getOrganizationDataSetsWithColumnsWatcher,
-      getOrganizationDataSetsWithColumnsWorker,
-      GET_ORGANIZATION_DATA_SETS_WITH_COLUMNS,
+      getOrganizationDataSetDataWatcher,
+      getOrganizationDataSetDataWorker,
+      GET_ORGANIZATION_DATA_SET_DATA,
     );
   });
 
-  describe('getOrganizationDataSetsWithColumnsWorker', () => {
+  describe('getOrganizationDataSetDataWorker', () => {
 
-    const mockActionValue = uuid();
+    const mockActionValue = {
+      count: 97,
+      dataSetId: uuid(),
+      organizationId: uuid(),
+    };
 
-    testShouldBeGeneratorFunction(getOrganizationDataSetsWithColumnsWorker);
-    testShouldFailOnInvalidAction(getOrganizationDataSetsWithColumnsWorker, GET_ORGANIZATION_DATA_SETS_WITH_COLUMNS);
+    testShouldBeGeneratorFunction(getOrganizationDataSetDataWorker);
+    testShouldFailOnInvalidAction(getOrganizationDataSetDataWorker, GET_ORGANIZATION_DATA_SET_DATA);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataSetsApi.getOrganizationDataSetsWithColumns,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getOrganizationDataSetsWithColumns,
-      workerSagaAction: getOrganizationDataSetsWithColumns(mockActionValue),
-      workerSagaToTest: getOrganizationDataSetsWithColumnsWorker,
+      latticeApi: DataSetsApi.getOrganizationDataSetData,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSetId, mockActionValue.count],
+      latticeApiReqSeq: getOrganizationDataSetData,
+      workerSagaAction: getOrganizationDataSetData(mockActionValue),
+      workerSagaToTest: getOrganizationDataSetDataWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataSetsApi.getOrganizationDataSetsWithColumns,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: getOrganizationDataSetsWithColumns,
-      workerSagaAction: getOrganizationDataSetsWithColumns(mockActionValue),
-      workerSagaToTest: getOrganizationDataSetsWithColumnsWorker,
+      latticeApi: DataSetsApi.getOrganizationDataSetData,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSetId, mockActionValue.count],
+      latticeApiReqSeq: getOrganizationDataSetData,
+      workerSagaAction: getOrganizationDataSetData(mockActionValue),
+      workerSagaToTest: getOrganizationDataSetDataWorker,
     });
   });
 
