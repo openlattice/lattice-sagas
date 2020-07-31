@@ -138,8 +138,8 @@ function* getPersistentSearchesWatcher() :Saga<*> {
 
 /*
  *
- * PersistentSearchApi.getPersistentSearches
- * PersistentSearchApiActions.getPersistentSearches
+ * PersistentSearchApi.updatePersistentSearchExpiration
+ * PersistentSearchApiActions.updatePersistentSearchExpiration
  *
  */
 
