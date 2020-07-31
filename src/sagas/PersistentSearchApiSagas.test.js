@@ -9,9 +9,11 @@ import {
   CREATE_PERSISTENT_SEARCH,
   EXPIRE_PERSISTENT_SEARCH,
   GET_PERSISTENT_SEARCHES,
+  UPDATE_PERSISTENT_SEARCH_EXPIRATION,
   createPersistentSearch,
   expirePersistentSearch,
   getPersistentSearches,
+  updatePersistentSearchExpiration,
 } from './PersistentSearchApiActions';
 import {
   createPersistentSearchWatcher,
@@ -20,6 +22,8 @@ import {
   expirePersistentSearchWorker,
   getPersistentSearchesWatcher,
   getPersistentSearchesWorker,
+  updatePersistentSearchExpirationWatcher,
+  updatePersistentSearchExpirationWorker,
 } from './PersistentSearchApiSagas';
 
 import {
@@ -149,6 +153,51 @@ describe('PersistentSearchApiSagas', () => {
       latticeApiReqSeq: getPersistentSearches,
       workerSagaAction: getPersistentSearches(mockActionValue),
       workerSagaToTest: getPersistentSearchesWorker,
+    });
+  });
+
+  /*
+   *
+   * PersistentSearchApi.updatePersistentSearchExpiration
+   * PersistentSearchApiActions.updatePersistentSearchExpiration
+   *
+   */
+
+  describe('updatePersistentSearchExpirationWatcher', () => {
+    testShouldBeGeneratorFunction(updatePersistentSearchExpirationWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updatePersistentSearchExpirationWatcher,
+      updatePersistentSearchExpirationWorker,
+      UPDATE_PERSISTENT_SEARCH_EXPIRATION,
+    );
+  });
+
+  describe('updatePersistentSearchExpirationWorker', () => {
+    const persistentSearchId = uuid();
+    const expiration = new Date().toISOString();
+
+    const mockActionValue = {
+      persistentSearchId,
+      expiration,
+    };
+
+    testShouldBeGeneratorFunction(updatePersistentSearchExpirationWorker);
+    testShouldFailOnInvalidAction(updatePersistentSearchExpirationWorker, UPDATE_PERSISTENT_SEARCH_EXPIRATION);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PersistentSearchApi.updatePersistentSearchExpiration,
+      latticeApiParams: [persistentSearchId, expiration],
+      latticeApiReqSeq: updatePersistentSearchExpiration,
+      workerSagaAction: updatePersistentSearchExpiration(mockActionValue),
+      workerSagaToTest: updatePersistentSearchExpirationWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PersistentSearchApi.updatePersistentSearchExpiration,
+      latticeApiParams: [persistentSearchId, expiration],
+      latticeApiReqSeq: updatePersistentSearchExpiration,
+      workerSagaAction: updatePersistentSearchExpiration(mockActionValue),
+      workerSagaToTest: updatePersistentSearchExpirationWorker,
     });
   });
 
