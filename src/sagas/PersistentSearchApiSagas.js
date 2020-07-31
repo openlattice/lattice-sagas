@@ -11,9 +11,11 @@ import {
   CREATE_PERSISTENT_SEARCH,
   EXPIRE_PERSISTENT_SEARCH,
   GET_PERSISTENT_SEARCHES,
+  UPDATE_PERSISTENT_SEARCH_EXPIRATION,
   createPersistentSearch,
   expirePersistentSearch,
   getPersistentSearches,
+  updatePersistentSearchExpiration,
 } from './PersistentSearchApiActions';
 
 import { ERR_INVALID_ACTION } from '../utils/Errors';
@@ -134,6 +136,46 @@ function* getPersistentSearchesWatcher() :Saga<*> {
   yield takeEvery(GET_PERSISTENT_SEARCHES, getPersistentSearchesWorker);
 }
 
+/*
+ *
+ * PersistentSearchApi.getPersistentSearches
+ * PersistentSearchApiActions.getPersistentSearches
+ *
+ */
+
+function* updatePersistentSearchExpirationWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, UPDATE_PERSISTENT_SEARCH_EXPIRATION)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(updatePersistentSearchExpiration.request(id, value));
+
+    const { persistentSearchId, expiration } = value;
+    const response = yield call(PersistentSearchApi.updatePersistentSearchExpiration, persistentSearchId, expiration);
+    workerResponse = { data: response };
+    yield put(updatePersistentSearchExpiration.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(updatePersistentSearchExpiration.failure(id, error));
+  }
+  finally {
+    yield put(updatePersistentSearchExpiration.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* updatePersistentSearchExpirationWatcher() :Saga<*> {
+
+  yield takeEvery(UPDATE_PERSISTENT_SEARCH_EXPIRATION, updatePersistentSearchExpirationWorker);
+}
+
 export {
   createPersistentSearchWatcher,
   createPersistentSearchWorker,
@@ -141,4 +183,6 @@ export {
   expirePersistentSearchWorker,
   getPersistentSearchesWatcher,
   getPersistentSearchesWorker,
+  updatePersistentSearchExpirationWatcher,
+  updatePersistentSearchExpirationWorker,
 };
