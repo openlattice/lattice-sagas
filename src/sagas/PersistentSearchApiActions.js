@@ -16,11 +16,16 @@ const expirePersistentSearch :RequestSequence = newRequestSequence(EXPIRE_PERSIS
 const GET_PERSISTENT_SEARCHES :'GET_PERSISTENT_SEARCHES' = 'GET_PERSISTENT_SEARCHES';
 const getPersistentSearches :RequestSequence = newRequestSequence(GET_PERSISTENT_SEARCHES);
 
+const UPDATE_PERSISTENT_SEARCH_EXPIRATION :'UPDATE_PERSISTENT_SEARCH_EXPIRATION' = 'UPDATE_PERSISTENT_SEARCH_EXPIRATION';
+const updatePersistentSearchExpiration :RequestSequence = newRequestSequence(UPDATE_PERSISTENT_SEARCH_EXPIRATION);
+
 export {
   CREATE_PERSISTENT_SEARCH,
   EXPIRE_PERSISTENT_SEARCH,
   GET_PERSISTENT_SEARCHES,
+  UPDATE_PERSISTENT_SEARCH_EXPIRATION,
   createPersistentSearch,
   expirePersistentSearch,
   getPersistentSearches,
+  updatePersistentSearchExpiration,
 };
