@@ -26,6 +26,8 @@ import * as PersistentSearchApiActions from './sagas/PersistentSearchApiActions'
 import * as PersistentSearchApiSagas from './sagas/PersistentSearchApiSagas';
 import * as PrincipalsApiActions from './sagas/PrincipalsApiActions';
 import * as PrincipalsApiSagas from './sagas/PrincipalsApiSagas';
+import * as RoutingActions from './sagas/RoutingActions';
+import * as RoutingSagas from './sagas/RoutingSagas';
 import * as SearchApiActions from './sagas/SearchApiActions';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
 
@@ -65,6 +67,8 @@ export {
   PersistentSearchApiSagas,
   PrincipalsApiActions,
   PrincipalsApiSagas,
+  RoutingActions,
+  RoutingSagas,
   SearchApiActions,
   SearchApiSagas,
   version,
@@ -95,6 +99,8 @@ export default {
   PersistentSearchApiSagas,
   PrincipalsApiActions,
   PrincipalsApiSagas,
+  RoutingActions,
+  RoutingSagas,
   SearchApiActions,
   SearchApiSagas,
   version,
