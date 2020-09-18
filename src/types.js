@@ -3,7 +3,7 @@
  */
 
 type WorkerResponse =
-  | {| data :any |}
+  | {| data :mixed |}
   | {| error :Error |};
 
 export type {
