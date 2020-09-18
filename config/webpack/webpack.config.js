@@ -66,6 +66,7 @@ module.exports = (env = {}) => {
       lattice: 'lattice',
       '@redux-saga/core': '@redux-saga/core',
       '@redux-saga/core/effects': '@redux-saga/core/effects',
+      'connected-react-router': 'connected-react-router',
       'redux-reqseq': 'redux-reqseq',
     },
     mode: env.production ? ENV_PROD : ENV_DEV,
