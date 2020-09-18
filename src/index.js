@@ -29,6 +29,11 @@ import * as PrincipalsApiSagas from './sagas/PrincipalsApiSagas';
 import * as SearchApiActions from './sagas/SearchApiActions';
 import * as SearchApiSagas from './sagas/SearchApiSagas';
 
+export type {
+  GoToRoot,
+  GoToRoute,
+  RoutingAction,
+} from './sagas/RoutingActions';
 export type { WorkerResponse } from './types';
 
 // injected by Webpack.DefinePlugin

@@ -2,11 +2,11 @@
  * @flow
  */
 
-declare type RoutingAction = {
+declare type RoutingAction = {|
   route :string;
-  state :Object;
+  state ?:Object;
   type :string;
-};
+|};
 
 declare type GoToRoot = () => RoutingAction;
 declare type GoToRoute = (route :string, state ?:Object) => RoutingAction;
