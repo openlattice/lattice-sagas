@@ -10,6 +10,7 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 
 const ACTION_TYPES = OrderedSet([
   'GET_ACL',
+  'GET_ACLS',
   'GET_ACL_EXPLANATION',
   'UPDATE_ACL',
   'UPDATE_ACLS',
@@ -17,6 +18,7 @@ const ACTION_TYPES = OrderedSet([
 
 const REQSEQ_NAMES = OrderedSet([
   'getAcl',
+  'getAcls',
   'getAclExplanation',
   'updateAcl',
   'updateAcls',

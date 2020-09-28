@@ -9,10 +9,12 @@ import type { SequenceAction } from 'redux-reqseq';
 
 import {
   GET_ACL,
+  GET_ACLS,
   GET_ACL_EXPLANATION,
   UPDATE_ACL,
   UPDATE_ACLS,
   getAcl,
+  getAcls,
   getAclExplanation,
   updateAcl,
   updateAcls,
@@ -58,6 +60,44 @@ function* getAclWorker(action :SequenceAction) :Saga<WorkerResponse> {
 function* getAclWatcher() :Saga<*> {
 
   yield takeEvery(GET_ACL, getAclWorker);
+}
+
+/*
+ *
+ * PermissionsApi.getAcls
+ * PermissionsApiActions.getAcls
+ *
+ */
+
+function* getAclsWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ACLS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getAcls.request(id, value));
+    const response = yield call(PermissionsApi.getAcls, value);
+    workerResponse = { data: response };
+    yield put(getAcls.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getAcls.failure(id, error));
+  }
+  finally {
+    yield put(getAcls.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getAclsWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ACLS, getAclsWorker);
 }
 
 /*
@@ -179,6 +219,8 @@ export {
   getAclExplanationWorker,
   getAclWatcher,
   getAclWorker,
+  getAclsWatcher,
+  getAclsWorker,
   updateAclWatcher,
   updateAclWorker,
   updateAclsWatcher,
