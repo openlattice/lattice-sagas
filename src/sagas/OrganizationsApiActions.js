@@ -37,6 +37,9 @@ const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZA
 const GET_ORGANIZATION :'GET_ORGANIZATION' = 'GET_ORGANIZATION';
 const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 
+const GET_ORGANIZATION_DATABASE_NAME :'GET_ORGANIZATION_DATABASE_NAME' = 'GET_ORGANIZATION_DATABASE_NAME';
+const getOrganizationDatabaseName :RequestSequence = newRequestSequence(GET_ORGANIZATION_DATABASE_NAME);
+
 const GET_ORGANIZATION_ENTITY_SETS :'GET_ORGANIZATION_ENTITY_SETS' = 'GET_ORGANIZATION_ENTITY_SETS';
 const getOrganizationEntitySets :RequestSequence = newRequestSequence(GET_ORGANIZATION_ENTITY_SETS);
 
@@ -70,6 +73,9 @@ const removeMemberFromOrganization :RequestSequence = newRequestSequence(REMOVE_
 const REMOVE_ROLE_FROM_MEMBER :'REMOVE_ROLE_FROM_MEMBER' = 'REMOVE_ROLE_FROM_MEMBER';
 const removeRoleFromMember :RequestSequence = newRequestSequence(REMOVE_ROLE_FROM_MEMBER);
 
+const RENAME_ORGANIZATION_DATABASE :'RENAME_ORGANIZATION_DATABASE' = 'RENAME_ORGANIZATION_DATABASE';
+const renameOrganizationDatabase :RequestSequence = newRequestSequence(RENAME_ORGANIZATION_DATABASE);
+
 const REVOKE_TRUST_FROM_ORGANIZATION :'REVOKE_TRUST_FROM_ORGANIZATION' = 'REVOKE_TRUST_FROM_ORGANIZATION';
 const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORGANIZATION);
 
@@ -99,6 +105,7 @@ export {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_DATABASE_NAME,
   GET_ORGANIZATION_ENTITY_SETS,
   GET_ORGANIZATION_INTEGRATION_ACCOUNT,
   GET_ORGANIZATION_MEMBERS,
@@ -110,6 +117,7 @@ export {
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
   REMOVE_ROLE_FROM_MEMBER,
+  RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
@@ -126,6 +134,7 @@ export {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationDatabaseName,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
@@ -137,6 +146,7 @@ export {
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
+  renameOrganizationDatabase,
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
