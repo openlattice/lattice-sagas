@@ -18,6 +18,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_DATABASE_NAME,
   GET_ORGANIZATION_ENTITY_SETS,
   GET_ORGANIZATION_INTEGRATION_ACCOUNT,
   GET_ORGANIZATION_MEMBERS,
@@ -29,6 +30,7 @@ import {
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
   REMOVE_ROLE_FROM_MEMBER,
+  RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
@@ -45,6 +47,7 @@ import {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationDatabaseName,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
@@ -56,6 +59,7 @@ import {
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
+  renameOrganizationDatabase,
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
@@ -451,6 +455,44 @@ function* getOrganizationWorker(action :SequenceAction) :Saga<WorkerResponse> {
 function* getOrganizationWatcher() :Saga<*> {
 
   yield takeEvery(GET_ORGANIZATION, getOrganizationWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.getOrganizationDatabaseName
+ * OrganizationsApiActions.getOrganizationDatabaseName
+ *
+ */
+
+function* getOrganizationDatabaseNameWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ORGANIZATION_DATABASE_NAME)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getOrganizationDatabaseName.request(id, value));
+    const response = yield call(OrganizationsApi.getOrganizationDatabaseName, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationDatabaseName.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getOrganizationDatabaseName.failure(id, error));
+  }
+  finally {
+    yield put(getOrganizationDatabaseName.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getOrganizationDatabaseNameWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ORGANIZATION_DATABASE_NAME, getOrganizationDatabaseNameWorker);
 }
 
 /*
@@ -880,6 +922,45 @@ function* removeRoleFromMemberWatcher() :Saga<*> {
 
 /*
  *
+ * OrganizationsApi.renameOrganizationDatabase
+ * OrganizationsApiActions.renameOrganizationDatabase
+ *
+ */
+
+function* renameOrganizationDatabaseWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, RENAME_ORGANIZATION_DATABASE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(renameOrganizationDatabase.request(id, value));
+    const { databaseName, organizationId } = value;
+    const response = yield call(OrganizationsApi.renameOrganizationDatabase, organizationId, databaseName);
+    workerResponse = { data: response };
+    yield put(renameOrganizationDatabase.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(renameOrganizationDatabase.failure(id, error));
+  }
+  finally {
+    yield put(renameOrganizationDatabase.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* renameOrganizationDatabaseWatcher() :Saga<*> {
+
+  yield takeEvery(RENAME_ORGANIZATION_DATABASE, renameOrganizationDatabaseWorker);
+}
+
+/*
+ *
  * OrganizationsApi.revokeTrustFromOrganization
  * OrganizationsApiActions.revokeTrustFromOrganization
  *
@@ -1131,6 +1212,8 @@ export {
   deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
+  getOrganizationDatabaseNameWatcher,
+  getOrganizationDatabaseNameWorker,
   getOrganizationEntitySetsWatcher,
   getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
@@ -1155,6 +1238,8 @@ export {
   removeMemberFromOrganizationWorker,
   removeRoleFromMemberWatcher,
   removeRoleFromMemberWorker,
+  renameOrganizationDatabaseWatcher,
+  renameOrganizationDatabaseWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
   updateOrganizationDescriptionWatcher,

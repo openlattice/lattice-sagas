@@ -16,6 +16,7 @@ import {
   DELETE_ROLE,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
+  GET_ORGANIZATION_DATABASE_NAME,
   GET_ORGANIZATION_ENTITY_SETS,
   GET_ORGANIZATION_INTEGRATION_ACCOUNT,
   GET_ORGANIZATION_MEMBERS,
@@ -27,6 +28,7 @@ import {
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
   REMOVE_ROLE_FROM_MEMBER,
+  RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
@@ -43,6 +45,7 @@ import {
   deleteRole,
   getAllOrganizations,
   getOrganization,
+  getOrganizationDatabaseName,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
@@ -54,6 +57,7 @@ import {
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
   removeRoleFromMember,
+  renameOrganizationDatabase,
   revokeTrustFromOrganization,
   updateOrganizationDescription,
   updateOrganizationTitle,
@@ -80,6 +84,8 @@ import {
   deleteRoleWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
+  getOrganizationDatabaseNameWatcher,
+  getOrganizationDatabaseNameWorker,
   getOrganizationEntitySetsWatcher,
   getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
@@ -104,6 +110,8 @@ import {
   removeMemberFromOrganizationWorker,
   removeRoleFromMemberWatcher,
   removeRoleFromMemberWorker,
+  renameOrganizationDatabaseWatcher,
+  renameOrganizationDatabaseWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
   updateOrganizationDescriptionWatcher,
@@ -543,6 +551,46 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: getOrganization,
       workerSagaAction: getOrganization(mockActionValue),
       workerSagaToTest: getOrganizationWorker,
+    });
+  });
+
+  /*
+   *
+   * OrganizationsApi.getOrganizationDatabaseName
+   * OrganizationsApiActions.getOrganizationDatabaseName
+   *
+   */
+
+  describe('getOrganizationDatabaseNameWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationDatabaseNameWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationDatabaseNameWatcher,
+      getOrganizationDatabaseNameWorker,
+      GET_ORGANIZATION_DATABASE_NAME,
+    );
+  });
+
+  describe('getOrganizationDatabaseNameWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getOrganizationDatabaseNameWorker);
+    testShouldFailOnInvalidAction(getOrganizationDatabaseNameWorker, GET_ORGANIZATION_DATABASE_NAME);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.getOrganizationDatabaseName,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationDatabaseName,
+      workerSagaAction: getOrganizationDatabaseName(mockActionValue),
+      workerSagaToTest: getOrganizationDatabaseNameWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.getOrganizationDatabaseName,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationDatabaseName,
+      workerSagaAction: getOrganizationDatabaseName(mockActionValue),
+      workerSagaToTest: getOrganizationDatabaseNameWorker,
     });
   });
 
@@ -1005,6 +1053,49 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: removeRoleFromMember,
       workerSagaAction: removeRoleFromMember(mockActionValue),
       workerSagaToTest: removeRoleFromMemberWorker,
+    });
+  });
+
+  /*
+   *
+   * OrganizationsApi.renameOrganizationDatabase
+   * OrganizationsApiActions.renameOrganizationDatabase
+   *
+   */
+
+  describe('renameOrganizationDatabaseWatcher', () => {
+    testShouldBeGeneratorFunction(renameOrganizationDatabaseWatcher);
+    testWatcherSagaShouldTakeEvery(
+      renameOrganizationDatabaseWatcher,
+      renameOrganizationDatabaseWorker,
+      RENAME_ORGANIZATION_DATABASE,
+    );
+  });
+
+  describe('renameOrganizationDatabaseWorker', () => {
+
+    const mockActionValue = {
+      databaseName: uuid(),
+      organizationId: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(renameOrganizationDatabaseWorker);
+    testShouldFailOnInvalidAction(renameOrganizationDatabaseWorker, RENAME_ORGANIZATION_DATABASE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.renameOrganizationDatabase,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.databaseName],
+      latticeApiReqSeq: renameOrganizationDatabase,
+      workerSagaAction: renameOrganizationDatabase(mockActionValue),
+      workerSagaToTest: renameOrganizationDatabaseWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.renameOrganizationDatabase,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.databaseName],
+      latticeApiReqSeq: renameOrganizationDatabase,
+      workerSagaAction: renameOrganizationDatabase(mockActionValue),
+      workerSagaToTest: renameOrganizationDatabaseWorker,
     });
   });
 
