@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import {
   GET_ALL_ROLES,
   GET_ALL_USERS,
+  GET_ATLAS_CREDENTIALS,
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
@@ -15,6 +16,7 @@ import {
   SYNC_USER,
   getAllRoles,
   getAllUsers,
+  getAtlasCredentials,
   getCurrentRoles,
   getSecurablePrincipal,
   getUser,
@@ -26,6 +28,8 @@ import {
   getAllRolesWorker,
   getAllUsersWatcher,
   getAllUsersWorker,
+  getAtlasCredentialsWatcher,
+  getAtlasCredentialsWorker,
   getCurrentRolesWatcher,
   getCurrentRolesWorker,
   getSecurablePrincipalWatcher,
@@ -121,6 +125,44 @@ describe('PrincipalsApiSagas', () => {
       latticeApiReqSeq: getAllUsers,
       workerSagaAction: getAllUsers(),
       workerSagaToTest: getAllUsersWorker,
+    });
+  });
+
+  /*
+   *
+   * PrincipalsApi.getAtlasCredentials
+   * PrincipalsApiActions.getAtlasCredentials
+   *
+   */
+
+  describe('getAtlasCredentialsWatcher', () => {
+    testShouldBeGeneratorFunction(getAtlasCredentialsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAtlasCredentialsWatcher,
+      getAtlasCredentialsWorker,
+      GET_ATLAS_CREDENTIALS,
+    );
+  });
+
+  describe('getAtlasCredentialsWorker', () => {
+
+    testShouldBeGeneratorFunction(getAtlasCredentialsWorker);
+    testShouldFailOnInvalidAction(getAtlasCredentialsWorker, GET_ATLAS_CREDENTIALS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getAtlasCredentials,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAtlasCredentials,
+      workerSagaAction: getAtlasCredentials(),
+      workerSagaToTest: getAtlasCredentialsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getAtlasCredentials,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAtlasCredentials,
+      workerSagaAction: getAtlasCredentials(),
+      workerSagaToTest: getAtlasCredentialsWorker,
     });
   });
 
