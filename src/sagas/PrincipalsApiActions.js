@@ -11,6 +11,9 @@ const getAllRoles :RequestSequence = newRequestSequence(GET_ALL_ROLES);
 const GET_ALL_USERS :'GET_ALL_USERS' = 'GET_ALL_USERS';
 const getAllUsers :RequestSequence = newRequestSequence(GET_ALL_USERS);
 
+const GET_ATLAS_CREDENTIALS :'GET_ATLAS_CREDENTIALS' = 'GET_ATLAS_CREDENTIALS';
+const getAtlasCredentials :RequestSequence = newRequestSequence(GET_ATLAS_CREDENTIALS);
+
 const GET_CURRENT_ROLES :'GET_CURRENT_ROLES' = 'GET_CURRENT_ROLES';
 const getCurrentRoles :RequestSequence = newRequestSequence(GET_CURRENT_ROLES);
 
@@ -29,6 +32,7 @@ const syncUser :RequestSequence = newRequestSequence(SYNC_USER);
 export {
   GET_ALL_ROLES,
   GET_ALL_USERS,
+  GET_ATLAS_CREDENTIALS,
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
@@ -36,6 +40,7 @@ export {
   SYNC_USER,
   getAllRoles,
   getAllUsers,
+  getAtlasCredentials,
   getCurrentRoles,
   getSecurablePrincipal,
   getUser,

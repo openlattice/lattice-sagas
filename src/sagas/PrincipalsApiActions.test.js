@@ -11,6 +11,7 @@ import { testShouldExportActionTypes, testShouldExportRequestSequences } from '.
 const ACTION_TYPES = OrderedSet([
   'GET_ALL_ROLES',
   'GET_ALL_USERS',
+  'GET_ATLAS_CREDENTIALS',
   'GET_CURRENT_ROLES',
   'GET_SECURABLE_PRINCIPAL',
   'GET_USER',
@@ -21,6 +22,7 @@ const ACTION_TYPES = OrderedSet([
 const REQSEQ_NAMES = OrderedSet([
   'getAllRoles',
   'getAllUsers',
+  'getAtlasCredentials',
   'getCurrentRoles',
   'getSecurablePrincipal',
   'getUser',

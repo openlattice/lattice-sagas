@@ -10,6 +10,7 @@ import type { SequenceAction } from 'redux-reqseq';
 import {
   GET_ALL_ROLES,
   GET_ALL_USERS,
+  GET_ATLAS_CREDENTIALS,
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
@@ -17,6 +18,7 @@ import {
   SYNC_USER,
   getAllRoles,
   getAllUsers,
+  getAtlasCredentials,
   getCurrentRoles,
   getSecurablePrincipal,
   getUser,
@@ -102,6 +104,44 @@ function* getAllUsersWorker(action :SequenceAction) :Saga<WorkerResponse> {
 function* getAllUsersWatcher() :Saga<*> {
 
   yield takeEvery(GET_ALL_USERS, getAllUsersWorker);
+}
+
+/*
+ *
+ * PrincipalsApi.getAtlasCredentials
+ * PrincipalsApiActions.getAtlasCredentials
+ *
+ */
+
+function* getAtlasCredentialsWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ATLAS_CREDENTIALS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id } = action;
+
+  try {
+    yield put(getAtlasCredentials.request(id));
+    const response = yield call(PrincipalsApi.getAtlasCredentials);
+    workerResponse = { data: response };
+    yield put(getAtlasCredentials.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getAtlasCredentials.failure(id, error));
+  }
+  finally {
+    yield put(getAtlasCredentials.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getAtlasCredentialsWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ATLAS_CREDENTIALS, getAtlasCredentialsWorker);
 }
 
 /*
@@ -299,6 +339,8 @@ export {
   getAllRolesWorker,
   getAllUsersWatcher,
   getAllUsersWorker,
+  getAtlasCredentialsWatcher,
+  getAtlasCredentialsWorker,
   getCurrentRolesWatcher,
   getCurrentRolesWorker,
   getSecurablePrincipalWatcher,
