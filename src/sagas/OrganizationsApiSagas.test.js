@@ -14,6 +14,7 @@ import {
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
+  DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   GET_ORGANIZATION_DATABASE_NAME,
@@ -30,6 +31,7 @@ import {
   REMOVE_ROLE_FROM_MEMBER,
   RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
+  TRANSPORT_ORGANIZATION_ENTITY_SET,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
   UPDATE_ROLE_DESCRIPTION,
@@ -43,6 +45,7 @@ import {
   createRole,
   deleteOrganization,
   deleteRole,
+  destroyTransportedOrganizationEntitySet,
   getAllOrganizations,
   getOrganization,
   getOrganizationDatabaseName,
@@ -59,6 +62,7 @@ import {
   removeRoleFromMember,
   renameOrganizationDatabase,
   revokeTrustFromOrganization,
+  transportOrganizationEntitySet,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleDescription,
@@ -82,6 +86,8 @@ import {
   deleteOrganizationWorker,
   deleteRoleWatcher,
   deleteRoleWorker,
+  destroyTransportedOrganizationEntitySetWatcher,
+  destroyTransportedOrganizationEntitySetWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
   getOrganizationDatabaseNameWatcher,
@@ -114,6 +120,8 @@ import {
   renameOrganizationDatabaseWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
+  transportOrganizationEntitySetWatcher,
+  transportOrganizationEntitySetWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
@@ -473,6 +481,52 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: deleteRole,
       workerSagaAction: deleteRole(mockActionValue),
       workerSagaToTest: deleteRoleWorker,
+    });
+  });
+
+  /*
+   *
+   * OrganizationsApi.destroyTransportedOrganizationEntitySet
+   * OrganizationsApiActions.destroyTransportedOrganizationEntitySet
+   *
+   */
+
+  describe('destroyTransportedOrganizationEntitySetWatcher', () => {
+    testShouldBeGeneratorFunction(destroyTransportedOrganizationEntitySetWatcher);
+    testWatcherSagaShouldTakeEvery(
+      destroyTransportedOrganizationEntitySetWatcher,
+      destroyTransportedOrganizationEntitySetWorker,
+      DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET,
+    );
+  });
+
+  describe('destroyTransportedOrganizationEntitySetWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: uuid(),
+      organizationId: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(destroyTransportedOrganizationEntitySetWorker);
+    testShouldFailOnInvalidAction(
+      destroyTransportedOrganizationEntitySetWorker,
+      DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET,
+    );
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.destroyTransportedOrganizationEntitySet,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.entitySetId],
+      latticeApiReqSeq: destroyTransportedOrganizationEntitySet,
+      workerSagaAction: destroyTransportedOrganizationEntitySet(mockActionValue),
+      workerSagaToTest: destroyTransportedOrganizationEntitySetWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.destroyTransportedOrganizationEntitySet,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.entitySetId],
+      latticeApiReqSeq: destroyTransportedOrganizationEntitySet,
+      workerSagaAction: destroyTransportedOrganizationEntitySet(mockActionValue),
+      workerSagaToTest: destroyTransportedOrganizationEntitySetWorker,
     });
   });
 
@@ -1139,6 +1193,49 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: revokeTrustFromOrganization,
       workerSagaAction: revokeTrustFromOrganization(mockActionValue),
       workerSagaToTest: revokeTrustFromOrganizationWorker,
+    });
+  });
+
+  /*
+   *
+   * OrganizationsApi.transportOrganizationEntitySet
+   * OrganizationsApiActions.transportOrganizationEntitySet
+   *
+   */
+
+  describe('transportOrganizationEntitySetWatcher', () => {
+    testShouldBeGeneratorFunction(transportOrganizationEntitySetWatcher);
+    testWatcherSagaShouldTakeEvery(
+      transportOrganizationEntitySetWatcher,
+      transportOrganizationEntitySetWorker,
+      TRANSPORT_ORGANIZATION_ENTITY_SET,
+    );
+  });
+
+  describe('transportOrganizationEntitySetWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: uuid(),
+      organizationId: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(transportOrganizationEntitySetWorker);
+    testShouldFailOnInvalidAction(transportOrganizationEntitySetWorker, TRANSPORT_ORGANIZATION_ENTITY_SET);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.transportOrganizationEntitySet,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.entitySetId],
+      latticeApiReqSeq: transportOrganizationEntitySet,
+      workerSagaAction: transportOrganizationEntitySet(mockActionValue),
+      workerSagaToTest: transportOrganizationEntitySetWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.transportOrganizationEntitySet,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.entitySetId],
+      latticeApiReqSeq: transportOrganizationEntitySet,
+      workerSagaAction: transportOrganizationEntitySet(mockActionValue),
+      workerSagaToTest: transportOrganizationEntitySetWorker,
     });
   });
 
