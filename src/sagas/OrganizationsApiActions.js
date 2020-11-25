@@ -31,6 +31,9 @@ const deleteOrganization :RequestSequence = newRequestSequence(DELETE_ORGANIZATI
 const DELETE_ROLE :'DELETE_ROLE' = 'DELETE_ROLE';
 const deleteRole :RequestSequence = newRequestSequence(DELETE_ROLE);
 
+const DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET :'DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET' = 'DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET';
+const destroyTransportedOrganizationEntitySet :RequestSequence = newRequestSequence(DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET);
+
 const GET_ALL_ORGANIZATIONS :'GET_ALL_ORGANIZATIONS' = 'GET_ALL_ORGANIZATIONS';
 const getAllOrganizations :RequestSequence = newRequestSequence(GET_ALL_ORGANIZATIONS);
 
@@ -79,6 +82,9 @@ const renameOrganizationDatabase :RequestSequence = newRequestSequence(RENAME_OR
 const REVOKE_TRUST_FROM_ORGANIZATION :'REVOKE_TRUST_FROM_ORGANIZATION' = 'REVOKE_TRUST_FROM_ORGANIZATION';
 const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_TRUST_FROM_ORGANIZATION);
 
+const TRANSPORT_ORGANIZATION_ENTITY_SET :'TRANSPORT_ORGANIZATION_ENTITY_SET' = 'TRANSPORT_ORGANIZATION_ENTITY_SET';
+const transportOrganizationEntitySet :RequestSequence = newRequestSequence(TRANSPORT_ORGANIZATION_ENTITY_SET);
+
 const UPDATE_ORGANIZATION_DESCRIPTION :'UPDATE_ORGANIZATION_DESCRIPTION' = 'UPDATE_ORGANIZATION_DESCRIPTION';
 const updateOrganizationDescription :RequestSequence = newRequestSequence(UPDATE_ORGANIZATION_DESCRIPTION);
 
@@ -103,6 +109,7 @@ export {
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
+  DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   GET_ORGANIZATION_DATABASE_NAME,
@@ -119,6 +126,7 @@ export {
   REMOVE_ROLE_FROM_MEMBER,
   RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
+  TRANSPORT_ORGANIZATION_ENTITY_SET,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
   UPDATE_ROLE_DESCRIPTION,
@@ -132,6 +140,7 @@ export {
   createRole,
   deleteOrganization,
   deleteRole,
+  destroyTransportedOrganizationEntitySet,
   getAllOrganizations,
   getOrganization,
   getOrganizationDatabaseName,
@@ -148,6 +157,7 @@ export {
   removeRoleFromMember,
   renameOrganizationDatabase,
   revokeTrustFromOrganization,
+  transportOrganizationEntitySet,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleDescription,
