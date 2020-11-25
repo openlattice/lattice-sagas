@@ -16,6 +16,7 @@ import {
   CREATE_ROLE,
   DELETE_ORGANIZATION,
   DELETE_ROLE,
+  DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET,
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   GET_ORGANIZATION_DATABASE_NAME,
@@ -32,6 +33,7 @@ import {
   REMOVE_ROLE_FROM_MEMBER,
   RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
+  TRANSPORT_ORGANIZATION_ENTITY_SET,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
   UPDATE_ROLE_DESCRIPTION,
@@ -45,6 +47,7 @@ import {
   createRole,
   deleteOrganization,
   deleteRole,
+  destroyTransportedOrganizationEntitySet,
   getAllOrganizations,
   getOrganization,
   getOrganizationDatabaseName,
@@ -61,6 +64,7 @@ import {
   removeRoleFromMember,
   renameOrganizationDatabase,
   revokeTrustFromOrganization,
+  transportOrganizationEntitySet,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleDescription,
@@ -379,6 +383,45 @@ function* deleteRoleWorker(action :SequenceAction) :Saga<WorkerResponse> {
 function* deleteRoleWatcher() :Saga<*> {
 
   yield takeEvery(DELETE_ROLE, deleteRoleWorker);
+}
+
+/*
+ *
+ * OrganizationsApi.destroyTransportedOrganizationEntitySet
+ * OrganizationsApiActions.destroyTransportedOrganizationEntitySet
+ *
+ */
+
+function* destroyTransportedOrganizationEntitySetWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(destroyTransportedOrganizationEntitySet.request(id, value));
+    const { entitySetId, organizationId } = value;
+    const response = yield call(OrganizationsApi.destroyTransportedOrganizationEntitySet, organizationId, entitySetId);
+    workerResponse = { data: response };
+    yield put(destroyTransportedOrganizationEntitySet.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(destroyTransportedOrganizationEntitySet.failure(id, error));
+  }
+  finally {
+    yield put(destroyTransportedOrganizationEntitySet.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* destroyTransportedOrganizationEntitySetWatcher() :Saga<*> {
+
+  yield takeEvery(DESTROY_TRANSPORTED_ORGANIZATION_ENTITY_SET, destroyTransportedOrganizationEntitySetWorker);
 }
 
 /*
@@ -1000,6 +1043,45 @@ function* revokeTrustFromOrganizationWatcher() :Saga<*> {
 
 /*
  *
+ * OrganizationsApi.transportOrganizationEntitySet
+ * OrganizationsApiActions.transportOrganizationEntitySet
+ *
+ */
+
+function* transportOrganizationEntitySetWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, TRANSPORT_ORGANIZATION_ENTITY_SET)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(transportOrganizationEntitySet.request(id, value));
+    const { entitySetId, organizationId } = value;
+    const response = yield call(OrganizationsApi.transportOrganizationEntitySet, organizationId, entitySetId);
+    workerResponse = { data: response };
+    yield put(transportOrganizationEntitySet.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(transportOrganizationEntitySet.failure(id, error));
+  }
+  finally {
+    yield put(transportOrganizationEntitySet.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* transportOrganizationEntitySetWatcher() :Saga<*> {
+
+  yield takeEvery(TRANSPORT_ORGANIZATION_ENTITY_SET, transportOrganizationEntitySetWorker);
+}
+
+/*
+ *
  * OrganizationsApi.updateOrganizationDescription
  * OrganizationsApiActions.updateOrganizationDescription
  *
@@ -1210,6 +1292,8 @@ export {
   deleteOrganizationWorker,
   deleteRoleWatcher,
   deleteRoleWorker,
+  destroyTransportedOrganizationEntitySetWatcher,
+  destroyTransportedOrganizationEntitySetWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
   getOrganizationDatabaseNameWatcher,
@@ -1242,6 +1326,8 @@ export {
   renameOrganizationDatabaseWorker,
   revokeTrustFromOrganizationWatcher,
   revokeTrustFromOrganizationWorker,
+  transportOrganizationEntitySetWatcher,
+  transportOrganizationEntitySetWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
