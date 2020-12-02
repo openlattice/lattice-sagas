@@ -842,9 +842,9 @@ function* promoteStagingTableWorker(action :SequenceAction) :Saga<WorkerResponse
   return workerResponse;
 }
 
-function* promoteStagingTableWatcher() :Saga<*> {
+function* promoteStagingTableWatcher() :Saga<void> {
 
-  yield takeEvery(GRANT_TRUST_TO_ORGANIZATION, grantTrustToOrganizationWorker);
+  yield takeEvery(PROMOTE_STAGING_TABLE, promoteStagingTableWorker);
 }
 
 /*
