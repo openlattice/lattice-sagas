@@ -25,6 +25,7 @@ import {
   GET_ROLE,
   GET_USERS_WITH_ROLE,
   GRANT_TRUST_TO_ORGANIZATION,
+  PROMOTE_STAGING_TABLE,
   REMOVE_CONNECTIONS_FROM_ORGANIZATION,
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
@@ -56,6 +57,7 @@ import {
   getRole,
   getUsersWithRole,
   grantTrustToOrganization,
+  promoteStagingTable,
   removeConnectionsFromOrganization,
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
@@ -108,6 +110,8 @@ import {
   getUsersWithRoleWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
+  promoteStagingTableWatcher,
+  promoteStagingTableWorker,
   removeConnectionsFromOrganizationWatcher,
   removeConnectionsFromOrganizationWorker,
   removeDomainsFromOrganizationWatcher,
@@ -934,6 +938,49 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: grantTrustToOrganization,
       workerSagaAction: grantTrustToOrganization(mockActionValue),
       workerSagaToTest: grantTrustToOrganizationWorker,
+    });
+  });
+
+  /*
+   *
+   * OrganizationsApi.promoteStagingTable
+   * OrganizationsApiActions.promoteStagingTable
+   *
+   */
+
+  describe('promoteStagingTableWatcher', () => {
+    testShouldBeGeneratorFunction(promoteStagingTableWatcher);
+    testWatcherSagaShouldTakeEvery(
+      promoteStagingTableWatcher,
+      promoteStagingTableWorker,
+      PROMOTE_STAGING_TABLE,
+    );
+  });
+
+  describe('promoteStagingTableWorker', () => {
+
+    const mockActionValue = {
+      organizationId: uuid(),
+      tableName: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(promoteStagingTableWorker);
+    testShouldFailOnInvalidAction(promoteStagingTableWorker, PROMOTE_STAGING_TABLE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.promoteStagingTable,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.tableName],
+      latticeApiReqSeq: promoteStagingTable,
+      workerSagaAction: promoteStagingTable(mockActionValue),
+      workerSagaToTest: promoteStagingTableWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.promoteStagingTable,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.tableName],
+      latticeApiReqSeq: promoteStagingTable,
+      workerSagaAction: promoteStagingTable(mockActionValue),
+      workerSagaToTest: promoteStagingTableWorker,
     });
   });
 
