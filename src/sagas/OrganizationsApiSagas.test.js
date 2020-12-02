@@ -943,8 +943,8 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
-   * OrganizationsApi.grantTrustToOrganization
-   * OrganizationsApiActions.grantTrustToOrganization
+   * OrganizationsApi.promoteStagingTable
+   * OrganizationsApiActions.promoteStagingTable
    *
    */
 
