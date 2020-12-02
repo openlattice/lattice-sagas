@@ -27,6 +27,7 @@ import {
   GET_ROLE,
   GET_USERS_WITH_ROLE,
   GRANT_TRUST_TO_ORGANIZATION,
+  PROMOTE_STAGING_TABLE,
   REMOVE_CONNECTIONS_FROM_ORGANIZATION,
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
@@ -58,6 +59,7 @@ import {
   getRole,
   getUsersWithRole,
   grantTrustToOrganization,
+  promoteStagingTable,
   removeConnectionsFromOrganization,
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
@@ -809,6 +811,44 @@ function* grantTrustToOrganizationWatcher() :Saga<*> {
 
 /*
  *
+ * OrganizationsApi.promoteStagingTable
+ * OrganizationsApiActions.promoteStagingTable
+ *
+ */
+
+function* promoteStagingTableWorker(action :SequenceAction) :Saga<WorkerResponse> {
+  if (!isValidAction(action, PROMOTE_STAGING_TABLE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(promoteStagingTable.request(id, value));
+    const { organizationId, tableName } = value;
+    const response = yield call(OrganizationsApi.promoteStagingTable, organizationId, tableName);
+    workerResponse = { data: response };
+    yield put(promoteStagingTable.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(promoteStagingTable.failure(id, error));
+  }
+  finally {
+    yield put(promoteStagingTable.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* promoteStagingTableWatcher() :Saga<void> {
+
+  yield takeEvery(PROMOTE_STAGING_TABLE, promoteStagingTableWorker);
+}
+
+/*
+ *
  * OrganizationsApi.removeConnectionsFromOrganization
  * OrganizationsApiActions.removeConnectionsFromOrganization
  *
@@ -1314,6 +1354,8 @@ export {
   getUsersWithRoleWorker,
   grantTrustToOrganizationWatcher,
   grantTrustToOrganizationWorker,
+  promoteStagingTableWatcher,
+  promoteStagingTableWorker,
   removeConnectionsFromOrganizationWatcher,
   removeConnectionsFromOrganizationWorker,
   removeDomainsFromOrganizationWatcher,
