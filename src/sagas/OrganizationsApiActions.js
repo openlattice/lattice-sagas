@@ -64,6 +64,9 @@ const getUsersWithRole :RequestSequence = newRequestSequence(GET_USERS_WITH_ROLE
 const GRANT_TRUST_TO_ORGANIZATION :'GRANT_TRUST_TO_ORGANIZATION' = 'GRANT_TRUST_TO_ORGANIZATION';
 const grantTrustToOrganization :RequestSequence = newRequestSequence(GRANT_TRUST_TO_ORGANIZATION);
 
+const PROMOTE_STAGING_TABLE :'PROMOTE_STAGING_TABLE' = 'PROMOTE_STAGING_TABLE';
+const promoteStagingTable :RequestSequence = newRequestSequence(PROMOTE_STAGING_TABLE);
+
 const REMOVE_CONNECTIONS_FROM_ORGANIZATION :'REMOVE_CONNECTIONS_FROM_ORGANIZATION' = 'REMOVE_CONNECTIONS_FROM_ORGANIZATION';
 const removeConnectionsFromOrganization :RequestSequence = newRequestSequence(REMOVE_CONNECTIONS_FROM_ORGANIZATION);
 
@@ -120,6 +123,7 @@ export {
   GET_ROLE,
   GET_USERS_WITH_ROLE,
   GRANT_TRUST_TO_ORGANIZATION,
+  PROMOTE_STAGING_TABLE,
   REMOVE_CONNECTIONS_FROM_ORGANIZATION,
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
@@ -151,6 +155,7 @@ export {
   getRole,
   getUsersWithRole,
   grantTrustToOrganization,
+  promoteStagingTable,
   removeConnectionsFromOrganization,
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
