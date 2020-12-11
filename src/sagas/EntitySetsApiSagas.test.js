@@ -15,6 +15,7 @@ import {
   GET_ENTITY_SET_IDS,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
+  UPDATE_ENTITY_SET_METADATA,
   createEntitySets,
   deleteEntitySet,
   getAllEntitySets,
@@ -24,6 +25,7 @@ import {
   getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
+  updateEntitySetMetaData
 } from './EntitySetsApiActions';
 import {
   createEntitySetsWatcher,
@@ -44,6 +46,8 @@ import {
   getPropertyTypeMetaDataForEntitySetWorker,
   getPropertyTypeMetaDataForEntitySetsWatcher,
   getPropertyTypeMetaDataForEntitySetsWorker,
+  updateEntitySetMetaDataWatcher,
+  updateEntitySetMetaDataWorker
 } from './EntitySetsApiSagas';
 
 import {
@@ -429,6 +433,58 @@ describe('EntitySetsApiSagas', () => {
       latticeApiReqSeq: getPropertyTypeMetaDataForEntitySets,
       workerSagaAction: getPropertyTypeMetaDataForEntitySets(mockActionValue),
       workerSagaToTest: getPropertyTypeMetaDataForEntitySetsWorker,
+    });
+  });
+
+  /*
+   *
+   * EntitySetsApi.updateEntitySetMetaData
+   * EntitySetsApiActions.updateEntitySetMetaData
+   *
+   */
+
+  describe('updateEntitySetMetaDataWatcher', () => {
+
+    testShouldBeGeneratorFunction(updateEntitySetMetaDataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateEntitySetMetaDataWatcher,
+      updateEntitySetMetaDataWorker,
+      UPDATE_ENTITY_SET_METADATA,
+    );
+  });
+
+  describe('updateEntitySetMetaDataWorker', () => {
+
+    const mockActionValue = {
+      entitySetId: uuid(),
+      metadata: {
+        title: 'TEST_TITLE',
+        description: 'TEST_TITLE',
+        name: 'TEST_NAME',
+        members: ['member1@openlattice.com', 'member2@openlattice.com'],
+      }
+    };
+
+    testShouldBeGeneratorFunction(updateEntitySetMetaDataWorker);
+    testShouldFailOnInvalidAction(
+      updateEntitySetMetaDataWorker,
+      UPDATE_ENTITY_SET_METADATA,
+    );
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: EntitySetsApi.updateEntitySetMetaData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.metadata],
+      latticeApiReqSeq: updateEntitySetMetaData,
+      workerSagaAction: updateEntitySetMetaData(mockActionValue),
+      workerSagaToTest: updateEntitySetMetaDataWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: EntitySetsApi.updateEntitySetMetaData,
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.metadata],
+      latticeApiReqSeq: updateEntitySetMetaData,
+      workerSagaAction: updateEntitySetMetaData(mockActionValue),
+      workerSagaToTest: updateEntitySetMetaDataWorker,
     });
   });
 
