@@ -457,7 +457,7 @@ describe('EntitySetsApiSagas', () => {
 
     const mockActionValue = {
       entitySetId: uuid(),
-      update: {
+      metadata: {
         title: 'TEST_TITLE',
         description: 'TEST_TITLE',
         name: 'TEST_NAME',
@@ -473,7 +473,7 @@ describe('EntitySetsApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: EntitySetsApi.updateEntitySetMetadata,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.update],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.metadata],
       latticeApiReqSeq: updateEntitySetMetadata,
       workerSagaAction: updateEntitySetMetadata(mockActionValue),
       workerSagaToTest: updateEntitySetMetadataWorker,
@@ -481,7 +481,7 @@ describe('EntitySetsApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: EntitySetsApi.updateEntitySetMetadata,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.update],
+      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.metadata],
       latticeApiReqSeq: updateEntitySetMetadata,
       workerSagaAction: updateEntitySetMetadata(mockActionValue),
       workerSagaToTest: updateEntitySetMetadataWorker,
