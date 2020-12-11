@@ -18,6 +18,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_ENTITY_SETS',
   'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET',
   'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS',
+  'UPDATE_ENTITY_SET_METADATA',
 ]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
@@ -30,6 +31,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getEntitySets',
   'getPropertyTypeMetaDataForEntitySet',
   'getPropertyTypeMetaDataForEntitySets',
+  'updateEntitySetMetadata'
 ]).toJS();
 
 describe('EntitySetsApiActions', () => {
