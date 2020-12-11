@@ -27,7 +27,7 @@ import {
   getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
-  updateEntitySetMetadata,
+  updateEntitySetMetaData,
 } from './EntitySetsApiActions';
 
 import { ERR_INVALID_ACTION } from '../utils/Errors';
@@ -379,12 +379,12 @@ function* getPropertyTypeMetaDataForEntitySetsWatcher() :Saga<*> {
 
 /*
  *
- * EntitySetsApi.updateEntitySetMetadata
- * EntitySetsApiActions.updateEntitySetMetadata
+ * EntitySetsApi.updateEntitySetMetaData
+ * EntitySetsApiActions.updateEntitySetMetaData
  *
  */
 
-function* updateEntitySetMetadataWorker(action :SequenceAction) :Saga<WorkerResponse> {
+function* updateEntitySetMetaDataWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
   if (!isValidAction(action, UPDATE_ENTITY_SET_METADATA)) {
     return { error: new Error(ERR_INVALID_ACTION) };
@@ -394,26 +394,26 @@ function* updateEntitySetMetadataWorker(action :SequenceAction) :Saga<WorkerResp
   const { id, value } = action;
 
   try {
-    yield put(updateEntitySetMetadata.request(id, value));
+    yield put(updateEntitySetMetaData.request(id, value));
     const { entitySetId, metadata } = value;
-    const response = yield call(EntitySetsApi.updateEntitySetMetadata, entitySetId, metadata);
+    const response = yield call(EntitySetsApi.updateEntitySetMetaData, entitySetId, metadata);
     workerResponse = { data: response };
-    yield put(updateEntitySetMetadata.success(id, response));
+    yield put(updateEntitySetMetaData.success(id, response));
   }
   catch (error) {
     workerResponse = { error };
-    yield put(updateEntitySetMetadata.failure(id, error));
+    yield put(updateEntitySetMetaData.failure(id, error));
   }
   finally {
-    yield put(updateEntitySetMetadata.finally(id));
+    yield put(updateEntitySetMetaData.finally(id));
   }
 
   return workerResponse;
 }
 
-function* updateEntitySetMetadataWatcher() :Saga<*> {
+function* updateEntitySetMetaDataWatcher() :Saga<*> {
 
-  yield takeEvery(UPDATE_ENTITY_SET_METADATA, updateEntitySetMetadataWorker);
+  yield takeEvery(UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
 }
 
 export {
@@ -435,6 +435,6 @@ export {
   getPropertyTypeMetaDataForEntitySetWorker,
   getPropertyTypeMetaDataForEntitySetsWatcher,
   getPropertyTypeMetaDataForEntitySetsWorker,
-  updateEntitySetMetadataWorker,
-  updateEntitySetMetadataWatcher,
+  updateEntitySetMetaDataWorker,
+  updateEntitySetMetaDataWatcher,
 };

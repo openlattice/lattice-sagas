@@ -31,7 +31,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getEntitySets',
   'getPropertyTypeMetaDataForEntitySet',
   'getPropertyTypeMetaDataForEntitySets',
-  'updateEntitySetMetadata'
+  'updateEntitySetMetaData'
 ]).toJS();
 
 describe('EntitySetsApiActions', () => {
