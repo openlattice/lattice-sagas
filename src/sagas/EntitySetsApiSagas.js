@@ -395,8 +395,8 @@ function* updateEntitySetMetadataWorker(action :SequenceAction) :Saga<WorkerResp
 
   try {
     yield put(updateEntitySetMetadata.request(id, value));
-    const { entitySetId, update } = value;
-    const response = yield call(EntitySetsApi.updateEntitySetMetadata, entitySetId, update);
+    const { entitySetId, metadata } = value;
+    const response = yield call(EntitySetsApi.updateEntitySetMetadata, entitySetId, metadata);
     workerResponse = { data: response };
     yield put(updateEntitySetMetadata.success(id, response));
   }
