@@ -34,6 +34,9 @@ const getPropertyTypeMetaDataForEntitySet :RequestSequence = newRequestSequence(
 const GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS :'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS' = 'GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS';
 const getPropertyTypeMetaDataForEntitySets :RequestSequence = newRequestSequence(GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS);
 
+const UPDATE_ENTITY_SET_METADATA :'UPDATE_ENTITY_SET_METADATA' = 'UPDATE_ENTITY_SET_METADATA';
+const updateEntitySetMetaData :RequestSequence = newRequestSequence(UPDATE_ENTITY_SET_METADATA);
+
 export {
   CREATE_ENTITY_SETS,
   DELETE_ENTITY_SET,
@@ -44,6 +47,7 @@ export {
   GET_ENTITY_SETS,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
+  UPDATE_ENTITY_SET_METADATA,
   createEntitySets,
   deleteEntitySet,
   getAllEntitySets,
@@ -53,4 +57,5 @@ export {
   getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
+  updateEntitySetMetaData,
 };

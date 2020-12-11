@@ -17,6 +17,7 @@ import {
   GET_ENTITY_SET_IDS,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SET,
   GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS,
+  UPDATE_ENTITY_SET_METADATA,
   createEntitySets,
   deleteEntitySet,
   getAllEntitySets,
@@ -26,6 +27,7 @@ import {
   getEntitySets,
   getPropertyTypeMetaDataForEntitySet,
   getPropertyTypeMetaDataForEntitySets,
+  updateEntitySetMetaData,
 } from './EntitySetsApiActions';
 
 import { ERR_INVALID_ACTION } from '../utils/Errors';
@@ -375,6 +377,45 @@ function* getPropertyTypeMetaDataForEntitySetsWatcher() :Saga<*> {
   yield takeEvery(GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS, getPropertyTypeMetaDataForEntitySetsWorker);
 }
 
+/*
+ *
+ * EntitySetsApi.updateEntitySetMetaData
+ * EntitySetsApiActions.updateEntitySetMetaData
+ *
+ */
+
+function* updateEntitySetMetaDataWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, UPDATE_ENTITY_SET_METADATA)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(updateEntitySetMetaData.request(id, value));
+    const { entitySetId, metadata } = value;
+    const response = yield call(EntitySetsApi.updateEntitySetMetaData, entitySetId, metadata);
+    workerResponse = { data: response };
+    yield put(updateEntitySetMetaData.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(updateEntitySetMetaData.failure(id, error));
+  }
+  finally {
+    yield put(updateEntitySetMetaData.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* updateEntitySetMetaDataWatcher() :Saga<*> {
+
+  yield takeEvery(UPDATE_ENTITY_SET_METADATA, updateEntitySetMetaDataWorker);
+}
+
 export {
   createEntitySetsWatcher,
   createEntitySetsWorker,
@@ -394,4 +435,6 @@ export {
   getPropertyTypeMetaDataForEntitySetWorker,
   getPropertyTypeMetaDataForEntitySetsWatcher,
   getPropertyTypeMetaDataForEntitySetsWorker,
+  updateEntitySetMetaDataWorker,
+  updateEntitySetMetaDataWatcher,
 };
