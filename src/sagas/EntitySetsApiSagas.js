@@ -377,7 +377,6 @@ function* getPropertyTypeMetaDataForEntitySetsWatcher() :Saga<*> {
   yield takeEvery(GET_PROPERTY_TYPE_METADATA_FOR_ENTITY_SETS, getPropertyTypeMetaDataForEntitySetsWorker);
 }
 
-
 /*
  *
  * EntitySetsApi.updateEntitySetMetadata
