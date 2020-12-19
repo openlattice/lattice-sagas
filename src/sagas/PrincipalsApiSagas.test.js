@@ -12,6 +12,7 @@ import {
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
+  GET_USERS,
   SEARCH_ALL_USERS,
   SYNC_USER,
   getAllRoles,
@@ -20,6 +21,7 @@ import {
   getCurrentRoles,
   getSecurablePrincipal,
   getUser,
+  getUsers,
   searchAllUsers,
   syncUser,
 } from './PrincipalsApiActions';
@@ -36,6 +38,8 @@ import {
   getSecurablePrincipalWorker,
   getUserWatcher,
   getUserWorker,
+  getUsersWatcher,
+  getUsersWorker,
   searchAllUsersWatcher,
   searchAllUsersWorker,
   syncUserWatcher,
@@ -281,6 +285,46 @@ describe('PrincipalsApiSagas', () => {
       latticeApiReqSeq: getUser,
       workerSagaAction: getUser(mockActionValue),
       workerSagaToTest: getUserWorker,
+    });
+  });
+
+  /*
+   *
+   * PrincipalsApi.getUsers
+   * PrincipalsApiActions.getUsers
+   *
+   */
+
+  describe('getUsersWatcher', () => {
+    testShouldBeGeneratorFunction(getUsersWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getUsersWatcher,
+      getUsersWorker,
+      GET_USERS,
+    );
+  });
+
+  describe('getUsersWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getUsersWorker);
+    testShouldFailOnInvalidAction(getUsersWorker, GET_USERS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.getUsers,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getUsers,
+      workerSagaAction: getUsers(mockActionValue),
+      workerSagaToTest: getUsersWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.getUsers,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getUsers,
+      workerSagaAction: getUsers(mockActionValue),
+      workerSagaToTest: getUsersWorker,
     });
   });
 
