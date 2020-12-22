@@ -14,6 +14,7 @@ import {
   GET_CURRENT_ROLES,
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
+  GET_USERS,
   SEARCH_ALL_USERS,
   SYNC_USER,
   getAllRoles,
@@ -22,6 +23,7 @@ import {
   getCurrentRoles,
   getSecurablePrincipal,
   getUser,
+  getUsers,
   searchAllUsers,
   syncUser,
 } from './PrincipalsApiActions';
@@ -260,6 +262,44 @@ function* getUserWatcher() :Saga<*> {
 
 /*
  *
+ * PrincipalsApi.getUsers
+ * PrincipalsApiActions.getUsers
+ *
+ */
+
+function* getUsersWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_USERS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getUsers.request(id, value));
+    const response = yield call(PrincipalsApi.getUsers, value);
+    workerResponse = { data: response };
+    yield put(getUsers.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getUsers.failure(id, error));
+  }
+  finally {
+    yield put(getUsers.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getUsersWatcher() :Saga<*> {
+
+  yield takeEvery(GET_USERS, getUsersWorker);
+}
+
+/*
+ *
  * PrincipalsApi.searchAllUsers
  * PrincipalsApiActions.searchAllUsers
  *
@@ -347,6 +387,8 @@ export {
   getSecurablePrincipalWorker,
   getUserWatcher,
   getUserWorker,
+  getUsersWatcher,
+  getUsersWorker,
   searchAllUsersWatcher,
   searchAllUsersWorker,
   syncUserWatcher,

@@ -15,6 +15,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_CURRENT_ROLES',
   'GET_SECURABLE_PRINCIPAL',
   'GET_USER',
+  'GET_USERS',
   'SEARCH_ALL_USERS',
   'SYNC_USER',
 ]).toJS();
@@ -26,6 +27,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getCurrentRoles',
   'getSecurablePrincipal',
   'getUser',
+  'getUsers',
   'searchAllUsers',
   'syncUser',
 ]).toJS();
