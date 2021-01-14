@@ -18,6 +18,7 @@ import {
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   GET_ORGANIZATION_DATABASE_NAME,
+  GET_ORGANIZATION_DATA_SOURCES,
   GET_ORGANIZATION_ENTITY_SETS,
   GET_ORGANIZATION_INTEGRATION_ACCOUNT,
   GET_ORGANIZATION_MEMBERS,
@@ -26,6 +27,7 @@ import {
   GET_USERS_WITH_ROLE,
   GRANT_TRUST_TO_ORGANIZATION,
   PROMOTE_STAGING_TABLE,
+  REGISTER_ORGANIZATION_DATA_SOURCE,
   REMOVE_CONNECTIONS_FROM_ORGANIZATION,
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
@@ -33,6 +35,7 @@ import {
   RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
   TRANSPORT_ORGANIZATION_ENTITY_SET,
+  UPDATE_ORGANIZATION_DATA_SOURCE,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
   UPDATE_ROLE_DESCRIPTION,
@@ -49,6 +52,7 @@ import {
   destroyTransportedOrganizationEntitySet,
   getAllOrganizations,
   getOrganization,
+  getOrganizationDataSources,
   getOrganizationDatabaseName,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
@@ -58,6 +62,7 @@ import {
   getUsersWithRole,
   grantTrustToOrganization,
   promoteStagingTable,
+  registerOrganizationDataSource,
   removeConnectionsFromOrganization,
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
@@ -65,6 +70,7 @@ import {
   renameOrganizationDatabase,
   revokeTrustFromOrganization,
   transportOrganizationEntitySet,
+  updateOrganizationDataSource,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleDescription,
@@ -92,6 +98,8 @@ import {
   destroyTransportedOrganizationEntitySetWorker,
   getAllOrganizationsWatcher,
   getAllOrganizationsWorker,
+  getOrganizationDataSourcesWatcher,
+  getOrganizationDataSourcesWorker,
   getOrganizationDatabaseNameWatcher,
   getOrganizationDatabaseNameWorker,
   getOrganizationEntitySetsWatcher,
@@ -112,6 +120,8 @@ import {
   grantTrustToOrganizationWorker,
   promoteStagingTableWatcher,
   promoteStagingTableWorker,
+  registerOrganizationDataSourceWatcher,
+  registerOrganizationDataSourceWorker,
   removeConnectionsFromOrganizationWatcher,
   removeConnectionsFromOrganizationWorker,
   removeDomainsFromOrganizationWatcher,
@@ -126,6 +136,8 @@ import {
   revokeTrustFromOrganizationWorker,
   transportOrganizationEntitySetWatcher,
   transportOrganizationEntitySetWorker,
+  updateOrganizationDataSourceWatcher,
+  updateOrganizationDataSourceWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
@@ -654,6 +666,46 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
+   * OrganizationsApi.getOrganizationDataSources
+   * OrganizationsApiActions.getOrganizationDataSources
+   *
+   */
+
+  describe('getOrganizationDataSourcesWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationDataSourcesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationDataSourcesWatcher,
+      getOrganizationDataSourcesWorker,
+      GET_ORGANIZATION_DATA_SOURCES,
+    );
+  });
+
+  describe('getOrganizationDataSourcesWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getOrganizationDataSourcesWorker);
+    testShouldFailOnInvalidAction(getOrganizationDataSourcesWorker, GET_ORGANIZATION_DATA_SOURCES);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.getOrganizationDataSources,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationDataSources,
+      workerSagaAction: getOrganizationDataSources(mockActionValue),
+      workerSagaToTest: getOrganizationDataSourcesWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.getOrganizationDataSources,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationDataSources,
+      workerSagaAction: getOrganizationDataSources(mockActionValue),
+      workerSagaToTest: getOrganizationDataSourcesWorker,
+    });
+  });
+
+  /*
+   *
    * OrganizationsApi.getOrganizationEntitySets
    * OrganizationsApiActions.getOrganizationEntitySets
    *
@@ -986,6 +1038,49 @@ describe('OrganizationsApiSagas', () => {
 
   /*
    *
+   * OrganizationsApi.registerOrganizationDataSource
+   * OrganizationsApiActions.registerOrganizationDataSource
+   *
+   */
+
+  describe('registerOrganizationDataSourceWatcher', () => {
+    testShouldBeGeneratorFunction(registerOrganizationDataSourceWatcher);
+    testWatcherSagaShouldTakeEvery(
+      registerOrganizationDataSourceWatcher,
+      registerOrganizationDataSourceWorker,
+      REGISTER_ORGANIZATION_DATA_SOURCE,
+    );
+  });
+
+  describe('registerOrganizationDataSourceWorker', () => {
+
+    const mockActionValue = {
+      organizationId: uuid(),
+      dataSource: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(registerOrganizationDataSourceWorker);
+    testShouldFailOnInvalidAction(registerOrganizationDataSourceWorker, REGISTER_ORGANIZATION_DATA_SOURCE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.registerOrganizationDataSource,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSource],
+      latticeApiReqSeq: registerOrganizationDataSource,
+      workerSagaAction: registerOrganizationDataSource(mockActionValue),
+      workerSagaToTest: registerOrganizationDataSourceWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.registerOrganizationDataSource,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSource],
+      latticeApiReqSeq: registerOrganizationDataSource,
+      workerSagaAction: registerOrganizationDataSource(mockActionValue),
+      workerSagaToTest: registerOrganizationDataSourceWorker,
+    });
+  });
+
+  /*
+   *
    * OrganizationsApi.removeConnectionsFromOrganization
    * OrganizationsApiActions.removeConnectionsFromOrganization
    *
@@ -1283,6 +1378,50 @@ describe('OrganizationsApiSagas', () => {
       latticeApiReqSeq: transportOrganizationEntitySet,
       workerSagaAction: transportOrganizationEntitySet(mockActionValue),
       workerSagaToTest: transportOrganizationEntitySetWorker,
+    });
+  });
+
+  /*
+   *
+   * OrganizationsApi.updateOrganizationDataSource
+   * OrganizationsApiActions.updateOrganizationDataSource
+   *
+   */
+
+  describe('updateOrganizationDataSourceWatcher', () => {
+    testShouldBeGeneratorFunction(updateOrganizationDataSourceWatcher);
+    testWatcherSagaShouldTakeEvery(
+      updateOrganizationDataSourceWatcher,
+      updateOrganizationDataSourceWorker,
+      UPDATE_ORGANIZATION_DATA_SOURCE,
+    );
+  });
+
+  describe('updateOrganizationDataSourceWorker', () => {
+
+    const mockActionValue = {
+      organizationId: uuid(),
+      dataSourceId: uuid(),
+      dataSource: uuid(),
+    };
+
+    testShouldBeGeneratorFunction(updateOrganizationDataSourceWorker);
+    testShouldFailOnInvalidAction(updateOrganizationDataSourceWorker, UPDATE_ORGANIZATION_DATA_SOURCE);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: OrganizationsApi.updateOrganizationDataSource,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSourceId, mockActionValue.dataSource],
+      latticeApiReqSeq: updateOrganizationDataSource,
+      workerSagaAction: updateOrganizationDataSource(mockActionValue),
+      workerSagaToTest: updateOrganizationDataSourceWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: OrganizationsApi.updateOrganizationDataSource,
+      latticeApiParams: [mockActionValue.organizationId, mockActionValue.dataSourceId, mockActionValue.dataSource],
+      latticeApiReqSeq: updateOrganizationDataSource,
+      workerSagaAction: updateOrganizationDataSource(mockActionValue),
+      workerSagaToTest: updateOrganizationDataSourceWorker,
     });
   });
 

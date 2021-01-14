@@ -20,6 +20,7 @@ import {
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   GET_ORGANIZATION_DATABASE_NAME,
+  GET_ORGANIZATION_DATA_SOURCES,
   GET_ORGANIZATION_ENTITY_SETS,
   GET_ORGANIZATION_INTEGRATION_ACCOUNT,
   GET_ORGANIZATION_MEMBERS,
@@ -28,6 +29,7 @@ import {
   GET_USERS_WITH_ROLE,
   GRANT_TRUST_TO_ORGANIZATION,
   PROMOTE_STAGING_TABLE,
+  REGISTER_ORGANIZATION_DATA_SOURCE,
   REMOVE_CONNECTIONS_FROM_ORGANIZATION,
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
@@ -35,6 +37,7 @@ import {
   RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
   TRANSPORT_ORGANIZATION_ENTITY_SET,
+  UPDATE_ORGANIZATION_DATA_SOURCE,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
   UPDATE_ROLE_DESCRIPTION,
@@ -51,6 +54,7 @@ import {
   destroyTransportedOrganizationEntitySet,
   getAllOrganizations,
   getOrganization,
+  getOrganizationDataSources,
   getOrganizationDatabaseName,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
@@ -60,6 +64,7 @@ import {
   getUsersWithRole,
   grantTrustToOrganization,
   promoteStagingTable,
+  registerOrganizationDataSource,
   removeConnectionsFromOrganization,
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
@@ -67,6 +72,7 @@ import {
   renameOrganizationDatabase,
   revokeTrustFromOrganization,
   transportOrganizationEntitySet,
+  updateOrganizationDataSource,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleDescription,
@@ -542,6 +548,44 @@ function* getOrganizationDatabaseNameWatcher() :Saga<*> {
 
 /*
  *
+ * OrganizationsApi.getOrganizationDataSources
+ * OrganizationsApiActions.getOrganizationDataSources
+ *
+ */
+
+function* getOrganizationDataSourcesWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ORGANIZATION_DATA_SOURCES)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getOrganizationDataSources.request(id, value));
+    const response = yield call(OrganizationsApi.getOrganizationDataSources, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationDataSources.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getOrganizationDataSources.failure(id, error));
+  }
+  finally {
+    yield put(getOrganizationDataSources.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getOrganizationDataSourcesWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ORGANIZATION_DATA_SOURCES, getOrganizationDataSourcesWorker);
+}
+
+/*
+ *
  * OrganizationsApi.getOrganizationEntitySets
  * OrganizationsApiActions.getOrganizationEntitySets
  *
@@ -849,6 +893,45 @@ function* promoteStagingTableWatcher() :Saga<void> {
 
 /*
  *
+ * OrganizationsApi.registerOrganizationDataSource
+ * OrganizationsApiActions.registerOrganizationDataSource
+ *
+ */
+
+function* registerOrganizationDataSourceWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, REGISTER_ORGANIZATION_DATA_SOURCE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(registerOrganizationDataSource.request(id, value));
+    const { organizationId, dataSource } = value;
+    const response = yield call(OrganizationsApi.registerOrganizationDataSource, organizationId, dataSource);
+    workerResponse = { data: response };
+    yield put(registerOrganizationDataSource.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(registerOrganizationDataSource.failure(id, error));
+  }
+  finally {
+    yield put(registerOrganizationDataSource.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* registerOrganizationDataSourceWatcher() :Saga<*> {
+
+  yield takeEvery(REGISTER_ORGANIZATION_DATA_SOURCE, registerOrganizationDataSourceWorker);
+}
+
+/*
+ *
  * OrganizationsApi.removeConnectionsFromOrganization
  * OrganizationsApiActions.removeConnectionsFromOrganization
  *
@@ -1122,6 +1205,50 @@ function* transportOrganizationEntitySetWatcher() :Saga<*> {
 
 /*
  *
+ * OrganizationsApi.updateOrganizationDataSource
+ * OrganizationsApiActions.updateOrganizationDataSource
+ *
+ */
+
+function* updateOrganizationDataSourceWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, UPDATE_ORGANIZATION_DATA_SOURCE)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(updateOrganizationDataSource.request(id, value));
+    const { organizationId, dataSourceId, dataSource } = value;
+    const response = yield call(
+      OrganizationsApi.updateOrganizationDataSource,
+      organizationId,
+      dataSourceId,
+      dataSource,
+    );
+    workerResponse = { data: response };
+    yield put(updateOrganizationDataSource.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(updateOrganizationDataSource.failure(id, error));
+  }
+  finally {
+    yield put(updateOrganizationDataSource.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* updateOrganizationDataSourceWatcher() :Saga<*> {
+
+  yield takeEvery(UPDATE_ORGANIZATION_DATA_SOURCE, updateOrganizationDataSourceWorker);
+}
+
+/*
+ *
  * OrganizationsApi.updateOrganizationDescription
  * OrganizationsApiActions.updateOrganizationDescription
  *
@@ -1338,6 +1465,8 @@ export {
   getAllOrganizationsWorker,
   getOrganizationDatabaseNameWatcher,
   getOrganizationDatabaseNameWorker,
+  getOrganizationDataSourcesWatcher,
+  getOrganizationDataSourcesWorker,
   getOrganizationEntitySetsWatcher,
   getOrganizationEntitySetsWorker,
   getOrganizationIntegrationAccountWatcher,
@@ -1356,6 +1485,8 @@ export {
   grantTrustToOrganizationWorker,
   promoteStagingTableWatcher,
   promoteStagingTableWorker,
+  registerOrganizationDataSourceWatcher,
+  registerOrganizationDataSourceWorker,
   removeConnectionsFromOrganizationWatcher,
   removeConnectionsFromOrganizationWorker,
   removeDomainsFromOrganizationWatcher,
@@ -1370,6 +1501,8 @@ export {
   revokeTrustFromOrganizationWorker,
   transportOrganizationEntitySetWatcher,
   transportOrganizationEntitySetWorker,
+  updateOrganizationDataSourceWatcher,
+  updateOrganizationDataSourceWorker,
   updateOrganizationDescriptionWatcher,
   updateOrganizationDescriptionWorker,
   updateOrganizationTitleWatcher,
