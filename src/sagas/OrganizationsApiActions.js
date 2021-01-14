@@ -43,6 +43,9 @@ const getOrganization :RequestSequence = newRequestSequence(GET_ORGANIZATION);
 const GET_ORGANIZATION_DATABASE_NAME :'GET_ORGANIZATION_DATABASE_NAME' = 'GET_ORGANIZATION_DATABASE_NAME';
 const getOrganizationDatabaseName :RequestSequence = newRequestSequence(GET_ORGANIZATION_DATABASE_NAME);
 
+const GET_ORGANIZATION_DATA_SOURCES :'GET_ORGANIZATION_DATA_SOURCES' = 'GET_ORGANIZATION_DATA_SOURCES';
+const getOrganizationDataSources :RequestSequence = newRequestSequence(GET_ORGANIZATION_DATA_SOURCES);
+
 const GET_ORGANIZATION_ENTITY_SETS :'GET_ORGANIZATION_ENTITY_SETS' = 'GET_ORGANIZATION_ENTITY_SETS';
 const getOrganizationEntitySets :RequestSequence = newRequestSequence(GET_ORGANIZATION_ENTITY_SETS);
 
@@ -67,6 +70,9 @@ const grantTrustToOrganization :RequestSequence = newRequestSequence(GRANT_TRUST
 const PROMOTE_STAGING_TABLE :'PROMOTE_STAGING_TABLE' = 'PROMOTE_STAGING_TABLE';
 const promoteStagingTable :RequestSequence = newRequestSequence(PROMOTE_STAGING_TABLE);
 
+const REGISTER_ORGANIZATION_DATA_SOURCE :'REGISTER_ORGANIZATION_DATA_SOURCE' = 'REGISTER_ORGANIZATION_DATA_SOURCE';
+const registerOrganizationDataSource :RequestSequence = newRequestSequence(REGISTER_ORGANIZATION_DATA_SOURCE);
+
 const REMOVE_CONNECTIONS_FROM_ORGANIZATION :'REMOVE_CONNECTIONS_FROM_ORGANIZATION' = 'REMOVE_CONNECTIONS_FROM_ORGANIZATION';
 const removeConnectionsFromOrganization :RequestSequence = newRequestSequence(REMOVE_CONNECTIONS_FROM_ORGANIZATION);
 
@@ -87,6 +93,9 @@ const revokeTrustFromOrganization :RequestSequence = newRequestSequence(REVOKE_T
 
 const TRANSPORT_ORGANIZATION_ENTITY_SET :'TRANSPORT_ORGANIZATION_ENTITY_SET' = 'TRANSPORT_ORGANIZATION_ENTITY_SET';
 const transportOrganizationEntitySet :RequestSequence = newRequestSequence(TRANSPORT_ORGANIZATION_ENTITY_SET);
+
+const UPDATE_ORGANIZATION_DATA_SOURCE :'UPDATE_ORGANIZATION_DATA_SOURCE' = 'UPDATE_ORGANIZATION_DATA_SOURCE';
+const updateOrganizationDataSource :RequestSequence = newRequestSequence(UPDATE_ORGANIZATION_DATA_SOURCE);
 
 const UPDATE_ORGANIZATION_DESCRIPTION :'UPDATE_ORGANIZATION_DESCRIPTION' = 'UPDATE_ORGANIZATION_DESCRIPTION';
 const updateOrganizationDescription :RequestSequence = newRequestSequence(UPDATE_ORGANIZATION_DESCRIPTION);
@@ -116,6 +125,7 @@ export {
   GET_ALL_ORGANIZATIONS,
   GET_ORGANIZATION,
   GET_ORGANIZATION_DATABASE_NAME,
+  GET_ORGANIZATION_DATA_SOURCES,
   GET_ORGANIZATION_ENTITY_SETS,
   GET_ORGANIZATION_INTEGRATION_ACCOUNT,
   GET_ORGANIZATION_MEMBERS,
@@ -124,6 +134,7 @@ export {
   GET_USERS_WITH_ROLE,
   GRANT_TRUST_TO_ORGANIZATION,
   PROMOTE_STAGING_TABLE,
+  REGISTER_ORGANIZATION_DATA_SOURCE,
   REMOVE_CONNECTIONS_FROM_ORGANIZATION,
   REMOVE_DOMAINS_FROM_ORGANIZATION,
   REMOVE_MEMBER_FROM_ORGANIZATION,
@@ -131,6 +142,7 @@ export {
   RENAME_ORGANIZATION_DATABASE,
   REVOKE_TRUST_FROM_ORGANIZATION,
   TRANSPORT_ORGANIZATION_ENTITY_SET,
+  UPDATE_ORGANIZATION_DATA_SOURCE,
   UPDATE_ORGANIZATION_DESCRIPTION,
   UPDATE_ORGANIZATION_TITLE,
   UPDATE_ROLE_DESCRIPTION,
@@ -148,6 +160,7 @@ export {
   getAllOrganizations,
   getOrganization,
   getOrganizationDatabaseName,
+  getOrganizationDataSources,
   getOrganizationEntitySets,
   getOrganizationIntegrationAccount,
   getOrganizationMembers,
@@ -156,6 +169,7 @@ export {
   getUsersWithRole,
   grantTrustToOrganization,
   promoteStagingTable,
+  registerOrganizationDataSource,
   removeConnectionsFromOrganization,
   removeDomainsFromOrganization,
   removeMemberFromOrganization,
@@ -163,6 +177,7 @@ export {
   renameOrganizationDatabase,
   revokeTrustFromOrganization,
   transportOrganizationEntitySet,
+  updateOrganizationDataSource,
   updateOrganizationDescription,
   updateOrganizationTitle,
   updateRoleDescription,
