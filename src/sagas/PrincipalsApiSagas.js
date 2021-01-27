@@ -15,6 +15,7 @@ import {
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
   GET_USERS,
+  REGENERATE_CREDENTIAL,
   SEARCH_ALL_USERS,
   SYNC_USER,
   getAllRoles,
@@ -24,6 +25,7 @@ import {
   getSecurablePrincipal,
   getUser,
   getUsers,
+  regenerateCredential,
   searchAllUsers,
   syncUser,
 } from './PrincipalsApiActions';
@@ -123,7 +125,6 @@ function* getAtlasCredentialsWorker(action :SequenceAction) :Saga<WorkerResponse
 
   let workerResponse :WorkerResponse;
   const { id } = action;
-
   try {
     yield put(getAtlasCredentials.request(id));
     const response = yield call(PrincipalsApi.getAtlasCredentials);
@@ -299,6 +300,44 @@ function* getUsersWatcher() :Saga<*> {
 }
 
 /*
+*
+* PrincipalsApi.regenerateCredential
+* PrincipalsApiActions.regenerateCredential
+*
+*/
+
+function* regenerateCredentialWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, REGENERATE_CREDENTIAL)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id } = action;
+
+  try {
+    yield put(regenerateCredential.request(id));
+    const response = yield call(PrincipalsApi.regenerateCredential);
+    workerResponse = { data: response };
+    yield put(regenerateCredential.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(regenerateCredential.failure(id, error));
+  }
+  finally {
+    yield put(regenerateCredential.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* regenerateCredentialWatcher() :Saga<*> {
+
+  yield takeEvery(REGENERATE_CREDENTIAL, regenerateCredentialWorker);
+}
+
+/*
  *
  * PrincipalsApi.searchAllUsers
  * PrincipalsApiActions.searchAllUsers
@@ -389,6 +428,8 @@ export {
   getUserWorker,
   getUsersWatcher,
   getUsersWorker,
+  regenerateCredentialWatcher,
+  regenerateCredentialWorker,
   searchAllUsersWatcher,
   searchAllUsersWorker,
   syncUserWatcher,

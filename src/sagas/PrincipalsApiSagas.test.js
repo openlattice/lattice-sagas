@@ -13,6 +13,7 @@ import {
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
   GET_USERS,
+  REGENERATE_CREDENTIAL,
   SEARCH_ALL_USERS,
   SYNC_USER,
   getAllRoles,
@@ -22,6 +23,7 @@ import {
   getSecurablePrincipal,
   getUser,
   getUsers,
+  regenerateCredential,
   searchAllUsers,
   syncUser,
 } from './PrincipalsApiActions';
@@ -40,6 +42,8 @@ import {
   getUserWorker,
   getUsersWatcher,
   getUsersWorker,
+  regenerateCredentialWatcher,
+  regenerateCredentialWorker,
   searchAllUsersWatcher,
   searchAllUsersWorker,
   syncUserWatcher,
@@ -325,6 +329,44 @@ describe('PrincipalsApiSagas', () => {
       latticeApiReqSeq: getUsers,
       workerSagaAction: getUsers(mockActionValue),
       workerSagaToTest: getUsersWorker,
+    });
+  });
+
+  /*
+   *
+   * PrincipalsApi.regenerateCredential
+   * PrincipalsApiActions.regenerateCredential
+   *
+   */
+
+  describe('regenerateCredentialWatcher', () => {
+    testShouldBeGeneratorFunction(regenerateCredentialWatcher);
+    testWatcherSagaShouldTakeEvery(
+      regenerateCredentialWatcher,
+      regenerateCredentialWorker,
+      REGENERATE_CREDENTIAL,
+    );
+  });
+
+  describe('regenerateCredentialWorker', () => {
+
+    testShouldBeGeneratorFunction(regenerateCredentialWorker);
+    testShouldFailOnInvalidAction(regenerateCredentialWorker, REGENERATE_CREDENTIAL);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: PrincipalsApi.regenerateCredential,
+      latticeApiParams: [],
+      latticeApiReqSeq: regenerateCredential,
+      workerSagaAction: regenerateCredential(),
+      workerSagaToTest: regenerateCredentialWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: PrincipalsApi.regenerateCredential,
+      latticeApiParams: [],
+      latticeApiReqSeq: regenerateCredential,
+      workerSagaAction: regenerateCredential(),
+      workerSagaToTest: regenerateCredentialWorker,
     });
   });
 

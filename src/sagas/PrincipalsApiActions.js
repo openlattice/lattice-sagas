@@ -26,6 +26,9 @@ const getUser :RequestSequence = newRequestSequence(GET_USER);
 const GET_USERS :'GET_USERS' = 'GET_USERS';
 const getUsers :RequestSequence = newRequestSequence(GET_USERS);
 
+const REGENERATE_CREDENTIAL :'REGENERATE_CREDENTIAL' = 'REGENERATE_CREDENTIAL';
+const regenerateCredential :RequestSequence = newRequestSequence(REGENERATE_CREDENTIAL);
+
 const SEARCH_ALL_USERS :'SEARCH_ALL_USERS' = 'SEARCH_ALL_USERS';
 const searchAllUsers :RequestSequence = newRequestSequence(SEARCH_ALL_USERS);
 
@@ -40,6 +43,7 @@ export {
   GET_SECURABLE_PRINCIPAL,
   GET_USER,
   GET_USERS,
+  REGENERATE_CREDENTIAL,
   SEARCH_ALL_USERS,
   SYNC_USER,
   getAllRoles,
@@ -49,6 +53,7 @@ export {
   getSecurablePrincipal,
   getUser,
   getUsers,
+  regenerateCredential,
   searchAllUsers,
   syncUser,
 };
