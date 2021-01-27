@@ -16,6 +16,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_SECURABLE_PRINCIPAL',
   'GET_USER',
   'GET_USERS',
+  'REGENERATE_CREDENTIAL',
   'SEARCH_ALL_USERS',
   'SYNC_USER',
 ]).toJS();
@@ -28,6 +29,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getSecurablePrincipal',
   'getUser',
   'getUsers',
+  'regenerateCredential',
   'searchAllUsers',
   'syncUser',
 ]).toJS();
