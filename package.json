@@ -47,9 +47,9 @@
     "immutable": "4.0.0-rc.10",
     "import-sort-style-openlattice": "~0.1.0",
     "jest": "~26.6.3",
-    "lattice": "~0.89.2",
+    "lattice": "~0.90.0",
     "npm-run-all": "~4.1.0",
-    "redux-reqseq": "~0.5.0",
+    "redux-reqseq": "~0.6.0",
     "rimraf": "~3.0.0",
     "uuid": "~8.3.0",
     "webpack": "~5.26.2",
@@ -60,8 +60,8 @@
   "peerDependencies": {
     "@babel/runtime-corejs3": "~7.13.10",
     "@redux-saga/core": "~1.1.0",
-    "lattice": "~0.89.2",
-    "redux-reqseq": "~0.5.0"
+    "lattice": "~0.90.0",
+    "redux-reqseq": "~0.6.0"
   },
   "scripts": {
     "build:dev": "webpack --config config/webpack/webpack.config.js --env development",
