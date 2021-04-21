@@ -18,6 +18,7 @@ import {
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
   GET_LINKED_ENTITY_SET_BREAKDOWN,
+  LOAD_BINARY_PROPERTIES,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -29,6 +30,7 @@ import {
   getEntitySetData,
   getEntitySetSize,
   getLinkedEntitySetBreakdown,
+  loadBinaryProperties,
   updateEntityData,
 } from './DataApiActions';
 
@@ -425,6 +427,44 @@ function* getLinkedEntitySetBreakdownWatcher() :Saga<*> {
 
 /*
  *
+ * DataApi.loadBinaryProperties
+ * DataApiActions.loadBinaryProperties
+ *
+ */
+
+function* loadBinaryPropertiesWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_LINKED_ENTITY_SET_BREAKDOWN)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(loadBinaryProperties.request(id, value));
+    const response = yield call(DataApi.loadBinaryProperties, value);
+    workerResponse = { data: response };
+    yield put(loadBinaryProperties.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(loadBinaryProperties.failure(id, error));
+  }
+  finally {
+    yield put(loadBinaryProperties.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* loadBinaryPropertiesWatcher() :Saga<*> {
+
+  yield takeEvery(LOAD_BINARY_PROPERTIES, loadBinaryPropertiesWorker);
+}
+
+/*
+ *
  * DataApi.updateEntityData
  * DataApiActions.updateEntityData
  *
@@ -483,6 +523,8 @@ export {
   getEntitySetSizeWorker,
   getLinkedEntitySetBreakdownWatcher,
   getLinkedEntitySetBreakdownWorker,
+  loadBinaryPropertiesWatcher,
+  loadBinaryPropertiesWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 };
