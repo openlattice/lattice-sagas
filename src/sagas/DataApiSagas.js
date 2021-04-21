@@ -434,7 +434,7 @@ function* getLinkedEntitySetBreakdownWatcher() :Saga<*> {
 
 function* getBinaryPropertiesWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(action, GET_LINKED_ENTITY_SET_BREAKDOWN)) {
+  if (!isValidAction(action, GET_BINARY_PROPERTIES)) {
     return { error: new Error(ERR_INVALID_ACTION) };
   }
 
