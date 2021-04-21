@@ -15,11 +15,11 @@ const ACTION_TYPES = OrderedSet([
   'DELETE_ENTITY_AND_NEIGHBOR_DATA',
   'DELETE_ENTITY_DATA',
   'DELETE_ENTITY_SET_DATA',
+  'GET_BINARY_PROPERTIES',
   'GET_ENTITY_DATA',
   'GET_ENTITY_SET_DATA',
   'GET_ENTITY_SET_SIZE',
   'GET_LINKED_ENTITY_SET_BREAKDOWN',
-  'GET_BINARY_PROPERTIES',
   'UPDATE_ENTITY_DATA',
 ]).toJS();
 
@@ -30,11 +30,11 @@ const REQSEQ_NAMES = OrderedSet([
   'deleteEntityAndNeighborData',
   'deleteEntityData',
   'deleteEntitySetData',
+  'getBinaryProperties',
   'getEntityData',
   'getEntitySetData',
   'getEntitySetSize',
   'getLinkedEntitySetBreakdown',
-  'getBinaryProperties',
   'updateEntityData',
 ]).toJS();
 
