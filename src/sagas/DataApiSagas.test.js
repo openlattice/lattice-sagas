@@ -12,11 +12,11 @@ import {
   DELETE_ENTITY_AND_NEIGHBOR_DATA,
   DELETE_ENTITY_DATA,
   DELETE_ENTITY_SET_DATA,
+  GET_BINARY_PROPERTIES,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
   GET_LINKED_ENTITY_SET_BREAKDOWN,
-  LOAD_BINARY_PROPERTIES,
   UPDATE_ENTITY_DATA,
   createAssociations,
   createEntityAndAssociationData,
@@ -24,11 +24,11 @@ import {
   deleteEntityAndNeighborData,
   deleteEntityData,
   deleteEntitySetData,
+  getBinaryProperties,
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
   getLinkedEntitySetBreakdown,
-  loadBinaryProperties,
   updateEntityData,
 } from './DataApiActions';
 import {
@@ -44,6 +44,8 @@ import {
   deleteEntityDataWorker,
   deleteEntitySetDataWatcher,
   deleteEntitySetDataWorker,
+  getBinaryPropertiesWatcher,
+  getBinaryPropertiesWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
@@ -52,8 +54,6 @@ import {
   getEntitySetSizeWorker,
   getLinkedEntitySetBreakdownWatcher,
   getLinkedEntitySetBreakdownWorker,
-  loadBinaryPropertiesWatcher,
-  loadBinaryPropertiesWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 } from './DataApiSagas';
@@ -497,21 +497,21 @@ describe('DataApiSagas', () => {
 
   /*
    *
-   * DataApi.loadBinaryProperties
-   * DataApiActions.loadBinaryProperties
+   * DataApi.getBinaryProperties
+   * DataApiActions.getBinaryProperties
    *
    */
 
-  describe('loadBinaryPropertiesWatcher', () => {
-    testShouldBeGeneratorFunction(loadBinaryPropertiesWatcher);
+  describe('getBinaryPropertiesWatcher', () => {
+    testShouldBeGeneratorFunction(getBinaryPropertiesWatcher);
     testWatcherSagaShouldTakeEvery(
-      loadBinaryPropertiesWatcher,
-      loadBinaryPropertiesWorker,
-      LOAD_BINARY_PROPERTIES,
+      getBinaryPropertiesWatcher,
+      getBinaryPropertiesWorker,
+      GET_BINARY_PROPERTIES,
     );
   });
 
-  describe('loadBinaryPropertiesWorker', () => {
+  describe('getBinaryPropertiesWorker', () => {
 
     const mockActionValue = {
       value: {
@@ -525,23 +525,23 @@ describe('DataApiSagas', () => {
       }
     };
 
-    testShouldBeGeneratorFunction(loadBinaryPropertiesWorker);
-    testShouldFailOnInvalidAction(loadBinaryPropertiesWorker, LOAD_BINARY_PROPERTIES);
+    testShouldBeGeneratorFunction(getBinaryPropertiesWorker);
+    testShouldFailOnInvalidAction(getBinaryPropertiesWorker, GET_BINARY_PROPERTIES);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: DataApi.loadBinaryProperties,
+      latticeApi: DataApi.getBinaryProperties,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: loadBinaryProperties,
-      workerSagaAction: loadBinaryProperties(mockActionValue),
-      workerSagaToTest: loadBinaryPropertiesWorker,
+      latticeApiReqSeq: getBinaryProperties,
+      workerSagaAction: getBinaryProperties(mockActionValue),
+      workerSagaToTest: getBinaryPropertiesWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: DataApi.loadBinaryProperties,
+      latticeApi: DataApi.getBinaryProperties,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: loadBinaryProperties,
-      workerSagaAction: loadBinaryProperties(mockActionValue),
-      workerSagaToTest: loadBinaryPropertiesWorker,
+      latticeApiReqSeq: getBinaryProperties,
+      workerSagaAction: getBinaryProperties(mockActionValue),
+      workerSagaToTest: getBinaryPropertiesWorker,
     });
   });
 

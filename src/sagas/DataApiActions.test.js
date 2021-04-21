@@ -19,7 +19,7 @@ const ACTION_TYPES = OrderedSet([
   'GET_ENTITY_SET_DATA',
   'GET_ENTITY_SET_SIZE',
   'GET_LINKED_ENTITY_SET_BREAKDOWN',
-  'LOAD_BINARY_PROPERTIES',
+  'GET_BINARY_PROPERTIES',
   'UPDATE_ENTITY_DATA',
 ]).toJS();
 
@@ -34,7 +34,7 @@ const REQSEQ_NAMES = OrderedSet([
   'getEntitySetData',
   'getEntitySetSize',
   'getLinkedEntitySetBreakdown',
-  'loadBinaryProperties',
+  'getBinaryProperties',
   'updateEntityData',
 ]).toJS();
 
