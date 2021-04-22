@@ -12,6 +12,7 @@ import {
   DELETE_ENTITY_AND_NEIGHBOR_DATA,
   DELETE_ENTITY_DATA,
   DELETE_ENTITY_SET_DATA,
+  GET_BINARY_PROPERTIES,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
@@ -23,6 +24,7 @@ import {
   deleteEntityAndNeighborData,
   deleteEntityData,
   deleteEntitySetData,
+  getBinaryProperties,
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
@@ -42,6 +44,8 @@ import {
   deleteEntityDataWorker,
   deleteEntitySetDataWatcher,
   deleteEntitySetDataWorker,
+  getBinaryPropertiesWatcher,
+  getBinaryPropertiesWorker,
   getEntityDataWatcher,
   getEntityDataWorker,
   getEntitySetDataWatcher,
@@ -488,6 +492,56 @@ describe('DataApiSagas', () => {
       latticeApiReqSeq: getLinkedEntitySetBreakdown,
       workerSagaAction: getLinkedEntitySetBreakdown(mockActionValue),
       workerSagaToTest: getLinkedEntitySetBreakdownWorker,
+    });
+  });
+
+  /*
+   *
+   * DataApi.getBinaryProperties
+   * DataApiActions.getBinaryProperties
+   *
+   */
+
+  describe('getBinaryPropertiesWatcher', () => {
+    testShouldBeGeneratorFunction(getBinaryPropertiesWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getBinaryPropertiesWatcher,
+      getBinaryPropertiesWorker,
+      GET_BINARY_PROPERTIES,
+    );
+  });
+
+  describe('getBinaryPropertiesWorker', () => {
+
+    const mockActionValue = {
+      value: {
+        [uuid()]: {
+          [uuid()]: {
+            [uuid()]: {
+              '1234567890123456789012': 'attachment; filename="test.pdf"'
+            }
+          }
+        }
+      }
+    };
+
+    testShouldBeGeneratorFunction(getBinaryPropertiesWorker);
+    testShouldFailOnInvalidAction(getBinaryPropertiesWorker, GET_BINARY_PROPERTIES);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataApi.getBinaryProperties,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getBinaryProperties,
+      workerSagaAction: getBinaryProperties(mockActionValue),
+      workerSagaToTest: getBinaryPropertiesWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataApi.getBinaryProperties,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getBinaryProperties,
+      workerSagaAction: getBinaryProperties(mockActionValue),
+      workerSagaToTest: getBinaryPropertiesWorker,
     });
   });
 
