@@ -14,6 +14,7 @@ import {
   DELETE_ENTITY_AND_NEIGHBOR_DATA,
   DELETE_ENTITY_DATA,
   DELETE_ENTITY_SET_DATA,
+  GET_BINARY_PROPERTIES,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
@@ -25,6 +26,7 @@ import {
   deleteEntityAndNeighborData,
   deleteEntityData,
   deleteEntitySetData,
+  getBinaryProperties,
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
@@ -208,8 +210,13 @@ function* deleteEntityDataWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
   try {
     yield put(deleteEntityData.request(id, value));
-    const { deleteType, entityKeyIds, entitySetId } = value;
-    const response = yield call(DataApi.deleteEntityData, entitySetId, entityKeyIds, deleteType);
+    const {
+      deleteType,
+      entityKeyIds,
+      entitySetId,
+      block,
+    } = value;
+    const response = yield call(DataApi.deleteEntityData, entitySetId, entityKeyIds, deleteType, block);
     workerResponse = { data: response };
     yield put(deleteEntityData.success(id, response));
   }
@@ -425,6 +432,44 @@ function* getLinkedEntitySetBreakdownWatcher() :Saga<*> {
 
 /*
  *
+ * DataApi.getBinaryProperties
+ * DataApiActions.getBinaryProperties
+ *
+ */
+
+function* getBinaryPropertiesWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_BINARY_PROPERTIES)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getBinaryProperties.request(id, value));
+    const response = yield call(DataApi.getBinaryProperties, value);
+    workerResponse = { data: response };
+    yield put(getBinaryProperties.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getBinaryProperties.failure(id, error));
+  }
+  finally {
+    yield put(getBinaryProperties.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getBinaryPropertiesWatcher() :Saga<*> {
+
+  yield takeEvery(GET_BINARY_PROPERTIES, getBinaryPropertiesWorker);
+}
+
+/*
+ *
  * DataApi.updateEntityData
  * DataApiActions.updateEntityData
  *
@@ -483,6 +528,8 @@ export {
   getEntitySetSizeWorker,
   getLinkedEntitySetBreakdownWatcher,
   getLinkedEntitySetBreakdownWorker,
+  getBinaryPropertiesWatcher,
+  getBinaryPropertiesWorker,
   updateEntityDataWatcher,
   updateEntityDataWorker,
 };

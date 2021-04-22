@@ -35,6 +35,9 @@ const getEntitySetSize :RequestSequence = newRequestSequence(GET_ENTITY_SET_SIZE
 const GET_LINKED_ENTITY_SET_BREAKDOWN :'GET_LINKED_ENTITY_SET_BREAKDOWN' = 'GET_LINKED_ENTITY_SET_BREAKDOWN';
 const getLinkedEntitySetBreakdown :RequestSequence = newRequestSequence(GET_LINKED_ENTITY_SET_BREAKDOWN);
 
+const GET_BINARY_PROPERTIES :'GET_BINARY_PROPERTIES' = 'GET_BINARY_PROPERTIES';
+const getBinaryProperties :RequestSequence = newRequestSequence(GET_BINARY_PROPERTIES);
+
 const UPDATE_ENTITY_DATA :'UPDATE_ENTITY_DATA' = 'UPDATE_ENTITY_DATA';
 const updateEntityData :RequestSequence = newRequestSequence(UPDATE_ENTITY_DATA);
 
@@ -45,6 +48,7 @@ export {
   DELETE_ENTITY_AND_NEIGHBOR_DATA,
   DELETE_ENTITY_DATA,
   DELETE_ENTITY_SET_DATA,
+  GET_BINARY_PROPERTIES,
   GET_ENTITY_DATA,
   GET_ENTITY_SET_DATA,
   GET_ENTITY_SET_SIZE,
@@ -56,6 +60,7 @@ export {
   deleteEntityAndNeighborData,
   deleteEntityData,
   deleteEntitySetData,
+  getBinaryProperties,
   getEntityData,
   getEntitySetData,
   getEntitySetSize,
