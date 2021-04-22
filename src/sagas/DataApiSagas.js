@@ -210,8 +210,13 @@ function* deleteEntityDataWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
   try {
     yield put(deleteEntityData.request(id, value));
-    const { deleteType, entityKeyIds, entitySetId } = value;
-    const response = yield call(DataApi.deleteEntityData, entitySetId, entityKeyIds, deleteType);
+    const {
+      deleteType,
+      entityKeyIds,
+      entitySetId,
+      block,
+    } = value;
+    const response = yield call(DataApi.deleteEntityData, entitySetId, entityKeyIds, deleteType, block);
     workerResponse = { data: response };
     yield put(deleteEntityData.success(id, response));
   }

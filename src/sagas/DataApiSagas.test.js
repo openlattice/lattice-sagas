@@ -259,6 +259,7 @@ describe('DataApiSagas', () => {
       deleteType: DeleteTypes.HARD,
       entityKeyIds: [uuid(), uuid(), uuid()],
       entitySetId: uuid(),
+      block: true,
     };
 
     testShouldBeGeneratorFunction(deleteEntityDataWorker);
@@ -266,7 +267,12 @@ describe('DataApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataApi.deleteEntityData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyIds, mockActionValue.deleteType],
+      latticeApiParams: [
+        mockActionValue.entitySetId,
+        mockActionValue.entityKeyIds,
+        mockActionValue.deleteType,
+        mockActionValue.block
+      ],
       latticeApiReqSeq: deleteEntityData,
       workerSagaAction: deleteEntityData(mockActionValue),
       workerSagaToTest: deleteEntityDataWorker,
@@ -274,7 +280,12 @@ describe('DataApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataApi.deleteEntityData,
-      latticeApiParams: [mockActionValue.entitySetId, mockActionValue.entityKeyIds, mockActionValue.deleteType],
+      latticeApiParams: [
+        mockActionValue.entitySetId,
+        mockActionValue.entityKeyIds,
+        mockActionValue.deleteType,
+        mockActionValue.block
+      ],
       latticeApiReqSeq: deleteEntityData,
       workerSagaAction: deleteEntityData(mockActionValue),
       workerSagaToTest: deleteEntityDataWorker,
