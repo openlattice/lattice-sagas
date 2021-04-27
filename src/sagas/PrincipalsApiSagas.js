@@ -16,7 +16,7 @@ import {
   GET_USER,
   GET_USERS,
   REGENERATE_CREDENTIAL,
-  SEARCH_ALL_USERS,
+  SEARCH_USERS,
   SYNC_USER,
   getAllRoles,
   getAllUsers,
@@ -26,7 +26,7 @@ import {
   getUser,
   getUsers,
   regenerateCredential,
-  searchAllUsers,
+  searchUsers,
   syncUser,
 } from './PrincipalsApiActions';
 
@@ -339,14 +339,14 @@ function* regenerateCredentialWatcher() :Saga<*> {
 
 /*
  *
- * PrincipalsApi.searchAllUsers
- * PrincipalsApiActions.searchAllUsers
+ * PrincipalsApi.searchUsers
+ * PrincipalsApiActions.searchUsers
  *
  */
 
-function* searchAllUsersWorker(action :SequenceAction) :Saga<WorkerResponse> {
+function* searchUsersWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(action, SEARCH_ALL_USERS)) {
+  if (!isValidAction(action, SEARCH_USERS)) {
     return { error: new Error(ERR_INVALID_ACTION) };
   }
 
@@ -354,25 +354,25 @@ function* searchAllUsersWorker(action :SequenceAction) :Saga<WorkerResponse> {
   const { id, value } = action;
 
   try {
-    yield put(searchAllUsers.request(id, value));
-    const response = yield call(PrincipalsApi.searchAllUsers, value);
+    yield put(searchUsers.request(id, value));
+    const response = yield call(PrincipalsApi.searchUsers, value);
     workerResponse = { data: response };
-    yield put(searchAllUsers.success(id, response));
+    yield put(searchUsers.success(id, response));
   }
   catch (error) {
     workerResponse = { error };
-    yield put(searchAllUsers.failure(id, error));
+    yield put(searchUsers.failure(id, error));
   }
   finally {
-    yield put(searchAllUsers.finally(id));
+    yield put(searchUsers.finally(id));
   }
 
   return workerResponse;
 }
 
-function* searchAllUsersWatcher() :Saga<*> {
+function* searchUsersWatcher() :Saga<*> {
 
-  yield takeEvery(SEARCH_ALL_USERS, searchAllUsersWorker);
+  yield takeEvery(SEARCH_USERS, searchUsersWorker);
 }
 
 /*
@@ -430,8 +430,8 @@ export {
   getUsersWorker,
   regenerateCredentialWatcher,
   regenerateCredentialWorker,
-  searchAllUsersWatcher,
-  searchAllUsersWorker,
+  searchUsersWatcher,
+  searchUsersWorker,
   syncUserWatcher,
   syncUserWorker,
 };

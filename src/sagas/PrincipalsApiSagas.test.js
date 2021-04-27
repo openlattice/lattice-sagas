@@ -14,7 +14,7 @@ import {
   GET_USER,
   GET_USERS,
   REGENERATE_CREDENTIAL,
-  SEARCH_ALL_USERS,
+  SEARCH_USERS,
   SYNC_USER,
   getAllRoles,
   getAllUsers,
@@ -24,7 +24,7 @@ import {
   getUser,
   getUsers,
   regenerateCredential,
-  searchAllUsers,
+  searchUsers,
   syncUser,
 } from './PrincipalsApiActions';
 import {
@@ -44,8 +44,8 @@ import {
   getUsersWorker,
   regenerateCredentialWatcher,
   regenerateCredentialWorker,
-  searchAllUsersWatcher,
-  searchAllUsersWorker,
+  searchUsersWatcher,
+  searchUsersWorker,
   syncUserWatcher,
   syncUserWorker,
 } from './PrincipalsApiSagas';
@@ -372,41 +372,41 @@ describe('PrincipalsApiSagas', () => {
 
   /*
    *
-   * PrincipalsApi.searchAllUsers
-   * PrincipalsApiActions.searchAllUsers
+   * PrincipalsApi.searchUsers
+   * PrincipalsApiActions.searchUsers
    *
    */
 
-  describe('searchAllUsersWatcher', () => {
-    testShouldBeGeneratorFunction(searchAllUsersWatcher);
+  describe('searchUsersWatcher', () => {
+    testShouldBeGeneratorFunction(searchUsersWatcher);
     testWatcherSagaShouldTakeEvery(
-      searchAllUsersWatcher,
-      searchAllUsersWorker,
-      SEARCH_ALL_USERS,
+      searchUsersWatcher,
+      searchUsersWorker,
+      SEARCH_USERS,
     );
   });
 
-  describe('searchAllUsersWorker', () => {
+  describe('searchUsersWorker', () => {
 
     const mockActionValue = uuid();
 
-    testShouldBeGeneratorFunction(searchAllUsersWorker);
-    testShouldFailOnInvalidAction(searchAllUsersWorker, SEARCH_ALL_USERS);
+    testShouldBeGeneratorFunction(searchUsersWorker);
+    testShouldFailOnInvalidAction(searchUsersWorker, SEARCH_USERS);
 
     testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: PrincipalsApi.searchAllUsers,
+      latticeApi: PrincipalsApi.searchUsers,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: searchAllUsers,
-      workerSagaAction: searchAllUsers(mockActionValue),
-      workerSagaToTest: searchAllUsersWorker,
+      latticeApiReqSeq: searchUsers,
+      workerSagaAction: searchUsers(mockActionValue),
+      workerSagaToTest: searchUsersWorker,
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: PrincipalsApi.searchAllUsers,
+      latticeApi: PrincipalsApi.searchUsers,
       latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: searchAllUsers,
-      workerSagaAction: searchAllUsers(mockActionValue),
-      workerSagaToTest: searchAllUsersWorker,
+      latticeApiReqSeq: searchUsers,
+      workerSagaAction: searchUsers(mockActionValue),
+      workerSagaToTest: searchUsersWorker,
     });
   });
 
