@@ -352,7 +352,6 @@ function* searchUsersWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
   let workerResponse :WorkerResponse;
   const { id, value } = action;
-  console.log(value);
 
   try {
     yield put(searchUsers.request(id, value));
