@@ -14,6 +14,8 @@ import * as DataApiActions from './sagas/DataApiActions';
 import * as DataApiSagas from './sagas/DataApiSagas';
 import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
 import * as DataIntegrationApiSagas from './sagas/DataIntegrationApiSagas';
+import * as DataSetMetadataApiActions from './sagas/DataSetMetadataApiActions';
+import * as DataSetMetadataApiSagas from './sagas/DataSetMetadataApiSagas';
 import * as DataSetsApiActions from './sagas/DataSetsApiActions';
 import * as DataSetsApiSagas from './sagas/DataSetsApiSagas';
 import * as EntityDataModelApiActions from './sagas/EntityDataModelApiActions';
@@ -50,6 +52,8 @@ export {
   DataApiSagas,
   DataIntegrationApiActions,
   DataIntegrationApiSagas,
+  DataSetMetadataApiActions,
+  DataSetMetadataApiSagas,
   DataSetsApiActions,
   DataSetsApiSagas,
   EntityDataModelApiActions,
@@ -82,6 +86,8 @@ export default {
   DataApiSagas,
   DataIntegrationApiActions,
   DataIntegrationApiSagas,
+  DataSetMetadataApiActions,
+  DataSetMetadataApiSagas,
   DataSetsApiActions,
   DataSetsApiSagas,
   EntityDataModelApiActions,
