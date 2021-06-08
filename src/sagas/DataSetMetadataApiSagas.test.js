@@ -152,7 +152,7 @@ describe('DataSetMetadataApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataSetMetadataApi.getDataSetColumnMetadata,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.dataSetId, mockActionValue.columnId],
       latticeApiReqSeq: getDataSetColumnMetadata,
       workerSagaAction: getDataSetColumnMetadata(mockActionValue),
       workerSagaToTest: getDataSetColumnMetadataWorker,
@@ -160,7 +160,7 @@ describe('DataSetMetadataApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataSetMetadataApi.getDataSetColumnMetadata,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.dataSetId, mockActionValue.columnId],
       latticeApiReqSeq: getDataSetColumnMetadata,
       workerSagaAction: getDataSetColumnMetadata(mockActionValue),
       workerSagaToTest: getDataSetColumnMetadataWorker,
@@ -235,7 +235,7 @@ describe('DataSetMetadataApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataSetMetadataApi.updateDataSetMetadata,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.dataSetId, mockActionValue.metadata],
       latticeApiReqSeq: updateDataSetMetadata,
       workerSagaAction: updateDataSetMetadata(mockActionValue),
       workerSagaToTest: updateDataSetMetadataWorker,
@@ -243,7 +243,7 @@ describe('DataSetMetadataApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataSetMetadataApi.updateDataSetMetadata,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.dataSetId, mockActionValue.metadata],
       latticeApiReqSeq: updateDataSetMetadata,
       workerSagaAction: updateDataSetMetadata(mockActionValue),
       workerSagaToTest: updateDataSetMetadataWorker,
@@ -279,7 +279,7 @@ describe('DataSetMetadataApiSagas', () => {
 
     testWorkerSagaShouldHandleSuccessCase({
       latticeApi: DataSetMetadataApi.updateDataSetColumnMetadata,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.dataSetId, mockActionValue.columnId, mockActionValue.metadata],
       latticeApiReqSeq: updateDataSetColumnMetadata,
       workerSagaAction: updateDataSetColumnMetadata(mockActionValue),
       workerSagaToTest: updateDataSetColumnMetadataWorker,
@@ -287,7 +287,7 @@ describe('DataSetMetadataApiSagas', () => {
 
     testWorkerSagaShouldHandleFailureCase({
       latticeApi: DataSetMetadataApi.updateDataSetColumnMetadata,
-      latticeApiParams: [mockActionValue],
+      latticeApiParams: [mockActionValue.dataSetId, mockActionValue.columnId, mockActionValue.metadata],
       latticeApiReqSeq: updateDataSetColumnMetadata,
       workerSagaAction: updateDataSetColumnMetadata(mockActionValue),
       workerSagaToTest: updateDataSetColumnMetadataWorker,

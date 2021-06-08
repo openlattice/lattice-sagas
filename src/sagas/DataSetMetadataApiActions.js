@@ -24,16 +24,16 @@ const UPDATE_DATA_SET_COLUMN_METADATA :'UPDATE_DATA_SET_COLUMN_METADATA' = 'UPDA
 const updateDataSetColumnMetadata :RequestSequence = newRequestSequence(UPDATE_DATA_SET_COLUMN_METADATA);
 
 export {
-  GET_DATA_SETS_METADATA,
-  GET_DATA_SET_COLUMNS_METADATA,
-  GET_DATA_SET_COLUMN_METADATA,
   GET_DATA_SET_METADATA,
-  UPDATE_DATA_SET_COLUMN_METADATA,
+  GET_DATA_SETS_METADATA,
+  GET_DATA_SET_COLUMN_METADATA,
+  GET_DATA_SET_COLUMNS_METADATA,
   UPDATE_DATA_SET_METADATA,
-  getDataSetColumnMetadata,
-  getDataSetColumnsMetadata,
+  UPDATE_DATA_SET_COLUMN_METADATA,
   getDataSetMetadata,
   getDataSetsMetadata,
-  updateDataSetColumnMetadata,
+  getDataSetColumnMetadata,
+  getDataSetColumnsMetadata,
   updateDataSetMetadata,
+  updateDataSetColumnMetadata,
 };
