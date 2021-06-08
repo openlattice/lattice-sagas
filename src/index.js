@@ -8,6 +8,8 @@ import * as AuthorizationsApiActions from './sagas/AuthorizationsApiActions';
 import * as AuthorizationsApiSagas from './sagas/AuthorizationsApiSagas';
 import * as CodexApiActions from './sagas/CodexApiActions';
 import * as CodexApiSagas from './sagas/CodexApiSagas';
+import * as CollaborationsApiActions from './sagas/CollaborationsApiActions';
+import * as CollaborationsApiSagas from './sagas/CollaborationsApiSagas';
 import * as DataApiActions from './sagas/DataApiActions';
 import * as DataApiSagas from './sagas/DataApiSagas';
 import * as DataIntegrationApiActions from './sagas/DataIntegrationApiActions';
@@ -42,6 +44,8 @@ export {
   AuthorizationsApiSagas,
   CodexApiActions,
   CodexApiSagas,
+  CollaborationsApiActions,
+  CollaborationsApiSagas,
   DataApiActions,
   DataApiSagas,
   DataIntegrationApiActions,
@@ -72,6 +76,8 @@ export default {
   AuthorizationsApiSagas,
   CodexApiActions,
   CodexApiSagas,
+  CollaborationsApiActions,
+  CollaborationsApiSagas,
   DataApiActions,
   DataApiSagas,
   DataIntegrationApiActions,
