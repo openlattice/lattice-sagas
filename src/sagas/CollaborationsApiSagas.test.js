@@ -680,14 +680,14 @@ describe('CollaborationsApiSagas', () => {
     });
 
     testWorkerSagaShouldHandleFailureCase({
-      latticeApi: CollaborationsApi.removeOrganizationsFromCollaboration,
+      latticeApi: CollaborationsApi.renameCollaborationDatabase,
       latticeApiParams: [
         mockActionValue.collaborationId,
         mockActionValue.name,
       ],
-      latticeApiReqSeq: removeOrganizationsFromCollaboration,
-      workerSagaAction: removeOrganizationsFromCollaboration(mockActionValue),
-      workerSagaToTest: removeOrganizationsFromCollaborationWorker,
+      latticeApiReqSeq: renameCollaborationDatabase,
+      workerSagaAction: renameCollaborationDatabase(mockActionValue),
+      workerSagaToTest: renameCollaborationDatabaseWorker,
     });
   });
 
