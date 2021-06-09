@@ -8,17 +8,55 @@ import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
 
 import {
+  SEARCH_DATA_SET_METADATA,
   SEARCH_ENTITY_NEIGHBORS_WITH_FILTER,
   SEARCH_ENTITY_SET_DATA,
-  SEARCH_ENTITY_SET_METADATA,
+  searchDataSetMetadata,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
-  searchEntitySetMetaData,
 } from './SearchApiActions';
 
 import { ERR_INVALID_ACTION } from '../utils/Errors';
 import { isValidAction } from '../utils/Utils';
 import type { WorkerResponse } from '../types';
+
+/*
+ *
+ * SearchApi.searchDataSetMetadata
+ * SearchApiActions.searchDataSetMetadata
+ *
+ */
+
+function* searchDataSetMetadataWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, SEARCH_DATA_SET_METADATA)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(searchDataSetMetadata.request(id, value));
+    const response = yield call(SearchApi.searchDataSetMetadata, value);
+    workerResponse = { data: response };
+    yield put(searchDataSetMetadata.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(searchDataSetMetadata.failure(id, error));
+  }
+  finally {
+    yield put(searchDataSetMetadata.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* searchDataSetMetadataWatcher() :Saga<*> {
+
+  yield takeEvery(SEARCH_DATA_SET_METADATA, searchDataSetMetadataWorker);
+}
 
 /*
  *
@@ -97,49 +135,11 @@ function* searchEntitySetDataWatcher() :Saga<*> {
   yield takeEvery(SEARCH_ENTITY_SET_DATA, searchEntitySetDataWorker);
 }
 
-/*
- *
- * SearchApi.searchEntitySetMetaData
- * SearchApiActions.searchEntitySetMetaData
- *
- */
-
-function* searchEntitySetMetaDataWorker(action :SequenceAction) :Saga<WorkerResponse> {
-
-  if (!isValidAction(action, SEARCH_ENTITY_SET_METADATA)) {
-    return { error: new Error(ERR_INVALID_ACTION) };
-  }
-
-  let workerResponse :WorkerResponse;
-  const { id, value } = action;
-
-  try {
-    yield put(searchEntitySetMetaData.request(id, value));
-    const response = yield call(SearchApi.searchEntitySetMetaData, value);
-    workerResponse = { data: response };
-    yield put(searchEntitySetMetaData.success(id, response));
-  }
-  catch (error) {
-    workerResponse = { error };
-    yield put(searchEntitySetMetaData.failure(id, error));
-  }
-  finally {
-    yield put(searchEntitySetMetaData.finally(id));
-  }
-
-  return workerResponse;
-}
-
-function* searchEntitySetMetaDataWatcher() :Saga<*> {
-
-  yield takeEvery(SEARCH_ENTITY_SET_METADATA, searchEntitySetMetaDataWorker);
-}
-
 export {
+  searchDataSetMetadataWatcher,
+  searchDataSetMetadataWorker,
   searchEntityNeighborsWithFilterWatcher,
   searchEntityNeighborsWithFilterWorker,
   searchEntitySetDataWatcher,
   searchEntitySetDataWorker,
-  searchEntitySetMetaDataWatcher,
-  searchEntitySetMetaDataWorker,
 };
