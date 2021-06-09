@@ -6,20 +6,20 @@ import { SearchApi } from 'lattice';
 import { v4 as uuid } from 'uuid';
 
 import {
+  SEARCH_DATA_SET_METADATA,
   SEARCH_ENTITY_NEIGHBORS_WITH_FILTER,
   SEARCH_ENTITY_SET_DATA,
-  SEARCH_ENTITY_SET_METADATA,
+  searchDataSetMetadata,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
-  searchEntitySetMetaData,
 } from './SearchApiActions';
 import {
+  searchDataSetMetadataWatcher,
+  searchDataSetMetadataWorker,
   searchEntityNeighborsWithFilterWatcher,
   searchEntityNeighborsWithFilterWorker,
   searchEntitySetDataWatcher,
   searchEntitySetDataWorker,
-  searchEntitySetMetaDataWatcher,
-  searchEntitySetMetaDataWorker,
 } from './SearchApiSagas';
 
 import {
@@ -31,6 +31,46 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('SearchApiSagas', () => {
+
+  /*
+   *
+   * SearchApi.searchDataSetMetadata
+   * SearchApiActions.searchDataSetMetadata
+   *
+   */
+
+  describe('searchDataSetMetadataWatcher', () => {
+    testShouldBeGeneratorFunction(searchDataSetMetadataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      searchDataSetMetadataWatcher,
+      searchDataSetMetadataWorker,
+      SEARCH_DATA_SET_METADATA,
+    );
+  });
+
+  describe('searchDataSetMetadataWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(searchDataSetMetadataWorker);
+    testShouldFailOnInvalidAction(searchDataSetMetadataWorker, SEARCH_DATA_SET_METADATA);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: SearchApi.searchDataSetMetadata,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: searchDataSetMetadata,
+      workerSagaAction: searchDataSetMetadata(mockActionValue),
+      workerSagaToTest: searchDataSetMetadataWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.searchDataSetMetadata,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: searchDataSetMetadata,
+      workerSagaAction: searchDataSetMetadata(mockActionValue),
+      workerSagaToTest: searchDataSetMetadataWorker,
+    });
+  });
 
   /*
    *
@@ -113,46 +153,6 @@ describe('SearchApiSagas', () => {
       latticeApiReqSeq: searchEntitySetData,
       workerSagaAction: searchEntitySetData(mockActionValue),
       workerSagaToTest: searchEntitySetDataWorker,
-    });
-  });
-
-  /*
-   *
-   * SearchApi.searchEntitySetMetaData
-   * SearchApiActions.searchEntitySetMetaData
-   *
-   */
-
-  describe('searchEntitySetMetaDataWatcher', () => {
-    testShouldBeGeneratorFunction(searchEntitySetMetaDataWatcher);
-    testWatcherSagaShouldTakeEvery(
-      searchEntitySetMetaDataWatcher,
-      searchEntitySetMetaDataWorker,
-      SEARCH_ENTITY_SET_METADATA,
-    );
-  });
-
-  describe('searchEntitySetMetaDataWorker', () => {
-
-    const mockActionValue = uuid();
-
-    testShouldBeGeneratorFunction(searchEntitySetMetaDataWorker);
-    testShouldFailOnInvalidAction(searchEntitySetMetaDataWorker, SEARCH_ENTITY_SET_METADATA);
-
-    testWorkerSagaShouldHandleSuccessCase({
-      latticeApi: SearchApi.searchEntitySetMetaData,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: searchEntitySetMetaData,
-      workerSagaAction: searchEntitySetMetaData(mockActionValue),
-      workerSagaToTest: searchEntitySetMetaDataWorker,
-    });
-
-    testWorkerSagaShouldHandleFailureCase({
-      latticeApi: SearchApi.searchEntitySetMetaData,
-      latticeApiParams: [mockActionValue],
-      latticeApiReqSeq: searchEntitySetMetaData,
-      workerSagaAction: searchEntitySetMetaData(mockActionValue),
-      workerSagaToTest: searchEntitySetMetaDataWorker,
     });
   });
 

@@ -9,15 +9,15 @@ import * as SearchApiActions from './SearchApiActions';
 import { testShouldExportActionTypes, testShouldExportRequestSequences } from '../utils/testing/TestUtils';
 
 const ACTION_TYPES = OrderedSet([
+  'SEARCH_DATA_SET_METADATA',
   'SEARCH_ENTITY_NEIGHBORS_WITH_FILTER',
   'SEARCH_ENTITY_SET_DATA',
-  'SEARCH_ENTITY_SET_METADATA',
 ]).toJS();
 
 const REQSEQ_NAMES = OrderedSet([
+  'searchDataSetMetadata',
   'searchEntityNeighborsWithFilter',
   'searchEntitySetData',
-  'searchEntitySetMetaData',
 ]).toJS();
 
 describe('SearchApiActions', () => {
