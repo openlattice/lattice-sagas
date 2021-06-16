@@ -12,12 +12,14 @@ import {
   GET_DATA_SET_COLUMNS_METADATA,
   GET_DATA_SET_COLUMN_METADATA,
   GET_DATA_SET_METADATA,
+  GET_ORGANIZATION_DATA_SETS_METADATA,
   UPDATE_DATA_SET_COLUMN_METADATA,
   UPDATE_DATA_SET_METADATA,
   getDataSetColumnMetadata,
   getDataSetColumnsMetadata,
   getDataSetMetadata,
   getDataSetsMetadata,
+  getOrganizationDataSetsMetadata,
   updateDataSetColumnMetadata,
   updateDataSetMetadata,
 } from './DataSetMetadataApiActions';
@@ -181,6 +183,44 @@ function* getDataSetColumnsMetadataWatcher() :Saga<*> {
 
 /*
  *
+ * DataSetMetadataApi.getOrganizationDataSetsMetadata
+ * DataSetMetadataApiActions.getOrganizationDataSetsMetadata
+ *
+ */
+
+function* getOrganizationDataSetsMetadataWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ORGANIZATION_DATA_SETS_METADATA)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getOrganizationDataSetsMetadata.request(id, value));
+    const response = yield call(DataSetMetadataApi.getOrganizationDataSetsMetadata, value);
+    workerResponse = { data: response };
+    yield put(getOrganizationDataSetsMetadata.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getOrganizationDataSetsMetadata.failure(id, error));
+  }
+  finally {
+    yield put(getOrganizationDataSetsMetadata.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getOrganizationDataSetsMetadataWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ORGANIZATION_DATA_SETS_METADATA, getOrganizationDataSetsMetadataWorker);
+}
+
+/*
+ *
  * DataSetMetadataApi.updateDataSetMetadata
  * DataSetMetadataApiActions.updateDataSetMetadata
  *
@@ -266,6 +306,8 @@ export {
   getDataSetMetadataWorker,
   getDataSetsMetadataWatcher,
   getDataSetsMetadataWorker,
+  getOrganizationDataSetsMetadataWatcher,
+  getOrganizationDataSetsMetadataWorker,
   updateDataSetColumnMetadataWatcher,
   updateDataSetColumnMetadataWorker,
   updateDataSetMetadataWatcher,
