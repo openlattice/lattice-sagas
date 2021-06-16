@@ -2,6 +2,8 @@
  * @flow
  */
 
+/* eslint-disable max-len */
+
 import { newRequestSequence } from 'redux-reqseq';
 import type { RequestSequence } from 'redux-reqseq';
 
@@ -17,6 +19,9 @@ const getDataSetColumnMetadata :RequestSequence = newRequestSequence(GET_DATA_SE
 const GET_DATA_SET_COLUMNS_METADATA :'GET_DATA_SET_COLUMNS_METADATA' = 'GET_DATA_SET_COLUMNS_METADATA';
 const getDataSetColumnsMetadata :RequestSequence = newRequestSequence(GET_DATA_SET_COLUMNS_METADATA);
 
+const GET_ORGANIZATION_DATA_SETS_METADATA :'GET_ORGANIZATION_DATA_SETS_METADATA' = 'GET_ORGANIZATION_DATA_SETS_METADATA';
+const getOrganizationDataSetsMetadata :RequestSequence = newRequestSequence(GET_ORGANIZATION_DATA_SETS_METADATA);
+
 const UPDATE_DATA_SET_METADATA :'UPDATE_DATA_SET_METADATA' = 'UPDATE_DATA_SET_METADATA';
 const updateDataSetMetadata :RequestSequence = newRequestSequence(UPDATE_DATA_SET_METADATA);
 
@@ -28,12 +33,14 @@ export {
   GET_DATA_SETS_METADATA,
   GET_DATA_SET_COLUMN_METADATA,
   GET_DATA_SET_COLUMNS_METADATA,
+  GET_ORGANIZATION_DATA_SETS_METADATA,
   UPDATE_DATA_SET_METADATA,
   UPDATE_DATA_SET_COLUMN_METADATA,
   getDataSetMetadata,
   getDataSetsMetadata,
   getDataSetColumnMetadata,
   getDataSetColumnsMetadata,
+  getOrganizationDataSetsMetadata,
   updateDataSetMetadata,
   updateDataSetColumnMetadata,
 };

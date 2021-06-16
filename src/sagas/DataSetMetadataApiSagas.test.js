@@ -10,12 +10,14 @@ import {
   GET_DATA_SET_COLUMNS_METADATA,
   GET_DATA_SET_COLUMN_METADATA,
   GET_DATA_SET_METADATA,
+  GET_ORGANIZATION_DATA_SETS_METADATA,
   UPDATE_DATA_SET_COLUMN_METADATA,
   UPDATE_DATA_SET_METADATA,
   getDataSetColumnMetadata,
   getDataSetColumnsMetadata,
   getDataSetMetadata,
   getDataSetsMetadata,
+  getOrganizationDataSetsMetadata,
   updateDataSetColumnMetadata,
   updateDataSetMetadata,
 } from './DataSetMetadataApiActions';
@@ -28,6 +30,8 @@ import {
   getDataSetMetadataWorker,
   getDataSetsMetadataWatcher,
   getDataSetsMetadataWorker,
+  getOrganizationDataSetsMetadataWatcher,
+  getOrganizationDataSetsMetadataWorker,
   updateDataSetColumnMetadataWatcher,
   updateDataSetColumnMetadataWorker,
   updateDataSetMetadataWatcher,
@@ -204,6 +208,46 @@ describe('DataSetMetadataApiSagas', () => {
       latticeApiReqSeq: getDataSetColumnsMetadata,
       workerSagaAction: getDataSetColumnsMetadata(mockActionValue),
       workerSagaToTest: getDataSetColumnsMetadataWorker,
+    });
+  });
+
+  /*
+   *
+   * DataSetMetadataApi.getOrganizationDataSetsMetadata
+   * DataSetMetadataApiActions.getOrganizationDataSetsMetadata
+   *
+   */
+
+  describe('getOrganizationDataSetsMetadataWatcher', () => {
+    testShouldBeGeneratorFunction(getOrganizationDataSetsMetadataWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getOrganizationDataSetsMetadataWatcher,
+      getOrganizationDataSetsMetadataWorker,
+      GET_ORGANIZATION_DATA_SETS_METADATA,
+    );
+  });
+
+  describe('getOrganizationDataSetsMetadataWorker', () => {
+
+    const mockActionValue = uuid();
+
+    testShouldBeGeneratorFunction(getOrganizationDataSetsMetadataWorker);
+    testShouldFailOnInvalidAction(getOrganizationDataSetsMetadataWorker, GET_ORGANIZATION_DATA_SETS_METADATA);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: DataSetMetadataApi.getOrganizationDataSetsMetadata,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationDataSetsMetadata,
+      workerSagaAction: getOrganizationDataSetsMetadata(mockActionValue),
+      workerSagaToTest: getOrganizationDataSetsMetadataWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: DataSetMetadataApi.getOrganizationDataSetsMetadata,
+      latticeApiParams: [mockActionValue],
+      latticeApiReqSeq: getOrganizationDataSetsMetadata,
+      workerSagaAction: getOrganizationDataSetsMetadata(mockActionValue),
+      workerSagaToTest: getOrganizationDataSetsMetadataWorker,
     });
   });
 
