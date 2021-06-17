@@ -47,7 +47,7 @@
     "immutable": "4.0.0-rc.10",
     "import-sort-style-openlattice": "~0.1.0",
     "jest": "~26.6.3",
-    "lattice": "~0.93.2",
+    "lattice": "~0.93.4",
     "npm-run-all": "~4.1.0",
     "redux-reqseq": "~0.6.1",
     "rimraf": "~3.0.0",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@redux-saga/core": "^1.1.0",
-    "lattice": "^0.93.2",
+    "lattice": "^0.93.4",
     "redux-reqseq": "^0.6.1"
   },
   "scripts": {
