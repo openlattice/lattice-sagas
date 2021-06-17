@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@redux-saga/core": "^1.1.0",
-    "lattice": "^0.93.2",
+    "lattice": "^0.93.4",
     "redux-reqseq": "^0.6.1"
   },
   "scripts": {
