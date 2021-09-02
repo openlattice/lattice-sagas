@@ -28,6 +28,9 @@ const getCollaborationDataSets :RequestSequence = newRequestSequence(GET_COLLABO
 const GET_COLLABORATION_DATABASE_INFO :'GET_COLLABORATION_DATABASE_INFO' = 'GET_COLLABORATION_DATABASE_INFO';
 const getCollaborationDatabaseInfo :RequestSequence = newRequestSequence(GET_COLLABORATION_DATABASE_INFO);
 
+const GET_ALL_COLLABORATIONS :'GET_ALL_COLLABORATIONS' = 'GET_ALL_COLLABORATIONS';
+const getAllCollaborations :RequestSequence = newRequestSequence(GET_ALL_COLLABORATIONS);
+
 const GET_COLLABORATIONS :'GET_COLLABORATIONS' = 'GET_COLLABORATIONS';
 const getCollaborations :RequestSequence = newRequestSequence(GET_COLLABORATIONS);
 
@@ -54,6 +57,7 @@ export {
   ADD_ORGANIZATIONS_TO_COLLABORATION,
   CREATE_COLLABORATION,
   DELETE_COLLABORATION,
+  GET_ALL_COLLABORATIONS,
   GET_COLLABORATION,
   GET_COLLABORATIONS,
   GET_COLLABORATIONS_WITH_DATA_SETS,
@@ -68,6 +72,7 @@ export {
   addOrganizationsToCollaboration,
   createCollaboration,
   deleteCollaboration,
+  getAllCollaborations,
   getCollaboration,
   getCollaborations,
   getCollaborationsWithDataSets,
