@@ -216,7 +216,7 @@ function* deleteCollaborationWatcher() :Saga<*> {
 
 function* getAllCollaborationsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(action, GET_COLLABORATIONS)) {
+  if (!isValidAction(action, GET_ALL_COLLABORATIONS)) {
     return { error: new Error(ERR_INVALID_ACTION) };
   }
 
