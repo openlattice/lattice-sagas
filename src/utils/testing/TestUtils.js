@@ -1,5 +1,4 @@
 import { call, put, takeEvery } from '@redux-saga/core/effects';
-import { OrderedMap } from 'immutable';
 
 import { INVALID_PARAMS, INVALID_PARAMS_NOT_DEFINED } from './Invalid';
 
@@ -210,12 +209,6 @@ export function testShouldExportActionTypes(Actions, expectedActionTypes) {
 
   describe('should export action types', () => {
 
-    test('should export expected action types, sorted alphabetically', () => {
-      const exportedActionTypes = OrderedMap(Actions).filter((v, k) => expectedActionTypes.includes(k));
-      expect(exportedActionTypes.keySeq().toJS()).toEqual(expectedActionTypes);
-      expect(exportedActionTypes.valueSeq().toJS()).toEqual(expectedActionTypes);
-    });
-
     expectedActionTypes.forEach((actionType) => {
       test(`should export "${actionType}"`, () => {
         expect(Actions).toHaveProperty(actionType);
@@ -228,11 +221,6 @@ export function testShouldExportActionTypes(Actions, expectedActionTypes) {
 export function testShouldExportRequestSequences(Actions, expectedActionTypes, expectedReqSeqNames) {
 
   describe('should export RequestSequences', () => {
-
-    test('should export expected RequestSequences, sorted alphabetically', () => {
-      const expectedReqSeqs = OrderedMap(Actions).filter((v, k) => expectedReqSeqNames.includes(k));
-      expect(expectedReqSeqs.keySeq().toJS()).toEqual(expectedReqSeqNames);
-    });
 
     expectedReqSeqNames.forEach((reqseqName, index) => {
       describe(`${reqseqName}`, () => {

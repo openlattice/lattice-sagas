@@ -12,6 +12,7 @@ import {
   ADD_ORGANIZATIONS_TO_COLLABORATION,
   CREATE_COLLABORATION,
   DELETE_COLLABORATION,
+  GET_ALL_COLLABORATIONS,
   GET_COLLABORATION,
   GET_COLLABORATIONS,
   GET_COLLABORATIONS_WITH_DATA_SETS,
@@ -26,6 +27,7 @@ import {
   addOrganizationsToCollaboration,
   createCollaboration,
   deleteCollaboration,
+  getAllCollaborations,
   getCollaboration,
   getCollaborationDataSets,
   getCollaborationDatabaseInfo,
@@ -203,6 +205,44 @@ function* deleteCollaborationWorker(action :SequenceAction) :Saga<WorkerResponse
 function* deleteCollaborationWatcher() :Saga<*> {
 
   yield takeEvery(DELETE_COLLABORATION, deleteCollaborationWorker);
+}
+
+/*
+ *
+ * CollaborationsApi.getAllCollaborations
+ * CollaborationsApiActions.getAllCollaborations
+ *
+ */
+
+function* getAllCollaborationsWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, GET_ALL_COLLABORATIONS)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(getAllCollaborations.request(id, value));
+    const response = yield call(CollaborationsApi.getAllCollaborations);
+    workerResponse = { data: response };
+    yield put(getAllCollaborations.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(getAllCollaborations.failure(id, error));
+  }
+  finally {
+    yield put(getAllCollaborations.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* getAllCollaborationsWatcher() :Saga<*> {
+
+  yield takeEvery(GET_ALL_COLLABORATIONS, getAllCollaborationsWorker);
 }
 
 /*
@@ -602,32 +642,34 @@ function* renameCollaborationDatabaseWatcher() :Saga<*> {
 }
 
 export {
-  addDataSetToCollaborationWorker,
   addDataSetToCollaborationWatcher,
-  addOrganizationsToCollaborationWorker,
+  addDataSetToCollaborationWorker,
   addOrganizationsToCollaborationWatcher,
-  createCollaborationWorker,
+  addOrganizationsToCollaborationWorker,
   createCollaborationWatcher,
-  deleteCollaborationWorker,
+  createCollaborationWorker,
   deleteCollaborationWatcher,
-  getCollaborationWorker,
-  getCollaborationWatcher,
-  getCollaborationsWorker,
-  getCollaborationsWatcher,
-  getCollaborationsWithDataSetsWorker,
-  getCollaborationsWithDataSetsWatcher,
-  getCollaborationsWithOrganizationWorker,
-  getCollaborationsWithOrganizationWatcher,
-  getCollaborationDataSetsWorker,
+  deleteCollaborationWorker,
+  getAllCollaborationsWatcher,
+  getAllCollaborationsWorker,
   getCollaborationDataSetsWatcher,
-  getCollaborationDatabaseInfoWorker,
+  getCollaborationDataSetsWorker,
   getCollaborationDatabaseInfoWatcher,
-  getOrganizationCollaborationDataSetsWorker,
+  getCollaborationDatabaseInfoWorker,
+  getCollaborationWatcher,
+  getCollaborationWorker,
+  getCollaborationsWatcher,
+  getCollaborationsWithDataSetsWatcher,
+  getCollaborationsWithDataSetsWorker,
+  getCollaborationsWithOrganizationWatcher,
+  getCollaborationsWithOrganizationWorker,
+  getCollaborationsWorker,
   getOrganizationCollaborationDataSetsWatcher,
-  removeDataSetFromCollaborationWorker,
+  getOrganizationCollaborationDataSetsWorker,
   removeDataSetFromCollaborationWatcher,
-  removeOrganizationsFromCollaborationWorker,
+  removeDataSetFromCollaborationWorker,
   removeOrganizationsFromCollaborationWatcher,
-  renameCollaborationDatabaseWorker,
+  removeOrganizationsFromCollaborationWorker,
   renameCollaborationDatabaseWatcher,
+  renameCollaborationDatabaseWorker,
 };

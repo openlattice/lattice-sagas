@@ -10,6 +10,7 @@ import {
   ADD_ORGANIZATIONS_TO_COLLABORATION,
   CREATE_COLLABORATION,
   DELETE_COLLABORATION,
+  GET_ALL_COLLABORATIONS,
   GET_COLLABORATION,
   GET_COLLABORATIONS,
   GET_COLLABORATIONS_WITH_DATA_SETS,
@@ -24,6 +25,7 @@ import {
   addOrganizationsToCollaboration,
   createCollaboration,
   deleteCollaboration,
+  getAllCollaborations,
   getCollaboration,
   getCollaborationDataSets,
   getCollaborationDatabaseInfo,
@@ -44,6 +46,8 @@ import {
   createCollaborationWorker,
   deleteCollaborationWatcher,
   deleteCollaborationWorker,
+  getAllCollaborationsWatcher,
+  getAllCollaborationsWorker,
   getCollaborationDataSetsWatcher,
   getCollaborationDataSetsWorker,
   getCollaborationDatabaseInfoWatcher,
@@ -258,6 +262,44 @@ describe('CollaborationsApiSagas', () => {
       latticeApiReqSeq: deleteCollaboration,
       workerSagaAction: deleteCollaboration(mockActionValue),
       workerSagaToTest: deleteCollaborationWorker,
+    });
+  });
+
+  /*
+  *
+  * CollaborationsApi.getAllCollaborations
+  * CollaborationsApiActions.getAllCollaborations
+  *
+  */
+
+  describe('getAllCollaborationsWatcher', () => {
+    testShouldBeGeneratorFunction(getAllCollaborationsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      getAllCollaborationsWatcher,
+      getAllCollaborationsWorker,
+      GET_ALL_COLLABORATIONS,
+    );
+  });
+
+  describe('getAllCollaborationsWorker', () => {
+
+    testShouldBeGeneratorFunction(getAllCollaborationsWorker);
+    testShouldFailOnInvalidAction(getAllCollaborationsWorker, GET_ALL_COLLABORATIONS);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: CollaborationsApi.getAllCollaborations,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllCollaborations,
+      workerSagaAction: getAllCollaborations(),
+      workerSagaToTest: getAllCollaborationsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: CollaborationsApi.getAllCollaborations,
+      latticeApiParams: [],
+      latticeApiReqSeq: getAllCollaborations,
+      workerSagaAction: getAllCollaborations(),
+      workerSagaToTest: getAllCollaborationsWorker,
     });
   });
 
