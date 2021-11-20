@@ -8,9 +8,11 @@ import type { Saga } from '@redux-saga/core';
 import type { SequenceAction } from 'redux-reqseq';
 
 import {
+  COUNT_ENTITIES_IN_SETS,
   SEARCH_DATA_SET_METADATA,
   SEARCH_ENTITY_NEIGHBORS_WITH_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  countEntitiesInSets,
   searchDataSetMetadata,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
@@ -19,6 +21,45 @@ import {
 import { ERR_INVALID_ACTION } from '../utils/Errors';
 import { isValidAction } from '../utils/Utils';
 import type { WorkerResponse } from '../types';
+
+/*
+ *
+ * SearchApi.countEntitiesInSets
+ * SearchApiActions.countEntitiesInSets
+ *
+ */
+
+function* countEntitiesInSetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
+
+  if (!isValidAction(action, SEARCH_DATA_SET_METADATA)) {
+    return { error: new Error(ERR_INVALID_ACTION) };
+  }
+
+  let workerResponse :WorkerResponse;
+  const { id, value } = action;
+
+  try {
+    yield put(countEntitiesInSets.request(id, value));
+    const { entityTypeId, entitySetIds } = value;
+    const response = yield call(SearchApi.countEntitiesInSets, entityTypeId, entitySetIds);
+    workerResponse = { data: response };
+    yield put(countEntitiesInSets.success(id, response));
+  }
+  catch (error) {
+    workerResponse = { error };
+    yield put(countEntitiesInSets.failure(id, error));
+  }
+  finally {
+    yield put(countEntitiesInSets.finally(id));
+  }
+
+  return workerResponse;
+}
+
+function* countEntitiesInSetsWatcher() :Saga<*> {
+
+  yield takeEvery(COUNT_ENTITIES_IN_SETS, countEntitiesInSetsWorker);
+}
 
 /*
  *
@@ -136,6 +177,8 @@ function* searchEntitySetDataWatcher() :Saga<*> {
 }
 
 export {
+  countEntitiesInSetsWatcher,
+  countEntitiesInSetsWorker,
   searchDataSetMetadataWatcher,
   searchDataSetMetadataWorker,
   searchEntityNeighborsWithFilterWatcher,

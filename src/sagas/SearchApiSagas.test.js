@@ -6,14 +6,18 @@ import { SearchApi } from 'lattice';
 import { v4 as uuid } from 'uuid';
 
 import {
+  COUNT_ENTITIES_IN_SETS,
   SEARCH_DATA_SET_METADATA,
   SEARCH_ENTITY_NEIGHBORS_WITH_FILTER,
   SEARCH_ENTITY_SET_DATA,
+  countEntitiesInSets,
   searchDataSetMetadata,
   searchEntityNeighborsWithFilter,
   searchEntitySetData,
 } from './SearchApiActions';
 import {
+  countEntitiesInSetsWatcher,
+  countEntitiesInSetsWorker,
   searchDataSetMetadataWatcher,
   searchDataSetMetadataWorker,
   searchEntityNeighborsWithFilterWatcher,
@@ -31,6 +35,49 @@ import {
 } from '../utils/testing/TestUtils';
 
 describe('SearchApiSagas', () => {
+
+  /*
+   *
+   * SearchApi.countEntitiesInSets
+   * SearchApiActions.countEntitiesInSets
+   *
+   */
+
+  describe('countEntitiesInSetsWatcher', () => {
+    testShouldBeGeneratorFunction(countEntitiesInSetsWatcher);
+    testWatcherSagaShouldTakeEvery(
+      countEntitiesInSetsWatcher,
+      countEntitiesInSetsWorker,
+      COUNT_ENTITIES_IN_SETS,
+    );
+  });
+
+  describe('countEntitiesInSetsWorker', () => {
+
+    const mockActionValue = {
+      entityTypeId: uuid(),
+      entitySetIds: [uuid(), uuid()],
+    };
+
+    testShouldBeGeneratorFunction(countEntitiesInSetsWorker);
+    testShouldFailOnInvalidAction(countEntitiesInSetsWorker, SEARCH_ENTITY_NEIGHBORS_WITH_FILTER);
+
+    testWorkerSagaShouldHandleSuccessCase({
+      latticeApi: SearchApi.countEntitiesInSets,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.entitySetIds],
+      latticeApiReqSeq: countEntitiesInSets,
+      workerSagaAction: countEntitiesInSets(mockActionValue),
+      workerSagaToTest: countEntitiesInSetsWorker,
+    });
+
+    testWorkerSagaShouldHandleFailureCase({
+      latticeApi: SearchApi.countEntitiesInSets,
+      latticeApiParams: [mockActionValue.entityTypeId, mockActionValue.entitySetIds],
+      latticeApiReqSeq: countEntitiesInSets,
+      workerSagaAction: countEntitiesInSets(mockActionValue),
+      workerSagaToTest: countEntitiesInSetsWorker,
+    });
+  });
 
   /*
    *
