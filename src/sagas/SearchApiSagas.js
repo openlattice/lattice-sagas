@@ -31,7 +31,7 @@ import type { WorkerResponse } from '../types';
 
 function* countEntitiesInSetsWorker(action :SequenceAction) :Saga<WorkerResponse> {
 
-  if (!isValidAction(action, SEARCH_DATA_SET_METADATA)) {
+  if (!isValidAction(action, COUNT_ENTITIES_IN_SETS)) {
     return { error: new Error(ERR_INVALID_ACTION) };
   }
 
